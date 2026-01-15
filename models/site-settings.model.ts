@@ -56,9 +56,24 @@ export interface IFooterLink {
 }
 
 /**
+ * Footer banner settings interface (pre-footer CTA section with background image)
+ */
+export interface IFooterBanner {
+	enabled: boolean;
+	backgroundImage?: string;
+	badge?: string; // e.g., "CHEESEMAKING"
+	title?: string; // e.g., "We make the creative solutions for modern brands."
+	ctaText?: string; // e.g., "About Us"
+	ctaHref?: string; // e.g., "/about"
+}
+
+/**
  * Footer settings interface
  */
 export interface IFooterSettings {
+	// Banner/CTA section above footer
+	banner?: IFooterBanner;
+	// Quick links section
 	quickLinksTitle: string; // "Snabblänkar"
 	contactTitle: string; // "Kontakta oss"
 	newsletterTitle: string; // "Håll dig uppdaterad"
@@ -206,6 +221,21 @@ const BrandingSettingsSchema = new Schema<IBrandingSettings>(
 );
 
 /**
+ * Footer banner sub-schema
+ */
+const FooterBannerSchema = new Schema<IFooterBanner>(
+	{
+		enabled: { type: Boolean, default: true },
+		backgroundImage: { type: String, trim: true },
+		badge: { type: String, trim: true },
+		title: { type: String, trim: true },
+		ctaText: { type: String, trim: true },
+		ctaHref: { type: String, trim: true },
+	},
+	{ _id: false }
+);
+
+/**
  * Footer link sub-schema
  */
 const FooterLinkSchema = new Schema<IFooterLink>(
@@ -233,6 +263,16 @@ const FooterLinkSchema = new Schema<IFooterLink>(
  */
 const FooterSettingsSchema = new Schema<IFooterSettings>(
 	{
+		banner: {
+			type: FooterBannerSchema,
+			default: {
+				enabled: true,
+				badge: "DAIRY FARM",
+				title: "We make the creative solutions for modern brands.",
+				ctaText: "About Us",
+				ctaHref: "/about",
+			},
+		},
 		quickLinksTitle: {
 			type: String,
 			trim: true,

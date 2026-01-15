@@ -65,6 +65,15 @@ const footerLinkSchema = z.object({
 	isExternal: z.boolean(),
 });
 
+const footerBannerSchema = z.object({
+	enabled: z.boolean(),
+	backgroundImage: z.string().optional(),
+	badge: z.string().optional(),
+	title: z.string().optional(),
+	ctaText: z.string().optional(),
+	ctaHref: z.string().optional(),
+});
+
 const settingsFormSchema = z.object({
 	// Company
 	companyName: z.string().min(1, "Company name is required"),
@@ -105,6 +114,7 @@ const settingsFormSchema = z.object({
 
 	// Footer
 	footer: z.object({
+		banner: footerBannerSchema.optional(),
 		quickLinksTitle: z.string().optional(),
 		contactTitle: z.string().optional(),
 		newsletterTitle: z.string().optional(),
@@ -151,13 +161,21 @@ export default function SettingsPage() {
 				faviconUrl: "",
 			},
 			footer: {
-				quickLinksTitle: "Snabblänkar",
-				contactTitle: "Kontakta oss",
-				newsletterTitle: "Håll dig uppdaterad",
+				banner: {
+					enabled: true,
+					backgroundImage: "",
+					badge: "DAIRY FARM",
+					title: "We make the creative solutions for modern brands.",
+					ctaText: "About Us",
+					ctaHref: "/about",
+				},
+				quickLinksTitle: "Links",
+				contactTitle: "Office",
+				newsletterTitle: "Stay Updated",
 				quickLinks: [],
 				newsletterDescription: "",
-				newsletterPlaceholder: "Din e-postadress",
-				newsletterButtonText: "Prenumerera",
+				newsletterPlaceholder: "Your email address",
+				newsletterButtonText: "Subscribe",
 				bottomLinks: [],
 			},
 		},
@@ -228,13 +246,21 @@ export default function SettingsPage() {
 						faviconUrl: settings.branding?.faviconUrl || "",
 					},
 					footer: {
-						quickLinksTitle: settings.footer?.quickLinksTitle || "Snabblänkar",
-						contactTitle: settings.footer?.contactTitle || "Kontakta oss",
-						newsletterTitle: settings.footer?.newsletterTitle || "Håll dig uppdaterad",
+						banner: {
+							enabled: settings.footer?.banner?.enabled ?? true,
+							backgroundImage: settings.footer?.banner?.backgroundImage || "",
+							badge: settings.footer?.banner?.badge || "DAIRY FARM",
+							title: settings.footer?.banner?.title || "We make the creative solutions for modern brands.",
+							ctaText: settings.footer?.banner?.ctaText || "About Us",
+							ctaHref: settings.footer?.banner?.ctaHref || "/about",
+						},
+						quickLinksTitle: settings.footer?.quickLinksTitle || "Links",
+						contactTitle: settings.footer?.contactTitle || "Office",
+						newsletterTitle: settings.footer?.newsletterTitle || "Stay Updated",
 						quickLinks: settings.footer?.quickLinks || [],
 						newsletterDescription: settings.footer?.newsletterDescription || "",
-						newsletterPlaceholder: settings.footer?.newsletterPlaceholder || "Din e-postadress",
-						newsletterButtonText: settings.footer?.newsletterButtonText || "Prenumerera",
+						newsletterPlaceholder: settings.footer?.newsletterPlaceholder || "Your email address",
+						newsletterButtonText: settings.footer?.newsletterButtonText || "Subscribe",
 						bottomLinks: settings.footer?.bottomLinks || [],
 					},
 				});
@@ -981,6 +1007,126 @@ export default function SettingsPage() {
 
 						{/* Footer Tab */}
 						<TabsContent value="footer" className="space-y-6">
+							{/* Footer Banner Card */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Footer Banner (Pre-Footer CTA)</CardTitle>
+									<CardDescription>
+										A full-width banner section above the footer with background image and fade effect.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<FormField
+										control={form.control}
+										name="footer.banner.enabled"
+										render={({ field }) => (
+											<FormItem className="flex flex-row items-start space-x-3 space-y-0">
+												<FormControl>
+													<Checkbox
+														checked={field.value}
+														onCheckedChange={field.onChange}
+													/>
+												</FormControl>
+												<div className="space-y-1 leading-none">
+													<FormLabel>Enable Footer Banner</FormLabel>
+													<FormDescription>
+														Show the banner section with background image above the footer.
+													</FormDescription>
+												</div>
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="footer.banner.backgroundImage"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Background Image</FormLabel>
+												<FormControl>
+													<MediaPicker
+														type="image"
+														value={field.value || null}
+														onChange={(url) => field.onChange(url || "")}
+														placeholder="Select banner background image"
+														galleryTitle="Select Banner Image"
+														showPreview
+													/>
+												</FormControl>
+												<FormDescription>
+													A large image (at least 1920px wide) that fades into the footer.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<div className="grid gap-4 sm:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="footer.banner.badge"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Badge Text</FormLabel>
+													<FormControl>
+														<Input placeholder="DAIRY FARM" {...field} />
+													</FormControl>
+													<FormDescription>
+														Small label shown above the title.
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="footer.banner.title"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Title</FormLabel>
+													<FormControl>
+														<Input placeholder="We make the creative solutions..." {...field} />
+													</FormControl>
+													<FormDescription>
+														Main heading displayed on the banner.
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+									</div>
+
+									<div className="grid gap-4 sm:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="footer.banner.ctaText"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Button Text</FormLabel>
+													<FormControl>
+														<Input placeholder="About Us" {...field} />
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="footer.banner.ctaHref"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Button Link</FormLabel>
+													<FormControl>
+														<Input placeholder="/about" {...field} />
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+									</div>
+								</CardContent>
+							</Card>
+
 							{/* Section Headers Card */}
 							<Card>
 								<CardHeader>

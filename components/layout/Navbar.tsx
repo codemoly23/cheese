@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mail, Phone, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { QuoteRequestModal } from "./QuoteRequestModal";
+import { User } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 import {
 	NavigationMenu,
@@ -26,14 +25,22 @@ import MobileNavbar from "./MobileNavbar";
 import ProtectedNavbar from "./ProtectedNavbar";
 import { NavbarSearch } from "./NavbarSearch";
 
+interface SocialMedia {
+	facebook?: string;
+	instagram?: string;
+	twitter?: string;
+	youtube?: string;
+	linkedin?: string;
+}
+
 interface NavbarProps {
 	config: SiteConfigType;
 	logoUrl?: string;
+	socialMedia?: SocialMedia;
 }
 
-export function Navbar({ config, logoUrl }: NavbarProps) {
+export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 	const [isMounted, setIsMounted] = useState(false);
 	const { data: navigationData } = useNavigation();
 	const { variant } = useNavbarVariant();
@@ -230,54 +237,97 @@ export function Navbar({ config, logoUrl }: NavbarProps) {
 								</NavigationMenu>
 							</div>
 
-							{/* Search */}
-							<div className="hidden lg:flex items-center">
-								<NavbarSearch useLightText={useLightText} />
-							</div>
+							{/* Right Actions - Social Icons, User, Cart, Search */}
+							<div className="hidden lg:flex items-center gap-4 shrink-0">
+								{/* Social Media Icons */}
+								{socialMedia && (
+									<div className="flex items-center gap-3">
+										{socialMedia.facebook && (
+											<a
+												href={socialMedia.facebook}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={cn(
+													"transition-colors",
+													useLightText
+														? "text-white/70 hover:text-white"
+														: "text-secondary/70 hover:text-secondary"
+												)}
+											>
+												<FaFacebookF className="h-4 w-4" />
+											</a>
+										)}
+										{socialMedia.instagram && (
+											<a
+												href={socialMedia.instagram}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={cn(
+													"transition-colors",
+													useLightText
+														? "text-white/70 hover:text-white"
+														: "text-secondary/70 hover:text-secondary"
+												)}
+											>
+												<FaInstagram className="h-4 w-4" />
+											</a>
+										)}
+										{socialMedia.twitter && (
+											<a
+												href={socialMedia.twitter}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={cn(
+													"transition-colors",
+													useLightText
+														? "text-white/70 hover:text-white"
+														: "text-secondary/70 hover:text-secondary"
+												)}
+											>
+												<FaTwitter className="h-4 w-4" />
+											</a>
+										)}
+										{socialMedia.youtube && (
+											<a
+												href={socialMedia.youtube}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={cn(
+													"transition-colors",
+													useLightText
+														? "text-white/70 hover:text-white"
+														: "text-secondary/70 hover:text-secondary"
+												)}
+											>
+												<FaYoutube className="h-4 w-4" />
+											</a>
+										)}
+									</div>
+								)}
 
-							{/* Actions */}
-							<div className="hidden xl:flex items-center gap-2 shrink-0">
-								<div className="space-y-0.5">
-									<a
-										href={`mailto:${config.company.email}`}
-										className={cn(
-											"flex items-center gap-1.5 text-[10px] font-medium hover:underline transition-colors whitespace-nowrap",
-											useLightText
-												? "text-white/90 hover:text-white"
-												: "text-primary"
-										)}
-									>
-										<Mail className="h-3 w-3" />
-										<span>{config.company.email}</span>
-									</a>
-									<a
-										href={`tel:${config.company.phone.replace(
-											/\s/g,
-											""
-										)}`}
-										className={cn(
-											"flex items-center gap-1.5 text-[10px] font-medium hover:underline transition-colors whitespace-nowrap",
-											useLightText
-												? "text-white/90 hover:text-white"
-												: "text-primary hover:text-primary"
-										)}
-									>
-										<Phone className="h-3 w-3" />
-										<span>{config.company.phone}</span>
-									</a>
-								</div>
-								<Button
-									size="sm"
+								{/* Divider */}
+								{socialMedia && (
+									<div className={cn(
+										"h-5 w-px",
+										useLightText ? "bg-white/30" : "bg-secondary/20"
+									)} />
+								)}
+
+								{/* User Account */}
+								<Link
+									href="/login"
 									className={cn(
-										"rounded-full px-3 py-1 h-7 text-xs shadow-sm",
+										"transition-colors",
 										useLightText
-											? "bg-white text-secondary hover:bg-white/90 shadow-black/10"
-											: "bg-primary hover:bg-primary text-white shadow-secondary/20"
+											? "text-white/70 hover:text-white"
+											: "text-secondary/70 hover:text-secondary"
 									)}
-									onClick={() => setIsQuoteModalOpen(true)}
 								>
-									Begär offert
-								</Button>
+									<User className="h-5 w-5" />
+								</Link>
+
+								{/* Search */}
+								<NavbarSearch useLightText={useLightText} />
 							</div>
 							<div className="hidden lg:block">
 								<ProtectedNavbar />
@@ -290,11 +340,6 @@ export function Navbar({ config, logoUrl }: NavbarProps) {
 				</header>
 			</div>
 
-			{/* Quote Request Modal */}
-			<QuoteRequestModal
-				open={isQuoteModalOpen}
-				onOpenChange={setIsQuoteModalOpen}
-			/>
 		</div>
 	);
 }

@@ -30,9 +30,30 @@ export interface IHeroCertificationCard {
 }
 
 /**
+ * Hero Slide interface - for slider-based hero
+ */
+export interface IHeroSlide {
+	badge?: string;
+	title?: string;
+	subtitle?: string;
+	backgroundImage?: string;
+	ctaText?: string;
+	ctaHref?: string;
+	isActive?: boolean;
+}
+
+/**
  * Hero Section interface - all fields optional to allow empty content
+ * Supports both single hero and slider mode
  */
 export interface IHeroSection {
+	/** Enable slider mode (multiple slides) vs single hero */
+	isSlider?: boolean;
+	/** Slides for slider mode */
+	slides?: IHeroSlide[];
+	/** Auto-play interval in milliseconds (default: 5000) */
+	autoPlayInterval?: number;
+	/** Legacy single hero fields (used when isSlider is false) */
 	badge?: string;
 	title?: string;
 	titleHighlight?: string;
@@ -183,10 +204,72 @@ export interface ITestimonialsSection {
 }
 
 /**
+ * Category Showcase Section interface - displays product categories on home page
+ */
+export interface ICategoryShowcaseSection {
+	badge?: string;
+	title?: string;
+	maxCategories?: number; // How many categories to display (default: 3)
+}
+
+/**
+ * Product Carousel Section interface - displays featured products on home page
+ */
+export interface IProductCarouselSection {
+	badge?: string;
+	title?: string;
+	maxProducts?: number; // How many products to display (default: 6)
+}
+
+/**
+ * Promo Banner Item interface - single banner in the 1:2 layout
+ */
+export interface IPromoBannerItem {
+	badge?: string;
+	title?: string;
+	subtitle?: string;
+	description?: string;
+	image?: string;
+	ctaText?: string;
+	ctaHref?: string;
+}
+
+/**
+ * Promo Banner Section interface - 1:2 layout with two banners
+ */
+export interface IPromoBannerSection {
+	leftBanner?: IPromoBannerItem;
+	rightBanner?: IPromoBannerItem;
+}
+
+/**
+ * Feature Banner Feature Item interface
+ */
+export interface IFeatureBannerItem {
+	icon?: string;
+	title?: string;
+	description?: string;
+}
+
+/**
+ * Feature Banner Section interface - image with title and feature cards
+ */
+export interface IFeatureBannerSection {
+	image?: string;
+	title?: string;
+	titleHighlight?: string;
+	features?: IFeatureBannerItem[];
+}
+
+/**
  * Section Visibility Settings interface
  */
 export interface ISectionVisibility {
 	hero: boolean;
+	categoryShowcase: boolean;
+	productCarousel: boolean;
+	promoBanner: boolean;
+	featureBanner: boolean;
 	features: boolean;
 	productShowcase: boolean;
 	imageGallery: boolean;
@@ -218,6 +301,18 @@ export interface IHomePage extends Document {
 
 	// Hero Section
 	hero: IHeroSection;
+
+	// Category Showcase Section (after hero)
+	categoryShowcase: ICategoryShowcaseSection;
+
+	// Product Carousel Section (after categories)
+	productCarousel: IProductCarouselSection;
+
+	// Promo Banner Section (1:2 layout with two banners)
+	promoBanner: IPromoBannerSection;
+
+	// Feature Banner Section (image with title and feature cards)
+	featureBanner: IFeatureBannerSection;
 
 	// Feature Highlights (4 cards)
 	features: IFeatureHighlight[];
@@ -293,10 +388,32 @@ const HeroCertificationCardSchema = new Schema<IHeroCertificationCard>(
 );
 
 /**
+ * Hero Slide sub-schema - for slider mode
+ */
+const HeroSlideSchema = new Schema<IHeroSlide>(
+	{
+		badge: { type: String, trim: true },
+		title: { type: String, trim: true },
+		subtitle: { type: String, trim: true },
+		backgroundImage: { type: String, trim: true },
+		ctaText: { type: String, trim: true },
+		ctaHref: { type: String, trim: true },
+		isActive: { type: Boolean, default: true },
+	},
+	{ _id: false }
+);
+
+/**
  * Hero Section sub-schema - no required fields to allow empty content
+ * Supports both single hero and slider mode
  */
 const HeroSectionSchema = new Schema<IHeroSection>(
 	{
+		// Slider mode settings
+		isSlider: { type: Boolean, default: true },
+		slides: { type: [HeroSlideSchema], default: [] },
+		autoPlayInterval: { type: Number, default: 5000 },
+		// Legacy single hero fields
 		badge: { type: String, trim: true },
 		title: { type: String, trim: true },
 		titleHighlight: { type: String, trim: true },
@@ -498,11 +615,91 @@ const TestimonialsSectionSchema = new Schema<ITestimonialsSection>(
 );
 
 /**
+ * Category Showcase Section sub-schema
+ */
+const CategoryShowcaseSectionSchema = new Schema<ICategoryShowcaseSection>(
+	{
+		badge: { type: String, trim: true, default: "OUR PRODUCTS" },
+		title: { type: String, trim: true, default: "Natural Dairy Products" },
+		maxCategories: { type: Number, default: 3, min: 1, max: 12 },
+	},
+	{ _id: false }
+);
+
+/**
+ * Product Carousel Section sub-schema
+ */
+const ProductCarouselSectionSchema = new Schema<IProductCarouselSection>(
+	{
+		badge: { type: String, trim: true, default: "BUY ONLINE" },
+		title: { type: String, trim: true, default: "Popular Products" },
+		maxProducts: { type: Number, default: 6, min: 3, max: 12 },
+	},
+	{ _id: false }
+);
+
+/**
+ * Promo Banner Item sub-schema
+ */
+const PromoBannerItemSchema = new Schema<IPromoBannerItem>(
+	{
+		badge: { type: String, trim: true },
+		title: { type: String, trim: true },
+		subtitle: { type: String, trim: true },
+		description: { type: String, trim: true },
+		image: { type: String, trim: true },
+		ctaText: { type: String, trim: true },
+		ctaHref: { type: String, trim: true },
+	},
+	{ _id: false }
+);
+
+/**
+ * Promo Banner Section sub-schema
+ */
+const PromoBannerSectionSchema = new Schema<IPromoBannerSection>(
+	{
+		leftBanner: { type: PromoBannerItemSchema, default: {} },
+		rightBanner: { type: PromoBannerItemSchema, default: {} },
+	},
+	{ _id: false }
+);
+
+/**
+ * Feature Banner Item sub-schema
+ */
+const FeatureBannerItemSchema = new Schema<IFeatureBannerItem>(
+	{
+		icon: { type: String, trim: true },
+		title: { type: String, trim: true },
+		description: { type: String, trim: true },
+	},
+	{ _id: false }
+);
+
+/**
+ * Feature Banner Section sub-schema
+ */
+const FeatureBannerSectionSchema = new Schema<IFeatureBannerSection>(
+	{
+		image: { type: String, trim: true },
+		title: { type: String, trim: true },
+		titleHighlight: { type: String, trim: true },
+		features: { type: [FeatureBannerItemSchema], default: [] },
+	},
+	{ _id: false }
+);
+
+/**
  * Section Visibility sub-schema
  */
 const SectionVisibilitySchema = new Schema<ISectionVisibility>(
 	{
 		hero: { type: Boolean, default: true },
+		categoryShowcase: { type: Boolean, default: true },
+		productCarousel: { type: Boolean, default: true },
+		promoBanner: { type: Boolean, default: true },
+		featureBanner: { type: Boolean, default: true },
 		features: { type: Boolean, default: true },
 		productShowcase: { type: Boolean, default: true },
 		imageGallery: { type: Boolean, default: true },
@@ -526,6 +723,10 @@ const HomePageSchema = new Schema<IHomePage>(
 			type: SectionVisibilitySchema,
 			default: {
 				hero: true,
+				categoryShowcase: true,
+				productCarousel: true,
+				promoBanner: true,
+				featureBanner: true,
 				features: true,
 				productShowcase: true,
 				imageGallery: true,
@@ -538,6 +739,30 @@ const HomePageSchema = new Schema<IHomePage>(
 		},
 		hero: {
 			type: HeroSectionSchema,
+			default: {},
+		},
+		categoryShowcase: {
+			type: CategoryShowcaseSectionSchema,
+			default: {
+				badge: "OUR PRODUCTS",
+				title: "Natural Dairy Products",
+				maxCategories: 3,
+			},
+		},
+		productCarousel: {
+			type: ProductCarouselSectionSchema,
+			default: {
+				badge: "BUY ONLINE",
+				title: "Popular Products",
+				maxProducts: 6,
+			},
+		},
+		promoBanner: {
+			type: PromoBannerSectionSchema,
+			default: {},
+		},
+		featureBanner: {
+			type: FeatureBannerSectionSchema,
 			default: {},
 		},
 		features: {

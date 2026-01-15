@@ -26,9 +26,11 @@ export interface SiteConfigType {
 	url: string;
 	ogImage: string;
 	links: {
-		facebook: string;
-		instagram: string;
-		linkedin: string;
+		facebook?: string;
+		instagram?: string;
+		linkedin?: string;
+		twitter?: string;
+		youtube?: string;
 	};
 	company: {
 		name: string;

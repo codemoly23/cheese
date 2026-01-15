@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ImageComponent } from "../common/image-component";
 import { useSetNavbarVariant } from "@/lib/context/navbar-variant-context";
+import { HeroSlider } from "./HeroSlider";
 import type { IHeroSection } from "@/models/home-page.model";
 
 // Icon mapping for trust indicators
@@ -19,6 +20,11 @@ interface HeroProps {
 }
 
 export function Hero({ data }: HeroProps) {
+	// Check if slider mode is enabled and has slides
+	if (data.isSlider && data.slides && data.slides.length > 0) {
+		return <HeroSlider data={data} />;
+	}
+
 	// Check if optional sections have data
 	const hasFloatingCard = data.floatingCard?.image && data.floatingCard?.label;
 	const hasCertificationCard =

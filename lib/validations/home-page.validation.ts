@@ -206,10 +206,72 @@ export const testimonialsSectionSchema = z.object({
 });
 
 /**
+ * Category Showcase Section schema
+ */
+export const categoryShowcaseSectionSchema = z.object({
+	badge: z.string().max(100).optional(),
+	title: z.string().max(200).optional(),
+	maxCategories: z.number().min(1).max(12).optional(),
+});
+
+/**
+ * Product Carousel Section schema
+ */
+export const productCarouselSectionSchema = z.object({
+	badge: z.string().max(100).optional(),
+	title: z.string().max(200).optional(),
+	maxProducts: z.number().min(3).max(12).optional(),
+});
+
+/**
+ * Promo Banner Item schema
+ */
+export const promoBannerItemSchema = z.object({
+	badge: z.string().max(100).optional(),
+	title: z.string().max(200).optional(),
+	subtitle: z.string().max(200).optional(),
+	description: z.string().max(500).optional(),
+	image: z.string().optional(),
+	ctaText: z.string().max(100).optional(),
+	ctaHref: z.string().max(500).optional(),
+});
+
+/**
+ * Promo Banner Section schema
+ */
+export const promoBannerSectionSchema = z.object({
+	leftBanner: promoBannerItemSchema.optional(),
+	rightBanner: promoBannerItemSchema.optional(),
+});
+
+/**
+ * Feature Banner Item schema
+ */
+export const featureBannerItemSchema = z.object({
+	icon: z.string().max(50).optional(),
+	title: z.string().max(200).optional(),
+	description: z.string().max(500).optional(),
+});
+
+/**
+ * Feature Banner Section schema
+ */
+export const featureBannerSectionSchema = z.object({
+	image: z.string().optional(),
+	title: z.string().max(500).optional(),
+	titleHighlight: z.string().max(100).optional(),
+	features: z.array(featureBannerItemSchema).optional(),
+});
+
+/**
  * Section Visibility schema
  */
 export const sectionVisibilitySchema = z.object({
 	hero: z.boolean(),
+	categoryShowcase: z.boolean(),
+	productCarousel: z.boolean(),
+	promoBanner: z.boolean(),
+	featureBanner: z.boolean(),
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
@@ -226,6 +288,10 @@ export const sectionVisibilitySchema = z.object({
 export const updateHomePageSchema = z.object({
 	sectionVisibility: sectionVisibilitySchema.optional(),
 	hero: heroSectionExtendedSchema.partial().optional(),
+	categoryShowcase: categoryShowcaseSectionSchema.partial().optional(),
+	productCarousel: productCarouselSectionSchema.partial().optional(),
+	promoBanner: promoBannerSectionSchema.partial().optional(),
+	featureBanner: featureBannerSectionSchema.partial().optional(),
 	features: z.array(featureHighlightSchema).optional(),
 	productShowcase: productShowcaseSectionSchema.partial().optional(),
 	imageGallery: imageGallerySectionSchema.partial().optional(),

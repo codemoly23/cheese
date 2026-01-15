@@ -9,6 +9,7 @@ import {
 	getLegacySiteConfig,
 	getBrandingSettings,
 	getFooterSettings,
+	getSocialMedia,
 } from "@/lib/services/site-settings.service";
 
 /**
@@ -22,10 +23,11 @@ export default async function ClientLayout({
 	children: React.ReactNode;
 }) {
 	// Fetch site settings from database in parallel
-	const [siteConfig, brandingSettings, footerSettings] = await Promise.all([
+	const [siteConfig, brandingSettings, footerSettings, socialMedia] = await Promise.all([
 		getLegacySiteConfig(),
 		getBrandingSettings(),
 		getFooterSettings(),
+		getSocialMedia(),
 	]);
 
 	const logoUrl = brandingSettings?.logoUrl;
@@ -34,7 +36,7 @@ export default async function ClientLayout({
 		<CookieConsentProvider>
 			<NavbarVariantProvider>
 				<div className="flex flex-col min-h-screen">
-					<Navbar config={siteConfig} logoUrl={logoUrl} />
+					<Navbar config={siteConfig} logoUrl={logoUrl} socialMedia={socialMedia} />
 					<main className="flex-1 w-full">{children}</main>
 					<Footer
 						config={siteConfig}

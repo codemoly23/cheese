@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Hero } from "@/components/home/Hero";
 import { SearchSection } from "@/components/home/SearchSection";
+import { ProductCategorySection } from "@/components/home/ProductCategorySection";
+import { ProductCarousel } from "@/components/home/ProductCarousel";
+import { PromoBanner } from "@/components/home/PromoBanner";
+import { FeatureBanner } from "@/components/home/FeatureBanner";
 import { FeatureHighlights } from "@/components/home/FeatureHighlights";
 import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ImageGallery } from "@/components/home/ImageGallery";
@@ -11,13 +15,15 @@ import AboutSection from "@/components/home/AboutSection";
 import CtaSection from "@/components/home/CtaSection";
 import { getHomePage, getHomePageSeo } from "@/lib/services/home-page.service";
 import { getSiteSettings } from "@/lib/services/site-settings.service";
+import { categoryService } from "@/lib/services/category.service";
+import { productRepository } from "@/lib/repositories/product.repository";
 import { searchService } from "@/lib/services/search.service";
 import { SearchPageClient } from "./search-page";
 import { SearchPageSkeleton } from "@/components/search/SearchSkeleton";
 
-// ISR: Revalidate every 24 hours
+// ISR: Revalidate every 60 seconds for development, 24 hours for production
 // Note: Search mode uses searchParams which makes those requests dynamic
-export const revalidate = 86400;
+export const revalidate = process.env.NODE_ENV === 'development' ? 60 : 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
 	const [seo, siteSettings] = await Promise.all([
@@ -95,14 +101,21 @@ export default async function Home({ searchParams }: HomeProps) {
 	}
 
 	// Fetch CMS data for homepage
-	const [homePage, siteSettings] = await Promise.all([
+	const [homePage, siteSettings, activeCategories, publishedProducts] = await Promise.all([
 		getHomePage(),
 		getSiteSettings(),
+		categoryService.getActiveCategories(),
+		productRepository.findPublished({ page: 1, limit: 12 }),
 	]);
 
 	// Section visibility settings (defaults to all visible if not set)
-	const visibility = homePage.sectionVisibility || {
+	// Use spread to ensure categoryShowcase and productCarousel default to true even if DB doesn't have them
+	const defaultVisibility = {
 		hero: true,
+		categoryShowcase: true,
+		productCarousel: true,
+		promoBanner: true,
+		featureBanner: true,
 		features: true,
 		productShowcase: true,
 		imageGallery: true,
@@ -111,11 +124,76 @@ export default async function Home({ searchParams }: HomeProps) {
 		testimonials: true,
 		cta: true,
 	};
+	const visibility = {
+		...defaultVisibility,
+		...homePage.sectionVisibility,
+		// Explicitly default sections to true if not in DB
+		categoryShowcase: homePage.sectionVisibility?.categoryShowcase ?? true,
+		productCarousel: homePage.sectionVisibility?.productCarousel ?? true,
+		promoBanner: homePage.sectionVisibility?.promoBanner ?? true,
+		featureBanner: homePage.sectionVisibility?.featureBanner ?? true,
+	};
+
+	// Limit categories to configured max (default 3)
+	const maxCategories = homePage.categoryShowcase?.maxCategories || 3;
+	// Serialize categories to plain objects for client component
+	const categoriesToShow = activeCategories.slice(0, maxCategories).map((cat) => ({
+		_id: cat._id?.toString(),
+		name: cat.name,
+		slug: cat.slug,
+		description: cat.description,
+		image: cat.image ?? undefined,
+		order: cat.order,
+		isActive: cat.isActive,
+	}));
+
+	// Limit products to configured max (default 6)
+	const maxProducts = homePage.productCarousel?.maxProducts || 6;
+	// Serialize products to plain objects for client component
+	const productsToShow = publishedProducts.data.slice(0, maxProducts).map((product) => ({
+		_id: product._id?.toString(),
+		name: product.title,
+		slug: product.slug,
+		images: product.productImages,
+		rating: 5, // Default 5 star rating for all products
+		reviewCount: 0,
+	}));
 
 	return (
 		<div className="flex flex-col min-h-screen">
 			{/* Hero Section */}
 			{visibility.hero && homePage.hero && <Hero data={homePage.hero} />}
+
+			{/* Category Showcase Section - Right after Hero */}
+			{visibility.categoryShowcase && categoriesToShow.length > 0 && (
+				<ProductCategorySection
+					badge={homePage.categoryShowcase?.badge}
+					title={homePage.categoryShowcase?.title}
+					categories={categoriesToShow}
+				/>
+			)}
+
+			{/* Product Carousel Section - After Categories */}
+			{visibility.productCarousel && productsToShow.length > 0 && (
+				<ProductCarousel
+					badge={homePage.productCarousel?.badge}
+					title={homePage.productCarousel?.title}
+					products={productsToShow}
+				/>
+			)}
+
+			{/* Promo Banner Section - After Product Carousel */}
+			{visibility.promoBanner && homePage.promoBanner && (
+				<PromoBanner
+					leftBanner={homePage.promoBanner.leftBanner}
+					rightBanner={homePage.promoBanner.rightBanner}
+				/>
+			)}
+
+			{/* Feature Banner Section - After Promo Banner */}
+			{visibility.featureBanner && homePage.featureBanner && (
+				<FeatureBanner data={homePage.featureBanner} />
+			)}
 
 			{/* Search Section - Always visible */}
 			<SearchSection />

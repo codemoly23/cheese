@@ -145,6 +145,17 @@ const processStepsSectionSchema = z.object({
 	steps: z.array(processStepSchema).optional(),
 });
 
+// Hero Slide schema for slider mode
+const heroSlideSchema = z.object({
+	badge: z.string().optional(),
+	title: z.string().optional(),
+	subtitle: z.string().optional(),
+	backgroundImage: z.string().optional(),
+	ctaText: z.string().optional(),
+	ctaHref: z.string().optional(),
+	isActive: z.boolean().optional(),
+});
+
 // Hero Floating Card schema
 const heroFloatingCardSchema = z.object({
 	image: z.string().optional(),
@@ -218,9 +229,59 @@ const testimonialsSectionSchema = z.object({
 	testimonials: z.array(testimonialItemSchema).optional(),
 });
 
+// Category Showcase Section schema
+const categoryShowcaseSectionSchema = z.object({
+	badge: z.string().optional(),
+	title: z.string().optional(),
+	maxCategories: z.number().min(1).max(12).optional(),
+});
+
+// Product Carousel Section schema
+const productCarouselSectionSchema = z.object({
+	badge: z.string().optional(),
+	title: z.string().optional(),
+	maxProducts: z.number().min(3).max(12).optional(),
+});
+
+// Promo Banner Item schema
+const promoBannerItemSchema = z.object({
+	badge: z.string().optional(),
+	title: z.string().optional(),
+	subtitle: z.string().optional(),
+	description: z.string().optional(),
+	image: z.string().optional(),
+	ctaText: z.string().optional(),
+	ctaHref: z.string().optional(),
+});
+
+// Promo Banner Section schema
+const promoBannerSectionSchema = z.object({
+	leftBanner: promoBannerItemSchema.optional(),
+	rightBanner: promoBannerItemSchema.optional(),
+});
+
+// Feature Banner Item schema
+const featureBannerItemSchema = z.object({
+	icon: z.string().optional(),
+	title: z.string().optional(),
+	description: z.string().optional(),
+});
+
+// Feature Banner Section schema
+const featureBannerSectionSchema = z.object({
+	image: z.string().optional(),
+	title: z.string().optional(),
+	titleHighlight: z.string().optional(),
+	features: z.array(featureBannerItemSchema).optional(),
+});
+
 // Section Visibility schema
 const sectionVisibilitySchema = z.object({
 	hero: z.boolean(),
+	categoryShowcase: z.boolean(),
+	productCarousel: z.boolean(),
+	promoBanner: z.boolean(),
+	featureBanner: z.boolean(),
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
@@ -239,6 +300,11 @@ const homePageFormSchema = z.object({
 	// Hero Section - all fields optional
 	hero: z
 		.object({
+			// Slider mode fields
+			isSlider: z.boolean().optional(),
+			slides: z.array(heroSlideSchema).optional(),
+			autoPlayInterval: z.number().optional(),
+			// Legacy single hero fields
 			badge: z.string().optional(),
 			title: z.string().optional(),
 			titleHighlight: z.string().optional(),
@@ -252,6 +318,18 @@ const homePageFormSchema = z.object({
 			certificationCard: heroCertificationCardSchema.optional(),
 		})
 		.optional(),
+
+	// Category Showcase Section
+	categoryShowcase: categoryShowcaseSectionSchema.optional(),
+
+	// Product Carousel Section
+	productCarousel: productCarouselSectionSchema.optional(),
+
+	// Promo Banner Section
+	promoBanner: promoBannerSectionSchema.optional(),
+
+	// Feature Banner Section
+	featureBanner: featureBannerSectionSchema.optional(),
 
 	// Features
 	features: z.array(featureSchema).optional(),
@@ -323,6 +401,10 @@ export default function StartsidaPage() {
 		defaultValues: {
 			sectionVisibility: {
 				hero: true,
+				categoryShowcase: true,
+				productCarousel: true,
+				promoBanner: true,
+				featureBanner: true,
 				features: true,
 				productShowcase: true,
 				imageGallery: true,
@@ -333,6 +415,11 @@ export default function StartsidaPage() {
 				richContent: false,
 			},
 			hero: {
+				// Slider mode fields
+				isSlider: true,
+				slides: [],
+				autoPlayInterval: 5000,
+				// Legacy single hero fields
 				badge: "",
 				title: "",
 				titleHighlight: "",
@@ -350,6 +437,42 @@ export default function StartsidaPage() {
 					progressValue: "",
 					progressPercentage: 0,
 				},
+			},
+			categoryShowcase: {
+				badge: "OUR PRODUCTS",
+				title: "Natural Dairy Products",
+				maxCategories: 3,
+			},
+			productCarousel: {
+				badge: "BUY ONLINE",
+				title: "Popular Products",
+				maxProducts: 6,
+			},
+			promoBanner: {
+				leftBanner: {
+					badge: "",
+					title: "",
+					subtitle: "",
+					description: "",
+					image: "",
+					ctaText: "",
+					ctaHref: "",
+				},
+				rightBanner: {
+					badge: "",
+					title: "",
+					subtitle: "",
+					description: "",
+					image: "",
+					ctaText: "",
+					ctaHref: "",
+				},
+			},
+			featureBanner: {
+				image: "",
+				title: "",
+				titleHighlight: "",
+				features: [],
 			},
 			features: [],
 			processStepsSection: {
@@ -427,6 +550,12 @@ export default function StartsidaPage() {
 	});
 
 	const {
+		fields: slideFields,
+		append: appendSlide,
+		remove: removeSlide,
+	} = useFieldArray({ control: form.control, name: "hero.slides" });
+
+	const {
 		fields: trustIndicatorFields,
 		append: appendTrustIndicator,
 		remove: removeTrustIndicator,
@@ -489,6 +618,10 @@ export default function StartsidaPage() {
 				// Ensure section visibility has proper defaults for each field
 				const defaultVisibility = {
 					hero: true,
+					categoryShowcase: true,
+					productCarousel: true,
+					promoBanner: true,
+					featureBanner: true,
 					features: true,
 					productShowcase: true,
 					imageGallery: true,
@@ -500,6 +633,18 @@ export default function StartsidaPage() {
 				};
 				const sectionVisibility = {
 					hero: content.sectionVisibility?.hero ?? defaultVisibility.hero,
+					categoryShowcase:
+						content.sectionVisibility?.categoryShowcase ??
+						defaultVisibility.categoryShowcase,
+					productCarousel:
+						content.sectionVisibility?.productCarousel ??
+						defaultVisibility.productCarousel,
+					promoBanner:
+						content.sectionVisibility?.promoBanner ??
+						defaultVisibility.promoBanner,
+					featureBanner:
+						content.sectionVisibility?.featureBanner ??
+						defaultVisibility.featureBanner,
 					features:
 						content.sectionVisibility?.features ??
 						defaultVisibility.features,
@@ -526,6 +671,11 @@ export default function StartsidaPage() {
 				form.reset({
 					sectionVisibility,
 					hero: {
+						// Slider mode fields
+						isSlider: content.hero?.isSlider !== false,
+						slides: content.hero?.slides || [],
+						autoPlayInterval: content.hero?.autoPlayInterval || 5000,
+						// Legacy single hero fields
 						badge: content.hero?.badge || "",
 						title: content.hero?.title || "",
 						titleHighlight: content.hero?.titleHighlight || "",
@@ -554,6 +704,42 @@ export default function StartsidaPage() {
 							progressValue: "",
 							progressPercentage: 0,
 						},
+					},
+					categoryShowcase: {
+						badge: content.categoryShowcase?.badge || "OUR PRODUCTS",
+						title: content.categoryShowcase?.title || "Natural Dairy Products",
+						maxCategories: content.categoryShowcase?.maxCategories || 3,
+					},
+					productCarousel: {
+						badge: content.productCarousel?.badge || "BUY ONLINE",
+						title: content.productCarousel?.title || "Popular Products",
+						maxProducts: content.productCarousel?.maxProducts || 6,
+					},
+					promoBanner: {
+						leftBanner: {
+							badge: content.promoBanner?.leftBanner?.badge || "",
+							title: content.promoBanner?.leftBanner?.title || "",
+							subtitle: content.promoBanner?.leftBanner?.subtitle || "",
+							description: content.promoBanner?.leftBanner?.description || "",
+							image: content.promoBanner?.leftBanner?.image || "",
+							ctaText: content.promoBanner?.leftBanner?.ctaText || "",
+							ctaHref: content.promoBanner?.leftBanner?.ctaHref || "",
+						},
+						rightBanner: {
+							badge: content.promoBanner?.rightBanner?.badge || "",
+							title: content.promoBanner?.rightBanner?.title || "",
+							subtitle: content.promoBanner?.rightBanner?.subtitle || "",
+							description: content.promoBanner?.rightBanner?.description || "",
+							image: content.promoBanner?.rightBanner?.image || "",
+							ctaText: content.promoBanner?.rightBanner?.ctaText || "",
+							ctaHref: content.promoBanner?.rightBanner?.ctaHref || "",
+						},
+					},
+					featureBanner: {
+						image: content.featureBanner?.image || "",
+						title: content.featureBanner?.title || "",
+						titleHighlight: content.featureBanner?.titleHighlight || "",
+						features: content.featureBanner?.features || [],
 					},
 					features: content.features || [],
 					processStepsSection: {
@@ -791,6 +977,10 @@ export default function StartsidaPage() {
 						<TabsList className="flex flex-wrap h-auto gap-1 p-1 justify-start">
 							<TabsTrigger value="settings">Settings</TabsTrigger>
 							<TabsTrigger value="hero">Hero</TabsTrigger>
+							<TabsTrigger value="categories">Categories</TabsTrigger>
+							<TabsTrigger value="product-carousel">Carousel</TabsTrigger>
+							<TabsTrigger value="promo-banner">Banner</TabsTrigger>
+							<TabsTrigger value="feature-banner">Feature Banner</TabsTrigger>
 							<TabsTrigger value="features">Features</TabsTrigger>
 							<TabsTrigger value="products">Products</TabsTrigger>
 							<TabsTrigger value="gallery">Gallery</TabsTrigger>
@@ -825,6 +1015,94 @@ export default function StartsidaPage() {
 														</FormLabel>
 														<FormDescription>
 															Main banner at the top of the page.
+														</FormDescription>
+													</div>
+													<FormControl>
+														<Switch
+															checked={field.value}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="sectionVisibility.categoryShowcase"
+											render={({ field }) => (
+												<FormItem className="flex items-center justify-between rounded-lg border p-4">
+													<div className="space-y-0.5">
+														<FormLabel className="text-base">
+															Category Showcase
+														</FormLabel>
+														<FormDescription>
+															Product categories grid after hero.
+														</FormDescription>
+													</div>
+													<FormControl>
+														<Switch
+															checked={field.value}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="sectionVisibility.productCarousel"
+											render={({ field }) => (
+												<FormItem className="flex items-center justify-between rounded-lg border p-4">
+													<div className="space-y-0.5">
+														<FormLabel className="text-base">
+															Product Carousel
+														</FormLabel>
+														<FormDescription>
+															Popular products carousel section.
+														</FormDescription>
+													</div>
+													<FormControl>
+														<Switch
+															checked={field.value}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="sectionVisibility.promoBanner"
+											render={({ field }) => (
+												<FormItem className="flex items-center justify-between rounded-lg border p-4">
+													<div className="space-y-0.5">
+														<FormLabel className="text-base">
+															Promo Banner
+														</FormLabel>
+														<FormDescription>
+															1:2 promotional banners section.
+														</FormDescription>
+													</div>
+													<FormControl>
+														<Switch
+															checked={field.value}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="sectionVisibility.featureBanner"
+											render={({ field }) => (
+												<FormItem className="flex items-center justify-between rounded-lg border p-4">
+													<div className="space-y-0.5">
+														<FormLabel className="text-base">
+															Feature Banner
+														</FormLabel>
+														<FormDescription>
+															Image with highlighted title and feature cards.
 														</FormDescription>
 													</div>
 													<FormControl>
@@ -1019,18 +1297,259 @@ export default function StartsidaPage() {
 
 						{/* Hero Tab */}
 						<TabsContent value="hero" className="space-y-6">
+							{/* Slider Settings */}
 							<Card>
 								<CardHeader>
-									<CardTitle>Hero Section</CardTitle>
+									<CardTitle>Slider Settings</CardTitle>
 									<CardDescription>
-										The main section displayed at the top of the home
-										page.
+										Configure the hero slider auto-play behavior.
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="space-y-6">
+								<CardContent>
 									<FormField
 										control={form.control}
-										name="hero.badge"
+										name="hero.autoPlayInterval"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Auto-Play Interval (ms)</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														{...field}
+														value={field.value || 5000}
+														onChange={(e) => field.onChange(Number(e.target.value))}
+														placeholder="5000"
+													/>
+												</FormControl>
+												<FormDescription>
+													Time between slide transitions in milliseconds (e.g., 5000 = 5 seconds).
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</CardContent>
+							</Card>
+
+							{/* Slider Slides Management */}
+							<Card>
+									<CardHeader>
+										<div className="flex items-center justify-between">
+											<div>
+												<CardTitle>Slider Slides</CardTitle>
+												<CardDescription>
+													Manage the slides displayed in the hero slider.
+												</CardDescription>
+											</div>
+											<Button
+												type="button"
+												variant="outline"
+												size="sm"
+												onClick={() =>
+													appendSlide({
+														badge: "",
+														title: "",
+														subtitle: "",
+														backgroundImage: "",
+														ctaText: "READ MORE",
+														ctaHref: "/",
+														isActive: true,
+													})
+												}
+											>
+												<Plus className="mr-2 h-4 w-4" />
+												Add Slide
+											</Button>
+										</div>
+									</CardHeader>
+									<CardContent className="space-y-6">
+										{slideFields.length === 0 ? (
+											<div className="text-center py-8 text-muted-foreground">
+												No slides added yet. Click &quot;Add Slide&quot; to create your first slide.
+											</div>
+										) : (
+											slideFields.map((slide, index) => (
+												<div
+													key={slide.id}
+													className="border rounded-lg p-4 space-y-4"
+												>
+													<div className="flex items-center justify-between">
+														<h4 className="font-medium">
+															Slide {index + 1}
+														</h4>
+														<div className="flex items-center gap-2">
+															<FormField
+																control={form.control}
+																name={`hero.slides.${index}.isActive`}
+																render={({ field }) => (
+																	<FormItem className="flex items-center gap-2">
+																		<FormLabel className="text-sm text-muted-foreground">
+																			Active
+																		</FormLabel>
+																		<FormControl>
+																			<Switch
+																				checked={field.value}
+																				onCheckedChange={field.onChange}
+																			/>
+																		</FormControl>
+																	</FormItem>
+																)}
+															/>
+															<Button
+																type="button"
+																variant="ghost"
+																size="icon"
+																onClick={async () => {
+																	const confirmed = await confirm({
+																		title: "Delete Slide",
+																		description: `Are you sure you want to delete Slide ${index + 1}?`,
+																		confirmText: "Delete",
+																	});
+																	if (confirmed) {
+																		removeSlide(index);
+																	}
+																}}
+															>
+																<Trash2 className="h-4 w-4 text-destructive" />
+															</Button>
+														</div>
+													</div>
+
+													{/* Background Image */}
+													<FormField
+														control={form.control}
+														name={`hero.slides.${index}.backgroundImage`}
+														render={({ field }) => (
+															<FormItem>
+																<FormLabel>Background Image</FormLabel>
+																<FormControl>
+																	<MediaPicker
+																		type="image"
+																		value={field.value || ""}
+																		onChange={(url) => field.onChange(url || "")}
+																		showPreview
+																	/>
+																</FormControl>
+																<FormDescription>
+																	Full-screen background image for this slide.
+																</FormDescription>
+																<FormMessage />
+															</FormItem>
+														)}
+													/>
+
+													<FormField
+														control={form.control}
+														name={`hero.slides.${index}.badge`}
+														render={({ field }) => (
+															<FormItem>
+																<FormLabel>Badge Text</FormLabel>
+																<FormControl>
+																	<Input
+																		{...field}
+																		value={field.value || ""}
+																		placeholder="BORN OF NATURE"
+																	/>
+																</FormControl>
+																<FormMessage />
+															</FormItem>
+														)}
+													/>
+
+													<FormField
+														control={form.control}
+														name={`hero.slides.${index}.title`}
+														render={({ field }) => (
+															<FormItem>
+																<FormLabel>Title</FormLabel>
+																<FormControl>
+																	<Input
+																		{...field}
+																		value={field.value || ""}
+																		placeholder="TRADITIONS OF QUALITY IN EVERY BITE"
+																	/>
+																</FormControl>
+																<FormMessage />
+															</FormItem>
+														)}
+													/>
+
+													<FormField
+														control={form.control}
+														name={`hero.slides.${index}.subtitle`}
+														render={({ field }) => (
+															<FormItem>
+																<FormLabel>Subtitle</FormLabel>
+																<FormControl>
+																	<Textarea
+																		{...field}
+																		value={field.value || ""}
+																		placeholder="Description text for this slide..."
+																		rows={2}
+																	/>
+																</FormControl>
+																<FormMessage />
+															</FormItem>
+														)}
+													/>
+
+													<div className="grid gap-4 sm:grid-cols-2">
+														<FormField
+															control={form.control}
+															name={`hero.slides.${index}.ctaText`}
+															render={({ field }) => (
+																<FormItem>
+																	<FormLabel>Button Text</FormLabel>
+																	<FormControl>
+																		<Input
+																			{...field}
+																			value={field.value || ""}
+																			placeholder="READ MORE"
+																		/>
+																	</FormControl>
+																	<FormMessage />
+																</FormItem>
+															)}
+														/>
+														<FormField
+															control={form.control}
+															name={`hero.slides.${index}.ctaHref`}
+															render={({ field }) => (
+																<FormItem>
+																	<FormLabel>Button Link</FormLabel>
+																	<FormControl>
+																		<Input
+																			{...field}
+																			value={field.value || ""}
+																			placeholder="/about"
+																		/>
+																	</FormControl>
+																	<FormMessage />
+																</FormItem>
+															)}
+														/>
+													</div>
+												</div>
+											))
+										)}
+									</CardContent>
+								</Card>
+						</TabsContent>
+
+						{/* Categories Tab */}
+						<TabsContent value="categories" className="space-y-6">
+							<Card>
+								<CardHeader>
+									<CardTitle>Category Showcase Settings</CardTitle>
+									<CardDescription>
+										Configure the product category showcase section that appears after the hero.
+										Categories are managed in Dashboard → Products → Categories.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<FormField
+										control={form.control}
+										name="categoryShowcase.badge"
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>Badge Text</FormLabel>
@@ -1038,542 +1557,539 @@ export default function StartsidaPage() {
 													<Input
 														{...field}
 														value={field.value || ""}
-														placeholder="Sweden's leading supplier..."
+														placeholder="OUR PRODUCTS"
 													/>
 												</FormControl>
 												<FormDescription>
-													Small text displayed above the title.
+													Small text displayed above the section title.
 												</FormDescription>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
-
-									<div className="grid gap-4 sm:grid-cols-2">
-										<FormField
-											control={form.control}
-											name="hero.title"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Title</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="Advanced medical"
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="hero.titleHighlight"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Title (highlight)</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="equipment for your clinic"
-														/>
-													</FormControl>
-													<FormDescription className="text-xs">
-														Part of the title with different
-														color.
-													</FormDescription>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-
 									<FormField
 										control={form.control}
-										name="hero.subtitle"
+										name="categoryShowcase.title"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Subtitle</FormLabel>
+												<FormLabel>Section Title</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="Natural Dairy Products"
+													/>
+												</FormControl>
+												<FormDescription>
+													Main heading for the category showcase section.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="categoryShowcase.maxCategories"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Number of Categories to Display</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														{...field}
+														value={field.value || 3}
+														onChange={(e) => field.onChange(Number(e.target.value))}
+														min={1}
+														max={12}
+													/>
+												</FormControl>
+												<FormDescription>
+													How many categories to display on the home page (1-12). Categories are ordered by their sort order in the category manager.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</CardContent>
+							</Card>
+						</TabsContent>
+
+						{/* Product Carousel Tab */}
+						<TabsContent value="product-carousel" className="space-y-6">
+							<Card>
+								<CardHeader>
+									<CardTitle>Product Carousel Settings</CardTitle>
+									<CardDescription>
+										Configure the product carousel section that shows popular products.
+										Products are fetched automatically from your published products.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<FormField
+										control={form.control}
+										name="productCarousel.badge"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Badge Text</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="BUY ONLINE"
+													/>
+												</FormControl>
+												<FormDescription>
+													Small text displayed above the section title.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="productCarousel.title"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Section Title</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="Popular Products"
+													/>
+												</FormControl>
+												<FormDescription>
+													Main heading for the product carousel section.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="productCarousel.maxProducts"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Number of Products to Display</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														{...field}
+														value={field.value || 6}
+														onChange={(e) => field.onChange(Number(e.target.value))}
+														min={3}
+														max={12}
+													/>
+												</FormControl>
+												<FormDescription>
+													How many products to display in the carousel (3-12). Products are shown in 3 per row.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</CardContent>
+							</Card>
+						</TabsContent>
+
+						{/* Promo Banner Tab */}
+						<TabsContent value="promo-banner" className="space-y-6">
+							{/* Left Banner */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Left Banner</CardTitle>
+									<CardDescription>
+										Image banner with text overlay. This takes up half the width on desktop.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<FormField
+										control={form.control}
+										name="promoBanner.leftBanner.image"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Background Image</FormLabel>
+												<FormControl>
+													<MediaPicker
+														type="image"
+														value={field.value || ""}
+														onChange={(url) => field.onChange(url || "")}
+														showPreview
+													/>
+												</FormControl>
+												<FormDescription>
+													Full background image for the left banner.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.leftBanner.badge"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Badge Text</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="NEW ARRIVAL"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.leftBanner.title"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Title</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="Fresh Artisan Cheese"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.leftBanner.description"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Description</FormLabel>
 												<FormControl>
 													<Textarea
 														{...field}
 														value={field.value || ""}
-														placeholder="Describe your offering..."
-														rows={3}
+														placeholder="Handcrafted with care from locally sourced milk..."
+														rows={2}
 													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
+								</CardContent>
+							</Card>
 
-									{/* Primary CTA */}
-									<div className="border rounded-lg p-4 space-y-4">
-										<h4 className="font-medium">Primary Button</h4>
-										<div className="grid gap-4 sm:grid-cols-3">
-											<FormField
-												control={form.control}
-												name="hero.primaryCta.text"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Text</FormLabel>
-														<FormControl>
-															<Input
-																{...field}
-																value={field.value || ""}
-																placeholder="View our catalog"
-															/>
-														</FormControl>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<FormField
-												control={form.control}
-												name="hero.primaryCta.href"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Link</FormLabel>
-														<FormControl>
-															<Input
-																{...field}
-																value={field.value || ""}
-																placeholder="/products"
-															/>
-														</FormControl>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<FormField
-												control={form.control}
-												name="hero.primaryCta.variant"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Style</FormLabel>
-														<Select
-															onValueChange={field.onChange}
-															defaultValue={field.value}
-														>
-															<FormControl>
-																<SelectTrigger>
-																	<SelectValue placeholder="Select style" />
-																</SelectTrigger>
-															</FormControl>
-															<SelectContent>
-																<SelectItem value="primary">
-																	Primary
-																</SelectItem>
-																<SelectItem value="secondary">
-																	Secondary
-																</SelectItem>
-																<SelectItem value="outline">
-																	Outline
-																</SelectItem>
-															</SelectContent>
-														</Select>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-										</div>
-									</div>
-
-									{/* Secondary CTA */}
-									<div className="border rounded-lg p-4 space-y-4">
-										<h4 className="font-medium">
-											Secondary Button (optional)
-										</h4>
-										<div className="grid gap-4 sm:grid-cols-3">
-											<FormField
-												control={form.control}
-												name="hero.secondaryCta.text"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Text</FormLabel>
-														<FormControl>
-															<Input
-																{...field}
-																value={field.value || ""}
-																placeholder="Contact us"
-															/>
-														</FormControl>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<FormField
-												control={form.control}
-												name="hero.secondaryCta.href"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Link</FormLabel>
-														<FormControl>
-															<Input
-																{...field}
-																value={field.value || ""}
-																placeholder="/contact"
-															/>
-														</FormControl>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-											<FormField
-												control={form.control}
-												name="hero.secondaryCta.variant"
-												render={({ field }) => (
-													<FormItem>
-														<FormLabel>Style</FormLabel>
-														<Select
-															onValueChange={field.onChange}
-															defaultValue={field.value}
-														>
-															<FormControl>
-																<SelectTrigger>
-																	<SelectValue placeholder="Select style" />
-																</SelectTrigger>
-															</FormControl>
-															<SelectContent>
-																<SelectItem value="primary">
-																	Primary
-																</SelectItem>
-																<SelectItem value="secondary">
-																	Secondary
-																</SelectItem>
-																<SelectItem value="outline">
-																	Outline
-																</SelectItem>
-															</SelectContent>
-														</Select>
-														<FormMessage />
-													</FormItem>
-												)}
-											/>
-										</div>
-									</div>
-
-									{/* Main Image */}
+							{/* Right Banner */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Right Banner</CardTitle>
+									<CardDescription>
+										Feature/award style banner with CTA button. This takes up half the width on desktop.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
 									<FormField
 										control={form.control}
-										name="hero.mainImage"
+										name="promoBanner.rightBanner.image"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Main Image</FormLabel>
+												<FormLabel>Background Image</FormLabel>
 												<FormControl>
 													<MediaPicker
 														type="image"
-														value={field.value || null}
-														onChange={(url) =>
-															field.onChange(url || "")
-														}
-														placeholder="Select main image for the hero section"
-														galleryTitle="Select Hero Image"
+														value={field.value || ""}
+														onChange={(url) => field.onChange(url || "")}
+														showPreview
+													/>
+												</FormControl>
+												<FormDescription>
+													Full background image for the right banner.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.rightBanner.badge"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Badge Text</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="Award Winning"
 													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.rightBanner.subtitle"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Subtitle</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="2024"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="promoBanner.rightBanner.title"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Title</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="Best Dairy Farm"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<div className="grid gap-4 sm:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="promoBanner.rightBanner.ctaText"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Button Text</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															value={field.value || ""}
+															placeholder="LEARN MORE"
+														/>
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="promoBanner.rightBanner.ctaHref"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Button Link</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															value={field.value || ""}
+															placeholder="/about"
+														/>
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+									</div>
+								</CardContent>
+							</Card>
+						</TabsContent>
 
-									{/* Trust Indicators */}
-									<div className="space-y-4">
-										<div className="flex items-center justify-between">
-											<h4 className="font-medium">
-												Trust Indicators
-											</h4>
-											<Button
-												type="button"
-												variant="outline"
-												size="sm"
-												onClick={() =>
-													appendTrustIndicator({
-														icon: "ShieldCheck",
-														text: "",
-													})
-												}
-											>
-												<Plus className="h-4 w-4 mr-1" />
-												Add
-											</Button>
+						{/* Feature Banner Tab */}
+						<TabsContent value="feature-banner" className="space-y-6">
+							<Card>
+								<CardHeader>
+									<CardTitle>Feature Banner Settings</CardTitle>
+									<CardDescription>
+										Configure the feature banner section with image, title (with highlight), and feature cards.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<FormField
+										control={form.control}
+										name="featureBanner.image"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Banner Image</FormLabel>
+												<FormControl>
+													<MediaPicker
+														type="image"
+														value={field.value || ""}
+														onChange={(url) => field.onChange(url || "")}
+														showPreview
+													/>
+												</FormControl>
+												<FormDescription>
+													Main image displayed at the top of the section.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="featureBanner.title"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Title</FormLabel>
+												<FormControl>
+													<Textarea
+														{...field}
+														value={field.value || ""}
+														placeholder="Our farm uses eco-friendly technologies and practices to minimize the environmental impact."
+														rows={2}
+													/>
+												</FormControl>
+												<FormDescription>
+													Main title text. Include the highlight text within this title.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="featureBanner.titleHighlight"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Title Highlight</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														value={field.value || ""}
+														placeholder="eco-friendly"
+													/>
+												</FormControl>
+												<FormDescription>
+													The text within the title that should be highlighted in a different color.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</CardContent>
+							</Card>
+
+							{/* Feature Banner Features */}
+							<Card>
+								<CardHeader>
+									<CardTitle className="flex items-center justify-between">
+										<span>Feature Cards</span>
+										<Button
+											type="button"
+											variant="outline"
+											size="sm"
+											onClick={() => {
+												const current = form.getValues("featureBanner.features") || [];
+												form.setValue("featureBanner.features", [
+													...current,
+													{ icon: "Leaf", title: "", description: "" },
+												]);
+											}}
+										>
+											<Plus className="h-4 w-4 mr-1" />
+											Add Feature
+										</Button>
+									</CardTitle>
+									<CardDescription>
+										Feature cards displayed below the title. Recommended: 4 features.
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									{(form.watch("featureBanner.features") || []).length === 0 ? (
+										<div className="text-center py-8 text-muted-foreground">
+											No features added. Click &quot;Add Feature&quot; to add one.
 										</div>
-										{trustIndicatorFields.map((field, index) => (
-											<div
-												key={field.id}
-												className="flex gap-4 items-start border rounded-lg p-4"
-											>
-												{/* <GripVertical className="h-5 w-5 text-muted-foreground mt-2" /> */}
-												<div className="flex-1 grid gap-4 sm:grid-cols-2">
+									) : (
+										(form.watch("featureBanner.features") || []).map((_, index) => (
+											<Card key={index} className="border-dashed">
+												<CardHeader className="pb-3">
+													<div className="flex items-center justify-between">
+														<CardTitle className="text-base">
+															Feature {index + 1}
+														</CardTitle>
+														<Button
+															type="button"
+															variant="ghost"
+															size="sm"
+															onClick={() => {
+																const current = form.getValues("featureBanner.features") || [];
+																form.setValue(
+																	"featureBanner.features",
+																	current.filter((_, i) => i !== index)
+																);
+															}}
+															className="text-destructive hover:text-destructive"
+														>
+															<Trash2 className="h-4 w-4" />
+														</Button>
+													</div>
+												</CardHeader>
+												<CardContent className="space-y-4">
 													<FormField
 														control={form.control}
-														name={`hero.trustIndicators.${index}.icon`}
+														name={`featureBanner.features.${index}.icon`}
 														render={({ field }) => (
 															<FormItem>
-																<FormLabel>Icon</FormLabel>
-																<Select
-																	onValueChange={
-																		field.onChange
-																	}
-																	defaultValue={field.value}
-																>
-																	<FormControl>
-																		<SelectTrigger>
-																			<SelectValue placeholder="Select icon">
-																				{field.value && (
-																					<span className="flex items-center gap-2">
-																						<IconPreview
-																							name={
-																								field.value
-																							}
-																							className="h-4 w-4"
-																						/>
-																						<span>
-																							{
-																								field.value
-																							}
-																						</span>
-																					</span>
-																				)}
-																			</SelectValue>
-																		</SelectTrigger>
-																	</FormControl>
-																	<SelectContent>
-																		{AVAILABLE_ICONS.map(
-																			(icon) => (
-																				<SelectItem
-																					key={icon}
-																					value={icon}
-																				>
-																					<span className="flex items-center gap-2">
-																						<IconPreview
-																							name={icon}
-																							className="h-4 w-4"
-																						/>
-																						<span>
-																							{icon}
-																						</span>
-																					</span>
-																				</SelectItem>
-																			)
-																		)}
-																	</SelectContent>
-																</Select>
+																<FormLabel>Icon Name</FormLabel>
+																<FormControl>
+																	<Input
+																		{...field}
+																		value={field.value || ""}
+																		placeholder="Leaf, MilkOff, Package, Box"
+																	/>
+																</FormControl>
+																<FormDescription>
+																	Available icons: Leaf, MilkOff, Package, Box
+																</FormDescription>
 																<FormMessage />
 															</FormItem>
 														)}
 													/>
 													<FormField
 														control={form.control}
-														name={`hero.trustIndicators.${index}.text`}
+														name={`featureBanner.features.${index}.title`}
 														render={({ field }) => (
 															<FormItem>
-																<FormLabel>Text</FormLabel>
+																<FormLabel>Title</FormLabel>
 																<FormControl>
 																	<Input
 																		{...field}
 																		value={field.value || ""}
-																		placeholder="MDR certified"
+																		placeholder="100% Organic Product"
 																	/>
 																</FormControl>
 																<FormMessage />
 															</FormItem>
 														)}
 													/>
-												</div>
-												<Button
-													type="button"
-													variant="ghost"
-													size="sm"
-													onClick={async () => {
-														const confirmed = await confirm({
-															title: "Remove Trust Indicator",
-															description: "Are you sure you want to remove this trust indicator?",
-															confirmText: "Remove",
-														});
-														if (confirmed) removeTrustIndicator(index);
-													}}
-													className="text-destructive hover:text-destructive"
-												>
-													<Trash2 className="h-4 w-4" />
-												</Button>
-											</div>
-										))}
-									</div>
-								</CardContent>
-							</Card>
-
-							{/* Floating Card (Top Right) */}
-							<Card>
-								<CardHeader>
-									<CardTitle>Floating Card (Top Right)</CardTitle>
-									<CardDescription>
-										Small image card that floats on top right of the
-										hero image.
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<FormField
-										control={form.control}
-										name="hero.floatingCard.image"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Image</FormLabel>
-												<FormControl>
-													<MediaPicker
-														type="image"
-														value={field.value || null}
-														onChange={(url) =>
-															field.onChange(url || "")
-														}
-														placeholder="Select floating card image"
-														galleryTitle="Select Floating Card Image"
+													<FormField
+														control={form.control}
+														name={`featureBanner.features.${index}.description`}
+														render={({ field }) => (
+															<FormItem>
+																<FormLabel>Description</FormLabel>
+																<FormControl>
+																	<Textarea
+																		{...field}
+																		value={field.value || ""}
+																		placeholder="Guaranteed quality from our farm to your table"
+																		rows={2}
+																	/>
+																</FormControl>
+																<FormMessage />
+															</FormItem>
+														)}
 													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
-										name="hero.floatingCard.label"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Label</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														value={field.value || ""}
-														placeholder="Precision Optics"
-													/>
-												</FormControl>
-												<FormDescription>
-													Text displayed at the bottom of the
-													floating card.
-												</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-								</CardContent>
-							</Card>
-
-							{/* Certification Card (Bottom Left) */}
-							<Card>
-								<CardHeader>
-									<CardTitle>
-										Certification Card (Bottom Left)
-									</CardTitle>
-									<CardDescription>
-										Glass card showing certification info with
-										progress bar.
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<div className="grid gap-4 sm:grid-cols-2">
-										<FormField
-											control={form.control}
-											name="hero.certificationCard.title"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Title</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="Certified Excellence"
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="hero.certificationCard.subtitle"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Subtitle</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="ISO 13485 Compliant"
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
-									<div className="grid gap-4 sm:grid-cols-3">
-										<FormField
-											control={form.control}
-											name="hero.certificationCard.progressLabel"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Progress Label</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="Performance Score"
-														/>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="hero.certificationCard.progressValue"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Progress Value</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															value={field.value || ""}
-															placeholder="99.8%"
-														/>
-													</FormControl>
-													<FormDescription>
-														Text displayed for the value.
-													</FormDescription>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="hero.certificationCard.progressPercentage"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Progress %</FormLabel>
-													<FormControl>
-														<Input
-															type="number"
-															min={0}
-															max={100}
-															placeholder="99.8"
-															{...field}
-															onChange={(e) =>
-																field.onChange(
-																	parseFloat(e.target.value) ||
-																		0
-																)
-															}
-														/>
-													</FormControl>
-													<FormDescription>
-														0-100 for the progress bar.
-													</FormDescription>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</div>
+												</CardContent>
+											</Card>
+										))
+									)}
 								</CardContent>
 							</Card>
 						</TabsContent>
