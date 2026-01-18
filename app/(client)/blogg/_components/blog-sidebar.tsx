@@ -17,13 +17,43 @@ interface BlogSidebarProps {
 	onCategoryFilter?: (category: string | null) => void;
 	selectedCategory?: string | null;
 	basePath?: string;
+	locale?: "sv" | "en";
 }
+
+// Translations
+const translations = {
+	sv: {
+		searchArticles: "Sök artiklar",
+		searchPlaceholder: "Sök...",
+		search: "Sök",
+		categories: "Kategorier",
+		allArticles: "Alla artiklar",
+		recentArticles: "Senaste artiklarna",
+		newsletter: "Nyhetsbrev",
+		newsletterDescription: "Få de senaste artiklarna och nyheterna direkt i din inkorg.",
+		subscribe: "Prenumerera",
+		contactPath: "/kontakt",
+	},
+	en: {
+		searchArticles: "Search articles",
+		searchPlaceholder: "Search...",
+		search: "Search",
+		categories: "Categories",
+		allArticles: "All articles",
+		recentArticles: "Recent articles",
+		newsletter: "Newsletter",
+		newsletterDescription: "Get the latest articles and news delivered to your inbox.",
+		subscribe: "Subscribe",
+		contactPath: "/contact-us",
+	},
+};
 
 /**
  * BlogSidebar Component
  *
  * Sidebar for blog listing page with search, categories, and recent posts.
  * Supports custom basePath for different routes (e.g., /nyheter, /blogg)
+ * Supports locale for multilingual content
  */
 export function BlogSidebar({
 	categories,
@@ -32,8 +62,11 @@ export function BlogSidebar({
 	onCategoryFilter,
 	selectedCategory,
 	basePath = "/blogg",
+	locale = "sv",
 }: BlogSidebarProps) {
 	const [searchQuery, setSearchQuery] = useState("");
+	const t = translations[locale];
+	const dateLocale = locale === "en" ? "en-US" : "sv-SE";
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -52,18 +85,18 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Search className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">Sök artiklar</h3>
+					<h3 className="font-bold text-foreground">{t.searchArticles}</h3>
 				</div>
 				<form onSubmit={handleSearch} className="flex gap-2">
 					<Input
 						type="search"
-						placeholder="Sök..."
+						placeholder={t.searchPlaceholder}
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
 						className="flex-1"
 					/>
 					<Button type="submit" size="sm" variant="primary">
-						Sök
+						{t.search}
 					</Button>
 				</form>
 			</motion.div>
@@ -79,7 +112,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Tag className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">Kategorier</h3>
+					<h3 className="font-bold text-foreground">{t.categories}</h3>
 				</div>
 				<div className="space-y-2">
 					<button
@@ -90,7 +123,7 @@ export function BlogSidebar({
 								: "hover:bg-muted"
 						}`}
 					>
-						Alla artiklar
+						{t.allArticles}
 					</button>
 					{categories.map((category) => (
 						<button
@@ -119,7 +152,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<TrendingUp className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">Senaste artiklarna</h3>
+					<h3 className="font-bold text-foreground">{t.recentArticles}</h3>
 				</div>
 				<div className="space-y-4">
 					{recentArticles.map((article) => (
@@ -133,7 +166,7 @@ export function BlogSidebar({
 							</h4>
 							<p className="text-xs text-muted-foreground">
 								{new Date(article.publishedAt).toLocaleDateString(
-									"sv-SE",
+									dateLocale,
 									{
 										year: "numeric",
 										month: "short",
@@ -157,13 +190,13 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Mail className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">Nyhetsbrev</h3>
+					<h3 className="font-bold text-foreground">{t.newsletter}</h3>
 				</div>
 				<p className="mb-4 text-sm text-muted-foreground">
-					Få de senaste artiklarna och nyheterna direkt i din inkorg.
+					{t.newsletterDescription}
 				</p>
 				<Button asChild variant="primary" className="w-full">
-					<Link href="/kontakt">Prenumerera</Link>
+					<Link href={t.contactPath}>{t.subscribe}</Link>
 				</Button>
 			</motion.div>
 		</aside>

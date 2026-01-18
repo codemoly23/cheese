@@ -46,6 +46,27 @@ export interface ISeo {
 	noindex?: boolean;
 }
 
+export interface IHeroSettings {
+	themeColor?: string; // Hex color like "#4A5568"
+	badge?: string; // e.g., "2025 WORLD CHEESE AWARDS"
+	ctaText?: string; // e.g., "WHERE TO BUY"
+	ctaUrl?: string; // e.g., "/contact"
+}
+
+export interface IProductVariant {
+	_id?: mongoose.Types.ObjectId;
+	name: string; // e.g., "Baby Loaf"
+	url: string; // e.g., "/produkter/produkt/baby-loaf"
+	icon: string; // Image URL for variant icon
+}
+
+export interface IAccordionSection {
+	_id?: mongoose.Types.ObjectId;
+	title: string; // e.g., "NUTRITION & ALLERGENS"
+	content: string; // Rich HTML content
+	isOpen?: boolean; // Default expanded?
+}
+
 /**
  * Product interface extending Mongoose Document
  */
@@ -72,6 +93,9 @@ export interface IProduct extends Document {
 	qa: IQnA[];
 	youtubeUrl?: string;
 	rubric?: string;
+	heroSettings?: IHeroSettings;
+	productVariants: IProductVariant[];
+	accordionSections: IAccordionSection[];
 	publishType: PublishType;
 	visibility: Visibility;
 	lastEditedBy?: mongoose.Types.ObjectId;
@@ -197,6 +221,70 @@ const SeoSchema = new Schema<ISeo>(
 	{ _id: false }
 );
 
+const HeroSettingsSchema = new Schema<IHeroSettings>(
+	{
+		themeColor: {
+			type: String,
+			default: "#6B7280", // Default gray
+		},
+		badge: {
+			type: String,
+			default: "",
+			trim: true,
+		},
+		ctaText: {
+			type: String,
+			default: "",
+			trim: true,
+		},
+		ctaUrl: {
+			type: String,
+			default: "",
+			trim: true,
+		},
+	},
+	{ _id: false }
+);
+
+const ProductVariantSchema = new Schema<IProductVariant>(
+	{
+		name: {
+			type: String,
+			required: [true, "Variant name is required"],
+			trim: true,
+		},
+		url: {
+			type: String,
+			required: [true, "Variant URL is required"],
+			trim: true,
+		},
+		icon: {
+			type: String,
+			required: [true, "Variant icon is required"],
+		},
+	},
+	{ _id: true }
+);
+
+const AccordionSectionSchema = new Schema<IAccordionSection>(
+	{
+		title: {
+			type: String,
+			required: [true, "Section title is required"],
+			trim: true,
+		},
+		content: {
+			type: String,
+			required: [true, "Section content is required"],
+		},
+		isOpen: {
+			type: Boolean,
+			default: false,
+		},
+	},
+	{ _id: true }
+);
+
 /**
  * Product Schema
  */
@@ -293,6 +381,18 @@ const ProductSchema = new Schema<IProduct>(
 		rubric: {
 			type: String,
 			default: "",
+		},
+		heroSettings: {
+			type: HeroSettingsSchema,
+			default: () => ({}),
+		},
+		productVariants: {
+			type: [ProductVariantSchema],
+			default: [],
+		},
+		accordionSections: {
+			type: [AccordionSectionSchema],
+			default: [],
 		},
 		publishType: {
 			type: String,

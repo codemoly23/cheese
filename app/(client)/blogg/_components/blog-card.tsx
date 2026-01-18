@@ -12,7 +12,22 @@ interface BlogCardProps {
 	article: Article;
 	index?: number;
 	basePath?: string;
+	locale?: "sv" | "en";
 }
+
+// Translations
+const translations = {
+	sv: {
+		readMore: "Läs mer",
+		minRead: "min läsning",
+		dateLocale: "sv-SE",
+	},
+	en: {
+		readMore: "Read more",
+		minRead: "min read",
+		dateLocale: "en-US",
+	},
+};
 
 /**
  * BlogCard Component
@@ -21,10 +36,12 @@ interface BlogCardProps {
  * Features hover animations and responsive design.
  * Supports custom basePath for different routes (e.g., /nyheter, /blogg)
  */
-export function BlogCard({ article, index = 0, basePath = "/blogg" }: BlogCardProps) {
+export function BlogCard({ article, index = 0, basePath = "/blogg", locale = "sv" }: BlogCardProps) {
+	const t = translations[locale];
+
 	// Format date
 	const publishedDate = new Date(article.publishedAt).toLocaleDateString(
-		"sv-SE",
+		t.dateLocale,
 		{
 			year: "numeric",
 			month: "long",
@@ -116,13 +133,13 @@ export function BlogCard({ article, index = 0, basePath = "/blogg" }: BlogCardPr
 							{/* Reading Time */}
 							<div className="flex items-center gap-2">
 								<Clock className="h-4 w-4" />
-								<span>{readingTime} min läsning</span>
+								<span>{readingTime} {t.minRead}</span>
 							</div>
 						</div>
 
 						{/* Read More Link */}
 						<div className="mt-4 flex items-center gap-2 text-primary font-semibold">
-							<span>Läs mer</span>
+							<span>{t.readMore}</span>
 							<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
 						</div>
 					</div>

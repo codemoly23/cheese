@@ -10,7 +10,20 @@ interface RelatedPostsProps {
 	articles: Article[];
 	currentArticleId: string;
 	basePath?: string;
+	locale?: "sv" | "en";
 }
+
+// Translations
+const translations = {
+	sv: {
+		badge: "Relaterade artiklar",
+		title: "Läs mer",
+	},
+	en: {
+		badge: "Related articles",
+		title: "Read more",
+	},
+};
 
 /**
  * RelatedPosts Component
@@ -22,7 +35,10 @@ export function RelatedPosts({
 	articles,
 	currentArticleId,
 	basePath = "/blogg",
+	locale = "sv",
 }: RelatedPostsProps) {
+	const t = translations[locale];
+
 	// Filter out current article and limit to 3
 	const relatedArticles = articles
 		.filter((article) => article.id !== currentArticleId)
@@ -49,14 +65,14 @@ export function RelatedPosts({
 						>
 							<Sparkles className="h-4 w-4 text-primary" />
 							<span className="text-sm font-semibold text-primary">
-								Relaterade artiklar
+								{t.badge}
 							</span>
 						</motion.div>
 						<motion.h2
 							variants={fadeUp}
 							className="text-3xl font-bold text-secondary md:text-4xl"
 						>
-							Läs mer
+							{t.title}
 						</motion.h2>
 					</div>
 
@@ -68,6 +84,7 @@ export function RelatedPosts({
 								article={article}
 								index={index}
 								basePath={basePath}
+								locale={locale}
 							/>
 						))}
 					</div>

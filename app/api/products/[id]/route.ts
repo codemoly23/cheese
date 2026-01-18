@@ -75,6 +75,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 		// Parse and validate request body
 		const body = await request.json();
 		const { shouldPublish, ...productData } = body;
+
 		const validationResult = updateProductSchema.safeParse(productData);
 
 		if (!validationResult.success) {

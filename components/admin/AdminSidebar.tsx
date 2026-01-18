@@ -33,6 +33,7 @@ import {
 	Award,
 	BookOpen,
 	Presentation,
+	Store,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
@@ -130,6 +131,11 @@ const navSections: NavSection[] = [
 				title: "Contact Page",
 				href: "/dashboard/webbplats/kontakt",
 				icon: Phone,
+			},
+			{
+				title: "Store",
+				href: "/dashboard/webbplats/butik",
+				icon: Store,
 			},
 		],
 	},

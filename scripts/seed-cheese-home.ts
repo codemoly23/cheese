@@ -499,111 +499,870 @@ const siteSettingsData = {
 	},
 };
 
-// Sample Products Data for Cheese Theme
+// Sample Products Data for Cheese Theme - with full details for product pages
 const productsData = [
 	{
 		title: "Premium Aged Cheddar",
-		slug: "premium-aged-cheddar",
+		slug: "aged-cheddar",
 		description: "Our signature aged cheddar, matured for 18 months to develop a rich, complex flavor with crystalline texture. Perfect for cheese boards and gourmet cooking.",
 		shortDescription: "18-month aged cheddar with rich, complex flavor",
+		productDescription: `<h2>A True Artisan Masterpiece</h2>
+<p>Our Premium Aged Cheddar is the crown jewel of Milatte Farm. Crafted using traditional methods passed down through three generations, this cheese represents the very best of artisan cheesemaking.</p>
+
+<h3>The Aging Process</h3>
+<p>Each wheel of our cheddar is aged for a minimum of 18 months in our temperature-controlled caves. During this time, the cheese develops its signature crystalline texture and complex flavor profile that has won numerous awards.</p>
+
+<h3>Tasting Notes</h3>
+<p>Expect rich, nutty undertones with hints of caramel and a pleasant sharpness that lingers on the palate. The texture is firm yet creamy, with those coveted calcium lactate crystals that indicate a well-aged cheese.</p>
+
+<h3>Perfect Pairings</h3>
+<ul>
+<li>Full-bodied red wines like Cabernet Sauvignon</li>
+<li>Craft ales and stouts</li>
+<li>Fresh apple slices and honey</li>
+<li>Artisan crackers and crusty bread</li>
+</ul>`,
+		overviewImage: "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=800&h=800&fit=crop",
+			"https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Rich flavor", "Perfect for cheese boards", "Aged 18 months"],
+		benefits: ["Rich, complex flavor", "Perfect for cheese boards", "Aged 18 months", "Award-winning quality", "100% natural ingredients"],
+		certifications: ["USDA Organic", "Non-GMO Verified", "Award Winner 2024"],
+		treatments: ["Cheese Board", "Cooking", "Snacking", "Wine Pairing"],
+		techSpecifications: [
+			{ title: "Aging Period", description: "18 months minimum" },
+			{ title: "Milk Type", description: "Grass-fed cow's milk" },
+			{ title: "Fat Content", description: "34%" },
+			{ title: "Weight", description: "Available in 200g, 500g, and 1kg" },
+			{ title: "Storage", description: "Refrigerate at 4-8°C" },
+			{ title: "Shelf Life", description: "6 months unopened" },
+		],
+		qa: [
+			{ question: "How long has this cheddar been aged?", answer: "Our Premium Aged Cheddar is aged for a minimum of 18 months in temperature-controlled caves to develop its signature complex flavor and crystalline texture." },
+			{ question: "Is this cheese suitable for vegetarians?", answer: "Yes, we use vegetable rennet in all our cheeses, making them suitable for vegetarians." },
+			{ question: "How should I store this cheese?", answer: "Store in the refrigerator at 4-8°C. For best flavor, remove from the fridge 30 minutes before serving." },
+			{ question: "Can I freeze this cheese?", answer: "While freezing is possible, we recommend consuming fresh for the best texture and flavor experience." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#8B4513", // Saddle brown - earthy cheese color
+			badge: "2024 WORLD CHEESE AWARDS",
+			ctaText: "WHERE TO BUY",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Baby Loaf",
+				url: "/produkter/produkt/aged-cheddar",
+				icon: "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Block",
+				url: "/produkter/produkt/gruyere-reserve",
+				icon: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Sliced",
+				url: "/produkter/produkt/creamy-brie",
+				icon: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 slice (28g)</strong><br/>
+<strong>Servings Per Container 8</strong><br/>
+<strong>Calories 110</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>9g</td><td>12</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>5g</td><td>25</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>30mg</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>180mg</td><td>8</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>1g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>7g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>200mg</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>.2mg</td><td>2</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>25mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Pasteurized milk, salt, cheese cultures, enzymes (vegetable rennet).</p>
+<p><strong>No artificial colors, flavors, or preservatives.</strong></p>`,
+				isOpen: false,
+			},
+			{
+				title: "STORAGE & HANDLING",
+				content: `<p>Keep refrigerated at 4-8°C (39-46°F).</p>
+<p>For best flavor, remove from refrigerator 30 minutes before serving.</p>
+<p>Once opened, wrap tightly in wax paper or cheese paper and consume within 2-3 weeks.</p>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Creamy French Brie",
-		slug: "creamy-french-brie",
+		slug: "creamy-brie",
 		description: "A luxuriously creamy brie with a bloomy white rind and buttery, earthy flavor that melts in your mouth. Ideal for entertaining.",
 		shortDescription: "Luxuriously creamy brie with bloomy white rind",
+		productDescription: `<h2>French Elegance, Farm Fresh</h2>
+<p>Our Creamy French Brie is a testament to the art of soft-ripened cheesemaking. With its velvety interior and distinctive bloomy white rind, this brie is perfect for those who appreciate refined flavors.</p>
+
+<h3>Craftsmanship</h3>
+<p>Made using traditional French methods, our brie undergoes careful aging that allows the characteristic white mold rind to develop, creating that perfect balance of creamy interior and earthy exterior.</p>
+
+<h3>Serving Suggestions</h3>
+<p>Best served at room temperature. Let it sit out for 30-45 minutes before serving to allow the interior to reach its optimal creamy consistency.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1452195100486-9cc805987862?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1559561853-08451507cbe7?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Creamy texture", "Bloomy rind", "Perfect for entertaining"],
+		benefits: ["Creamy, melt-in-mouth texture", "Bloomy white rind", "Perfect for entertaining", "French-style craftsmanship"],
+		certifications: ["Artisan Certified", "Farm Fresh"],
+		treatments: ["Appetizer", "Wine Pairing", "Cheese Board"],
+		techSpecifications: [
+			{ title: "Aging Period", description: "4-6 weeks" },
+			{ title: "Milk Type", description: "Pasteurized cow's milk" },
+			{ title: "Fat Content", description: "60%" },
+			{ title: "Weight", description: "200g wheel" },
+		],
+		qa: [
+			{ question: "How do I know when brie is perfectly ripe?", answer: "A ripe brie will feel soft to the touch and have a slight give when pressed gently. The interior should be creamy and oozy." },
+			{ question: "Can I eat the rind?", answer: "Absolutely! The white bloomy rind is completely edible and adds a lovely earthy flavor to complement the creamy interior." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#5D4E37", // Dark brown - readable with white text
+			badge: "ARTISAN CRAFTED",
+			ctaText: "FIND IN STORE",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Wheel",
+				url: "/produkter/produkt/creamy-brie",
+				icon: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Wedge",
+				url: "/produkter/produkt/gorgonzola-blue",
+				icon: "https://images.unsplash.com/photo-1626957341926-98752fc2ba90?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 slice (28g)</strong><br/>
+<strong>Servings Per Container 7</strong><br/>
+<strong>Calories 120</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>10g</td><td>13</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>6g</td><td>30</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>30mg</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>200mg</td><td>9</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>1g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>6g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>180mg</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>.2mg</td><td>2</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>30mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Pasteurized cow's milk, cream, salt, cheese cultures, enzymes.</p>
+<p><strong>Rind is edible and made from Penicillium candidum.</strong></p>`,
+				isOpen: false,
+			},
+			{
+				title: "SERVING TIPS",
+				content: `<p>Remove from refrigerator 30-45 minutes before serving for optimal creaminess.</p>
+<p>Pairs beautifully with champagne, light white wines, fresh fruit, and crusty bread.</p>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Fresh Mozzarella",
 		slug: "fresh-mozzarella",
 		description: "Hand-pulled mozzarella made fresh daily. Perfect for salads, pizzas, or simply enjoyed with olive oil and fresh basil.",
 		shortDescription: "Hand-pulled fresh mozzarella, made daily",
+		productDescription: `<h2>Made Fresh Every Morning</h2>
+<p>Our Fresh Mozzarella is hand-pulled daily using traditional Italian techniques. The result is a soft, milky cheese with a delicate, sweet flavor that's simply incomparable to mass-produced alternatives.</p>
+
+<h3>The Art of Hand-Pulling</h3>
+<p>Each ball of mozzarella is stretched and shaped by hand, creating that signature smooth, elastic texture. This artisanal process ensures every piece is crafted with care and attention to detail.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1571024057537-71b8c79df19e?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1571024057537-71b8c79df19e?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1634487359989-3e90c9432133?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Made fresh daily", "Hand-pulled", "Great for pizza"],
+		benefits: ["Made fresh daily", "Hand-pulled", "Perfect for pizza & salads", "Authentic Italian style"],
+		certifications: ["Fresh Daily", "Handcrafted"],
+		treatments: ["Pizza", "Caprese Salad", "Pasta"],
+		techSpecifications: [
+			{ title: "Freshness", description: "Made daily" },
+			{ title: "Milk Type", description: "Fresh cow's milk" },
+			{ title: "Texture", description: "Soft, elastic" },
+			{ title: "Shelf Life", description: "5-7 days refrigerated" },
+		],
+		qa: [
+			{ question: "How fresh is your mozzarella?", answer: "Our mozzarella is made fresh every morning and shipped the same day to ensure maximum freshness." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#2E5944", // Forest green - fresh cheese color
+			badge: "MADE FRESH DAILY",
+			ctaText: "ORDER NOW",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Ball",
+				url: "/produkter/produkt/fresh-mozzarella",
+				icon: "https://images.unsplash.com/photo-1571024057537-71b8c79df19e?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Burrata",
+				url: "/produkter/produkt/creamy-brie",
+				icon: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Pearls",
+				url: "/produkter/produkt/greek-style-yogurt",
+				icon: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 oz (28g)</strong><br/>
+<strong>Servings Per Container 8</strong><br/>
+<strong>Calories 70</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>5g</td><td>6</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>3g</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>20mg</td><td>7</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>90mg</td><td>4</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>1g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>5g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>150mg</td><td>12</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>0mg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>20mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Fresh pasteurized cow's milk, salt, citric acid, enzymes.</p>
+<p><strong>Made without artificial preservatives.</strong></p>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Farmhouse Butter",
 		slug: "farmhouse-butter",
 		description: "Rich, golden butter churned from fresh cream. A taste of pure countryside in every spread. Perfect for baking and cooking.",
 		shortDescription: "Rich golden butter from fresh cream",
+		productDescription: `<h2>Pure, Golden Goodness</h2>
+<p>Our Farmhouse Butter is churned in small batches from the freshest cream, resulting in a rich, golden butter with an incomparable taste. This is butter the way it was meant to be.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Fresh cream", "Rich flavor", "Great for baking"],
+		benefits: ["Fresh cream", "Rich flavor", "Great for baking", "Small batch churned"],
+		certifications: ["Farm Fresh", "No Additives"],
+		treatments: ["Baking", "Cooking", "Spreading"],
+		techSpecifications: [
+			{ title: "Fat Content", description: "82%" },
+			{ title: "Cream Source", description: "Grass-fed cows" },
+			{ title: "Salt", description: "Lightly salted" },
+		],
+		qa: [
+			{ question: "Is this butter salted?", answer: "Yes, our farmhouse butter is lightly salted to enhance the natural cream flavor." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#B8860B", // Dark goldenrod - butter color
+			badge: "SMALL BATCH",
+			ctaText: "BUY NOW",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Salted",
+				url: "/produkter/produkt/farmhouse-butter",
+				icon: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Unsalted",
+				url: "/produkter/produkt/organic-whole-milk",
+				icon: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 tbsp (14g)</strong><br/>
+<strong>Servings Per Container 32</strong><br/>
+<strong>Calories 100</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>11g</td><td>14</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>7g</td><td>35</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>30mg</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>90mg</td><td>4</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>0g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>0mg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>0mg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>5mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Cream (from grass-fed cows), salt.</p>
+<p><strong>No artificial colors or preservatives.</strong></p>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
-		title: "Gorgonzola Blue",
+		title: "Gorgonzola Blue Cheese",
 		slug: "gorgonzola-blue",
 		description: "Bold and creamy Italian blue cheese with distinctive blue-green veins. Aged to perfection for a tangy, complex flavor.",
 		shortDescription: "Italian blue cheese with bold, tangy flavor",
+		productDescription: `<h2>Bold Italian Character</h2>
+<p>Our Gorgonzola is a bold, creamy blue cheese that showcases the best of Italian cheesemaking traditions. The distinctive blue-green veins running through the creamy paste create a striking appearance and complex flavor.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1626957341926-98752fc2ba90?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1626957341926-98752fc2ba90?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1559561853-08451507cbe7?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Bold flavor", "Creamy texture", "Aged to perfection"],
+		benefits: ["Bold flavor", "Creamy texture", "Aged to perfection", "Italian style"],
+		certifications: ["Artisan Crafted"],
+		treatments: ["Salads", "Pasta", "Wine Pairing", "Cheese Board"],
+		techSpecifications: [
+			{ title: "Aging Period", description: "3-4 months" },
+			{ title: "Type", description: "Dolce (sweet/creamy)" },
+			{ title: "Fat Content", description: "48%" },
+		],
+		qa: [
+			{ question: "Is blue cheese safe to eat?", answer: "Yes! The blue mold (Penicillium roqueforti) used in blue cheeses is completely safe and gives the cheese its distinctive flavor." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#1e3a5f", // Deep blue - blue cheese color
+			badge: "CAVE AGED",
+			ctaText: "ORDER NOW",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Dolce",
+				url: "/produkter/produkt/gorgonzola-blue",
+				icon: "https://images.unsplash.com/photo-1626957341926-98752fc2ba90?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Piccante",
+				url: "/produkter/produkt/aged-cheddar",
+				icon: "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Crumbles",
+				url: "/produkter/produkt/gruyere-reserve",
+				icon: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 oz (28g)</strong><br/>
+<strong>Servings Per Container 6</strong><br/>
+<strong>Calories 100</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>8g</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>5g</td><td>25</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>25mg</td><td>8</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>350mg</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>1g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>6g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>150mg</td><td>12</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>.1mg</td><td>1</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>25mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk. Contains Penicillium roqueforti cultures.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Pasteurized cow's milk, salt, cheese cultures, Penicillium roqueforti, enzymes.</p>
+<p><strong>The blue veining is created by Penicillium roqueforti mold.</strong></p>`,
+				isOpen: false,
+			},
+			{
+				title: "PAIRING SUGGESTIONS",
+				content: `<p>Pairs excellently with:</p>
+<ul>
+<li>Sweet wines like Port or Sauternes</li>
+<li>Fresh pears and walnuts</li>
+<li>Honey drizzle</li>
+<li>Steak and gourmet burgers</li>
+</ul>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Gruyère Reserve",
 		slug: "gruyere-reserve",
 		description: "Swiss-style Gruyère aged for 12 months. Nutty, slightly sweet flavor perfect for fondue and gratins.",
 		shortDescription: "12-month aged Swiss-style Gruyère",
+		productDescription: `<h2>Swiss Tradition, American Craftsmanship</h2>
+<p>Our Gruyère Reserve combines traditional Swiss cheesemaking techniques with the finest American dairy. Aged for 12 months, it develops the nutty, slightly sweet flavor that makes Gruyère beloved worldwide.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Nutty flavor", "Great for fondue", "12-month aged"],
+		benefits: ["Nutty flavor", "Great for fondue", "12-month aged", "Excellent melting"],
+		certifications: ["Cave Aged", "Premium Reserve"],
+		treatments: ["Fondue", "Gratins", "French Onion Soup", "Croque Monsieur"],
+		techSpecifications: [
+			{ title: "Aging Period", description: "12 months" },
+			{ title: "Milk Type", description: "Raw cow's milk" },
+			{ title: "Fat Content", description: "45%" },
+		],
+		qa: [
+			{ question: "What makes Gruyère good for melting?", answer: "Gruyère has an ideal fat-to-moisture ratio that allows it to melt smoothly without becoming stringy or oily." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#D2691E", // Chocolate brown - aged cheese color
+			badge: "PREMIUM RESERVE",
+			ctaText: "FIND IN STORE",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Reserve",
+				url: "/produkter/produkt/gruyere-reserve",
+				icon: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Classic",
+				url: "/produkter/produkt/aged-cheddar",
+				icon: "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Shredded",
+				url: "/produkter/produkt/fresh-mozzarella",
+				icon: "https://images.unsplash.com/photo-1571024057537-71b8c79df19e?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 oz (28g)</strong><br/>
+<strong>Servings Per Container 8</strong><br/>
+<strong>Calories 117</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>9g</td><td>12</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>5g</td><td>25</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>31mg</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>95mg</td><td>4</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>8g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>287mg</td><td>22</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>.1mg</td><td>1</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>23mg</td><td>0</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk. Made from raw milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Raw cow's milk, salt, cheese cultures, enzymes.</p>
+<p><strong>Cave aged for 12 months for optimal flavor development.</strong></p>`,
+				isOpen: false,
+			},
+			{
+				title: "COOKING TIPS",
+				content: `<p>Perfect for:</p>
+<ul>
+<li>Classic Swiss fondue</li>
+<li>French onion soup</li>
+<li>Croque Monsieur sandwiches</li>
+<li>Gratins and au gratin potatoes</li>
+</ul>
+<p>Melts smoothly without becoming stringy.</p>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Organic Whole Milk",
 		slug: "organic-whole-milk",
 		description: "Fresh organic whole milk from our grass-fed cows. Rich in nutrients and naturally creamy.",
 		shortDescription: "Fresh organic milk from grass-fed cows",
+		productDescription: `<h2>Pure, Natural Goodness</h2>
+<p>Our Organic Whole Milk comes from happy, grass-fed cows that roam freely on our pastures. The result is milk that's richer in nutrients and naturally creamier than conventional alternatives.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1550583724-b2692b85b150?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["Organic", "Grass-fed", "Rich in nutrients"],
+		benefits: ["Organic certified", "Grass-fed", "Rich in nutrients", "No hormones or antibiotics"],
+		certifications: ["USDA Organic", "Grass-Fed Certified"],
+		treatments: ["Drinking", "Cooking", "Baking", "Coffee"],
+		techSpecifications: [
+			{ title: "Fat Content", description: "3.5%" },
+			{ title: "Source", description: "100% grass-fed cows" },
+			{ title: "Pasteurization", description: "Gently pasteurized" },
+		],
+		qa: [
+			{ question: "Why is grass-fed milk better?", answer: "Grass-fed milk contains higher levels of omega-3 fatty acids and conjugated linoleic acid (CLA), plus more vitamins A and E." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#1B4D3E", // Dark green - fresh milk color
+			badge: "USDA ORGANIC",
+			ctaText: "SUBSCRIBE & SAVE",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Whole",
+				url: "/produkter/produkt/organic-whole-milk",
+				icon: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=100&h=100&fit=crop",
+			},
+			{
+				name: "2%",
+				url: "/produkter/produkt/greek-style-yogurt",
+				icon: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Skim",
+				url: "/produkter/produkt/farmhouse-butter",
+				icon: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 cup (240ml)</strong><br/>
+<strong>Servings Per Container 4</strong><br/>
+<strong>Calories 150</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>8g</td><td>10</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>5g</td><td>25</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>35mg</td><td>12</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>105mg</td><td>5</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>12g</td><td>4</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>12g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>8g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>3mcg</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>300mg</td><td>23</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>0mg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>380mg</td><td>8</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin A</td><td>112mcg</td><td>12</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Organic whole milk, Vitamin D3.</p>
+<p><strong>No added hormones (rBST/rBGH). No antibiotics.</strong></p>`,
+				isOpen: false,
+			},
+			{
+				title: "ABOUT OUR COWS",
+				content: `<p>Our cows graze on organic pastures and are treated with care and respect. They receive:</p>
+<ul>
+<li>100% organic feed</li>
+<li>Free-range access to pastures</li>
+<li>No hormones or antibiotics</li>
+<li>Regular veterinary care</li>
+</ul>`,
+				isOpen: false,
+			},
+		],
 	},
 	{
 		title: "Greek Style Yogurt",
 		slug: "greek-style-yogurt",
 		description: "Thick, creamy Greek-style yogurt made from our farm-fresh milk. High in protein and probiotics.",
 		shortDescription: "Thick creamy Greek yogurt, high in protein",
+		productDescription: `<h2>Protein-Packed Perfection</h2>
+<p>Our Greek Style Yogurt is strained the traditional way to create an exceptionally thick, creamy texture. Packed with protein and live active cultures, it's as nutritious as it is delicious.</p>`,
+		overviewImage: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1200&h=800&fit=crop",
 		productImages: [
 			"https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&h=800&fit=crop",
 			"https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=800&h=800&fit=crop",
 		],
 		publishType: "publish",
 		visibility: "public",
-		benefits: ["High protein", "Probiotics", "Thick and creamy"],
+		benefits: ["High protein", "Live probiotics", "Thick and creamy", "No artificial ingredients"],
+		certifications: ["Probiotic Certified", "Non-GMO"],
+		treatments: ["Breakfast", "Smoothies", "Parfaits", "Cooking"],
+		techSpecifications: [
+			{ title: "Protein", description: "17g per serving" },
+			{ title: "Probiotics", description: "Live active cultures" },
+			{ title: "Fat Content", description: "0%, 2%, or 5% options" },
+		],
+		qa: [
+			{ question: "What probiotics are in this yogurt?", answer: "Our yogurt contains Lactobacillus bulgaricus and Streptococcus thermophilus, plus added Lactobacillus acidophilus and Bifidus for extra gut health benefits." },
+		],
+		// New Tillamook-style layout fields
+		heroSettings: {
+			themeColor: "#4B0082", // Indigo - yogurt color
+			badge: "HIGH PROTEIN",
+			ctaText: "ORDER NOW",
+			ctaUrl: "/contact",
+		},
+		productVariants: [
+			{
+				name: "Plain",
+				url: "/produkter/produkt/greek-style-yogurt",
+				icon: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Honey",
+				url: "/produkter/produkt/organic-whole-milk",
+				icon: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Berry",
+				url: "/produkter/produkt/fresh-mozzarella",
+				icon: "https://images.unsplash.com/photo-1571024057537-71b8c79df19e?w=100&h=100&fit=crop",
+			},
+			{
+				name: "Vanilla",
+				url: "/produkter/produkt/creamy-brie",
+				icon: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=100&h=100&fit=crop",
+			},
+		],
+		accordionSections: [
+			{
+				title: "NUTRITION & ALLERGENS",
+				content: `<h2 style="font-family: serif; font-size: 2rem; margin-bottom: 1rem;">Nutrition Facts</h2>
+<p><strong>Serving Size 1 container (170g)</strong><br/>
+<strong>Servings Per Container 1</strong><br/>
+<strong>Calories 100</strong></p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+<thead>
+<tr style="border-bottom: 1px solid #ccc;">
+<th style="text-align: left; padding: 0.5rem 0;"></th>
+<th style="text-align: left; padding: 0.5rem 0;">Amount</th>
+<th style="text-align: left; padding: 0.5rem 0;">%DV*</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Saturated Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Trans Fat</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Cholesterol</td><td>10mg</td><td>3</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Sodium</td><td>65mg</td><td>3</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Total Carbohydrates</td><td>6g</td><td>2</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Dietary Fiber</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 1rem;">Total Sugars</td><td>4g</td><td></td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0; padding-left: 2rem;">Added Sugars</td><td>0g</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Protein</td><td>17g</td><td>34</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Vitamin D</td><td>0mcg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Calcium</td><td>200mg</td><td>15</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Iron</td><td>0mg</td><td>0</td></tr>
+<tr style="border-bottom: 1px solid #eee;"><td style="padding: 0.5rem 0;">Potassium</td><td>240mg</td><td>5</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 0.875rem; color: #666;">* Percent Daily Values (DV) are based on 2,000 calorie diet.</p>
+
+<h3 style="margin-top: 1.5rem; font-weight: bold;">ALLERGENS</h3>
+<p>Contains: Milk.</p>`,
+				isOpen: true,
+			},
+			{
+				title: "INGREDIENTS",
+				content: `<p>Cultured pasteurized nonfat milk.</p>
+<p><strong>Contains live and active cultures:</strong> S. Thermophilus, L. Bulgaricus, L. Acidophilus, Bifidus.</p>`,
+				isOpen: false,
+			},
+			{
+				title: "PROBIOTIC BENEFITS",
+				content: `<p>Our Greek yogurt contains live active cultures that support:</p>
+<ul>
+<li>Digestive health</li>
+<li>Immune system function</li>
+<li>Nutrient absorption</li>
+<li>Overall gut health</li>
+</ul>`,
+				isOpen: false,
+			},
+		],
 	},
 ];
 

@@ -9,90 +9,56 @@ export interface NavItem {
 /**
  * Main Navigation Configuration
  *
- * Updated per feedback:
- * - All items in UPPERCASE
- * - Produkter renamed to UTRUSTNING
- * - Added KATEGORI
- * - Team page under Om Oss
+ * Navigation Order: Homepage | About Us | Quality | Products | Butik i Boxholm | Become Our Reseller | Contact Us | Blog
  *
- * Navigation Order: NYHETER | UTRUSTNING | KATEGORI | STARTA EGET | UTBILDNINGAR | OM OSS | KONTAKT
- *
- * Old WordPress URLs are redirected in next.config.ts
+ * Note: Products links to external URL http://localhost:3000/produkter
  */
 export const mainNavNew: NavItem[] = [
-	// NYHETER - News/Blog section
+	// Home
 	{
-		title: "NYHETER",
-		href: "/nyheter",
+		title: "Home",
+		href: "/",
 	},
 
-	// UTRUSTNING (formerly Produkter) - Equipment/Products
+	// About Us
 	{
-		title: "UTRUSTNING",
-		href: "/produkter",
-		isDynamic: true, // This item loads categories/products from database
+		title: "About Us",
+		href: "/about-us",
 	},
 
-	// KATEGORI - Categories
+	// Quality
 	{
-		title: "KATEGORI",
-		href: "/kategori",
-		isDynamic: true, // This item loads categories from database
+		title: "Quality",
+		href: "/quality",
 	},
 
-	// STARTA EGET - Start Your Own Business
+	// Products - links to external URL
 	{
-		title: "STARTA EGET",
-		href: "/starta-eget",
-		items: [
-			{
-				title: "Varför välja Synos Medical?",
-				href: "/starta-eget/varfor-valja-synos",
-			},
-			{
-				title: "Köpguide",
-				href: "/starta-eget/kopguide",
-			},
-			{
-				title: "Miniutbildning",
-				href: "/starta-eget/miniutbildning",
-			},
-		],
+		title: "Products",
+		href: "http://localhost:3000/produkter",
 	},
 
-	// UTBILDNINGAR - Training/Education
+	// Butik i Boxholm
 	{
-		title: "UTBILDNINGAR",
-		href: "/utbildningar",
+		title: "Butik i Boxholm",
+		href: "/butik-i-boxholm",
 	},
 
-	// OM OSS - About Us (with Team page as submenu)
+	// Become Our Reseller
 	{
-		title: "OM OSS",
-		href: "/om-oss",
-		items: [
-			{
-				title: "Vårt Team",
-				href: "/om-oss/team",
-			},
-			{
-				title: "FAQ",
-				href: "/faq",
-			},
-			{
-				title: "Lediga tjänster",
-				href: "/om-oss/lediga-tjanster",
-			},
-			{
-				title: "Juridisk information",
-				href: "/om-oss/juridisk-information",
-			},
-		],
+		title: "Become Our Reseller",
+		href: "/become-our-reseller",
 	},
 
-	// KONTAKT - Contact
+	// Contact Us
 	{
-		title: "KONTAKT",
-		href: "/kontakt",
+		title: "Contact Us",
+		href: "/contact-us",
+	},
+
+	// Blog
+	{
+		title: "Blog",
+		href: "/blog",
 	},
 ];

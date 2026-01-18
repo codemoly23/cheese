@@ -344,10 +344,17 @@ const TextEditor: React.FC<TextEditorProps> = ({
 
 export default TextEditor;
 
-export const PreviewEditor = ({ children }: { children: string }) => {
+interface PreviewEditorProps {
+	children?: string;
+	content?: string;
+	className?: string;
+}
+
+export const PreviewEditor = ({ children, content, className }: PreviewEditorProps) => {
+	const htmlContent = content || children || "";
 	return (
-		<div className="sun-editor-preview sun-editor-editable bg-transparent!">
-			<div dangerouslySetInnerHTML={{ __html: children }} />
+		<div className={`sun-editor-preview sun-editor-editable bg-transparent! ${className || ""}`}>
+			<div dangerouslySetInnerHTML={{ __html: htmlContent }} />
 		</div>
 	);
 };

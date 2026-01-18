@@ -113,6 +113,34 @@ const seoSchema = z.object({
 });
 
 /**
+ * Hero Settings Schema
+ */
+const heroSettingsSchema = z.object({
+	themeColor: z.string().max(20).optional(),
+	badge: z.string().max(100).optional(),
+	ctaText: z.string().max(50).optional(),
+	ctaUrl: optionalUrlSchema,
+});
+
+/**
+ * Product Variant Schema
+ */
+const productVariantSchema = z.object({
+	name: z.string().min(1, "Variant name is required").max(100),
+	url: z.string().min(1, "Variant URL is required"),
+	icon: z.string().min(1, "Variant icon is required"),
+});
+
+/**
+ * Accordion Section Schema
+ */
+const accordionSectionSchema = z.object({
+	title: z.string().min(1, "Section title is required").max(200),
+	content: z.string().min(1, "Section content is required"),
+	isOpen: z.boolean().optional(),
+});
+
+/**
  * Base Product Schema (for drafts - minimal validation)
  */
 export const createProductDraftSchema = z.object({
@@ -137,6 +165,9 @@ export const createProductDraftSchema = z.object({
 	qa: z.array(qnaSchema).optional().default([]),
 	youtubeUrl: optionalUrlSchema,
 	rubric: z.string().max(1000).optional(),
+	heroSettings: heroSettingsSchema.optional(),
+	productVariants: z.array(productVariantSchema).optional().default([]),
+	accordionSections: z.array(accordionSectionSchema).optional().default([]),
 	publishType: z.enum(["publish", "draft", "pending", "private"]).default("draft"),
 	visibility: z.enum(["public", "hidden"]).default("public"),
 });
@@ -166,6 +197,9 @@ export const updateProductSchema = z.object({
 	qa: z.array(qnaSchema).optional(),
 	youtubeUrl: optionalUrlSchema,
 	rubric: z.string().max(1000).optional(),
+	heroSettings: heroSettingsSchema.optional(),
+	productVariants: z.array(productVariantSchema).optional(),
+	accordionSections: z.array(accordionSectionSchema).optional(),
 	publishType: z.enum(["publish", "draft", "pending", "private"]).optional(),
 	visibility: z.enum(["public", "hidden"]).optional(),
 });

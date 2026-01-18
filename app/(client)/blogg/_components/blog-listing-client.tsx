@@ -14,7 +14,30 @@ interface BlogListingClientProps {
 	recentArticles?: Article[];
 	basePath?: string; // e.g., "/nyheter" or "/blogg"
 	pageTitle?: string; // e.g., "Nyheter" or "Blogg"
+	locale?: "sv" | "en";
 }
+
+// Translations
+const translations = {
+	sv: {
+		showing: "Visar",
+		of: "av",
+		articles: "artiklar",
+		inCategory: "i kategorin",
+		for: "för",
+		noArticlesFound: "Inga artiklar hittades.",
+		noArticlesHint: "Prova att ändra dina sökkriterier eller filtrera efter en annan kategori.",
+	},
+	en: {
+		showing: "Showing",
+		of: "of",
+		articles: "articles",
+		inCategory: "in category",
+		for: "for",
+		noArticlesFound: "No articles found.",
+		noArticlesHint: "Try changing your search criteria or filter by a different category.",
+	},
+};
 
 /**
  * BlogListingClient Component
@@ -28,11 +51,13 @@ export function BlogListingClient({
 	recentArticles,
 	basePath = "/blogg",
 	pageTitle = "Blogg",
+	locale = "sv",
 }: BlogListingClientProps) {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(
 		null
 	);
+	const t = translations[locale];
 
 	// Filter articles based on search and category
 	const filteredArticles = useMemo(() => {
@@ -65,7 +90,7 @@ export function BlogListingClient({
 
 	return (
 		<>
-			<BlogHero pageTitle={pageTitle} />
+			<BlogHero pageTitle={pageTitle} locale={locale} />
 
 			<section className="section-padding bg-slate-50">
 				<div className="_container">
@@ -74,11 +99,11 @@ export function BlogListingClient({
 						<div>
 							{/* Results Count */}
 							<div className="mb-6 text-sm text-muted-foreground">
-								Visar {filteredArticles.length} av {articles.length}{" "}
-								artiklar
+								{t.showing} {filteredArticles.length} {t.of} {articles.length}{" "}
+								{t.articles}
 								{selectedCategory &&
-									` i kategorin "${selectedCategory}"`}
-								{searchQuery && ` för "${searchQuery}"`}
+									` ${t.inCategory} "${selectedCategory}"`}
+								{searchQuery && ` ${t.for} "${searchQuery}"`}
 							</div>
 
 							{/* Articles Grid */}
@@ -95,17 +120,17 @@ export function BlogListingClient({
 											article={article}
 											index={index}
 											basePath={basePath}
+											locale={locale}
 										/>
 									))}
 								</motion.div>
 							) : (
 								<div className="rounded-2xl border border-border bg-white p-12 text-center shadow-sm">
 									<p className="text-lg text-muted-foreground">
-										Inga artiklar hittades.
+										{t.noArticlesFound}
 									</p>
 									<p className="mt-2 text-sm text-muted-foreground">
-										Prova att ändra dina sökkriterier eller filtrera
-										efter en annan kategori.
+										{t.noArticlesHint}
 									</p>
 								</div>
 							)}
@@ -119,6 +144,7 @@ export function BlogListingClient({
 							onCategoryFilter={setSelectedCategory}
 							selectedCategory={selectedCategory}
 							basePath={basePath}
+							locale={locale}
 						/>
 					</div>
 				</div>

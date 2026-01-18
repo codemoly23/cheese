@@ -352,7 +352,7 @@ export function normalizeCategories(
 /**
  * Tab definitions for the product form
  */
-type TabId = "basic" | "content" | "media" | "specs" | "qna" | "seo";
+type TabId = "basic" | "content" | "media" | "specs" | "qna" | "appearance" | "seo";
 
 const TAB_CONFIG: Record<TabId, { label: string; fields: string[] }> = {
 	basic: {
@@ -397,6 +397,10 @@ const TAB_CONFIG: Record<TabId, { label: string; fields: string[] }> = {
 		label: "Q&A",
 		fields: ["qa"],
 	},
+	appearance: {
+		label: "Appearance",
+		fields: ["heroSettings", "productVariants", "accordionSections"],
+	},
 	seo: {
 		label: "SEO",
 		fields: ["seo"],
@@ -437,6 +441,13 @@ const FIELD_LABELS: Record<string, string> = {
 	"seo.noindex": "No Index",
 	publishType: "Publish Type",
 	visibility: "Visibility",
+	heroSettings: "Hero Settings",
+	"heroSettings.themeColor": "Theme Color",
+	"heroSettings.badge": "Badge Text",
+	"heroSettings.ctaText": "CTA Button Text",
+	"heroSettings.ctaUrl": "CTA Button URL",
+	productVariants: "Product Variants",
+	accordionSections: "Accordion Sections",
 };
 
 /**
@@ -770,6 +781,24 @@ export function ProductForm({
 				})) || [],
 			youtubeUrl: product?.youtubeUrl || "",
 			rubric: product?.rubric || "",
+			heroSettings: {
+				themeColor: product?.heroSettings?.themeColor || "#6B7280",
+				badge: product?.heroSettings?.badge || "",
+				ctaText: product?.heroSettings?.ctaText || "",
+				ctaUrl: product?.heroSettings?.ctaUrl || "",
+			},
+			productVariants:
+				product?.productVariants?.map((v) => ({
+					name: v.name,
+					url: v.url,
+					icon: v.icon,
+				})) || [],
+			accordionSections:
+				product?.accordionSections?.map((s) => ({
+					title: s.title,
+					content: s.content,
+					isOpen: s.isOpen || false,
+				})) || [],
 			publishType: product?.publishType || "draft",
 			visibility: product?.visibility || "public",
 		},
@@ -816,6 +845,24 @@ export function ProductForm({
 	} = useFieldArray({
 		control,
 		name: "benefits" as never,
+	});
+
+	const {
+		fields: variantFields,
+		append: appendVariant,
+		remove: removeVariant,
+	} = useFieldArray({
+		control,
+		name: "productVariants",
+	});
+
+	const {
+		fields: accordionFields,
+		append: appendAccordion,
+		remove: removeAccordion,
+	} = useFieldArray({
+		control,
+		name: "accordionSections",
 	});
 
 	const title = watch("title");
@@ -1095,6 +1142,14 @@ export function ProductForm({
 							{tabErrorCounts.qna > 0 && (
 								<span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-medium text-white">
 									{tabErrorCounts.qna}
+								</span>
+							)}
+						</TabsTrigger>
+						<TabsTrigger value="appearance" className="relative">
+							Appearance
+							{tabErrorCounts.appearance > 0 && (
+								<span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-medium text-white">
+									{tabErrorCounts.appearance}
 								</span>
 							)}
 						</TabsTrigger>
@@ -1797,6 +1852,256 @@ export function ProductForm({
 								</Button>
 							</CardContent>
 						</Card>
+					</TabsContent>
+
+					{/* Appearance Tab */}
+					<TabsContent value="appearance">
+						<div className="space-y-6">
+							{/* Hero Settings Card */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Hero Section Settings</CardTitle>
+									<CardDescription>
+										Configure the product hero section appearance
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-6">
+									{/* Theme Color */}
+									<div className="space-y-2">
+										<Label htmlFor="heroSettings.themeColor">
+											Theme Color
+										</Label>
+										<div className="flex items-center gap-3">
+											<input
+												type="color"
+												id="heroSettings.themeColor"
+												value={watch("heroSettings.themeColor") || "#6B7280"}
+												onChange={(e) =>
+													setValue("heroSettings.themeColor", e.target.value, {
+														shouldDirty: true,
+													})
+												}
+												disabled={isLoading}
+												className="h-10 w-20 cursor-pointer rounded border"
+											/>
+											<Input
+												{...register("heroSettings.themeColor")}
+												placeholder="#6B7280"
+												disabled={isLoading}
+												className="flex-1 max-w-xs"
+											/>
+										</div>
+										<p className="text-xs text-muted-foreground">
+											Background color for the hero section
+										</p>
+									</div>
+
+									{/* Badge */}
+									<div className="space-y-2">
+										<Label htmlFor="heroSettings.badge">Badge Text</Label>
+										<Input
+											id="heroSettings.badge"
+											{...register("heroSettings.badge")}
+											placeholder="e.g., 2025 WORLD CHEESE AWARDS"
+											disabled={isLoading}
+										/>
+										<p className="text-xs text-muted-foreground">
+											Award or promotional badge shown above the title
+										</p>
+									</div>
+
+									{/* CTA Button */}
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+										<div className="space-y-2">
+											<Label htmlFor="heroSettings.ctaText">
+												CTA Button Text
+											</Label>
+											<Input
+												id="heroSettings.ctaText"
+												{...register("heroSettings.ctaText")}
+												placeholder="e.g., WHERE TO BUY"
+												disabled={isLoading}
+											/>
+										</div>
+										<div className="space-y-2">
+											<Label htmlFor="heroSettings.ctaUrl">
+												CTA Button URL
+											</Label>
+											<Input
+												id="heroSettings.ctaUrl"
+												{...register("heroSettings.ctaUrl")}
+												placeholder="e.g., /contact-us"
+												disabled={isLoading}
+											/>
+										</div>
+									</div>
+								</CardContent>
+							</Card>
+
+							{/* Product Variants Card */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Product Variants</CardTitle>
+									<CardDescription>
+										Link to related product variants (e.g., Baby Loaf, Block, Sliced)
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									{variantFields.map((field, index) => (
+										<div
+											key={field.id}
+											className="p-4 border rounded-md space-y-3"
+										>
+											<div className="flex justify-between items-start">
+												<span className="text-sm font-medium">
+													Variant #{index + 1}
+												</span>
+												<Button
+													type="button"
+													variant="ghost"
+													size="icon"
+													onClick={() => removeVariant(index)}
+													disabled={isLoading}
+													className="text-red-500 h-8 w-8"
+												>
+													<Trash2 className="h-4 w-4" />
+												</Button>
+											</div>
+											<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+												<div className="space-y-2">
+													<Label>Name</Label>
+													<Input
+														{...register(`productVariants.${index}.name`)}
+														placeholder="e.g., Baby Loaf"
+														disabled={isLoading}
+													/>
+												</div>
+												<div className="space-y-2">
+													<Label>URL</Label>
+													<Input
+														{...register(`productVariants.${index}.url`)}
+														placeholder="e.g., /produkter/produkt/baby-loaf"
+														disabled={isLoading}
+													/>
+												</div>
+											</div>
+											<div className="space-y-2">
+												<Label>Icon Image</Label>
+												<MediaPicker
+													value={watch(`productVariants.${index}.icon`) || ""}
+													onChange={(url) =>
+														setValue(`productVariants.${index}.icon`, url || "", {
+															shouldDirty: true,
+														})
+													}
+													type="image"
+													disabled={isLoading}
+												/>
+											</div>
+										</div>
+									))}
+									<Button
+										type="button"
+										variant="outline"
+										onClick={() =>
+											appendVariant({
+												name: "",
+												url: "",
+												icon: "",
+											})
+										}
+										disabled={isLoading}
+									>
+										<Plus className="h-4 w-4 mr-1" />
+										Add Variant
+									</Button>
+								</CardContent>
+							</Card>
+
+							{/* Accordion Sections Card */}
+							<Card>
+								<CardHeader>
+									<CardTitle>Accordion Sections</CardTitle>
+									<CardDescription>
+										Collapsible content sections (replaces FAQ on product page)
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									{accordionFields.map((field, index) => (
+										<div
+											key={field.id}
+											className="p-4 border rounded-md space-y-3"
+										>
+											<div className="flex justify-between items-start">
+												<span className="text-sm font-medium">
+													Section #{index + 1}
+												</span>
+												<div className="flex items-center gap-2">
+													<label className="flex items-center gap-2 text-sm">
+														<input
+															type="checkbox"
+															{...register(`accordionSections.${index}.isOpen`)}
+															disabled={isLoading}
+															className="h-4 w-4"
+														/>
+														Open by default
+													</label>
+													<Button
+														type="button"
+														variant="ghost"
+														size="icon"
+														onClick={() => removeAccordion(index)}
+														disabled={isLoading}
+														className="text-red-500 h-8 w-8"
+													>
+														<Trash2 className="h-4 w-4" />
+													</Button>
+												</div>
+											</div>
+											<div className="space-y-2">
+												<Label>Title</Label>
+												<Input
+													{...register(`accordionSections.${index}.title`)}
+													placeholder="e.g., NUTRITION & ALLERGENS"
+													disabled={isLoading}
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label>Content</Label>
+												<TextEditor
+													name={`accordionSections.${index}.content`}
+													defaultValue={watch(`accordionSections.${index}.content`) || ""}
+													onChange={(val) =>
+														setValue(`accordionSections.${index}.content`, val, {
+															shouldDirty: true,
+														})
+													}
+													placeholder="Section content (supports rich text)"
+													variant="detailedSimple"
+													height="150px"
+													disable={isLoading}
+												/>
+											</div>
+										</div>
+									))}
+									<Button
+										type="button"
+										variant="outline"
+										onClick={() =>
+											appendAccordion({
+												title: "",
+												content: "",
+												isOpen: false,
+											})
+										}
+										disabled={isLoading}
+									>
+										<Plus className="h-4 w-4 mr-1" />
+										Add Section
+									</Button>
+								</CardContent>
+							</Card>
+						</div>
 					</TabsContent>
 
 					{/* SEO Tab */}

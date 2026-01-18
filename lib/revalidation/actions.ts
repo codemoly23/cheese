@@ -80,12 +80,14 @@ export async function revalidateBlogPost(slug: string): Promise<void> {
 	// Revalidate blog posts list
 	revalidateTag(CACHE_TAGS.BLOG_POSTS, "default");
 
-	// Revalidate blog detail pages (both /blogg and /nyheter use same content)
+	// Revalidate blog detail pages (all blog routes use same content)
 	revalidatePath(`${PATHS.BLOG}/${slug}`);
+	revalidatePath(`${PATHS.BLOG_EN}/${slug}`);
 	revalidatePath(`${PATHS.NEWS}/${slug}`);
 
 	// Revalidate listing pages
 	revalidatePath(PATHS.BLOG);
+	revalidatePath(PATHS.BLOG_EN);
 	revalidatePath(PATHS.NEWS);
 
 	// Revalidate sitemaps
@@ -99,6 +101,7 @@ export async function revalidateBlogPost(slug: string): Promise<void> {
 export async function revalidateAllBlogPosts(): Promise<void> {
 	revalidateTag(CACHE_TAGS.BLOG_POSTS, "default");
 	revalidatePath(PATHS.BLOG);
+	revalidatePath(PATHS.BLOG_EN);
 	revalidatePath(PATHS.NEWS);
 	revalidateTag(CACHE_TAGS.SITEMAPS, "default");
 }
@@ -111,8 +114,10 @@ export async function revalidateBlogCategory(slug: string): Promise<void> {
 	revalidateTag(CACHE_TAGS.BLOG_CATEGORY(slug), "default");
 	revalidateTag(CACHE_TAGS.BLOG_CATEGORIES, "default");
 	revalidatePath(`${PATHS.BLOG}/category/${slug}`);
+	revalidatePath(`${PATHS.BLOG_EN}/category/${slug}`);
 	revalidatePath(`${PATHS.NEWS}/category/${slug}`);
 	revalidatePath(PATHS.BLOG);
+	revalidatePath(PATHS.BLOG_EN);
 	revalidatePath(PATHS.NEWS);
 	revalidateTag(CACHE_TAGS.SITEMAPS, "default");
 }
@@ -163,6 +168,7 @@ export async function revalidateSitemaps(): Promise<void> {
 export async function revalidateAboutPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.ABOUT_PAGE, "default");
 	revalidatePath(PATHS.ABOUT);
+	revalidatePath(PATHS.ABOUT_US);
 }
 
 /**
@@ -266,4 +272,13 @@ export async function revalidateFaqPage(): Promise<void> {
 export async function revalidateContactPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.CONTACT_PAGE, "default");
 	revalidatePath(PATHS.CONTACT);
+}
+
+/**
+ * Revalidate store page
+ * Call this when store page content is updated
+ */
+export async function revalidateStorePage(): Promise<void> {
+	revalidateTag(CACHE_TAGS.STORE_PAGE, "default");
+	revalidatePath(PATHS.STORE);
 }

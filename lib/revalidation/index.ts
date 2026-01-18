@@ -42,6 +42,7 @@ export const CACHE_TAGS = {
 	TRAINING_PAGE: "training-page",
 	FAQ_PAGE: "faq-page",
 	CONTACT_PAGE: "contact-page",
+	STORE_PAGE: "store-page",
 
 	// Sitemaps
 	SITEMAPS: "sitemaps",
@@ -57,9 +58,11 @@ export const PATHS = {
 	KATEGORI: "/kategori",
 	KLINIKUTRUSTNING: "/klinikutrustning",
 	BLOG: "/blogg",
+	BLOG_EN: "/blog",
 	NEWS: "/nyheter",
 	// Static pages
 	ABOUT: "/om-oss",
+	ABOUT_US: "/about-us",
 	TEAM: "/om-oss/team",
 	LEGAL: "/om-oss/juridisk-information",
 	PRIVACY: "/integritetspolicy",
@@ -71,6 +74,7 @@ export const PATHS = {
 	TRAINING: "/utbildningar",
 	FAQ: "/faq",
 	CONTACT: "/kontakt",
+	STORE: "/butik-i-boxholm",
 } as const;
 
 // Default revalidation time in seconds (24 hours)

@@ -34,6 +34,27 @@ export interface BeforeAfterImage {
 	label?: string;
 }
 
+export interface HeroSettings {
+	themeColor?: string;
+	badge?: string;
+	ctaText?: string;
+	ctaUrl?: string;
+}
+
+export interface ProductVariant {
+	_id: string;
+	name: string;
+	url: string;
+	icon: string;
+}
+
+export interface AccordionSection {
+	_id: string;
+	title: string;
+	content: string;
+	isOpen?: boolean;
+}
+
 export type ProductType = {
 	_id: string;
 	title: string;
@@ -89,6 +110,9 @@ export type ProductType = {
 	}>;
 	youtubeUrl: string;
 	rubric: string;
+	heroSettings: HeroSettings | null;
+	productVariants: Array<ProductVariant>;
+	accordionSections: Array<AccordionSection>;
 	publishType: string;
 	visibility: string;
 	lastEditedBy: {

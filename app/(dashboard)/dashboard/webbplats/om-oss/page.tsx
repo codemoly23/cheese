@@ -12,17 +12,15 @@ import {
 	Trash2,
 	Eye,
 	EyeOff,
-	LayoutDashboard,
-	Target,
-	BarChart3,
-	Images,
-	HelpCircle,
-	MessageSquareQuote,
-	Building2,
-	Megaphone,
+	History,
+	Users,
+	Phone,
 	Search,
-	Star,
 	ExternalLink,
+	Mail,
+	Linkedin,
+	Building2,
+	GripVertical,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -32,13 +30,6 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import { CMSPageSkeleton } from "@/components/admin/CMSPageSkeleton";
 import { MediaPicker } from "@/components/storage/media-picker";
 import { SeoPreview } from "@/components/admin/seo/SeoPreview";
@@ -51,103 +42,60 @@ import type { AboutPageData } from "@/lib/repositories/about-page.repository";
 // Form schema combining all sections
 const formSchema = z.object({
 	sectionVisibility: aboutSectionVisibilitySchema,
-	hero: z.object({
+	history: z.object({
 		badge: z.string().optional(),
 		title: z.string().optional(),
 		subtitle: z.string().optional(),
-	}),
-	mission: z.object({
-		badge: z.string().optional(),
-		title: z.string().optional(),
-		description: z.string().optional(),
-		image: z.string().optional(),
-		features: z
+		timelineItems: z
 			.array(
 				z.object({
-					icon: z.string().optional(),
+					year: z.string().optional(),
 					title: z.string().optional(),
 					description: z.string().optional(),
-				})
-			)
-			.optional(),
-	}),
-	stats: z
-		.array(
-			z.object({
-				value: z.string().optional(),
-				label: z.string().optional(),
-				suffix: z.string().optional(),
-			})
-		)
-		.optional(),
-	imageGallery: z.object({
-		title: z.string().optional(),
-		subtitle: z.string().optional(),
-		images: z
-			.array(
-				z.object({
-					src: z.string().optional(),
-					alt: z.string().optional(),
-				})
-			)
-			.optional(),
-	}),
-	faq: z.object({
-		title: z.string().optional(),
-		subtitle: z.string().optional(),
-		items: z
-			.array(
-				z.object({
-					question: z.string().optional(),
-					answer: z.string().optional(),
-				})
-			)
-			.optional(),
-	}),
-	testimonials: z.object({
-		title: z.string().optional(),
-		subtitle: z.string().optional(),
-		testimonials: z
-			.array(
-				z.object({
-					quote: z.string().optional(),
-					author: z.string().optional(),
-					role: z.string().optional(),
-					company: z.string().optional(),
 					image: z.string().optional(),
-					rating: z.number().min(1).max(5).optional(),
 				})
 			)
 			.optional(),
 	}),
-	partners: z.object({
+	customers: z.object({
 		title: z.string().optional(),
 		subtitle: z.string().optional(),
-		partners: z
+		customers: z
 			.array(
 				z.object({
 					name: z.string().optional(),
 					logo: z.string().optional(),
-					url: z.string().optional(),
+					products: z.string().optional(),
+					description: z.string().optional(),
+					website: z.string().optional(),
 				})
 			)
 			.optional(),
 	}),
-	cta: z.object({
+	team: z.object({
 		title: z.string().optional(),
-		description: z.string().optional(),
-		primaryCta: z
-			.object({
-				text: z.string().optional(),
-				href: z.string().optional(),
-			})
+		subtitle: z.string().optional(),
+		members: z
+			.array(
+				z.object({
+					name: z.string().optional(),
+					role: z.string().optional(),
+					image: z.string().optional(),
+					email: z.string().optional(),
+					phone: z.string().optional(),
+					linkedin: z.string().optional(),
+					department: z.string().optional(),
+					bio: z.string().optional(),
+				})
+			)
 			.optional(),
-		secondaryCta: z
-			.object({
-				text: z.string().optional(),
-				href: z.string().optional(),
-			})
-			.optional(),
+	}),
+	contact: z.object({
+		title: z.string().optional(),
+		subtitle: z.string().optional(),
+		showContactForm: z.boolean().optional(),
+		showMap: z.boolean().optional(),
+		showOffices: z.boolean().optional(),
 	}),
 	seo: z.object({
 		title: z.string().optional(),
@@ -158,19 +106,6 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const ICON_OPTIONS = [
-	{ value: "Target", label: "Target" },
-	{ value: "Award", label: "Award" },
-	{ value: "Users", label: "Users" },
-	{ value: "Sparkles", label: "Sparkles" },
-	{ value: "CheckCircle", label: "CheckCircle" },
-	{ value: "Star", label: "Star" },
-	{ value: "Heart", label: "Heart" },
-	{ value: "Shield", label: "Shield" },
-	{ value: "Zap", label: "Zap" },
-	{ value: "Globe", label: "Globe" },
-];
-
 export default function AboutPageCMS() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
@@ -179,63 +114,41 @@ export default function AboutPageCMS() {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			sectionVisibility: {
-				hero: true,
-				mission: true,
-				stats: true,
-				imageGallery: true,
-				faq: true,
-				testimonials: true,
-				partners: true,
-				cta: true,
+				history: true,
+				customers: true,
+				team: true,
+				contact: true,
 			},
-			hero: {},
-			mission: { features: [] },
-			stats: [],
-			imageGallery: { images: [] },
-			faq: { items: [] },
-			testimonials: { testimonials: [] },
-			partners: { partners: [] },
-			cta: {},
+			history: { timelineItems: [] },
+			customers: { customers: [] },
+			team: { members: [] },
+			contact: {
+				showContactForm: true,
+				showMap: true,
+				showOffices: true,
+			},
 			seo: {},
 		},
 	});
 
 	// Field arrays
 	const {
-		fields: statFields,
-		append: appendStat,
-		remove: removeStat,
-	} = useFieldArray({ control: form.control, name: "stats" });
+		fields: timelineFields,
+		append: appendTimeline,
+		remove: removeTimeline,
+	} = useFieldArray({ control: form.control, name: "history.timelineItems" });
 
 	const {
-		fields: featureFields,
-		append: appendFeature,
-		remove: removeFeature,
-	} = useFieldArray({ control: form.control, name: "mission.features" });
+		fields: customerFields,
+		append: appendCustomer,
+		remove: removeCustomer,
+	} = useFieldArray({ control: form.control, name: "customers.customers" });
 
 	const {
-		fields: galleryFields,
-		append: appendGalleryImage,
-		remove: removeGalleryImage,
-	} = useFieldArray({ control: form.control, name: "imageGallery.images" });
-
-	const {
-		fields: faqFields,
-		append: appendFaq,
-		remove: removeFaq,
-	} = useFieldArray({ control: form.control, name: "faq.items" });
-
-	const {
-		fields: testimonialFields,
-		append: appendTestimonial,
-		remove: removeTestimonial,
-	} = useFieldArray({ control: form.control, name: "testimonials.testimonials" });
-
-	const {
-		fields: partnerFields,
-		append: appendPartner,
-		remove: removePartner,
-	} = useFieldArray({ control: form.control, name: "partners.partners" });
+		fields: teamFields,
+		append: appendTeamMember,
+		remove: removeTeamMember,
+	} = useFieldArray({ control: form.control, name: "team.members" });
 
 	// Fetch initial data
 	useEffect(() => {
@@ -247,45 +160,34 @@ export default function AboutPageCMS() {
 
 				form.reset({
 					sectionVisibility: data.sectionVisibility || {
-						hero: true,
-						mission: true,
-						stats: true,
-						imageGallery: true,
-						faq: true,
-						testimonials: true,
-						partners: true,
-						cta: true,
+						history: true,
+						customers: true,
+						team: true,
+						contact: true,
 					},
-					hero: data.hero || {},
-					mission: {
-						badge: data.mission?.badge || "",
-						title: data.mission?.title || "",
-						description: data.mission?.description || "",
-						image: data.mission?.image || "",
-						features: data.mission?.features || [],
+					history: {
+						badge: data.history?.badge || "",
+						title: data.history?.title || "",
+						subtitle: data.history?.subtitle || "",
+						timelineItems: data.history?.timelineItems || [],
 					},
-					stats: data.stats || [],
-					imageGallery: {
-						title: data.imageGallery?.title || "",
-						subtitle: data.imageGallery?.subtitle || "",
-						images: data.imageGallery?.images || [],
+					customers: {
+						title: data.customers?.title || "",
+						subtitle: data.customers?.subtitle || "",
+						customers: data.customers?.customers || [],
 					},
-					faq: {
-						title: data.faq?.title || "",
-						subtitle: data.faq?.subtitle || "",
-						items: data.faq?.items || [],
+					team: {
+						title: data.team?.title || "",
+						subtitle: data.team?.subtitle || "",
+						members: data.team?.members || [],
 					},
-					testimonials: {
-						title: data.testimonials?.title || "",
-						subtitle: data.testimonials?.subtitle || "",
-						testimonials: data.testimonials?.testimonials || [],
+					contact: {
+						title: data.contact?.title || "",
+						subtitle: data.contact?.subtitle || "",
+						showContactForm: data.contact?.showContactForm ?? true,
+						showMap: data.contact?.showMap ?? true,
+						showOffices: data.contact?.showOffices ?? true,
 					},
-					partners: {
-						title: data.partners?.title || "",
-						subtitle: data.partners?.subtitle || "",
-						partners: data.partners?.partners || [],
-					},
-					cta: data.cta || {},
 					seo: data.seo || {},
 				});
 			} catch (error) {
@@ -335,14 +237,14 @@ export default function AboutPageCMS() {
 			{/* Header */}
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Om Oss</h1>
+					<h1 className="text-3xl font-bold tracking-tight">About Us</h1>
 					<p className="text-muted-foreground">
-						Manage your About page content
+						Manage your About Us page content
 					</p>
 				</div>
 				<div className="flex items-center gap-3">
 					<a
-						href="/om-oss"
+						href="/about-us"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -373,37 +275,21 @@ export default function AboutPageCMS() {
 						<Eye className="h-4 w-4" />
 						Visibility
 					</TabsTrigger>
-					<TabsTrigger value="hero" className="gap-2">
-						<LayoutDashboard className="h-4 w-4" />
-						Hero
+					<TabsTrigger value="history" className="gap-2">
+						<History className="h-4 w-4" />
+						History
 					</TabsTrigger>
-					<TabsTrigger value="mission" className="gap-2">
-						<Target className="h-4 w-4" />
-						Mission
-					</TabsTrigger>
-					<TabsTrigger value="stats" className="gap-2">
-						<BarChart3 className="h-4 w-4" />
-						Stats
-					</TabsTrigger>
-					<TabsTrigger value="gallery" className="gap-2">
-						<Images className="h-4 w-4" />
-						Gallery
-					</TabsTrigger>
-					<TabsTrigger value="faq" className="gap-2">
-						<HelpCircle className="h-4 w-4" />
-						FAQ
-					</TabsTrigger>
-					<TabsTrigger value="testimonials" className="gap-2">
-						<MessageSquareQuote className="h-4 w-4" />
-						Testimonials
-					</TabsTrigger>
-					<TabsTrigger value="partners" className="gap-2">
+					<TabsTrigger value="customers" className="gap-2">
 						<Building2 className="h-4 w-4" />
-						Partners
+						Our Customers
 					</TabsTrigger>
-					<TabsTrigger value="cta" className="gap-2">
-						<Megaphone className="h-4 w-4" />
-						CTA
+					<TabsTrigger value="team" className="gap-2">
+						<Users className="h-4 w-4" />
+						Our Team
+					</TabsTrigger>
+					<TabsTrigger value="contact" className="gap-2">
+						<Phone className="h-4 w-4" />
+						Contact
 					</TabsTrigger>
 					<TabsTrigger value="seo" className="gap-2">
 						<Search className="h-4 w-4" />
@@ -420,14 +306,10 @@ export default function AboutPageCMS() {
 						</CardHeader>
 						<CardContent className="grid gap-4 sm:grid-cols-2">
 							{[
-								{ key: "hero", label: "Hero Section" },
-								{ key: "mission", label: "Mission Section" },
-								{ key: "stats", label: "Stats Bar" },
-								{ key: "imageGallery", label: "Image Gallery" },
-								{ key: "faq", label: "FAQ Section" },
-								{ key: "testimonials", label: "Testimonials" },
-								{ key: "partners", label: "Partners" },
-								{ key: "cta", label: "CTA Section" },
+								{ key: "history", label: "History Section" },
+								{ key: "customers", label: "Our Customers" },
+								{ key: "team", label: "Our Team" },
+								{ key: "contact", label: "Contact Section" },
 							].map(({ key, label }) => (
 								<div
 									key={key}
@@ -460,374 +342,235 @@ export default function AboutPageCMS() {
 					</Card>
 				</TabsContent>
 
-				{/* Hero Tab */}
-				<TabsContent value="hero">
+				{/* History Tab */}
+				<TabsContent value="history">
 					<Card>
 						<CardHeader>
-							<CardTitle>Hero Section</CardTitle>
-							<CardDescription>Dark hero section with animated background</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-4">
-							<div className="space-y-2">
-								<Label>Badge Text</Label>
-								<Input
-									{...form.register("hero.badge")}
-									placeholder="e.g., Om Synos Medical"
-								/>
-							</div>
-							<div className="space-y-2">
-								<Label>Title</Label>
-								<Input
-									{...form.register("hero.title")}
-									placeholder="e.g., Om Oss"
-								/>
-							</div>
-							<div className="space-y-2">
-								<Label>Subtitle</Label>
-								<Textarea
-									{...form.register("hero.subtitle")}
-									placeholder="Brief description..."
-									rows={3}
-								/>
-							</div>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				{/* Mission Tab */}
-				<TabsContent value="mission">
-					<Card>
-						<CardHeader>
-							<CardTitle>Mission Section</CardTitle>
-							<CardDescription>About section with image and feature cards</CardDescription>
+							<CardTitle>History Section</CardTitle>
+							<CardDescription>Timeline showing your company history (like a winery history page)</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-6">
-							<div className="grid gap-4 md:grid-cols-2">
+							<div className="grid gap-4 md:grid-cols-3">
 								<div className="space-y-2">
-									<Label>Badge</Label>
+									<Label>Badge Text</Label>
 									<Input
-										{...form.register("mission.badge")}
-										placeholder="e.g., Var Mission"
+										{...form.register("history.badge")}
+										placeholder="e.g., Since 1989"
 									/>
 								</div>
 								<div className="space-y-2">
 									<Label>Title</Label>
 									<Input
-										{...form.register("mission.title")}
-										placeholder="e.g., Vi levererar kvalitet"
+										{...form.register("history.title")}
+										placeholder="e.g., Our Little Story"
+									/>
+								</div>
+								<div className="space-y-2">
+									<Label>Subtitle</Label>
+									<Input
+										{...form.register("history.subtitle")}
+										placeholder="e.g., Cheese making practice across generations"
 									/>
 								</div>
 							</div>
 
-							<div className="space-y-2">
-								<Label>Description</Label>
-								<Textarea
-									{...form.register("mission.description")}
-									placeholder="Describe your mission..."
-									rows={4}
-								/>
-							</div>
-
-							<div className="space-y-2">
-								<Label>Featured Image</Label>
-								<MediaPicker
-									type="image"
-									value={form.watch("mission.image") || null}
-									onChange={(url) => form.setValue("mission.image", url || "")}
-									placeholder="Select featured image"
-									galleryTitle="Select Image"
-								/>
-							</div>
-
-							{/* Features */}
+							{/* Timeline Items */}
 							<div className="space-y-4">
 								<div className="flex items-center justify-between">
-									<Label className="text-base">Features</Label>
+									<Label className="text-base">Timeline Items</Label>
 									<Button
 										type="button"
 										variant="outline"
 										size="sm"
 										onClick={() =>
-											appendFeature({ icon: "CheckCircle", title: "", description: "" })
+											appendTimeline({ year: "", title: "", description: "", image: "" })
 										}
 									>
 										<Plus className="mr-2 h-4 w-4" />
-										Add Feature
+										Add Timeline Item
 									</Button>
 								</div>
 
-								{featureFields.map((field, index) => (
+								{timelineFields.length === 0 && (
+									<p className="text-center text-muted-foreground py-8">
+										No timeline items added yet. Click &quot;Add Timeline Item&quot; to get started.
+									</p>
+								)}
+
+								{timelineFields.map((field, index) => (
+									<div
+										key={field.id}
+										className="rounded-lg border p-4 space-y-4"
+									>
+										<div className="flex items-center justify-between">
+											<div className="flex items-center gap-2">
+												<GripVertical className="h-4 w-4 text-muted-foreground" />
+												<span className="text-sm font-medium">
+													Timeline Item {index + 1}
+												</span>
+											</div>
+											<Button
+												type="button"
+												variant="ghost"
+												size="sm"
+												onClick={() => removeTimeline(index)}
+											>
+												<Trash2 className="h-4 w-4 text-destructive" />
+											</Button>
+										</div>
+										<div className="grid gap-4 md:grid-cols-2">
+											<div className="space-y-2">
+												<Label>Year</Label>
+												<Input
+													{...form.register(`history.timelineItems.${index}.year`)}
+													placeholder="e.g., 1989"
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label>Title</Label>
+												<Input
+													{...form.register(`history.timelineItems.${index}.title`)}
+													placeholder="e.g., The First Steps"
+												/>
+											</div>
+										</div>
+										<div className="space-y-2">
+											<Label>Description</Label>
+											<Textarea
+												{...form.register(`history.timelineItems.${index}.description`)}
+												placeholder="Describe this milestone..."
+												rows={3}
+											/>
+										</div>
+										<div className="space-y-2">
+											<Label>Image (optional)</Label>
+											<MediaPicker
+												type="image"
+												value={form.watch(`history.timelineItems.${index}.image`) || null}
+												onChange={(url) =>
+													form.setValue(`history.timelineItems.${index}.image`, url || "")
+												}
+												placeholder="Select timeline image"
+												galleryTitle="Select Timeline Image"
+											/>
+										</div>
+									</div>
+								))}
+							</div>
+						</CardContent>
+					</Card>
+				</TabsContent>
+
+				{/* Customers Tab */}
+				<TabsContent value="customers">
+					<Card>
+						<CardHeader>
+							<CardTitle>Our Customers Section</CardTitle>
+							<CardDescription>List of customers and the products they purchase</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							<div className="grid gap-4 md:grid-cols-2">
+								<div className="space-y-2">
+									<Label>Section Title</Label>
+									<Input
+										{...form.register("customers.title")}
+										placeholder="e.g., Our Valued Customers"
+									/>
+								</div>
+								<div className="space-y-2">
+									<Label>Section Subtitle</Label>
+									<Input
+										{...form.register("customers.subtitle")}
+										placeholder="e.g., Partners who trust our quality"
+									/>
+								</div>
+							</div>
+
+							{/* Customer Items */}
+							<div className="space-y-4">
+								<div className="flex items-center justify-between">
+									<Label className="text-base">Customers</Label>
+									<Button
+										type="button"
+										variant="outline"
+										size="sm"
+										onClick={() =>
+											appendCustomer({ name: "", logo: "", products: "", description: "", website: "" })
+										}
+									>
+										<Plus className="mr-2 h-4 w-4" />
+										Add Customer
+									</Button>
+								</div>
+
+								{customerFields.length === 0 && (
+									<p className="text-center text-muted-foreground py-8">
+										No customers added yet. Click &quot;Add Customer&quot; to get started.
+									</p>
+								)}
+
+								{customerFields.map((field, index) => (
 									<div
 										key={field.id}
 										className="rounded-lg border p-4 space-y-4"
 									>
 										<div className="flex items-center justify-between">
 											<span className="text-sm font-medium">
-												Feature {index + 1}
+												Customer {index + 1}
 											</span>
 											<Button
 												type="button"
 												variant="ghost"
 												size="sm"
-												onClick={() => removeFeature(index)}
+												onClick={() => removeCustomer(index)}
 											>
 												<Trash2 className="h-4 w-4 text-destructive" />
 											</Button>
 										</div>
-										<div className="grid gap-4 md:grid-cols-3">
+										<div className="grid gap-4 md:grid-cols-2">
 											<div className="space-y-2">
-												<Label>Icon</Label>
-												<Select
-													value={form.watch(`mission.features.${index}.icon`) || ""}
-													onValueChange={(value) =>
-														form.setValue(`mission.features.${index}.icon`, value)
-													}
-												>
-													<SelectTrigger>
-														<SelectValue placeholder="Select icon" />
-													</SelectTrigger>
-													<SelectContent>
-														{ICON_OPTIONS.map((icon) => (
-															<SelectItem key={icon.value} value={icon.value}>
-																{icon.label}
-															</SelectItem>
-														))}
-													</SelectContent>
-												</Select>
-											</div>
-											<div className="space-y-2">
-												<Label>Title</Label>
+												<Label>Customer Name</Label>
 												<Input
-													{...form.register(`mission.features.${index}.title`)}
-													placeholder="Feature title"
+													{...form.register(`customers.customers.${index}.name`)}
+													placeholder="e.g., Restaurant ABC"
 												/>
 											</div>
 											<div className="space-y-2">
-												<Label>Description</Label>
+												<Label>Products They Purchase</Label>
 												<Input
-													{...form.register(`mission.features.${index}.description`)}
-													placeholder="Short description"
+													{...form.register(`customers.customers.${index}.products`)}
+													placeholder="e.g., Aged Cheddar, Fresh Mozzarella"
 												/>
 											</div>
 										</div>
-									</div>
-								))}
-							</div>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				{/* Stats Tab */}
-				<TabsContent value="stats">
-					<Card>
-						<CardHeader>
-							<div className="flex items-center justify-between">
-								<div>
-									<CardTitle>Stats Bar</CardTitle>
-									<CardDescription>Display key statistics in a dark bar section</CardDescription>
-								</div>
-								<Button
-									type="button"
-									variant="outline"
-									size="sm"
-									onClick={() => appendStat({ value: "", label: "", suffix: "" })}
-								>
-									<Plus className="mr-2 h-4 w-4" />
-									Add Stat
-								</Button>
-							</div>
-						</CardHeader>
-						<CardContent className="space-y-4">
-							{statFields.length === 0 && (
-								<p className="text-center text-muted-foreground py-8">
-									No stats added yet. Click &quot;Add Stat&quot; to get started.
-								</p>
-							)}
-
-							{statFields.map((field, index) => (
-								<div key={field.id} className="rounded-lg border p-4">
-									<div className="flex items-center justify-between mb-4">
-										<span className="text-sm font-medium">Stat {index + 1}</span>
-										<Button
-											type="button"
-											variant="ghost"
-											size="sm"
-											onClick={() => removeStat(index)}
-										>
-											<Trash2 className="h-4 w-4 text-destructive" />
-										</Button>
-									</div>
-									<div className="grid gap-4 md:grid-cols-3">
 										<div className="space-y-2">
-											<Label>Value</Label>
-											<Input
-												{...form.register(`stats.${index}.value`)}
-												placeholder="e.g., 500"
-											/>
-										</div>
-										<div className="space-y-2">
-											<Label>Suffix (optional)</Label>
-											<Input
-												{...form.register(`stats.${index}.suffix`)}
-												placeholder="e.g., +"
-											/>
-										</div>
-										<div className="space-y-2">
-											<Label>Label</Label>
-											<Input
-												{...form.register(`stats.${index}.label`)}
-												placeholder="e.g., Nojda kunder"
-											/>
-										</div>
-									</div>
-								</div>
-							))}
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				{/* Gallery Tab */}
-				<TabsContent value="gallery">
-					<Card>
-						<CardHeader>
-							<CardTitle>Image Gallery</CardTitle>
-							<CardDescription>Showcase images in a responsive grid layout</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="grid gap-4 md:grid-cols-2">
-								<div className="space-y-2">
-									<Label>Section Title</Label>
-									<Input
-										{...form.register("imageGallery.title")}
-										placeholder="e.g., Vara lokaler"
-									/>
-								</div>
-								<div className="space-y-2">
-									<Label>Section Subtitle</Label>
-									<Input
-										{...form.register("imageGallery.subtitle")}
-										placeholder="Brief description"
-									/>
-								</div>
-							</div>
-
-							<div className="space-y-4">
-								<div className="flex items-center justify-between">
-									<Label className="text-base">Gallery Images</Label>
-									<Button
-										type="button"
-										variant="outline"
-										size="sm"
-										onClick={() => appendGalleryImage({ src: "", alt: "" })}
-									>
-										<Plus className="mr-2 h-4 w-4" />
-										Add Image
-									</Button>
-								</div>
-
-								<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-									{galleryFields.map((field, index) => (
-										<div key={field.id} className="rounded-lg border p-4 space-y-3">
-											<div className="flex items-center justify-between">
-												<span className="text-sm font-medium">
-													Image {index + 1}
-												</span>
-												<Button
-													type="button"
-													variant="ghost"
-													size="sm"
-													onClick={() => removeGalleryImage(index)}
-												>
-													<Trash2 className="h-4 w-4 text-destructive" />
-												</Button>
-											</div>
-											<MediaPicker
-												type="image"
-												value={form.watch(`imageGallery.images.${index}.src`) || null}
-												onChange={(url) =>
-													form.setValue(`imageGallery.images.${index}.src`, url || "")
-												}
-												placeholder="Select image"
-												galleryTitle="Select Gallery Image"
-											/>
-											<Input
-												{...form.register(`imageGallery.images.${index}.alt`)}
-												placeholder="Alt text"
-											/>
-										</div>
-									))}
-								</div>
-							</div>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				{/* FAQ Tab */}
-				<TabsContent value="faq">
-					<Card>
-						<CardHeader>
-							<CardTitle>FAQ Section</CardTitle>
-							<CardDescription>Frequently asked questions with accordion</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="grid gap-4 md:grid-cols-2">
-								<div className="space-y-2">
-									<Label>Section Title</Label>
-									<Input
-										{...form.register("faq.title")}
-										placeholder="e.g., Vanliga fragor"
-									/>
-								</div>
-								<div className="space-y-2">
-									<Label>Section Subtitle</Label>
-									<Input
-										{...form.register("faq.subtitle")}
-										placeholder="Brief description"
-									/>
-								</div>
-							</div>
-
-							<div className="space-y-4">
-								<div className="flex items-center justify-between">
-									<Label className="text-base">FAQ Items</Label>
-									<Button
-										type="button"
-										variant="outline"
-										size="sm"
-										onClick={() => appendFaq({ question: "", answer: "" })}
-									>
-										<Plus className="mr-2 h-4 w-4" />
-										Add FAQ
-									</Button>
-								</div>
-
-								{faqFields.map((field, index) => (
-									<div key={field.id} className="rounded-lg border p-4 space-y-4">
-										<div className="flex items-center justify-between">
-											<span className="text-sm font-medium">FAQ {index + 1}</span>
-											<Button
-												type="button"
-												variant="ghost"
-												size="sm"
-												onClick={() => removeFaq(index)}
-											>
-												<Trash2 className="h-4 w-4 text-destructive" />
-											</Button>
-										</div>
-										<div className="space-y-2">
-											<Label>Question</Label>
-											<Input
-												{...form.register(`faq.items.${index}.question`)}
-												placeholder="Enter question"
-											/>
-										</div>
-										<div className="space-y-2">
-											<Label>Answer</Label>
+											<Label>Description (optional)</Label>
 											<Textarea
-												{...form.register(`faq.items.${index}.answer`)}
-												placeholder="Enter answer"
-												rows={3}
+												{...form.register(`customers.customers.${index}.description`)}
+												placeholder="Brief description about the customer..."
+												rows={2}
 											/>
+										</div>
+										<div className="grid gap-4 md:grid-cols-2">
+											<div className="space-y-2">
+												<Label>Logo</Label>
+												<MediaPicker
+													type="image"
+													value={form.watch(`customers.customers.${index}.logo`) || null}
+													onChange={(url) =>
+														form.setValue(`customers.customers.${index}.logo`, url || "")
+													}
+													placeholder="Select customer logo"
+													galleryTitle="Select Logo"
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label>Website (optional)</Label>
+												<Input
+													{...form.register(`customers.customers.${index}.website`)}
+													placeholder="https://..."
+												/>
+											</div>
 										</div>
 									</div>
 								))}
@@ -836,163 +579,159 @@ export default function AboutPageCMS() {
 					</Card>
 				</TabsContent>
 
-				{/* Testimonials Tab */}
-				<TabsContent value="testimonials">
+				{/* Team Tab */}
+				<TabsContent value="team">
 					<Card>
 						<CardHeader>
-							<CardTitle>Testimonials Section</CardTitle>
-							<CardDescription>Customer testimonials displayed in a dark section</CardDescription>
+							<CardTitle>Our Team Section</CardTitle>
+							<CardDescription>Team members displayed in a grid layout</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-6">
 							<div className="grid gap-4 md:grid-cols-2">
 								<div className="space-y-2">
 									<Label>Section Title</Label>
 									<Input
-										{...form.register("testimonials.title")}
-										placeholder="e.g., Vad vara kunder sager"
+										{...form.register("team.title")}
+										placeholder="e.g., Meet Our Team"
 									/>
 								</div>
 								<div className="space-y-2">
 									<Label>Section Subtitle</Label>
 									<Input
-										{...form.register("testimonials.subtitle")}
-										placeholder="Brief description"
+										{...form.register("team.subtitle")}
+										placeholder="e.g., The people behind our quality products"
 									/>
 								</div>
 							</div>
 
+							{/* Team Members */}
 							<div className="space-y-4">
 								<div className="flex items-center justify-between">
-									<Label className="text-base">Testimonials</Label>
+									<Label className="text-base">Team Members</Label>
 									<Button
 										type="button"
 										variant="outline"
 										size="sm"
 										onClick={() =>
-											appendTestimonial({
-												quote: "",
-												author: "",
+											appendTeamMember({
+												name: "",
 												role: "",
-												company: "",
 												image: "",
-												rating: 5,
+												email: "",
+												phone: "",
+												linkedin: "",
+												department: "",
+												bio: "",
 											})
 										}
 									>
 										<Plus className="mr-2 h-4 w-4" />
-										Add Testimonial
+										Add Team Member
 									</Button>
 								</div>
 
-								{testimonialFields.map((field, index) => (
-									<div key={field.id} className="rounded-lg border p-4 space-y-4">
+								{teamFields.length === 0 && (
+									<p className="text-center text-muted-foreground py-8">
+										No team members added yet. Click &quot;Add Team Member&quot; to get started.
+									</p>
+								)}
+
+								{teamFields.map((field, index) => (
+									<div
+										key={field.id}
+										className="rounded-lg border p-4 space-y-4"
+									>
 										<div className="flex items-center justify-between">
 											<span className="text-sm font-medium">
-												Testimonial {index + 1}
+												Team Member {index + 1}
 											</span>
 											<Button
 												type="button"
 												variant="ghost"
 												size="sm"
-												onClick={() => removeTestimonial(index)}
+												onClick={() => removeTeamMember(index)}
 											>
 												<Trash2 className="h-4 w-4 text-destructive" />
 											</Button>
 										</div>
 
-										<div className="space-y-2">
-											<Label>Quote</Label>
-											<Textarea
-												{...form.register(
-													`testimonials.testimonials.${index}.quote`
-												)}
-												placeholder="Customer testimonial"
-												rows={3}
-											/>
-										</div>
-
-										<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+										<div className="grid gap-4 md:grid-cols-3">
 											<div className="space-y-2">
-												<Label>Author</Label>
+												<Label>Name</Label>
 												<Input
-													{...form.register(
-														`testimonials.testimonials.${index}.author`
-													)}
-													placeholder="Name"
+													{...form.register(`team.members.${index}.name`)}
+													placeholder="Full name"
 												/>
 											</div>
 											<div className="space-y-2">
 												<Label>Role</Label>
 												<Input
-													{...form.register(
-														`testimonials.testimonials.${index}.role`
-													)}
-													placeholder="Job title"
+													{...form.register(`team.members.${index}.role`)}
+													placeholder="e.g., Head Cheese Maker"
 												/>
 											</div>
 											<div className="space-y-2">
-												<Label>Company</Label>
+												<Label>Department (optional)</Label>
 												<Input
-													{...form.register(
-														`testimonials.testimonials.${index}.company`
-													)}
-													placeholder="Company name"
+													{...form.register(`team.members.${index}.department`)}
+													placeholder="e.g., Production"
 												/>
-											</div>
-											<div className="space-y-2">
-												<Label>Rating</Label>
-												<Select
-													value={String(
-														form.watch(
-															`testimonials.testimonials.${index}.rating`
-														) || 5
-													)}
-													onValueChange={(value) =>
-														form.setValue(
-															`testimonials.testimonials.${index}.rating`,
-															parseInt(value)
-														)
-													}
-												>
-													<SelectTrigger>
-														<SelectValue />
-													</SelectTrigger>
-													<SelectContent>
-														{[1, 2, 3, 4, 5].map((rating) => (
-															<SelectItem key={rating} value={String(rating)}>
-																<div className="flex items-center gap-1">
-																	{[...Array(rating)].map((_, i) => (
-																		<Star
-																			key={i}
-																			className="h-3 w-3 fill-yellow-400 text-yellow-400"
-																		/>
-																	))}
-																</div>
-															</SelectItem>
-														))}
-													</SelectContent>
-												</Select>
 											</div>
 										</div>
 
 										<div className="space-y-2">
-											<Label>Author Image (optional)</Label>
+											<Label>Photo</Label>
 											<MediaPicker
 												type="image"
-												value={
-													form.watch(
-														`testimonials.testimonials.${index}.image`
-													) || null
-												}
+												value={form.watch(`team.members.${index}.image`) || null}
 												onChange={(url) =>
-													form.setValue(
-														`testimonials.testimonials.${index}.image`,
-														url || ""
-													)
+													form.setValue(`team.members.${index}.image`, url || "")
 												}
-												placeholder="Select author image"
-												galleryTitle="Select Author Image"
+												placeholder="Select team member photo"
+												galleryTitle="Select Photo"
 											/>
+										</div>
+
+										<div className="space-y-2">
+											<Label>Bio (optional)</Label>
+											<Textarea
+												{...form.register(`team.members.${index}.bio`)}
+												placeholder="Brief biography..."
+												rows={2}
+											/>
+										</div>
+
+										<div className="grid gap-4 md:grid-cols-3">
+											<div className="space-y-2">
+												<Label className="flex items-center gap-2">
+													<Mail className="h-4 w-4" />
+													Email
+												</Label>
+												<Input
+													{...form.register(`team.members.${index}.email`)}
+													placeholder="email@example.com"
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label className="flex items-center gap-2">
+													<Phone className="h-4 w-4" />
+													Phone
+												</Label>
+												<Input
+													{...form.register(`team.members.${index}.phone`)}
+													placeholder="+46 123 456 789"
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label className="flex items-center gap-2">
+													<Linkedin className="h-4 w-4" />
+													LinkedIn
+												</Label>
+												<Input
+													{...form.register(`team.members.${index}.linkedin`)}
+													placeholder="https://linkedin.com/in/..."
+												/>
+											</div>
 										</div>
 									</div>
 								))}
@@ -1001,160 +740,71 @@ export default function AboutPageCMS() {
 					</Card>
 				</TabsContent>
 
-				{/* Partners Tab */}
-				<TabsContent value="partners">
+				{/* Contact Tab */}
+				<TabsContent value="contact">
 					<Card>
 						<CardHeader>
-							<CardTitle>Partners Section</CardTitle>
-							<CardDescription>Logo carousel of partner companies</CardDescription>
+							<CardTitle>Contact Section</CardTitle>
+							<CardDescription>Configure the contact section (content is pulled from Contact Us page)</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-6">
 							<div className="grid gap-4 md:grid-cols-2">
 								<div className="space-y-2">
 									<Label>Section Title</Label>
 									<Input
-										{...form.register("partners.title")}
-										placeholder="e.g., Vara partners"
+										{...form.register("contact.title")}
+										placeholder="e.g., Get In Touch"
 									/>
 								</div>
 								<div className="space-y-2">
 									<Label>Section Subtitle</Label>
 									<Input
-										{...form.register("partners.subtitle")}
-										placeholder="Brief description"
+										{...form.register("contact.subtitle")}
+										placeholder="e.g., We'd love to hear from you"
 									/>
 								</div>
 							</div>
 
 							<div className="space-y-4">
-								<div className="flex items-center justify-between">
-									<Label className="text-base">Partners</Label>
-									<Button
-										type="button"
-										variant="outline"
-										size="sm"
-										onClick={() =>
-											appendPartner({ name: "", logo: "", url: "" })
-										}
-									>
-										<Plus className="mr-2 h-4 w-4" />
-										Add Partner
-									</Button>
-								</div>
-
-								<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-									{partnerFields.map((field, index) => (
-										<div key={field.id} className="rounded-lg border p-4 space-y-3">
-											<div className="flex items-center justify-between">
-												<span className="text-sm font-medium">
-													Partner {index + 1}
-												</span>
-												<Button
-													type="button"
-													variant="ghost"
-													size="sm"
-													onClick={() => removePartner(index)}
-												>
-													<Trash2 className="h-4 w-4 text-destructive" />
-												</Button>
-											</div>
-											<div className="space-y-2">
-												<Label>Name</Label>
-												<Input
-													{...form.register(`partners.partners.${index}.name`)}
-													placeholder="Partner name"
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label>Logo</Label>
-												<MediaPicker
-													type="image"
-													value={
-														form.watch(`partners.partners.${index}.logo`) || null
-													}
-													onChange={(url) =>
-														form.setValue(`partners.partners.${index}.logo`, url || "")
-													}
-													placeholder="Select logo"
-													galleryTitle="Select Partner Logo"
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label>URL (optional)</Label>
-												<Input
-													{...form.register(`partners.partners.${index}.url`)}
-													placeholder="https://..."
-												/>
-											</div>
-										</div>
-									))}
+								<Label className="text-base">Display Options</Label>
+								<div className="grid gap-4 sm:grid-cols-3">
+									<div className="flex items-center justify-between rounded-lg border p-4">
+										<span className="font-medium">Show Contact Form</span>
+										<Switch
+											checked={form.watch("contact.showContactForm")}
+											onCheckedChange={(checked) =>
+												form.setValue("contact.showContactForm", checked)
+											}
+										/>
+									</div>
+									<div className="flex items-center justify-between rounded-lg border p-4">
+										<span className="font-medium">Show Map</span>
+										<Switch
+											checked={form.watch("contact.showMap")}
+											onCheckedChange={(checked) =>
+												form.setValue("contact.showMap", checked)
+											}
+										/>
+									</div>
+									<div className="flex items-center justify-between rounded-lg border p-4">
+										<span className="font-medium">Show Office Locations</span>
+										<Switch
+											checked={form.watch("contact.showOffices")}
+											onCheckedChange={(checked) =>
+												form.setValue("contact.showOffices", checked)
+											}
+										/>
+									</div>
 								</div>
 							</div>
-						</CardContent>
-					</Card>
-				</TabsContent>
 
-				{/* CTA Tab */}
-				<TabsContent value="cta">
-					<Card>
-						<CardHeader>
-							<CardTitle>CTA Section</CardTitle>
-							<CardDescription>Call-to-action section with gradient background</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="space-y-2">
-								<Label>Title</Label>
-								<Input
-									{...form.register("cta.title")}
-									placeholder="e.g., Redo att komma igang?"
-								/>
-							</div>
-
-							<div className="space-y-2">
-								<Label>Description</Label>
-								<Textarea
-									{...form.register("cta.description")}
-									placeholder="Brief call-to-action text"
-									rows={3}
-								/>
-							</div>
-
-							<div className="grid gap-6 md:grid-cols-2">
-								<div className="space-y-4 rounded-lg border p-4">
-									<h4 className="font-medium">Primary Button</h4>
-									<div className="space-y-2">
-										<Label>Text</Label>
-										<Input
-											{...form.register("cta.primaryCta.text")}
-											placeholder="e.g., Kontakta oss"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label>Link</Label>
-										<Input
-											{...form.register("cta.primaryCta.href")}
-											placeholder="/kontakt"
-										/>
-									</div>
-								</div>
-
-								<div className="space-y-4 rounded-lg border p-4">
-									<h4 className="font-medium">Secondary Button</h4>
-									<div className="space-y-2">
-										<Label>Text</Label>
-										<Input
-											{...form.register("cta.secondaryCta.text")}
-											placeholder="e.g., Se produkter"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label>Link</Label>
-										<Input
-											{...form.register("cta.secondaryCta.href")}
-											placeholder="/produkter"
-										/>
-									</div>
-								</div>
+							<div className="rounded-lg bg-muted p-4">
+								<p className="text-sm text-muted-foreground">
+									<strong>Note:</strong> The contact information (phone, email, addresses, etc.) is pulled from your site settings and the Contact Us page.
+									<a href="/dashboard/webbplats/kontakt" className="text-primary hover:underline ml-1">
+										Edit Contact Page Settings
+									</a>
+								</p>
 							</div>
 						</CardContent>
 					</Card>
@@ -1175,7 +825,7 @@ export default function AboutPageCMS() {
 									<Label>Meta Title</Label>
 									<Input
 										{...form.register("seo.title")}
-										placeholder="Om oss - Synos Medical"
+										placeholder="About Us - Company Name"
 									/>
 								</div>
 
@@ -1211,12 +861,12 @@ export default function AboutPageCMS() {
 							<CardContent>
 								<SeoPreview
 									data={{
-										title: form.watch("seo.title") || "Om oss - Synos Medical",
+										title: form.watch("seo.title") || "About Us - Company Name",
 										description: form.watch("seo.description") || "Add a description",
-										slug: "om-oss",
+										slug: "about-us",
 										ogImage: form.watch("seo.ogImage") || null,
-										siteName: "Synos Medical",
-										siteUrl: "www.synos.se",
+										siteName: "Company Name",
+										siteUrl: "www.example.com",
 									}}
 								/>
 							</CardContent>

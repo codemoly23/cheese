@@ -3,14 +3,10 @@ import { connectMongoose } from "@/lib/db/db-connect";
 import {
 	getAboutPageModelSync,
 	type IAboutPage,
-	type IAboutHeroSection,
-	type IAboutMissionSection,
-	type IAboutStat,
-	type IAboutImageGallerySection,
-	type IAboutFaqSection,
-	type IAboutTestimonialsSection,
-	type IAboutPartnersSection,
-	type IAboutCtaSection,
+	type IHistorySection,
+	type ICustomersSection,
+	type ITeamSection,
+	type IContactSection,
 	type IAboutSectionVisibility,
 	type IAboutPageSeo,
 } from "@/models/about-page.model";
@@ -27,14 +23,10 @@ function toPlainObject<T>(data: T): T {
  */
 export interface UpdateAboutPageInput {
 	sectionVisibility?: IAboutSectionVisibility;
-	hero?: Partial<IAboutHeroSection>;
-	mission?: Partial<IAboutMissionSection>;
-	stats?: IAboutStat[];
-	imageGallery?: Partial<IAboutImageGallerySection>;
-	faq?: Partial<IAboutFaqSection>;
-	testimonials?: Partial<IAboutTestimonialsSection>;
-	partners?: Partial<IAboutPartnersSection>;
-	cta?: Partial<IAboutCtaSection>;
+	history?: Partial<IHistorySection>;
+	customers?: Partial<ICustomersSection>;
+	team?: Partial<ITeamSection>;
+	contact?: Partial<IContactSection>;
 	seo?: Partial<IAboutPageSeo>;
 }
 
@@ -77,44 +69,20 @@ class AboutPageRepository {
 			updateData.sectionVisibility = data.sectionVisibility;
 		}
 
-		if (data.hero) {
-			Object.entries(data.hero).forEach(([key, value]) => {
-				if (value !== undefined) {
-					updateData[`hero.${key}`] = value;
-				}
-			});
+		if (data.history) {
+			updateData.history = data.history;
 		}
 
-		if (data.mission) {
-			updateData.mission = data.mission;
+		if (data.customers) {
+			updateData.customers = data.customers;
 		}
 
-		if (data.stats) {
-			updateData.stats = data.stats;
+		if (data.team) {
+			updateData.team = data.team;
 		}
 
-		if (data.imageGallery) {
-			updateData.imageGallery = data.imageGallery;
-		}
-
-		if (data.faq) {
-			updateData.faq = data.faq;
-		}
-
-		if (data.testimonials) {
-			updateData.testimonials = data.testimonials;
-		}
-
-		if (data.partners) {
-			updateData.partners = data.partners;
-		}
-
-		if (data.cta) {
-			Object.entries(data.cta).forEach(([key, value]) => {
-				if (value !== undefined) {
-					updateData[`cta.${key}`] = value;
-				}
-			});
+		if (data.contact) {
+			updateData.contact = data.contact;
 		}
 
 		if (data.seo) {

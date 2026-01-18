@@ -1,5 +1,5 @@
 /**
- * Seed script for About Page (Om Oss) data
+ * Seed script for About Page data
  * Run with: npx tsx scripts/seed-about-page.ts
  */
 
@@ -47,135 +47,184 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// About page data based on reference website synos.se/om-oss
+// About page data based on Boxholm Cheese reference
 const aboutPageData = {
 	sectionVisibility: {
-		hero: true,
-		contentSections: true, // Enable content sections
-		contactSection: true,
-		featureCards: true,
-		companyInfo: true,
-		richContent: true,
+		history: true,
+		customers: true,
+		team: true,
+		contact: true,
 	},
 
-	// Hero Section
-	hero: {
-		title: "Om Synos Medical",
-		subtitle:
-			"Sveriges främsta leverantör av klinikutrustning - alltid med kunden i fokus!",
+	// History Section - Timeline design
+	history: {
+		badge: "Since 1890",
+		title: "Our Little Story",
+		subtitle: "The new story about tradition, craftsmanship and cheese from Boxholm",
+		timelineItems: [
+			{
+				year: "1890",
+				title: "The Beginning",
+				description:
+					"Cheese has been made in the area around Boxholm since time immemorial. In fact, northern Småland and southern Östergötland are an important place in the history of cheese, even before Boxholm's dairy started production in 1890 - then part of the centuries-old mill.",
+				image: "/storage/images/about/history-1890.jpg",
+			},
+			{
+				year: "1952",
+				title: "Sweden's First Cream Cheese",
+				description:
+					"The solid knowledge of the craft has been passed down from generation to generation. From it was born Sweden's first commercially produced cream cheese in 1952, which has become one of Sweden's iconic cheeses, alongside Svecior, Herrgårdar and Präster.",
+				image: "/storage/images/about/history-1952.jpg",
+			},
+			{
+				year: "Today",
+				title: "A Unique Product",
+				description:
+					"One of Sweden's most classic cheeses can now be found again in the cheese counter. Made with guaranteed Swedish milk from farms in and around Östergötland. The cheese from Boxholm is the only one to build on the traditional, artisanal manufacturing that has characterized production in the town since its inception in 1890.",
+				image: "/storage/images/about/history-today.jpg",
+			},
+			{
+				year: "Future",
+				title: "Tradition Lives On",
+				description:
+					"This legacy now lives on. A Boxholm cheese should be made the way it has always been made, to the right recipe with the right ingredients and turned by hand by the cheese masters in Boxholm – all for the sake of good taste.",
+				image: "/storage/images/about/history-future.jpg",
+			},
+		],
 	},
 
-	// Rich Content - HTML from the WordPress text editor
-	richContent: `
-<h2>Professionell leverantör</h2>
-<p>Synos Medical erbjuder professionella lasermaskiner och utrustning till kliniker och salonger runt om i Skandinavien. Alla våra lasermaskiner är testade för bästa funktionalitet inom sitt specifika användningsområde. När du beställer utrustning från oss får du en produkt som är tillverkad i enlighet med den senaste forskningen.</p>
+	// Customers Section
+	customers: {
+		title: "Our Valued Customers",
+		subtitle: "Partners who trust the quality of cheese from Boxholm",
+		customers: [
+			{
+				name: "ICA Supermarket",
+				logo: "/storage/images/customers/ica-logo.png",
+				products: "Gräddost, Mästarost, Ribbing",
+				description:
+					"One of our largest retail partners, offering our full range of traditional cheeses to consumers across Sweden.",
+				website: "https://www.ica.se",
+			},
+			{
+				name: "Coop",
+				logo: "/storage/images/customers/coop-logo.png",
+				products: "Kryddost, Anno 1952, Chiliost",
+				description:
+					"A key distribution partner helping bring artisan cheese to households throughout the region.",
+				website: "https://www.coop.se",
+			},
+			{
+				name: "Willys",
+				logo: "/storage/images/customers/willys-logo.png",
+				products: "Bruksost, Gräddost",
+				description:
+					"Budget-conscious consumers can enjoy our quality cheese thanks to this partnership.",
+				website: "https://www.willys.se",
+			},
+			{
+				name: "Local Restaurants",
+				logo: "/storage/images/customers/restaurant-logo.png",
+				products: "Premium Mästarost, Ribbing, Specialty orders",
+				description:
+					"Fine dining establishments in Östergötland featuring our cheese on their menus.",
+			},
+			{
+				name: "Ostbutiken Stockholm",
+				logo: "/storage/images/customers/cheese-shop-logo.png",
+				products: "Full assortment including aged varieties",
+				description:
+					"Specialty cheese shop showcasing the complete Boxholm range to cheese enthusiasts.",
+				website: "https://ostbutiken.se",
+			},
+			{
+				name: "Hotel & Conference Centers",
+				logo: "/storage/images/customers/hotel-logo.png",
+				products: "Breakfast assortment, Catering packages",
+				description:
+					"Hotels across Sweden serve our cheese at their breakfast buffets and events.",
+			},
+		],
+	},
 
-<h2>Med kunden i fokus</h2>
-<p>Vi vet hur viktigt det är att kunna erbjuda allra bästa kvalitet och service till sina kunder. Med våra lasermaskiner kan du garantera dina patienter behandlingar med deras trygghet och hälsa i fokus.</p>
-<p>En lyckad behandling är alltid i slutändan ett resultat av seriös forskning. Därför genomgår alla våra produkter noggranna undersökningar och tester innan de får ut på marknaden. Med medicinsk laserutrustning från Synos kan du vara säker på att kunna erbjuda det bästa till dina kunder!</p>
-
-<h2>Utbildning och service</h2>
-<p>Vi vill att du som beställer en lasermaskin från Synos Medical ska känna dig trygg med att använda din laserutrustning på rätt sätt. Oavsett om du är kirurg, sjuksköterska eller laserterapeut får du den utbildning du behöver för att kunna erbjuda laserbehandling av bästa kvalitet.</p>
-<p>Vi lagar din maskin inom 48 arbetstimmar samt erbjuder automatisk service beroende på vilken typ av laserutrustning du använder. Allt för att du ska känna dig trygg med att dina lasermaskiner fungerar i alla lägen.</p>
-
-<h2>Kontakta oss</h2>
-<p>Synos Medical ligger alltid i framkant när det gäller teknisk utveckling inom lasermedicin. Vill du veta mer om vår verksamhet? Ring oss eller maila så berättar vi mer om våra <a href="/klinikutrustning">lasermaskiner</a>.</p>
-
-<hr/>
-
-<h3>Fördelar med Synos Medical</h3>
-<ul>
-<li><strong>Helhetslösning</strong> – Alla kunder har olika behov vilket vi är fullt medvetna om. Därför kan vi erbjuda flera olika lösningar. Köp, leasa eller hyr din utrustning.</li>
-<li><strong>Service och kunskap</strong> – Vid ett köp får du alltid 2 års fullservice på plats hos er, 2 års garanti och livstidssupport.</li>
-<li><strong>Lång erfarenhet</strong> – Många år i branschen har gett oss djupgående kunskap och förståelse för vad kunder söker.</li>
-<li><strong>Utbildning</strong> – Full utbildning för 2 personer ingår alltid för att ni tryggt ska kunna använda utrustningen.</li>
-<li><strong>Försäkringar</strong> – Efter genomgången utbildning finns möjlighet att skaffa maskin- och patientansvarsförsäkring.</li>
-</ul>
-`,
-
-	// Content Sections - Text sections with titles and content
-	contentSections: [
-		{
-			title: "Professionell leverantör",
-			content: `Synos Medical erbjuder professionella lasermaskiner och utrustning till kliniker och salonger runt om i Skandinavien. Alla våra lasermaskiner är testade för bästa funktionalitet inom sitt specifika användningsområde. När du beställer utrustning från oss får du en produkt som är tillverkad i enlighet med den senaste forskningen.`,
-			highlighted: false,
-		},
-		{
-			title: "Med kunden i fokus",
-			content: `Vi vet hur viktigt det är att kunna erbjuda allra bästa kvalitet och service till sina kunder. Med våra lasermaskiner kan du garantera dina patienter behandlingar med deras trygghet och hälsa i fokus.
-
-En lyckad behandling är alltid i slutändan ett resultat av seriös forskning. Därför genomgår alla våra produkter noggranna undersökningar och tester innan de får ut på marknaden. Med medicinsk laserutrustning från Synos kan du vara säker på att kunna erbjuda det bästa till dina kunder!`,
-			highlighted: true,
-		},
-		{
-			title: "Utbildning och service",
-			content: `Vi vill att du som beställer en lasermaskin från Synos Medical ska känna dig trygg med att använda din laserutrustning på rätt sätt. Oavsett om du är kirurg, sjuksköterska eller laserterapeut får du den utbildning du behöver för att kunna erbjuda laserbehandling av bästa kvalitet.
-
-Vi lagar din maskin inom 48 arbetstimmar samt erbjuder automatisk service beroende på vilken typ av laserutrustning du använder. Allt för att du ska känna dig trygg med att dina lasermaskiner fungerar i alla lägen.`,
-			highlighted: false,
-		},
-	],
+	// Team Section
+	team: {
+		title: "Meet Our Team",
+		subtitle: "The people behind the quality cheese from Boxholm",
+		members: [
+			{
+				name: "Erik Johansson",
+				role: "Master Cheese Maker",
+				department: "Production",
+				image: "/storage/images/team/erik-johansson.jpg",
+				bio: "With over 30 years of experience, Erik leads our cheese production with the traditional methods passed down through generations.",
+				email: "erik@boxholmsost.se",
+				phone: "+46 70 123 4567",
+				linkedin: "https://linkedin.com/in/erik-johansson",
+			},
+			{
+				name: "Anna Lindqvist",
+				role: "Quality Manager",
+				department: "Quality Control",
+				image: "/storage/images/team/anna-lindqvist.jpg",
+				bio: "Anna ensures every wheel of cheese meets our high standards before it leaves the dairy.",
+				email: "anna@boxholmsost.se",
+				phone: "+46 70 234 5678",
+			},
+			{
+				name: "Lars Svensson",
+				role: "Head of Sales",
+				department: "Sales",
+				image: "/storage/images/team/lars-svensson.jpg",
+				bio: "Lars manages relationships with our retail and wholesale partners across Sweden.",
+				email: "lars@boxholmsost.se",
+				phone: "+46 70 345 6789",
+				linkedin: "https://linkedin.com/in/lars-svensson",
+			},
+			{
+				name: "Maria Andersson",
+				role: "Marketing Director",
+				department: "Marketing",
+				image: "/storage/images/team/maria-andersson.jpg",
+				bio: "Maria tells the story of Boxholm cheese to the world through our brand communications.",
+				email: "maria@boxholmsost.se",
+				linkedin: "https://linkedin.com/in/maria-andersson",
+			},
+			{
+				name: "Johan Berg",
+				role: "Production Supervisor",
+				department: "Production",
+				image: "/storage/images/team/johan-berg.jpg",
+				bio: "Johan oversees daily operations in our cheese production facility.",
+				email: "johan@boxholmsost.se",
+				phone: "+46 70 456 7890",
+			},
+			{
+				name: "Sofia Karlsson",
+				role: "Customer Service Manager",
+				department: "Customer Service",
+				image: "/storage/images/team/sofia-karlsson.jpg",
+				bio: "Sofia and her team ensure our customers always have a great experience.",
+				email: "sofia@boxholmsost.se",
+				phone: "+46 70 567 8901",
+			},
+		],
+	},
 
 	// Contact Section
-	contactSection: {
-		title: "Kontakta oss",
-		description:
-			"Synos Medical ligger alltid i framkant när det gäller teknisk utveckling inom lasermedicin. Vill du veta mer om vår verksamhet? Ring oss eller maila så berättar vi mer om våra lasermaskiner.",
-		primaryCta: {
-			text: "Kontakta oss",
-			href: "/kontakt",
-			variant: "primary",
-		},
-		secondaryCta: {
-			text: "010-205 15 01",
-			href: "tel:010-205 15 01",
-			variant: "outline",
-		},
-	},
-
-	// Feature Cards (Sidebar Quick Links from reference)
-	featureCards: [
-		{
-			icon: "Search",
-			title: "Känner du dig osäker?",
-			description:
-				"Vi hjälper dig att hitta rätt utrustning för din verksamhet.",
-			ctaText: "Hitta rätt utrustning",
-			ctaHref: "/klinikutrustning",
-		},
-		{
-			icon: "Zap",
-			title: "Hjälp att starta eget",
-			description:
-				"Drömmer du om att starta egen klinik? Vi guidar dig genom hela processen.",
-			ctaText: "Läs mer",
-			ctaHref: "/starta-eget",
-		},
-		{
-			icon: "BookOpen",
-			title: "Utbildning i världsklass",
-			description:
-				"Få certifierad utbildning på din utrustning med våra experter.",
-			ctaText: "Se utbildningar",
-			ctaHref: "/utbildningar",
-		},
-	],
-
-	// Company Info
-	companyInfo: {
-		companyName: "Synos Medical AB",
-		organizationNumber: "556871-8075",
-		addresses: [
-			"Stockholm: Gävlegatan 12A, 113 30 Stockholm",
-			"Linköping: Brigadgatan 16, 587 58 Linköping",
-		],
+	contact: {
+		title: "Get In Touch",
+		subtitle: "We'd love to hear from you - whether you're a customer, partner, or cheese enthusiast",
+		showContactForm: true,
+		showMap: true,
+		showOffices: true,
 	},
 
 	// SEO
 	seo: {
-		title: "Synos Medical | Sveriges främsta leverantör av klinikutrustning",
+		title: "About Us - Boxholm Cheese | Traditional Swedish Cheese Since 1890",
 		description:
-			"Funderar du på att köpa medicinsk laserutrustning? Vi på Synos erbjuder marknadens bästa lasermaskiner - alltid med kunden i fokus!",
+			"Learn about the history, team, and tradition behind Boxholm cheese. Made with Swedish milk using artisanal methods since 1890.",
 		ogImage: "/storage/images/og-about.jpg",
 	},
 };
@@ -217,8 +266,17 @@ async function seedAboutPage() {
 		console.log("ABOUT PAGE DATA SEEDED SUCCESSFULLY!");
 		console.log("========================================\n");
 
-		console.log("OPTIONAL: Add the following image for OG sharing:");
-		console.log("  - public/storage/images/og-about.jpg");
+		console.log("Page includes:");
+		console.log("  - History Section with 4 timeline items");
+		console.log("  - Customers Section with 6 customers");
+		console.log("  - Team Section with 6 team members");
+		console.log("  - Contact Section (linked to contact page)");
+
+		console.log("\nOPTIONAL: Add the following images:");
+		console.log("  - public/storage/images/about/history-*.jpg (timeline images)");
+		console.log("  - public/storage/images/customers/*.png (customer logos)");
+		console.log("  - public/storage/images/team/*.jpg (team photos)");
+		console.log("  - public/storage/images/og-about.jpg (OG sharing image)");
 		console.log("\n========================================\n");
 	} catch (error) {
 		console.error("Error seeding about page:", error);

@@ -6,15 +6,41 @@ import { fadeUp, staggerContainer } from "@/lib/animations";
 
 interface BlogHeroProps {
 	pageTitle?: string;
+	locale?: "sv" | "en";
 }
+
+// Translations
+const translations = {
+	sv: {
+		badge: "Nyheter & Artiklar",
+		badgeNews: "Nyheter",
+		titlePrefix: "Senaste nytt om",
+		titleHighlight: "klinikutrustning",
+		description: "Ta del av det allra senaste inom hårborttagning, hudvård, microneedling och tatueringsborttagning. Expertguider, tekniska genomgångar och branschnyheter.",
+		updatedRegularly: "Uppdateras regelbundet",
+		expertArticles: "Expertskrivna artiklar",
+	},
+	en: {
+		badge: "News & Articles",
+		badgeNews: "News",
+		titlePrefix: "Latest news about",
+		titleHighlight: "artisan cheese",
+		description: "Discover the world of traditional cheese making, dairy farming stories, delicious recipes, and the latest news from Boxholm Cheese.",
+		updatedRegularly: "Updated regularly",
+		expertArticles: "Expert-written articles",
+	},
+};
 
 /**
  * BlogHero Component
  *
  * Hero section for the blog listing page with title, description, and decorative elements.
  * Supports custom pageTitle for different routes (e.g., "Nyheter", "Blogg")
+ * Supports locale for multilingual content
  */
-export function BlogHero({ pageTitle = "Blogg" }: BlogHeroProps) {
+export function BlogHero({ pageTitle = "Blogg", locale = "sv" }: BlogHeroProps) {
+	const t = translations[locale];
+
 	return (
 		<section className="relative overflow-hidden bg-linear-to-br from-slate-100 to-primary/20 pt-32 pb-16 md:pb-24">
 			{/* Background Pattern */}
@@ -41,9 +67,9 @@ export function BlogHero({ pageTitle = "Blogg" }: BlogHeroProps) {
 					>
 						<BookOpen className="h-4 w-4 text-primary" />
 						<span className="text-sm font-semibold text-primary">
-							{pageTitle === "Nyheter"
-								? "Nyheter"
-								: "Nyheter & Artiklar"}
+							{pageTitle === "Nyheter" || pageTitle === "News"
+								? t.badgeNews
+								: t.badge}
 						</span>
 					</motion.div>
 
@@ -52,9 +78,9 @@ export function BlogHero({ pageTitle = "Blogg" }: BlogHeroProps) {
 						variants={fadeUp}
 						className="mb-6 text-4xl font-bold tracking-tight text-secondary md:text-5xl lg:text-6xl"
 					>
-						Senaste nytt om{" "}
+						{t.titlePrefix}{" "}
 						<span className="bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-							klinikutrustning
+							{t.titleHighlight}
 						</span>
 					</motion.h1>
 
@@ -63,9 +89,7 @@ export function BlogHero({ pageTitle = "Blogg" }: BlogHeroProps) {
 						variants={fadeUp}
 						className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl"
 					>
-						Ta del av det allra senaste inom hårborttagning, hudvård,
-						microneedling och tatueringsborttagning. Expertguider,
-						tekniska genomgångar och branschnyheter.
+						{t.description}
 					</motion.p>
 
 					{/* Stats */}
@@ -76,13 +100,13 @@ export function BlogHero({ pageTitle = "Blogg" }: BlogHeroProps) {
 						<div className="flex items-center gap-2">
 							<TrendingUp className="h-5 w-5 text-primary" />
 							<span className="text-muted-foreground">
-								Uppdateras regelbundet
+								{t.updatedRegularly}
 							</span>
 						</div>
 						<div className="flex items-center gap-2">
 							<BookOpen className="h-5 w-5 text-primary" />
 							<span className="text-muted-foreground">
-								Expertskrivna artiklar
+								{t.expertArticles}
 							</span>
 						</div>
 					</motion.div>

@@ -605,6 +605,25 @@ class ProductService {
 
 			sanitizedData.lastEditedBy = userId;
 
+			// Handle heroSettings - ensure it's properly structured for MongoDB update
+			// MongoDB $set with nested objects needs explicit handling to avoid undefined values
+			if (data.heroSettings !== undefined) {
+				sanitizedData.heroSettings = {
+					themeColor: data.heroSettings.themeColor ?? product.heroSettings?.themeColor ?? "#6B7280",
+					badge: data.heroSettings.badge ?? product.heroSettings?.badge ?? "",
+					ctaText: data.heroSettings.ctaText ?? product.heroSettings?.ctaText ?? "",
+					ctaUrl: data.heroSettings.ctaUrl ?? product.heroSettings?.ctaUrl ?? "",
+				};
+			}
+
+			// Handle productVariants and accordionSections similarly
+			if (data.productVariants !== undefined) {
+				sanitizedData.productVariants = data.productVariants;
+			}
+			if (data.accordionSections !== undefined) {
+				sanitizedData.accordionSections = data.accordionSections;
+			}
+
 			const updatedProduct = await productRepository.updateById(id, {
 				$set: sanitizedData,
 			});

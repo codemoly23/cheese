@@ -5,272 +5,157 @@ import { connectMongoose } from "@/lib/db/db-connect";
 // SECTION VISIBILITY
 // ============================================================================
 export interface IAboutSectionVisibility {
-	hero: boolean;
-	mission: boolean;
-	stats: boolean;
-	imageGallery: boolean;
-	faq: boolean;
-	testimonials: boolean;
-	partners: boolean;
-	cta: boolean;
+	history: boolean;
+	customers: boolean;
+	team: boolean;
+	contact: boolean;
 }
 
 const AboutSectionVisibilitySchema = new Schema<IAboutSectionVisibility>(
 	{
-		hero: { type: Boolean, default: true },
-		mission: { type: Boolean, default: true },
-		stats: { type: Boolean, default: true },
-		imageGallery: { type: Boolean, default: true },
-		faq: { type: Boolean, default: true },
-		testimonials: { type: Boolean, default: true },
-		partners: { type: Boolean, default: true },
-		cta: { type: Boolean, default: true },
+		history: { type: Boolean, default: true },
+		customers: { type: Boolean, default: true },
+		team: { type: Boolean, default: true },
+		contact: { type: Boolean, default: true },
 	},
 	{ _id: false }
 );
 
 // ============================================================================
-// HERO SECTION
+// HISTORY SECTION (Timeline Design)
 // ============================================================================
-export interface IAboutHeroSection {
+export interface IHistoryTimelineItem {
+	year: string;
+	title: string;
+	description: string;
+	image?: string;
+}
+
+export interface IHistorySection {
 	badge?: string;
 	title?: string;
 	subtitle?: string;
+	timelineItems?: IHistoryTimelineItem[];
 }
 
-const AboutHeroSectionSchema = new Schema<IAboutHeroSection>(
+const HistoryTimelineItemSchema = new Schema<IHistoryTimelineItem>(
+	{
+		year: { type: String, trim: true },
+		title: { type: String, trim: true },
+		description: { type: String, trim: true },
+		image: { type: String, trim: true },
+	},
+	{ _id: false }
+);
+
+const HistorySectionSchema = new Schema<IHistorySection>(
 	{
 		badge: { type: String, trim: true },
 		title: { type: String, trim: true },
 		subtitle: { type: String, trim: true },
+		timelineItems: { type: [HistoryTimelineItemSchema], default: [] },
 	},
 	{ _id: false }
 );
 
 // ============================================================================
-// MISSION SECTION
+// CUSTOMERS SECTION
 // ============================================================================
-export interface IAboutMissionSection {
-	badge?: string;
-	title?: string;
-	description?: string;
-	image?: string;
-	features?: IAboutFeature[];
-}
-
-export interface IAboutFeature {
-	icon?: string;
-	title?: string;
-	description?: string;
-	image?: string; // Background image for image-based card design
-	buttonText?: string; // Optional button text for image-based cards
-	buttonLink?: string; // Optional button link for image-based cards
-}
-
-const AboutFeatureSchema = new Schema<IAboutFeature>(
-	{
-		icon: { type: String, trim: true },
-		title: { type: String, trim: true },
-		description: { type: String, trim: true },
-		image: { type: String, trim: true },
-		buttonText: { type: String, trim: true },
-		buttonLink: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-const AboutMissionSectionSchema = new Schema<IAboutMissionSection>(
-	{
-		badge: { type: String, trim: true },
-		title: { type: String, trim: true },
-		description: { type: String, trim: true },
-		image: { type: String, trim: true },
-		features: { type: [AboutFeatureSchema], default: [] },
-	},
-	{ _id: false }
-);
-
-// ============================================================================
-// STATS SECTION
-// ============================================================================
-export interface IAboutStat {
-	value?: string;
-	label?: string;
-	suffix?: string;
-}
-
-const AboutStatSchema = new Schema<IAboutStat>(
-	{
-		value: { type: String, trim: true },
-		label: { type: String, trim: true },
-		suffix: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-// ============================================================================
-// IMAGE GALLERY SECTION
-// ============================================================================
-export interface IAboutGalleryImage {
-	src?: string;
-	alt?: string;
-}
-
-export interface IAboutImageGallerySection {
-	title?: string;
-	subtitle?: string;
-	images?: IAboutGalleryImage[];
-}
-
-const AboutGalleryImageSchema = new Schema<IAboutGalleryImage>(
-	{
-		src: { type: String, trim: true },
-		alt: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-const AboutImageGallerySectionSchema = new Schema<IAboutImageGallerySection>(
-	{
-		title: { type: String, trim: true },
-		subtitle: { type: String, trim: true },
-		images: { type: [AboutGalleryImageSchema], default: [] },
-	},
-	{ _id: false }
-);
-
-// ============================================================================
-// FAQ SECTION
-// ============================================================================
-export interface IAboutFaqItem {
-	question?: string;
-	answer?: string;
-}
-
-export interface IAboutFaqSection {
-	title?: string;
-	subtitle?: string;
-	items?: IAboutFaqItem[];
-}
-
-const AboutFaqItemSchema = new Schema<IAboutFaqItem>(
-	{
-		question: { type: String, trim: true },
-		answer: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-const AboutFaqSectionSchema = new Schema<IAboutFaqSection>(
-	{
-		title: { type: String, trim: true },
-		subtitle: { type: String, trim: true },
-		items: { type: [AboutFaqItemSchema], default: [] },
-	},
-	{ _id: false }
-);
-
-// ============================================================================
-// TESTIMONIALS SECTION
-// ============================================================================
-export interface IAboutTestimonial {
-	quote?: string;
-	author?: string;
-	role?: string;
-	company?: string;
-	image?: string;
-	rating?: number;
-}
-
-export interface IAboutTestimonialsSection {
-	title?: string;
-	subtitle?: string;
-	testimonials?: IAboutTestimonial[];
-}
-
-const AboutTestimonialSchema = new Schema<IAboutTestimonial>(
-	{
-		quote: { type: String, trim: true },
-		author: { type: String, trim: true },
-		role: { type: String, trim: true },
-		company: { type: String, trim: true },
-		image: { type: String, trim: true },
-		rating: { type: Number, min: 1, max: 5, default: 5 },
-	},
-	{ _id: false }
-);
-
-const AboutTestimonialsSectionSchema = new Schema<IAboutTestimonialsSection>(
-	{
-		title: { type: String, trim: true },
-		subtitle: { type: String, trim: true },
-		testimonials: { type: [AboutTestimonialSchema], default: [] },
-	},
-	{ _id: false }
-);
-
-// ============================================================================
-// PARTNERS SECTION
-// ============================================================================
-export interface IAboutPartner {
-	name?: string;
+export interface ICustomerItem {
+	name: string;
 	logo?: string;
-	url?: string;
+	products?: string;
+	description?: string;
+	website?: string;
 }
 
-export interface IAboutPartnersSection {
+export interface ICustomersSection {
 	title?: string;
 	subtitle?: string;
-	partners?: IAboutPartner[];
+	customers?: ICustomerItem[];
 }
 
-const AboutPartnerSchema = new Schema<IAboutPartner>(
+const CustomerItemSchema = new Schema<ICustomerItem>(
 	{
 		name: { type: String, trim: true },
 		logo: { type: String, trim: true },
-		url: { type: String, trim: true },
+		products: { type: String, trim: true },
+		description: { type: String, trim: true },
+		website: { type: String, trim: true },
 	},
 	{ _id: false }
 );
 
-const AboutPartnersSectionSchema = new Schema<IAboutPartnersSection>(
+const CustomersSectionSchema = new Schema<ICustomersSection>(
 	{
 		title: { type: String, trim: true },
 		subtitle: { type: String, trim: true },
-		partners: { type: [AboutPartnerSchema], default: [] },
+		customers: { type: [CustomerItemSchema], default: [] },
 	},
 	{ _id: false }
 );
 
 // ============================================================================
-// CTA SECTION
+// TEAM SECTION
 // ============================================================================
-export interface IAboutCtaButton {
-	text?: string;
-	href?: string;
+export interface ITeamMember {
+	name: string;
+	role: string;
+	image?: string;
+	email?: string;
+	phone?: string;
+	linkedin?: string;
+	department?: string;
+	bio?: string;
 }
 
-export interface IAboutCtaSection {
+export interface ITeamSection {
 	title?: string;
-	description?: string;
-	primaryCta?: IAboutCtaButton;
-	secondaryCta?: IAboutCtaButton;
+	subtitle?: string;
+	members?: ITeamMember[];
 }
 
-const AboutCtaButtonSchema = new Schema<IAboutCtaButton>(
+const TeamMemberSchema = new Schema<ITeamMember>(
 	{
-		text: { type: String, trim: true },
-		href: { type: String, trim: true },
+		name: { type: String, trim: true },
+		role: { type: String, trim: true },
+		image: { type: String, trim: true },
+		email: { type: String, trim: true },
+		phone: { type: String, trim: true },
+		linkedin: { type: String, trim: true },
+		department: { type: String, trim: true },
+		bio: { type: String, trim: true },
 	},
 	{ _id: false }
 );
 
-const AboutCtaSectionSchema = new Schema<IAboutCtaSection>(
+const TeamSectionSchema = new Schema<ITeamSection>(
 	{
 		title: { type: String, trim: true },
-		description: { type: String, trim: true },
-		primaryCta: { type: AboutCtaButtonSchema },
-		secondaryCta: { type: AboutCtaButtonSchema },
+		subtitle: { type: String, trim: true },
+		members: { type: [TeamMemberSchema], default: [] },
+	},
+	{ _id: false }
+);
+
+// ============================================================================
+// CONTACT SECTION
+// ============================================================================
+export interface IContactSection {
+	title?: string;
+	subtitle?: string;
+	showContactForm?: boolean;
+	showMap?: boolean;
+	showOffices?: boolean;
+}
+
+const ContactSectionSchema = new Schema<IContactSection>(
+	{
+		title: { type: String, trim: true },
+		subtitle: { type: String, trim: true },
+		showContactForm: { type: Boolean, default: true },
+		showMap: { type: Boolean, default: true },
+		showOffices: { type: Boolean, default: true },
 	},
 	{ _id: false }
 );
@@ -299,14 +184,10 @@ const AboutPageSeoSchema = new Schema<IAboutPageSeo>(
 export interface IAboutPage extends Document {
 	_id: mongoose.Types.ObjectId;
 	sectionVisibility: IAboutSectionVisibility;
-	hero: IAboutHeroSection;
-	mission: IAboutMissionSection;
-	stats: IAboutStat[];
-	imageGallery: IAboutImageGallerySection;
-	faq: IAboutFaqSection;
-	testimonials: IAboutTestimonialsSection;
-	partners: IAboutPartnersSection;
-	cta: IAboutCtaSection;
+	history: IHistorySection;
+	customers: ICustomersSection;
+	team: ITeamSection;
+	contact: IContactSection;
 	seo: IAboutPageSeo;
 	updatedAt: Date;
 	createdAt: Date;
@@ -317,24 +198,16 @@ const AboutPageSchema = new Schema<IAboutPage>(
 		sectionVisibility: {
 			type: AboutSectionVisibilitySchema,
 			default: {
-				hero: true,
-				mission: true,
-				stats: true,
-				imageGallery: true,
-				faq: true,
-				testimonials: true,
-				partners: true,
-				cta: true,
+				history: true,
+				customers: true,
+				team: true,
+				contact: true,
 			},
 		},
-		hero: { type: AboutHeroSectionSchema, default: {} },
-		mission: { type: AboutMissionSectionSchema, default: {} },
-		stats: { type: [AboutStatSchema], default: [] },
-		imageGallery: { type: AboutImageGallerySectionSchema, default: {} },
-		faq: { type: AboutFaqSectionSchema, default: {} },
-		testimonials: { type: AboutTestimonialsSectionSchema, default: {} },
-		partners: { type: AboutPartnersSectionSchema, default: {} },
-		cta: { type: AboutCtaSectionSchema, default: {} },
+		history: { type: HistorySectionSchema, default: {} },
+		customers: { type: CustomersSectionSchema, default: {} },
+		team: { type: TeamSectionSchema, default: {} },
+		contact: { type: ContactSectionSchema, default: {} },
 		seo: { type: AboutPageSeoSchema, default: {} },
 	},
 	{
