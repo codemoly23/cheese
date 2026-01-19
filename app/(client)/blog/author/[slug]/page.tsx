@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getSiteConfig } from "@/config/site";
 import { getAllArticles } from "@/lib/data/blog";
-import { BlogCard } from "../../../blogg/_components/blog-card";
+import { BlogCard } from "../../_components/blog-card";
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import type { Article, Author } from "@/types/article";
 

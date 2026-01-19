@@ -13,12 +13,14 @@ import {
 	callbackRequestSchema,
 	tourRequestSchema,
 	quoteRequestSchema,
+	resellerApplicationSchema,
 	type ProductInquiryInput,
 	type TrainingInquiryInput,
 	type ContactInquiryInput,
 	type CallbackRequestInput,
 	type TourRequestInput,
 	type QuoteRequestInput,
+	type ResellerApplicationInput,
 	type FormSubmissionListQuery,
 	type UpdateStatusInput,
 	type BulkExportInput,
@@ -400,6 +402,64 @@ class FormSubmissionService {
 		const submission = await formSubmissionRepository.create(sanitizedData);
 
 		logger.info(`Quote request created: ${submission._id}`);
+
+		return submission;
+	}
+
+	/**
+	 * Create a reseller application submission
+	 */
+	async createResellerApplication(
+		data: ResellerApplicationInput,
+		metadata: Omit<IFormSubmissionMetadata, "submittedAt">
+	): Promise<IFormSubmission> {
+		// Validate input
+		const validationResult = resellerApplicationSchema.safeParse(data);
+		if (!validationResult.success) {
+			throw new ValidationError(
+				"Validation failed",
+				validationResult.error.issues
+			);
+		}
+
+		// Check rate limit
+		const withinLimit = await this.checkRateLimit(metadata.ipAddress);
+		if (!withinLimit) {
+			throw new TooManyRequestsError(
+				"För många förfrågningar. Försök igen om 15 minuter."
+			);
+		}
+
+		const validData = validationResult.data;
+
+		// Sanitize user-provided fields
+		const sanitizedData = {
+			type: "reseller_application" as FormSubmissionType,
+			fullName: this.sanitizeInput(validData.fullName),
+			email: validData.email.toLowerCase().trim(),
+			phone: this.sanitizeInput(validData.phone),
+			countryCode: validData.countryCode,
+			countryName: this.sanitizeInput(validData.countryName),
+			corporationNumber: this.sanitizeInput(validData.corporationNumber) || null,
+			// Store company name in productName field for display in admin
+			productName: this.sanitizeInput(validData.companyName),
+			// Store business description in subject field
+			subject: this.sanitizeInput(validData.businessDescription),
+			message: this.sanitizeInput(validData.message) || null,
+			gdprConsent: validData.gdprConsent,
+			gdprConsentTimestamp: new Date(),
+			gdprConsentVersion: "1.0",
+			marketingConsent: validData.marketingConsent || false,
+			status: "new" as FormSubmissionStatus,
+			metadata: {
+				...metadata,
+				submittedAt: new Date(),
+			},
+		};
+
+		const submission = await formSubmissionRepository.create(sanitizedData);
+
+		logger.info(`Reseller application created: ${submission._id} from ${validData.companyName}`);
 
 		return submission;
 	}

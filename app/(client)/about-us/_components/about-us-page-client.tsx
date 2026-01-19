@@ -10,8 +10,8 @@ import type { AboutPageData } from "@/lib/repositories/about-page.repository";
 import type { KontaktPageData } from "@/lib/repositories/kontakt-page.repository";
 import type { SiteSettingsData } from "@/lib/repositories/site-settings.repository";
 import type { IOffice } from "@/models/site-settings.model";
-import { AnimatedFormSection } from "../../kontakt/_components/animated-form-section";
-import { AnimatedOfficeLocations } from "../../kontakt/_components/animated-office-locations";
+import { AnimatedFormSection } from "../../contact-us/_components/animated-form-section";
+import { AnimatedOfficeLocations } from "../../contact-us/_components/animated-office-locations";
 
 interface AboutUsPageClientProps {
 	data: AboutPageData;

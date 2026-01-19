@@ -12,10 +12,6 @@ export const mainNav: NavItem[] = [
 		href: "/nyheter",
 	},
 	{
-		title: "Utrustning",
-		href: "/utrustning",
-	},
-	{
 		title: "Produkter",
 		href: "/produkter",
 	},
@@ -25,33 +21,11 @@ export const mainNav: NavItem[] = [
 		isDynamic: true, // This item loads categories/products from database
 	},
 	{
-		title: "Starta Eget",
-		href: "/starta-eget",
-		items: [
-			{
-				title: "Varför välja Synos?",
-				href: "/starta-eget/varfor-valja-synos",
-			},
-			{
-				title: "Köpguide",
-				href: "/starta-eget/kopguide",
-			},
-			{
-				title: "Miniutbildning",
-				href: "/starta-eget/miniutbildning",
-			},
-		],
-	},
-	{
-		title: "Utbildningar",
-		href: "/utbildningar",
-	},
-	{
 		title: "Om Oss",
 		href: "/om-oss",
 		items: [
 			{
-				title: "Om Synos Medical",
+				title: "Om Oss",
 				href: "/om-oss",
 			},
 			{
@@ -59,12 +33,12 @@ export const mainNav: NavItem[] = [
 				href: "/om-oss/team",
 			},
 			{
-				title: "FAQ",
-				href: "/faq",
+				title: "Bli Återförsäljare",
+				href: "/bli-aterforsaljare",
 			},
 			{
-				title: "Lediga Tjänster",
-				href: "/om-oss/lediga-tjanster",
+				title: "FAQ",
+				href: "/faq",
 			},
 			{
 				title: "Juridisk Information",

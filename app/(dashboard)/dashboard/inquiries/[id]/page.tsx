@@ -4,6 +4,17 @@ import { getAuth } from "@/lib/db/auth";
 import { formSubmissionService } from "@/lib/services/form-submission.service";
 import { InquiryDetail } from "./inquiry-detail";
 
+/**
+ * Helper function to safely convert a date value to ISO string
+ * Handles Date objects, strings, and undefined/null values
+ */
+function toISOStringSafe(value: Date | string | null | undefined): string | null {
+	if (!value) return null;
+	if (typeof value === "string") return value;
+	if (value instanceof Date) return value.toISOString();
+	return null;
+}
+
 interface PageProps {
 	params: Promise<{
 		id: string;
@@ -72,7 +83,7 @@ export default async function InquiryDetailPage({ params }: PageProps) {
 				corporationNumber: submission.corporationNumber || null,
 				message: submission.message || null,
 				gdprConsent: submission.gdprConsent,
-				gdprConsentTimestamp: submission.gdprConsentTimestamp.toISOString(),
+				gdprConsentTimestamp: toISOStringSafe(submission.gdprConsentTimestamp) || new Date().toISOString(),
 				gdprConsentVersion: submission.gdprConsentVersion || "1.0",
 				marketingConsent: submission.marketingConsent || false,
 				productId: submission.productId?.toString() || null,
@@ -81,7 +92,7 @@ export default async function InquiryDetailPage({ params }: PageProps) {
 				helpType: submission.helpType || null,
 				trainingInterestType: submission.trainingInterestType || null,
 				subject: submission.subject || null,
-				preferredDate: submission.preferredDate?.toISOString() || null,
+				preferredDate: toISOStringSafe(submission.preferredDate),
 				preferredTime: submission.preferredTime || null,
 				metadata: {
 					ipAddress: submission.metadata.ipAddress,
@@ -89,12 +100,12 @@ export default async function InquiryDetailPage({ params }: PageProps) {
 					referrer: submission.metadata.referrer || null,
 					pageUrl: submission.metadata.pageUrl,
 					locale: submission.metadata.locale || null,
-					submittedAt: submission.metadata.submittedAt.toISOString(),
+					submittedAt: toISOStringSafe(submission.metadata.submittedAt) || new Date().toISOString(),
 				},
-				readAt: submission.readAt?.toISOString() || null,
+				readAt: toISOStringSafe(submission.readAt),
 				readBy: submission.readBy?.toString() || null,
-				createdAt: submission.createdAt.toISOString(),
-				updatedAt: submission.updatedAt.toISOString(),
+				createdAt: toISOStringSafe(submission.createdAt) || new Date().toISOString(),
+				updatedAt: toISOStringSafe(submission.updatedAt) || new Date().toISOString(),
 			}}
 		/>
 	);

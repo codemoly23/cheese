@@ -257,7 +257,7 @@ export default function StorePageCMS() {
 				</div>
 				<div className="flex items-center gap-3">
 					<a
-						href="/butik-i-boxholm"
+						href="/our-store"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -811,7 +811,7 @@ export default function StorePageCMS() {
 									data={{
 										title: form.watch("seo.title") || "Store in Boxholm - Company Name",
 										description: form.watch("seo.description") || "Add a description",
-										slug: "butik-i-boxholm",
+										slug: "our-store",
 										ogImage: form.watch("seo.ogImage") || null,
 										siteName: "Boxholm Cheese",
 										siteUrl: "www.example.com",

@@ -29,6 +29,13 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import {
 	callbackRequestSchema,
 	type CallbackRequestInput,
 } from "@/lib/validations/form-submission.validation";
@@ -515,50 +522,38 @@ export function CallbackPopup() {
 											</Popover>
 
 											{/* Hour Dropdown */}
-											<div className="relative w-20">
-												<select
-													value={selectedHour}
-													onChange={(e) =>
-														setSelectedHour(e.target.value)
-													}
-													className={cn(
-														"w-full h-12 px-3 pr-8 rounded-lg border border-slate-200 bg-white",
-														"text-sm text-secondary appearance-none cursor-pointer text-center",
-														"focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
-														"transition-all duration-200"
-													)}
-												>
+											<Select
+												value={selectedHour}
+												onValueChange={setSelectedHour}
+											>
+												<SelectTrigger className="w-20 h-12 text-center justify-center">
+													<SelectValue />
+												</SelectTrigger>
+												<SelectContent>
 													{availableHours.map((hour) => (
-														<option key={hour} value={hour}>
+														<SelectItem key={hour} value={hour}>
 															{hour}
-														</option>
+														</SelectItem>
 													))}
-												</select>
-												<ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-											</div>
+												</SelectContent>
+											</Select>
 
 											{/* Minute Dropdown */}
-											<div className="relative w-20">
-												<select
-													value={selectedMinute}
-													onChange={(e) =>
-														setSelectedMinute(e.target.value)
-													}
-													className={cn(
-														"w-full h-12 px-3 pr-8 rounded-lg border border-slate-200 bg-white",
-														"text-sm text-secondary appearance-none cursor-pointer text-center",
-														"focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
-														"transition-all duration-200"
-													)}
-												>
+											<Select
+												value={selectedMinute}
+												onValueChange={setSelectedMinute}
+											>
+												<SelectTrigger className="w-20 h-12 text-center justify-center">
+													<SelectValue />
+												</SelectTrigger>
+												<SelectContent>
 													{availableMinutes.map((minute) => (
-														<option key={minute} value={minute}>
+														<SelectItem key={minute} value={minute}>
 															{minute}
-														</option>
+														</SelectItem>
 													))}
-												</select>
-												<ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-											</div>
+												</SelectContent>
+											</Select>
 										</div>
 
 										<Button

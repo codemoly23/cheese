@@ -3,18 +3,20 @@ import type { Metadata } from "next";
 import { getSiteConfig } from "@/config/site";
 import { generateProductPageJsonLd } from "@/lib/seo";
 import { ProductContent } from "./product-content";
+import { categoryRepository } from "@/lib/repositories/category.repository";
 import { productRepository } from "@/lib/repositories/product.repository";
 import type { ProductType } from "@/types";
 
 /**
  * Product Detail Page
  *
- * URL: /store/[slug]/
- * Shows detailed product information (simplified URL for cheese theme)
+ * URL: /products/category/[category]/[slug]/
+ * Shows detailed product information
  */
 
 interface ProductPageProps {
 	params: Promise<{
+		category: string;
 		slug: string;
 	}>;
 }
@@ -34,9 +36,19 @@ export async function generateStaticParams() {
 			limit: 1000,
 		});
 
-		return products.map((product) => ({
-			slug: product.slug,
-		}));
+		return products.map((product) => {
+			// Use primaryCategory first, then first category, or 'uncategorized' as fallback
+			const primaryCat = product.primaryCategory as unknown as { slug?: string } | null;
+			const categories = product.categories as unknown as Array<{
+				slug?: string;
+			}>;
+			const categorySlug = primaryCat?.slug || categories?.[0]?.slug || "uncategorized";
+
+			return {
+				category: categorySlug,
+				slug: product.slug,
+			};
+		});
 	} catch (error) {
 		console.error("Error generating static params for products:", error);
 		return [];
@@ -45,6 +57,7 @@ export async function generateStaticParams() {
 
 /**
  * Fetch product data server-side using repository directly
+ * This avoids fetch calls during SSG which would fail (server not running)
  */
 async function getProduct(slug: string): Promise<ProductType | null> {
 	try {
@@ -61,12 +74,37 @@ async function getProduct(slug: string): Promise<ProductType | null> {
 }
 
 /**
+ * Fallback data for uncategorized products
+ */
+const UNCATEGORIZED_FALLBACK = {
+	slug: "uncategorized",
+	name: "Uncategorized",
+} as const;
+
+/**
+ * Get category by slug
+ * Returns a fallback object for "uncategorized" products
+ */
+async function getCategory(categorySlug: string) {
+	// Handle uncategorized products
+	if (categorySlug === "uncategorized") {
+		return UNCATEGORIZED_FALLBACK;
+	}
+
+	try {
+		return await categoryRepository.findBySlug(categorySlug);
+	} catch {
+		return null;
+	}
+}
+
+/**
  * Generate dynamic metadata for SEO
  */
 export async function generateMetadata({
 	params,
 }: ProductPageProps): Promise<Metadata> {
-	const { slug } = await params;
+	const { category: categorySlug, slug } = await params;
 	const [product, siteConfig] = await Promise.all([
 		getProduct(slug),
 		getSiteConfig(),
@@ -80,7 +118,7 @@ export async function generateMetadata({
 		};
 	}
 
-	const productUrl = `${siteConfig.url}/store/${product.slug}`;
+	const productUrl = `${siteConfig.url}/products/category/${categorySlug}/${product.slug}`;
 
 	const ogImage =
 		product.seo?.ogImage ||
@@ -146,7 +184,13 @@ export async function generateMetadata({
  * Product Page - Server Component
  */
 export default async function ProductPage({ params }: ProductPageProps) {
-	const { slug } = await params;
+	const { category: categorySlug, slug } = await params;
+
+	// Get category
+	const category = await getCategory(categorySlug);
+	if (!category) {
+		notFound();
+	}
 
 	const product = await getProduct(slug);
 
@@ -168,11 +212,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 				/>
 			))}
 
-			{/* Product Content */}
+			{/* Product Content with category navigation */}
 			<ProductContent
 				product={product}
-				basePath="/store"
-				baseLabel="Store"
+				basePath={`/products/category/${category.slug}`}
+				baseLabel={category.name}
 			/>
 		</>
 	);

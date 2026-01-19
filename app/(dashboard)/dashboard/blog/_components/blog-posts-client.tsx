@@ -32,6 +32,13 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { ImageComponent } from "@/components/common/image-component";
 
 /**
@@ -379,18 +386,20 @@ export function BlogPostsClient({
 							</form>
 
 							{/* Status filter */}
-							<select
+							<Select
 								value={statusFilter}
-								onChange={(e) => {
-									setStatusFilter(e.target.value);
-								}}
-								className="px-3 py-2 border rounded-md text-sm"
+								onValueChange={(value) => setStatusFilter(value)}
 							>
-								<option value="all">All Status</option>
-								<option value="publish">Published</option>
-								<option value="draft">Draft</option>
-								<option value="private">Private</option>
-							</select>
+								<SelectTrigger className="w-[140px] h-10">
+									<SelectValue placeholder="All Status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Status</SelectItem>
+									<SelectItem value="publish">Published</SelectItem>
+									<SelectItem value="draft">Draft</SelectItem>
+									<SelectItem value="private">Private</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 
 						{/* Posts List */}

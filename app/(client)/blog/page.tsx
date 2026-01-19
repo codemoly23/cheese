@@ -5,7 +5,7 @@ import {
 	getRecentArticles,
 } from "@/lib/data/blog";
 import { getSiteConfig } from "@/config/site";
-import { BlogListingClient } from "../blogg/_components/blog-listing-client";
+import { BlogListingClient } from "./_components/blog-listing-client";
 
 /**
  * Blog Listing Page

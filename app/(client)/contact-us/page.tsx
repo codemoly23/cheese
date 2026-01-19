@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { AnimatedHero } from "../kontakt/_components/animated-hero";
-import { AnimatedContactCards } from "../kontakt/_components/animated-contact-cards";
-import { AnimatedFormSection } from "../kontakt/_components/animated-form-section";
-import { AnimatedOfficeLocations } from "../kontakt/_components/animated-office-locations";
-import { AnimatedFAQ } from "../kontakt/_components/animated-faq";
+import { AnimatedHero } from "./_components/animated-hero";
+import { AnimatedContactCards } from "./_components/animated-contact-cards";
+import { AnimatedFormSection } from "./_components/animated-form-section";
+import { AnimatedOfficeLocations } from "./_components/animated-office-locations";
+import { AnimatedFAQ } from "./_components/animated-faq";
 import {
 	getKontaktPage,
 	getKontaktPageSeo,

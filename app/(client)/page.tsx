@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Hero } from "@/components/home/Hero";
-import { SearchSection } from "@/components/home/SearchSection";
 import { ProductCategorySection } from "@/components/home/ProductCategorySection";
 import { ProductCarousel } from "@/components/home/ProductCarousel";
 import { PromoBanner } from "@/components/home/PromoBanner";
 import { FeatureBanner } from "@/components/home/FeatureBanner";
-import { FeatureHighlights } from "@/components/home/FeatureHighlights";
-import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ImageGallery } from "@/components/home/ImageGallery";
-import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { Testimonials } from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
 import CtaSection from "@/components/home/CtaSection";
@@ -116,10 +112,7 @@ export default async function Home({ searchParams }: HomeProps) {
 		productCarousel: true,
 		promoBanner: true,
 		featureBanner: true,
-		features: true,
-		productShowcase: true,
 		imageGallery: true,
-		processSteps: true,
 		about: true,
 		testimonials: true,
 		cta: true,
@@ -195,20 +188,6 @@ export default async function Home({ searchParams }: HomeProps) {
 				<FeatureBanner data={homePage.featureBanner} />
 			)}
 
-			{/* Search Section - Always visible */}
-			<SearchSection />
-
-			{/* Feature Highlights */}
-			{visibility.features && homePage.features?.length > 0 && (
-				<FeatureHighlights features={homePage.features} />
-			)}
-
-			{/* Product Showcase */}
-			{visibility.productShowcase &&
-				(homePage.productShowcase?.products?.length ?? 0) > 0 && (
-					<ProductShowcase data={homePage.productShowcase} />
-				)}
-
 			{/* Image Gallery */}
 			{visibility.imageGallery &&
 				(homePage.imageGallery?.images?.length ?? 0) > 0 && (
@@ -219,12 +198,6 @@ export default async function Home({ searchParams }: HomeProps) {
 			{visibility.about && homePage.aboutSection && (
 				<AboutSection data={homePage.aboutSection} />
 			)}
-
-			{/* Process Steps */}
-			{visibility.processSteps &&
-				(homePage.processStepsSection?.steps?.length ?? 0) > 0 && (
-					<ProcessSteps data={homePage.processStepsSection} />
-				)}
 
 			{/* Testimonials */}
 			{visibility.testimonials &&

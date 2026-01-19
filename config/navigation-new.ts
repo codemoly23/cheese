@@ -9,54 +9,37 @@ export interface NavItem {
 /**
  * Main Navigation Configuration
  *
- * Navigation Order: Homepage | About Us | Quality | Products | Butik i Boxholm | Become Our Reseller | Contact Us | Blog
- *
- * Note: Products links to external URL http://localhost:3000/produkter
+ * Navigation Order: Home | About Us | Quality | Products | Our Store | Become Our Reseller | Contact Us | Blog
  */
 export const mainNavNew: NavItem[] = [
-	// Home
 	{
 		title: "Home",
 		href: "/",
 	},
-
-	// About Us
 	{
 		title: "About Us",
 		href: "/about-us",
 	},
-
-	// Quality
 	{
 		title: "Quality",
 		href: "/quality",
 	},
-
-	// Products - links to external URL
 	{
 		title: "Products",
-		href: "http://localhost:3000/produkter",
+		href: "/products",
 	},
-
-	// Butik i Boxholm
 	{
-		title: "Butik i Boxholm",
-		href: "/butik-i-boxholm",
+		title: "Our Store",
+		href: "/our-store",
 	},
-
-	// Become Our Reseller
 	{
 		title: "Become Our Reseller",
 		href: "/become-our-reseller",
 	},
-
-	// Contact Us
 	{
 		title: "Contact Us",
 		href: "/contact-us",
 	},
-
-	// Blog
 	{
 		title: "Blog",
 		href: "/blog",

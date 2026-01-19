@@ -39,6 +39,13 @@ import {
 	StatsGridSkeleton,
 	InquiryListSkeleton,
 } from "@/components/ui/skeletons";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import type {
 	FormSubmissionType,
 	FormSubmissionStatus,
@@ -91,17 +98,17 @@ const statusColors: Record<FormSubmissionStatus, string> = {
 };
 
 const helpTypeLabels: Record<HelpType, string> = {
-	clinic_buy: "Klinik/Salong",
-	start_business: "Starta eget",
-	just_interested: "Intresserad",
-	buy_contact: "Vill köpa",
+	clinic_buy: "Clinic/Salon",
+	start_business: "Start own business",
+	just_interested: "Interested",
+	buy_contact: "Want to buy",
 };
 
 const trainingInterestTypeLabels: Record<TrainingInterestType, string> = {
-	machine_purchase: "Köpa maskin",
-	already_customer: "Redan kund",
-	certification_info: "Certifiering",
-	general_info: "Allmän info",
+	machine_purchase: "Buy machine",
+	already_customer: "Already customer",
+	certification_info: "Certification",
+	general_info: "General info",
 };
 
 export function InquiriesList({
@@ -461,29 +468,38 @@ export function InquiriesList({
 								debounceMs={400}
 								className="flex-1 min-w-[200px]"
 							/>
-							<select
-								value={status || ""}
-								onChange={(e) => handleStatusChange(e.target.value)}
-								className="h-11 px-4 rounded-md border border-slate-200"
+							<Select
+								value={status || "all"}
+								onValueChange={(value) => handleStatusChange(value === "all" ? "" : value)}
 							>
-								<option value="">All Status</option>
-								<option value="new">New</option>
-								<option value="read">Read</option>
-								<option value="archived">Archived</option>
-							</select>
-							<select
-								value={type || ""}
-								onChange={(e) => handleTypeChange(e.target.value)}
-								className="h-11 px-4 rounded-md border border-slate-200"
+								<SelectTrigger className="w-[140px] h-11">
+									<SelectValue placeholder="All Status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Status</SelectItem>
+									<SelectItem value="new">New</SelectItem>
+									<SelectItem value="read">Read</SelectItem>
+									<SelectItem value="archived">Archived</SelectItem>
+								</SelectContent>
+							</Select>
+							<Select
+								value={type || "all"}
+								onValueChange={(value) => handleTypeChange(value === "all" ? "" : value)}
 							>
-								<option value="">All Types</option>
-								<option value="product_inquiry">Product Inquiry</option>
-								<option value="training_inquiry">Training Inquiry</option>
-								<option value="contact">Contact</option>
-								<option value="demo_request">Demo Request</option>
-								<option value="quote_request">Quote Request</option>
-								<option value="callback_request">Callback Request</option>
-							</select>
+								<SelectTrigger className="w-[180px] h-11">
+									<SelectValue placeholder="All Types" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Types</SelectItem>
+									<SelectItem value="product_inquiry">Product Inquiry</SelectItem>
+									<SelectItem value="contact">Contact</SelectItem>
+									<SelectItem value="demo_request">Demo Request</SelectItem>
+									<SelectItem value="quote_request">Quote Request</SelectItem>
+									<SelectItem value="callback_request">Callback Request</SelectItem>
+									<SelectItem value="tour_request">Tour Request</SelectItem>
+									<SelectItem value="reseller_application">Reseller Application</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 					</CardContent>
 				</Card>
@@ -577,9 +593,12 @@ export function InquiriesList({
 										{/* Contact Info */}
 										<div className="flex-1 min-w-0">
 											<div className="flex items-center gap-2">
-												<h3 className="font-medium truncate">
+												<Link
+													href={`/dashboard/inquiries/${submission._id}`}
+													className="font-medium truncate hover:text-primary hover:underline"
+												>
 													{submission.fullName}
-												</h3>
+												</Link>
 												{submission.status === "new" && (
 													<span className="w-2 h-2 bg-blue-500 rounded-full" />
 												)}
@@ -595,7 +614,7 @@ export function InquiriesList({
 													{submission.phone}
 												</span>
 											</div>
-											{submission.productName && (
+											{submission.productName && submission.type !== "reseller_application" && (
 												<div className="flex items-center gap-1 text-sm text-primary mt-1">
 													<Building className="h-3 w-3" />
 													{submission.productName}
@@ -613,6 +632,19 @@ export function InquiriesList({
 													)}
 												</div>
 											)}
+											{submission.type === "reseller_application" &&
+												submission.productName && (
+													<div className="flex items-center gap-1 text-sm text-purple-600 mt-1">
+														<Building className="h-3 w-3" />
+														<span className="font-medium">{submission.productName}</span>
+														<Badge
+															variant="outline"
+															className="ml-2 text-xs bg-purple-50 text-purple-700 border-purple-200"
+														>
+															Reseller
+														</Badge>
+													</div>
+												)}
 											{submission.type === "training_inquiry" &&
 												submission.trainingInterestType && (
 													<div className="flex items-center gap-1 text-sm text-primary mt-1">
@@ -649,9 +681,18 @@ export function InquiriesList({
 
 										{/* Type Badge */}
 										<div className="w-32 hidden md:block">
-											<Badge variant="secondary" className="text-xs">
+											<Badge
+												variant="secondary"
+												className={`text-xs ${
+													submission.type === "reseller_application"
+														? "bg-purple-100 text-purple-800 border-purple-200"
+														: ""
+												}`}
+											>
 												<MessageSquare className="h-3 w-3 mr-1" />
-												{submission.type.replace("_", " ")}
+												{submission.type === "reseller_application"
+													? "Reseller"
+													: submission.type.replace("_", " ")}
 											</Badge>
 										</div>
 

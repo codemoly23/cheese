@@ -1371,15 +1371,19 @@ export function ProductForm({
 								{/* Visibility */}
 								<div className="space-y-2">
 									<Label htmlFor="visibility">Visibility</Label>
-									<select
-										id="visibility"
-										{...register("visibility")}
+									<Select
+										value={watch("visibility") || "public"}
+										onValueChange={(value) => setValue("visibility", value as "public" | "hidden", { shouldDirty: true })}
 										disabled={isLoading}
-										className="w-full h-11 px-4 rounded-md border border-slate-200 bg-white"
 									>
-										<option value="public">Public</option>
-										<option value="hidden">Hidden</option>
-									</select>
+										<SelectTrigger className="w-full h-11">
+											<SelectValue placeholder="Select visibility" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectItem value="public">Public</SelectItem>
+											<SelectItem value="hidden">Hidden</SelectItem>
+										</SelectContent>
+									</Select>
 									<p className="text-xs text-slate-500">
 										Hidden products won&apos;t appear in public
 										listings

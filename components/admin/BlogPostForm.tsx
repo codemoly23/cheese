@@ -17,6 +17,13 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { TagInput } from "./TagInput";
 import { BlogTreeSelect } from "./BlogTreeSelect";
 import { MediaPicker } from "@/components/storage";
@@ -448,16 +455,20 @@ export function BlogPostForm({
 								{/* Publish Status */}
 								<div className="space-y-2">
 									<Label htmlFor="publishType">Publish Status</Label>
-									<select
-										id="publishType"
-										{...register("publishType")}
+									<Select
+										value={watch("publishType") || "draft"}
+										onValueChange={(value) => setValue("publishType", value as "draft" | "publish" | "private", { shouldDirty: true })}
 										disabled={isLoading}
-										className="w-full h-11 px-4 rounded-md border border-slate-200 bg-white"
 									>
-										<option value="draft">Draft</option>
-										<option value="publish">Published</option>
-										<option value="private">Private</option>
-									</select>
+										<SelectTrigger className="w-full h-11">
+											<SelectValue placeholder="Select status" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectItem value="draft">Draft</SelectItem>
+											<SelectItem value="publish">Published</SelectItem>
+											<SelectItem value="private">Private</SelectItem>
+										</SelectContent>
+									</Select>
 								</div>
 							</CardContent>
 						</Card>

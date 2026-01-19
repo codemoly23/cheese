@@ -26,14 +26,11 @@ import {
 	UsersRound,
 	Scale,
 	Shield,
-	Briefcase,
-	Rocket,
-	GraduationCap,
 	HelpCircle,
-	Award,
-	BookOpen,
-	Presentation,
 	Store,
+	Handshake,
+	ChevronDown,
+	ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
@@ -50,6 +47,7 @@ interface NavItem {
 interface NavSection {
 	title: string;
 	items: NavItem[];
+	collapsible?: boolean;
 }
 
 // Grouped navigation sections
@@ -66,6 +64,7 @@ const navSections: NavSection[] = [
 	},
 	{
 		title: "Website",
+		collapsible: true,
 		items: [
 			{
 				title: "Home Page",
@@ -93,36 +92,6 @@ const navSections: NavSection[] = [
 				icon: Shield,
 			},
 			{
-				title: "Careers",
-				href: "/dashboard/webbplats/lediga-tjanster",
-				icon: Briefcase,
-			},
-			{
-				title: "Start Business",
-				href: "/dashboard/webbplats/starta-eget",
-				icon: Rocket,
-			},
-			{
-				title: "Why Choose Synos",
-				href: "/dashboard/webbplats/varfor-valja-synos",
-				icon: Award,
-			},
-			{
-				title: "Buying Guide",
-				href: "/dashboard/webbplats/kopguide",
-				icon: BookOpen,
-			},
-			{
-				title: "Mini Training",
-				href: "/dashboard/webbplats/miniutbildning",
-				icon: Presentation,
-			},
-			{
-				title: "Training",
-				href: "/dashboard/webbplats/utbildningar",
-				icon: GraduationCap,
-			},
-			{
 				title: "FAQ",
 				href: "/dashboard/webbplats/faq",
 				icon: HelpCircle,
@@ -137,10 +106,16 @@ const navSections: NavSection[] = [
 				href: "/dashboard/webbplats/butik",
 				icon: Store,
 			},
+			{
+				title: "Reseller",
+				href: "/dashboard/webbplats/reseller",
+				icon: Handshake,
+			},
 		],
 	},
 	{
 		title: "Products",
+		collapsible: true,
 		items: [
 			{
 				title: "All Products",
@@ -156,6 +131,7 @@ const navSections: NavSection[] = [
 	},
 	{
 		title: "Blog",
+		collapsible: true,
 		items: [
 			{
 				title: "All Posts",
@@ -176,6 +152,7 @@ const navSections: NavSection[] = [
 	},
 	{
 		title: "Forms",
+		collapsible: true,
 		items: [
 			{
 				title: "Inquiries",
@@ -186,6 +163,7 @@ const navSections: NavSection[] = [
 	},
 	{
 		title: "System",
+		collapsible: true,
 		items: [
 			{
 				title: "Users",
@@ -222,6 +200,21 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 	const pathname = usePathname();
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const [isMobileOpen, setIsMobileOpen] = useState(false);
+	const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() => {
+		// Initialize with all sections expanded by default
+		const initial: Record<string, boolean> = {};
+		navSections.forEach((section) => {
+			initial[section.title] = true;
+		});
+		return initial;
+	});
+
+	const toggleSection = (sectionTitle: string) => {
+		setExpandedSections((prev) => ({
+			...prev,
+			[sectionTitle]: !prev[sectionTitle],
+		}));
+	};
 
 	const isActive = (href: string) => {
 		if (href === "/dashboard") {
@@ -235,6 +228,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 			);
 		}
 		return pathname.startsWith(href);
+	};
+
+	// Check if any item in a section is active
+	const isSectionActive = (section: NavSection) => {
+		return section.items.some((item) => isActive(item.href));
 	};
 
 	const handleSignOut = async () => {
@@ -275,19 +273,50 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 		);
 	};
 
-	const renderNavSection = (section: NavSection, index: number) => (
-		<div key={section.title} className={cn(index > 0 && "mt-4")}>
-			{!isCollapsed && (
-				<p className="px-3 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-					{section.title}
-				</p>
-			)}
-			{isCollapsed && index > 0 && (
-				<div className="mx-3 my-2 border-t border-slate-200" />
-			)}
-			<div className="space-y-0.5">{section.items.map(renderNavLink)}</div>
-		</div>
-	);
+	const renderNavSection = (section: NavSection, index: number) => {
+		const isExpanded = expandedSections[section.title];
+		const hasActiveItem = isSectionActive(section);
+
+		return (
+			<div key={section.title} className={cn(index > 0 && "mt-2")}>
+				{!isCollapsed && section.collapsible ? (
+					<button
+						onClick={() => toggleSection(section.title)}
+						className={cn(
+							"w-full flex items-center justify-between px-3 py-2 text-[11px] font-semibold uppercase tracking-wider rounded-lg transition-colors",
+							hasActiveItem
+								? "text-primary bg-primary/5"
+								: "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
+						)}
+					>
+						<span>{section.title}</span>
+						{isExpanded ? (
+							<ChevronDown className="h-4 w-4" />
+						) : (
+							<ChevronRight className="h-4 w-4" />
+						)}
+					</button>
+				) : !isCollapsed ? (
+					<p className="px-3 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+						{section.title}
+					</p>
+				) : null}
+				{isCollapsed && index > 0 && (
+					<div className="mx-3 my-2 border-t border-slate-200" />
+				)}
+				<div
+					className={cn(
+						"space-y-0.5 overflow-hidden transition-all duration-200",
+						!isCollapsed && section.collapsible && !isExpanded
+							? "max-h-0 opacity-0"
+							: "max-h-[1000px] opacity-100"
+					)}
+				>
+					{section.items.map(renderNavLink)}
+				</div>
+			</div>
+		);
+	};
 
 	const sidebarContent = (
 		<>

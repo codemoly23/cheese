@@ -7,11 +7,11 @@ import {
 } from "@/lib/data/blog";
 import { blogPostService } from "@/lib/services/blog-post.service";
 import { getSiteConfig } from "@/config/site";
-import { BlogDetailHero } from "../../blogg/_components/blog-detail-hero";
-import { BlogContent } from "../../blogg/_components/blog-content";
-import { BlogAuthor } from "../../blogg/_components/blog-author";
-import { RelatedPosts } from "../../blogg/_components/related-posts";
-import { BlogComments } from "../../blogg/_components/blog-comments";
+import { BlogDetailHero } from "../_components/blog-detail-hero";
+import { BlogContent } from "../_components/blog-content";
+import { BlogAuthor } from "../_components/blog-author";
+import { RelatedPosts } from "../_components/related-posts";
+import { BlogComments } from "../_components/blog-comments";
 
 /**
  * Blog Detail Page

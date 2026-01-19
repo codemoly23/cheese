@@ -75,9 +75,8 @@ export function FAQHero() {
 						transition={{ duration: 0.6, delay: 0.3 }}
 						className="text-lg sm:text-xl text-secondary/80 max-w-3xl mx-auto leading-relaxed"
 					>
-						Här hittar du svar på de vanligaste frågorna om Synos Medical,
-						våra produkter, utbildningar och tjänster. Hittar du inte svar
-						på din fråga? Kontakta oss gärna!
+						Här hittar du svar på de vanligaste frågorna om våra produkter
+						och tjänster. Hittar du inte svar på din fråga? Kontakta oss gärna!
 					</motion.p>
 
 					{/* Stats */}

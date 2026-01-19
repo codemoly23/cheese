@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getSiteConfig } from "@/config/site";
 import { getArticlesByCategory } from "@/lib/data/blog";
 import { blogCategoryService } from "@/lib/services/blog-category.service";
-import { BlogCard } from "../../../blogg/_components/blog-card";
+import { BlogCard } from "../../_components/blog-card";
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 
 /**

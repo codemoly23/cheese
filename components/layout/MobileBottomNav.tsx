@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, Package, GraduationCap, Phone } from "lucide-react";
+import { Home, Package, Phone, Info } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
 interface NavItem {
@@ -18,14 +18,14 @@ const navItems: NavItem[] = [
 		icon: Home,
 	},
 	{
-		label: "Utrustning",
-		href: "/utrustning",
+		label: "Produkter",
+		href: "/produkter",
 		icon: Package,
 	},
 	{
-		label: "Utbildning",
-		href: "/utbildningar",
-		icon: GraduationCap,
+		label: "Om Oss",
+		href: "/om-oss",
+		icon: Info,
 	},
 	{
 		label: "Kontakt",

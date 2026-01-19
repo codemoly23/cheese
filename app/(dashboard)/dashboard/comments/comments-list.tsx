@@ -40,6 +40,13 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { StatsGridSkeleton } from "@/components/ui/skeletons";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import type { CommentStatus } from "@/models/blog-comment.model";
 
 interface Comment {
@@ -512,16 +519,20 @@ export function CommentsList({
 								debounceMs={400}
 								className="flex-1 min-w-[200px]"
 							/>
-							<select
-								value={status || ""}
-								onChange={(e) => handleStatusChange(e.target.value)}
-								className="h-11 px-4 rounded-md border border-slate-200"
+							<Select
+								value={status || "all"}
+								onValueChange={(value) => handleStatusChange(value === "all" ? "" : value)}
 							>
-								<option value="">All Status</option>
-								<option value="pending">Pending</option>
-								<option value="approved">Approved</option>
-								<option value="rejected">Rejected</option>
-							</select>
+								<SelectTrigger className="w-[140px] h-11">
+									<SelectValue placeholder="All Status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Status</SelectItem>
+									<SelectItem value="pending">Pending</SelectItem>
+									<SelectItem value="approved">Approved</SelectItem>
+									<SelectItem value="rejected">Rejected</SelectItem>
+								</SelectContent>
+							</Select>
 							{postId && (
 								<Button
 									variant="outline"

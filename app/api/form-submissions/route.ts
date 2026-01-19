@@ -76,6 +76,11 @@ export async function POST(request: NextRequest) {
 				body,
 				metadata
 			);
+		} else if (type === "reseller_application") {
+			submission = await formSubmissionService.createResellerApplication(
+				body,
+				metadata
+			);
 		} else {
 			return badRequestResponse("Unsupported form type");
 		}

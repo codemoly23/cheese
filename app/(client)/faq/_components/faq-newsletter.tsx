@@ -71,8 +71,7 @@ export function FAQNewsletter() {
 						{/* Description */}
 						<p className="text-lg text-white/80 max-w-2xl mx-auto">
 							Prenumerera på vårt nyhetsbrev och få de senaste nyheterna
-							om produkter, utbildningar och erbjudanden direkt i din
-							inkorg.
+							om produkter och erbjudanden direkt i din inkorg.
 						</p>
 					</motion.div>
 

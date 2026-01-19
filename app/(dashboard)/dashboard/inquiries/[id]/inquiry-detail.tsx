@@ -82,17 +82,17 @@ const statusColors: Record<FormSubmissionStatus, string> = {
 };
 
 const helpTypeLabels: Record<HelpType, string> = {
-	clinic_buy: "Jag driver en klinik/salong och vill köpa denna produkt",
-	start_business: "Jag vill starta eget och vill veta mer om produkten",
-	just_interested: "Jag är bara intresserad och vill veta mer",
-	buy_contact: "Jag vill köpa denna produkt och komma i kontakt med er",
+	clinic_buy: "I run a clinic/salon and want to buy this product",
+	start_business: "I want to start my own business and learn more about the product",
+	just_interested: "I am just interested and want to know more",
+	buy_contact: "I want to buy this product and get in touch with you",
 };
 
 const trainingInterestTypeLabels: Record<TrainingInterestType, string> = {
-	machine_purchase: "Jag planerar att köpa maskin och vill veta mer om utbildningen",
-	already_customer: "Jag är redan kund och vill boka utbildning",
-	certification_info: "Jag vill veta mer om certifiering som Synos terapeut",
-	general_info: "Jag vill ha allmän information om era utbildningar",
+	machine_purchase: "I plan to buy a machine and want to learn more about the training",
+	already_customer: "I am already a customer and want to book training",
+	certification_info: "I want to learn more about certification as a Synos therapist",
+	general_info: "I want general information about your training programs",
 };
 
 export function InquiryDetail({ submission }: InquiryDetailProps) {

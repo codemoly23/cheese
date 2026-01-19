@@ -36,6 +36,13 @@ import {
 	StatsGridSkeleton,
 	ProductListSkeleton,
 } from "@/components/ui/skeletons";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 interface Product {
 	_id: string;
@@ -318,16 +325,20 @@ export function ProductsList({
 								debounceMs={400}
 								className="flex-1"
 							/>
-							<select
-								value={status || ""}
-								onChange={(e) => handleStatusChange(e.target.value)}
-								className="h-11 px-4 rounded-md border border-slate-200"
+							<Select
+								value={status || "all"}
+								onValueChange={(value) => handleStatusChange(value === "all" ? "" : value)}
 							>
-								<option value="">All Status</option>
-								<option value="publish">Published</option>
-								<option value="draft">Draft</option>
-								<option value="private">Private</option>
-							</select>
+								<SelectTrigger className="w-[140px] h-11">
+									<SelectValue placeholder="All Status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Status</SelectItem>
+									<SelectItem value="publish">Published</SelectItem>
+									<SelectItem value="draft">Draft</SelectItem>
+									<SelectItem value="private">Private</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 					</CardContent>
 				</Card>

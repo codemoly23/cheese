@@ -117,29 +117,20 @@ export function FAQSidebar() {
 					</li>
 					<li>
 						<Link
-							href="/utbildningar"
-							className="flex items-center gap-2 text-secondary/80 hover:text-primary transition-colors duration-300 group"
-						>
-							<ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-							<span>Utbildningar</span>
-						</Link>
-					</li>
-					<li>
-						<Link
-							href="/starta-eget"
-							className="flex items-center gap-2 text-secondary/80 hover:text-primary transition-colors duration-300 group"
-						>
-							<ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-							<span>Starta eget</span>
-						</Link>
-					</li>
-					<li>
-						<Link
 							href="/om-oss"
 							className="flex items-center gap-2 text-secondary/80 hover:text-primary transition-colors duration-300 group"
 						>
 							<ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
 							<span>Om oss</span>
+						</Link>
+					</li>
+					<li>
+						<Link
+							href="/kontakt"
+							className="flex items-center gap-2 text-secondary/80 hover:text-primary transition-colors duration-300 group"
+						>
+							<ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+							<span>Kontakta oss</span>
 						</Link>
 					</li>
 				</ul>

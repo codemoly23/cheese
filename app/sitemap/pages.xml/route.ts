@@ -42,20 +42,6 @@ export async function GET(): Promise<NextResponse> {
 				changefreq: SITEMAP_CONFIG.changeFreq.category,
 				priority: SITEMAP_CONFIG.priority.important,
 			},
-			// Training/Education
-			{
-				loc: `${SITEMAP_CONFIG.baseUrl}/utbildningar`,
-				lastmod: now,
-				changefreq: SITEMAP_CONFIG.changeFreq.category,
-				priority: SITEMAP_CONFIG.priority.important,
-			},
-			// Start your own business
-			{
-				loc: `${SITEMAP_CONFIG.baseUrl}/starta-eget`,
-				lastmod: now,
-				changefreq: SITEMAP_CONFIG.changeFreq.category,
-				priority: SITEMAP_CONFIG.priority.category,
-			},
 			// FAQ
 			{
 				loc: `${SITEMAP_CONFIG.baseUrl}/faq`,
