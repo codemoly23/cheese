@@ -69,7 +69,7 @@ export function LanguageSwitcher({ variant = "default" }: LanguageSwitcherProps)
 			<DropdownMenuTrigger asChild>
 				<Button
 					variant="ghost"
-					size={variant === "compact" ? "sm" : "default"}
+					size={variant === "compact" ? "sm" : "md"}
 					className={cn(
 						"gap-1.5 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200",
 						isPending && "opacity-70 pointer-events-none"

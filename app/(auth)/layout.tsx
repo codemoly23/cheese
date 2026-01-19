@@ -6,6 +6,9 @@ import {
 	getFooterSettings,
 } from "@/lib/services/site-settings.service";
 
+// Force dynamic rendering for auth pages
+export const dynamic = "force-dynamic";
+
 /**
  * Auth Layout - Login/Register pages with Navbar and Footer
  */
