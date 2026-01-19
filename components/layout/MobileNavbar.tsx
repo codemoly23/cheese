@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -38,6 +39,8 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 	const { data: navigationData, isLoading } = useNavigation();
+	const t = useTranslations("navigation");
+	const tCommon = useTranslations("common");
 
 	const handleQuoteClick = () => {
 		setOpen(false);
@@ -75,7 +78,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 				side="right"
 				className="w-[280px] p-0 bg-white/95 backdrop-blur-xl border-l border-gray-200/50 shadow-2xl"
 			>
-				<SheetTitle className="sr-only">Menu</SheetTitle>
+				<SheetTitle className="sr-only">{tCommon("menu")}</SheetTitle>
 				<div className="flex flex-col h-full">
 					{/* Compact Header */}
 					<div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-gray-100">
@@ -97,7 +100,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 								type="text"
 								value={searchValue}
 								onChange={(e) => setSearchValue(e.target.value)}
-								placeholder="Sök produkter, artiklar..."
+								placeholder={t("searchPlaceholder")}
 								className="pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-primary"
 							/>
 						</form>
@@ -120,7 +123,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 							>
 								{mainNavNew.map((item, index) => (
 									<AccordionItem
-										key={item.title}
+										key={item.titleKey}
 										value={`item-${index}`}
 										className="border-0"
 									>
@@ -129,14 +132,14 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 											<>
 												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary">
 													<span className="flex-1 text-left">
-														{item.title}
+														{t(item.titleKey)}
 													</span>
 												</AccordionTrigger>
 												<AccordionContent className="pb-1 pt-0.5">
 													<div className="ml-3 pl-3 border-l-2 border-secondary/20 space-y-0.5">
 														{isLoading && (
 															<div className="px-3 py-2 text-sm text-gray-400">
-																Laddar...
+																{tCommon("loading")}
 															</div>
 														)}
 														{navigationData?.categories.map(
@@ -175,7 +178,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																						className="block px-3 py-1.5 text-xs text-secondary font-medium hover:underline"
 																						onClick={() => setOpen(false)}
 																					>
-																						Visa alla →
+																						{tCommon("viewAll")} →
 																					</Link>
 																				</div>
 																			)}
@@ -196,7 +199,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 														{navigationData &&
 															navigationData.categories.length === 0 && (
 																<div className="px-3 py-2 text-sm text-gray-400">
-																	Inga kategorier tillgängliga
+																	{t("noCategories")}
 																</div>
 															)}
 													</div>
@@ -207,19 +210,19 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 											<>
 												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary">
 													<span className="flex-1 text-left">
-														{item.title}
+														{t(item.titleKey)}
 													</span>
 												</AccordionTrigger>
 												<AccordionContent className="pb-1 pt-0.5">
 													<div className="ml-3 pl-3 border-l-2 border-secondary/20 space-y-0.5">
 														{item.items.map((subItem) => (
 															<Link
-																key={subItem.title}
+																key={subItem.titleKey}
 																href={subItem.href}
 																className="block px-3 py-2 text-sm text-gray-600 hover:text-secondary hover:bg-secondary/5 rounded-lg transition-all"
 																onClick={() => setOpen(false)}
 															>
-																{subItem.title}
+																{t(subItem.titleKey)}
 															</Link>
 														))}
 													</div>
@@ -232,7 +235,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 												className="flex items-center px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 rounded-lg transition-all"
 												onClick={() => setOpen(false)}
 											>
-												{item.title}
+												{t(item.titleKey)}
 											</Link>
 										)}
 									</AccordionItem>
@@ -247,7 +250,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 							className="w-full bg-primary hover:bg-primary-hover text-white h-10 text-sm font-medium rounded-xl shadow-sm"
 							onClick={handleQuoteClick}
 						>
-							Begär offert
+							{t("requestQuote")}
 						</Button>
 					</div>
 				</div>

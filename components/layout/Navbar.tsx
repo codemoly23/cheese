@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { User } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 import {
 	NavigationMenu,
@@ -24,6 +25,7 @@ import Logo from "../common/logo";
 import MobileNavbar from "./MobileNavbar";
 import ProtectedNavbar from "./ProtectedNavbar";
 import { NavbarSearch } from "./NavbarSearch";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface SocialMedia {
 	facebook?: string;
@@ -44,6 +46,8 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 	const [isMounted, setIsMounted] = useState(false);
 	const { data: navigationData } = useNavigation();
 	const { variant } = useNavbarVariant();
+	const t = useTranslations("navigation");
+	const tCommon = useTranslations("common");
 
 	// Always use light text since navbar now has a dark primary background
 	const useLightText = true;
@@ -103,7 +107,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 								<NavigationMenu>
 									<NavigationMenuList>
 										{mainNavNew.map((item) => (
-											<NavigationMenuItem key={item.title}>
+											<NavigationMenuItem key={item.titleKey}>
 												{/* Dynamic Produkter mega-menu */}
 												{item.isDynamic ? (
 													<>
@@ -116,7 +120,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 															)}
 														>
 															<Link href={item.href}>
-																{item.title}
+																{t(item.titleKey)}
 															</Link>
 														</NavigationMenuTrigger>
 														<NavigationMenuContent className="bg-slate-100/80! border! border-slate-200! ring-0! outline-none! backdrop-blur-xl fixed! left-1/2! -translate-x-1/2! top-[72px]!">
@@ -165,7 +169,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 																	{/* Loading state */}
 																	{!navigationData && (
 																		<div className="col-span-5 py-8 text-center text-slate-400 text-sm">
-																			Laddar...
+																			{tCommon("loading")}
 																		</div>
 																	)}
 																	{/* Empty state */}
@@ -173,8 +177,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 																		navigationData.categories
 																			.length === 0 && (
 																			<div className="col-span-5 py-8 text-center text-slate-400 text-sm">
-																				Inga kategorier
-																				tillgängliga
+																				{t("noCategories")}
 																			</div>
 																		)}
 																</div>
@@ -193,7 +196,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 															)}
 														>
 															<Link href={item.href}>
-																{item.title}
+																{t(item.titleKey)}
 															</Link>
 														</NavigationMenuTrigger>
 														<NavigationMenuContent className="bg-slate-100/80! border! border-slate-200! ring-0! outline-none! backdrop-blur-xl">
@@ -202,11 +205,11 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 																	{item.items.map(
 																		(subItem) => (
 																			<Link
-																				key={subItem.title}
+																				key={subItem.titleKey}
 																				href={subItem.href}
 																				className="block text-sm text-slate-600 hover:text-secondary transition-colors hover:underline py-1.5 px-2 rounded hover:bg-secondary/5"
 																			>
-																				{subItem.title}
+																				{t(subItem.titleKey)}
 																			</Link>
 																		)
 																	)}
@@ -226,7 +229,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 																: "text-secondary! hover:text-primary! focus:text-primary! active:text-primary!"
 														)}
 													>
-														{item.title}
+														{t(item.titleKey)}
 													</NavigationMenuLink>
 												)}
 											</NavigationMenuItem>
@@ -326,6 +329,9 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 
 								{/* Search */}
 								<NavbarSearch useLightText={useLightText} />
+
+								{/* Language Switcher */}
+								<LanguageSwitcher variant="compact" />
 							</div>
 							<div className="hidden lg:block">
 								<ProtectedNavbar />

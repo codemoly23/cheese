@@ -17,6 +17,7 @@ import {
 import { toast } from "sonner";
 import Link from "next/link";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,37 +32,39 @@ import {
 import { cn } from "@/lib/utils/cn";
 import { z } from "zod";
 
-// Form schema with phone validation
-const clientFormSchema = z.object({
-	fullName: z
-		.string()
-		.min(2, "Namnet måste vara minst 2 tecken")
-		.max(100, "Namnet får inte överstiga 100 tecken"),
-	email: z.string().email("Ange en giltig e-postadress"),
-	countryCode: z.string().min(2, "Landskod krävs"),
-	countryName: z.string().min(2, "Land krävs"),
-	phone: z
-		.string()
-		.min(6, "Telefonnummer måste vara minst 6 siffror")
-		.max(20, "Telefonnummer får inte överstiga 20 siffror"),
-	subject: z
-		.string()
-		.min(3, "Ämne måste vara minst 3 tecken")
-		.max(200, "Ämne får inte överstiga 200 tecken"),
-	corporationNumber: z.string().optional(),
-	message: z
-		.string()
-		.min(10, "Meddelandet måste vara minst 10 tecken")
-		.max(2000, "Meddelandet får inte överstiga 2000 tecken"),
-	gdprConsent: z.literal(true, {
-		message: "Du måste godkänna integritetspolicyn",
-	}),
-	marketingConsent: z.boolean().optional(),
-});
+// Create form schema with translations
+const createContactFormSchema = (t: (key: string) => string) =>
+	z.object({
+		fullName: z
+			.string()
+			.min(2, t("validation.nameMin"))
+			.max(100, t("validation.nameMax")),
+		email: z.string().email(t("validation.emailInvalid")),
+		countryCode: z.string().min(2, t("validation.countryCodeRequired")),
+		countryName: z.string().min(2, t("validation.countryRequired")),
+		phone: z
+			.string()
+			.min(6, t("validation.phoneMin"))
+			.max(20, t("validation.phoneMax")),
+		subject: z
+			.string()
+			.min(3, t("validation.subjectMin"))
+			.max(200, t("validation.subjectMax")),
+		corporationNumber: z.string().optional(),
+		message: z
+			.string()
+			.min(10, t("validation.messageMin"))
+			.max(2000, t("validation.messageMax")),
+		gdprConsent: z.literal(true, {
+			message: t("validation.gdprRequired"),
+		}),
+		marketingConsent: z.boolean().optional(),
+	});
 
-type FormData = z.infer<typeof clientFormSchema>;
+type FormData = z.infer<ReturnType<typeof createContactFormSchema>>;
 
 export function ContactInquiryForm() {
+	const t = useTranslations("contactForm");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [selectedCountry, setSelectedCountry] =
@@ -70,6 +73,9 @@ export function ContactInquiryForm() {
 	// Local state for UI elements
 	const [gdprChecked, setGdprChecked] = useState(false);
 	const [marketingChecked, setMarketingChecked] = useState(false);
+
+	// Create schema with translated messages
+	const clientFormSchema = createContactFormSchema(t);
 
 	const {
 		register,
@@ -116,7 +122,7 @@ export function ContactInquiryForm() {
 		if (!isValidPhoneNumber(fullPhone)) {
 			setError("phone", {
 				type: "manual",
-				message: "Ogiltigt telefonnummer för valt land",
+				message: t("validation.phoneInvalid"),
 			});
 			return;
 		}
@@ -144,9 +150,7 @@ export function ContactInquiryForm() {
 				setGdprChecked(false);
 				setMarketingChecked(false);
 				setSelectedCountry(defaultCountry);
-				toast.success(
-					"Tack för ditt meddelande! Vi återkommer inom 24 timmar."
-				);
+				toast.success(t("success.message"));
 				setTimeout(() => setIsSuccess(false), 5000);
 			} else {
 				if (result.errors && Array.isArray(result.errors)) {
@@ -162,15 +166,15 @@ export function ContactInquiryForm() {
 					toast.error(
 						fieldErrors ||
 							result.message ||
-							"Något gick fel. Försök igen."
+							t("errors.generic")
 					);
 				} else {
-					toast.error(result.message || "Något gick fel. Försök igen.");
+					toast.error(result.message || t("errors.generic"));
 				}
 			}
 		} catch (error) {
 			console.error("Form submission error:", error);
-			toast.error("Något gick fel. Försök igen senare.");
+			toast.error(t("errors.genericLater"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -183,18 +187,17 @@ export function ContactInquiryForm() {
 					<CheckCircle2 className="h-10 w-10 text-green-600" />
 				</div>
 				<h2 className="text-2xl md:text-3xl font-bold text-secondary mb-4">
-					Tack för ditt meddelande!
+					{t("success.title")}
 				</h2>
 				<p className="text-lg text-muted-foreground mb-6">
-					Vi har mottagit din förfrågan och återkommer till dig inom 24
-					timmar.
+					{t("success.message")}
 				</p>
 				<Button
 					variant="outline"
 					onClick={() => setIsSuccess(false)}
 					className="mt-4"
 				>
-					Skicka nytt meddelande
+					{t("success.sendNew")}
 				</Button>
 			</div>
 		);
@@ -209,21 +212,21 @@ export function ContactInquiryForm() {
 			<div className="space-y-6">
 				<h3 className="text-lg font-semibold text-secondary flex items-center gap-2 pb-2 border-b border-border">
 					<User className="h-5 w-5 text-primary" />
-					Kontaktuppgifter
+					{t("contactInfo")}
 				</h3>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{/* Full Name */}
 					<div className="space-y-2">
 						<Label htmlFor="fullName" className="text-sm font-semibold">
-							Namn <span className="text-red-500">*</span>
+							{t("form.name")} <span className="text-red-500">{t("form.required")}</span>
 						</Label>
 						<div className="relative">
 							<User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
 							<Input
 								id="fullName"
 								{...register("fullName")}
-								placeholder="Ditt fullständiga namn"
+								placeholder={t("form.namePlaceholder")}
 								className={cn(
 									"pl-11 h-12",
 									errors.fullName && "border-red-500"
@@ -241,7 +244,7 @@ export function ContactInquiryForm() {
 					{/* Email */}
 					<div className="space-y-2">
 						<Label htmlFor="email" className="text-sm font-semibold">
-							E-postadress <span className="text-red-500">*</span>
+							{t("form.email")} <span className="text-red-500">{t("form.required")}</span>
 						</Label>
 						<div className="relative">
 							<Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
@@ -249,7 +252,7 @@ export function ContactInquiryForm() {
 								id="email"
 								type="email"
 								{...register("email")}
-								placeholder="din@email.se"
+								placeholder={t("form.emailPlaceholder")}
 								className={cn(
 									"pl-11 h-12",
 									errors.email && "border-red-500"
@@ -267,7 +270,7 @@ export function ContactInquiryForm() {
 					{/* Phone with Country Code */}
 					<div className="space-y-2">
 						<Label className="text-sm font-semibold">
-							Telefonnummer <span className="text-red-500">*</span>
+							{t("form.phone")} <span className="text-red-500">{t("form.required")}</span>
 						</Label>
 						<div className="flex gap-2">
 							<div className="w-[110px] shrink-0">
@@ -283,7 +286,7 @@ export function ContactInquiryForm() {
 									id="phone"
 									type="tel"
 									{...register("phone")}
-									placeholder="701234567"
+									placeholder={t("form.phonePlaceholder")}
 									className={cn(
 										"pl-11 h-12",
 										errors.phone && "border-red-500"
@@ -305,9 +308,9 @@ export function ContactInquiryForm() {
 							htmlFor="corporationNumber"
 							className="text-sm font-semibold"
 						>
-							Företag / Org. nummer{" "}
+							{t("form.company")}{" "}
 							<span className="text-muted-foreground font-normal">
-								(valfritt)
+								{t("form.optional")}
 							</span>
 						</Label>
 						<div className="relative">
@@ -315,7 +318,7 @@ export function ContactInquiryForm() {
 							<Input
 								id="corporationNumber"
 								{...register("corporationNumber")}
-								placeholder="Företagsnamn eller org.nummer"
+								placeholder={t("form.companyPlaceholder")}
 								className="pl-11 h-12"
 								disabled={isSubmitting}
 							/>
@@ -328,20 +331,20 @@ export function ContactInquiryForm() {
 			<div className="space-y-6">
 				<h3 className="text-lg font-semibold text-secondary flex items-center gap-2 pb-2 border-b border-border">
 					<MessageSquare className="h-5 w-5 text-primary" />
-					Ditt meddelande
+					{t("yourMessage")}
 				</h3>
 
 				{/* Subject */}
 				<div className="space-y-2">
 					<Label htmlFor="subject" className="text-sm font-semibold">
-						Ämne <span className="text-red-500">*</span>
+						{t("form.subject")} <span className="text-red-500">{t("form.required")}</span>
 					</Label>
 					<div className="relative">
 						<FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
 						<Input
 							id="subject"
 							{...register("subject")}
-							placeholder="Vad gäller din förfrågan?"
+							placeholder={t("form.subjectPlaceholder")}
 							className={cn(
 								"pl-11 h-12",
 								errors.subject && "border-red-500"
@@ -359,12 +362,12 @@ export function ContactInquiryForm() {
 				{/* Message */}
 				<div className="space-y-2">
 					<Label htmlFor="message" className="text-sm font-semibold">
-						Meddelande <span className="text-red-500">*</span>
+						{t("form.message")} <span className="text-red-500">{t("form.required")}</span>
 					</Label>
 					<Textarea
 						id="message"
 						{...register("message")}
-						placeholder="Berätta mer om din förfrågan, frågor eller önskemål..."
+						placeholder={t("form.messagePlaceholder")}
 						className={cn(
 							"min-h-[150px] resize-none",
 							errors.message && "border-red-500"
@@ -403,17 +406,17 @@ export function ContactInquiryForm() {
 						className="mt-1 shrink-0"
 					/>
 					<span className="text-xs sm:text-sm leading-normal">
-						Jag godkänner Synos Medical AB:s{" "}
+						{t("form.gdprConsent").split(t("form.privacyPolicy"))[0]}
 						<Link
 							href="/integritetspolicy"
 							className="text-primary hover:underline font-medium"
 							target="_blank"
 							onClick={(e) => e.stopPropagation()}
 						>
-							integritetspolicy
-						</Link>{" "}
-						och samtycker till att mina uppgifter behandlas enligt GDPR.{" "}
-						<span className="text-red-500">*</span>
+							{t("form.privacyPolicy")}
+						</Link>
+						{t("form.gdprConsent").split(t("form.privacyPolicy"))[1]}{" "}
+						<span className="text-red-500">{t("form.required")}</span>
 					</span>
 				</label>
 				{errors.gdprConsent && (
@@ -443,10 +446,10 @@ export function ContactInquiryForm() {
 					/>
 					<span className="text-xs sm:text-sm leading-normal">
 						<span className="font-medium">
-							Jag vill ta emot nyhetsbrev och erbjudanden
+							{t("form.marketingConsent")}
 						</span>
 						<span className="block text-muted-foreground mt-1">
-							Du kan när som helst avregistrera dig från vårt nyhetsbrev.
+							{t("form.marketingDescription")}
 						</span>
 					</span>
 				</label>
@@ -455,7 +458,7 @@ export function ContactInquiryForm() {
 			{/* Submit Button */}
 			<div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
 				<p className="text-sm text-muted-foreground">
-					<span className="text-red-500">*</span> Obligatoriska fält
+					<span className="text-red-500">{t("form.required")}</span> {t("form.requiredFields")}
 				</p>
 				<Button
 					type="submit"
@@ -466,12 +469,12 @@ export function ContactInquiryForm() {
 					{isSubmitting ? (
 						<>
 							<Loader2 className="mr-2 h-5 w-5 animate-spin" />
-							Skickar...
+							{t("form.sending")}
 						</>
 					) : (
 						<>
 							<Send className="mr-2 h-5 w-5" />
-							Skicka meddelande
+							{t("form.submit")}
 						</>
 					)}
 				</Button>

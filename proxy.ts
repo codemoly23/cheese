@@ -1,85 +1,152 @@
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@/lib/utils/logger";
+import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 /**
  * Next.js 16 Proxy (Middleware)
- * Protects routes that require authentication
+ * Handles:
+ * 1. Internationalization (locale detection and routing)
+ * 2. Route protection (authentication)
  *
  * Better Auth stores session cookies automatically.
  * Cookie name: "better-auth.session_token" (Better Auth default)
  */
 
 /**
- * Define which routes should be protected
- * These routes require authentication
+ * Define which routes should be protected or processed
  */
 export const config = {
 	matcher: [
-		// Protected page routes
-		"/dashboard/:path*",
-		"/profile/:path*",
-		"/settings/:path*",
-		"/admin/:path*",
-
-		// Protected API routes (optional - APIs can also handle auth inline)
-		// "/api/user/:path*",
+		// Match all paths except static files and Next.js internals
+		"/((?!_next|_vercel|.*\\..*).*)",
 	],
 };
 
+// Routes that should skip locale handling
+const localeExcludedPaths = [
+	"/api",
+	"/dashboard",
+	"/admin",
+	"/login",
+	"/register",
+	"/storage",
+];
+
+// Routes that require authentication
+const protectedPaths = [
+	"/dashboard",
+	"/profile",
+	"/settings",
+	"/admin",
+];
+
+/**
+ * Check if path starts with any of the given prefixes
+ */
+function pathStartsWith(pathname: string, prefixes: string[]): boolean {
+	return prefixes.some(prefix => pathname.startsWith(prefix));
+}
+
+/**
+ * Get locale from pathname
+ */
+function getLocaleFromPath(pathname: string): Locale | null {
+	const segments = pathname.split("/");
+	const firstSegment = segments[1];
+	if (locales.includes(firstSegment as Locale)) {
+		return firstSegment as Locale;
+	}
+	return null;
+}
+
 /**
  * Proxy function - runs before routes are rendered
- * Checks authentication status and redirects/blocks if needed
+ * Handles i18n routing and authentication
  */
 export async function proxy(request: NextRequest) {
 	const pathname = request.nextUrl.pathname;
 	// Log the request (helpful for debugging)
 	logger.debug("Proxy checking route", { pathname });
 
-	// Check for Better Auth session cookie
-	// Better Auth uses "better-auth.session_token" by default
-	const sessionToken =
-		request.cookies.get("synos.session_token")?.value ||
-		request.cookies.get("__Secure-synos.session_token")?.value;
+	// =============================================
+	// 1. HANDLE LOCALE-EXCLUDED PATHS (no i18n)
+	// =============================================
+	if (pathStartsWith(pathname, localeExcludedPaths)) {
+		// For protected paths, check authentication
+		if (pathStartsWith(pathname, protectedPaths)) {
+			const sessionToken =
+				request.cookies.get("synos.session_token")?.value ||
+				request.cookies.get("__Secure-synos.session_token")?.value;
+			const isAuthenticated = !!sessionToken;
 
-	// Alternative: Check for custom session cookie if you configured one
-	// const sessionToken = request.cookies.get("synos_session")?.value;
-	// Determine if user is authenticated
-	const isAuthenticated = !!sessionToken;
+			// Handle API routes - return 401 JSON instead of redirect
+			if (pathname.startsWith("/api/")) {
+				if (!isAuthenticated) {
+					logger.warn("Unauthorized API access attempt", { pathname });
+					return NextResponse.json(
+						{
+							success: false,
+							message: "Unauthorized - Authentication required",
+							error: "UNAUTHORIZED",
+						},
+						{ status: 401 }
+					);
+				}
+				return NextResponse.next();
+			}
 
-	// Handle API routes - return 401 JSON instead of redirect
-	if (pathname.startsWith("/api/")) {
-		if (!isAuthenticated) {
-			logger.warn("Unauthorized API access attempt", { pathname });
-
-			return NextResponse.json(
-				{
-					success: false,
-					message: "Unauthorized - Authentication required",
-					error: "UNAUTHORIZED",
-				},
-				{ status: 401 }
-			);
+			// Handle page routes - redirect to login if not authenticated
+			if (!isAuthenticated) {
+				logger.info("Redirecting unauthenticated user to login", { pathname });
+				const loginUrl = new URL("/login", request.url);
+				loginUrl.searchParams.set("callbackUrl", pathname);
+				return NextResponse.redirect(loginUrl);
+			}
 		}
 
-		// Allow authenticated API requests to proceed
+		// Allow access to non-i18n routes
 		return NextResponse.next();
 	}
 
-	// Handle page routes - redirect to login if not authenticated
-	if (!isAuthenticated) {
-		logger.info("Redirecting unauthenticated user to login", { pathname });
+	// =============================================
+	// 2. HANDLE I18N ROUTES
+	// =============================================
+	const pathnameLocale = getLocaleFromPath(pathname);
 
-		// Build login URL with callback
-		const loginUrl = new URL("/login", request.url);
+	// If pathname has a locale prefix
+	if (pathnameLocale) {
+		// If it's the default locale, redirect to remove the prefix
+		// e.g., /en/about -> /about
+		if (pathnameLocale === defaultLocale) {
+			const newPathname = pathname.replace(`/${defaultLocale}`, "") || "/";
+			const newUrl = new URL(newPathname, request.url);
+			newUrl.search = request.nextUrl.search;
+			return NextResponse.redirect(newUrl);
+		}
 
-		// Preserve the original path for post-login redirect
-		loginUrl.searchParams.set("callbackUrl", pathname);
-
-		return NextResponse.redirect(loginUrl);
+		// Non-default locale with prefix - allow through
+		// Set locale cookie for consistency
+		const response = NextResponse.next();
+		response.cookies.set("NEXT_LOCALE", pathnameLocale, { path: "/" });
+		return response;
 	}
 
-	// User is authenticated, allow access
-	logger.debug("Authenticated user accessing protected route", { pathname });
+	// No locale in pathname - this is for default locale (en)
+	// Check if user prefers a different locale from cookie or Accept-Language header
+	const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value as Locale | undefined;
 
-	return NextResponse.next();
+	// If cookie indicates a non-default locale, redirect to that locale
+	if (cookieLocale && cookieLocale !== defaultLocale && locales.includes(cookieLocale)) {
+		const newUrl = new URL(`/${cookieLocale}${pathname}`, request.url);
+		newUrl.search = request.nextUrl.search;
+		return NextResponse.redirect(newUrl);
+	}
+
+	// Default locale - rewrite internally to include locale for routing
+	// This makes /about internally route to /en/about so [locale] segment works
+	const rewriteUrl = new URL(`/${defaultLocale}${pathname}`, request.url);
+	rewriteUrl.search = request.nextUrl.search;
+	const response = NextResponse.rewrite(rewriteUrl);
+	response.cookies.set("NEXT_LOCALE", defaultLocale, { path: "/" });
+	return response;
 }

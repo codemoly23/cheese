@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils/cn";
 import { Button } from "@/components/ui/button";
@@ -32,32 +33,33 @@ import {
 	type Country,
 } from "@/components/ui/country-code-select";
 
-// Client-side form schema
-const quoteFormSchema = z.object({
-	fullName: z
-		.string()
-		.min(2, "Namnet måste vara minst 2 tecken")
-		.max(100, "Namnet får inte överstiga 100 tecken"),
-	email: z.string().email("Ange en giltig e-postadress"),
-	countryCode: z.string().min(2, "Landskod krävs"),
-	phone: z
-		.string()
-		.min(6, "Telefonnummer måste vara minst 6 siffror")
-		.max(20, "Telefonnummer får inte överstiga 20 siffror"),
-	companyName: z
-		.string()
-		.max(200, "Företagsnamnet får inte överstiga 200 tecken")
-		.optional(),
-	message: z
-		.string()
-		.max(2000, "Meddelandet får inte överstiga 2000 tecken")
-		.optional(),
-	gdprConsent: z.literal(true, {
-		message: "Du måste godkänna integritetspolicyn",
-	}),
-});
+// Create form schema with translations
+const createQuoteFormSchema = (t: (key: string) => string) =>
+	z.object({
+		fullName: z
+			.string()
+			.min(2, t("validation.nameMin"))
+			.max(100, t("validation.nameMax")),
+		email: z.string().email(t("validation.emailInvalid")),
+		countryCode: z.string().min(2, t("validation.countryCodeRequired")),
+		phone: z
+			.string()
+			.min(6, t("validation.phoneMin"))
+			.max(20, t("validation.phoneMax")),
+		companyName: z
+			.string()
+			.max(200, t("validation.companyNameMax"))
+			.optional(),
+		message: z
+			.string()
+			.max(2000, t("validation.messageMax"))
+			.optional(),
+		gdprConsent: z.literal(true, {
+			message: t("validation.gdprRequired"),
+		}),
+	});
 
-type FormData = z.infer<typeof quoteFormSchema>;
+type FormData = z.infer<ReturnType<typeof createQuoteFormSchema>>;
 
 interface QuoteRequestModalProps {
 	open: boolean;
@@ -68,11 +70,16 @@ export function QuoteRequestModal({
 	open,
 	onOpenChange,
 }: QuoteRequestModalProps) {
+	const t = useTranslations("quoteModal");
+	const tCommon = useTranslations("common");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [selectedCountry, setSelectedCountry] =
 		useState<Country>(defaultCountry);
 	const [gdprChecked, setGdprChecked] = useState(false);
+
+	// Create schema with translated messages
+	const quoteFormSchema = createQuoteFormSchema(t);
 
 	const {
 		register,
@@ -121,7 +128,7 @@ export function QuoteRequestModal({
 		if (!isValidPhoneNumber(fullPhone)) {
 			setError("phone", {
 				type: "manual",
-				message: "Ogiltigt telefonnummer för valt land",
+				message: t("validation.phoneInvalid"),
 			});
 			return;
 		}
@@ -162,15 +169,15 @@ export function QuoteRequestModal({
 					toast.error(
 						fieldErrors ||
 							result.message ||
-							"Något gick fel. Försök igen."
+							t("errors.generic")
 					);
 				} else {
-					toast.error(result.message || "Något gick fel. Försök igen.");
+					toast.error(result.message || t("errors.generic"));
 				}
 			}
 		} catch (error) {
 			console.error("Form submission error:", error);
-			toast.error("Något gick fel. Försök igen senare.");
+			toast.error(t("errors.genericLater"));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -195,7 +202,7 @@ export function QuoteRequestModal({
 						<button
 							onClick={handleClose}
 							className="absolute top-3 right-3 p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200"
-							aria-label="Stäng"
+							aria-label={tCommon("close")}
 						>
 							<X className="w-4 h-4" />
 						</button>
@@ -214,11 +221,10 @@ export function QuoteRequestModal({
 
 							{/* Success Message */}
 							<h2 className="mt-5 text-xl font-bold text-slate-800">
-								Tack för din förfrågan!
+								{t("success.title")}
 							</h2>
 							<p className="mt-2 text-sm text-slate-500 leading-relaxed">
-								Vi har mottagit din offertförfrågan och återkommer inom 24
-								timmar med ett prisförslag.
+								{t("success.message")}
 							</p>
 
 							{/* Close Button */}
@@ -226,7 +232,7 @@ export function QuoteRequestModal({
 								onClick={handleClose}
 								className="mt-6 w-full h-10 rounded-lg text-sm font-medium bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white"
 							>
-								Stäng
+								{tCommon("close")}
 							</Button>
 						</div>
 					</div>
@@ -241,7 +247,7 @@ export function QuoteRequestModal({
 							<button
 								onClick={handleClose}
 								className="absolute top-3 right-3 p-1 rounded-full hover:bg-white/10 transition-colors"
-								aria-label="Stäng"
+								aria-label={tCommon("close")}
 							>
 								<X className="w-4 h-4" />
 							</button>
@@ -252,11 +258,11 @@ export function QuoteRequestModal({
 							</div>
 
 							<DialogTitle className="text-lg font-semibold">
-								Begär offert
+								{t("title")}
 							</DialogTitle>
 
 							<p className="mt-1 text-white/80 text-xs">
-								Fyll i formuläret så skickar vi ett prisförslag.
+								{t("subtitle")}
 							</p>
 						</div>
 
@@ -272,14 +278,14 @@ export function QuoteRequestModal({
 										htmlFor="fullName"
 										className="text-xs font-semibold"
 									>
-										Namn <span className="text-red-500">*</span>
+										{t("form.name")} <span className="text-red-500">{t("form.required")}</span>
 									</Label>
 									<div className="relative">
 										<User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
 										<Input
 											id="fullName"
 											{...register("fullName")}
-											placeholder="Ditt fullständiga namn"
+											placeholder={t("form.namePlaceholder")}
 											className={cn(
 												"pl-10 h-10 text-sm",
 												errors.fullName && "border-red-500"
@@ -300,8 +306,8 @@ export function QuoteRequestModal({
 										htmlFor="email"
 										className="text-xs font-semibold"
 									>
-										E-postadress{" "}
-										<span className="text-red-500">*</span>
+										{t("form.email")}{" "}
+										<span className="text-red-500">{t("form.required")}</span>
 									</Label>
 									<div className="relative">
 										<Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -309,7 +315,7 @@ export function QuoteRequestModal({
 											id="email"
 											type="email"
 											{...register("email")}
-											placeholder="din@email.se"
+											placeholder={t("form.emailPlaceholder")}
 											className={cn(
 												"pl-10 h-10 text-sm",
 												errors.email && "border-red-500"
@@ -327,8 +333,8 @@ export function QuoteRequestModal({
 								{/* Phone with Country Code */}
 								<div className="space-y-1">
 									<Label className="text-xs font-semibold">
-										Telefonnummer{" "}
-										<span className="text-red-500">*</span>
+										{t("form.phone")}{" "}
+										<span className="text-red-500">{t("form.required")}</span>
 									</Label>
 									<div className="flex gap-2">
 										<div className="w-[100px] shrink-0">
@@ -345,7 +351,7 @@ export function QuoteRequestModal({
 												id="phone"
 												type="tel"
 												{...register("phone")}
-												placeholder="701234567"
+												placeholder={t("form.phonePlaceholder")}
 												className={cn(
 													"pl-10 h-10 text-sm",
 													errors.phone && "border-red-500"
@@ -367,9 +373,9 @@ export function QuoteRequestModal({
 										htmlFor="companyName"
 										className="text-xs font-semibold"
 									>
-										Företagsnamn{" "}
+										{t("form.companyName")}{" "}
 										<span className="text-muted-foreground font-normal">
-											(valfritt)
+											{t("form.optional")}
 										</span>
 									</Label>
 									<div className="relative">
@@ -377,7 +383,7 @@ export function QuoteRequestModal({
 										<Input
 											id="companyName"
 											{...register("companyName")}
-											placeholder="Ditt företags namn"
+											placeholder={t("form.companyNamePlaceholder")}
 											className="pl-10 h-10 text-sm"
 											disabled={isSubmitting}
 										/>
@@ -390,15 +396,15 @@ export function QuoteRequestModal({
 										htmlFor="message"
 										className="text-xs font-semibold"
 									>
-										Meddelande{" "}
+										{t("form.message")}{" "}
 										<span className="text-muted-foreground font-normal">
-											(valfritt)
+											{t("form.optional")}
 										</span>
 									</Label>
 									<Textarea
 										id="message"
 										{...register("message")}
-										placeholder="Berätta gärna vad du är intresserad av eller har frågor om..."
+										placeholder={t("form.messagePlaceholder")}
 										className={cn(
 											"min-h-[70px] resize-none text-sm",
 											errors.message && "border-red-500"
@@ -435,18 +441,17 @@ export function QuoteRequestModal({
 											className="mt-0.5 shrink-0"
 										/>
 										<span className="text-[11px] leading-normal">
-											Jag godkänner Synos Medical AB:s{" "}
+											{t("form.gdprConsent").split(t("form.privacyPolicy"))[0]}
 											<Link
 												href="/integritetspolicy"
 												className="text-primary hover:underline font-medium"
 												target="_blank"
 												onClick={(e) => e.stopPropagation()}
 											>
-												integritetspolicy
-											</Link>{" "}
-											och samtycker till att mina uppgifter behandlas
-											enligt GDPR.{" "}
-											<span className="text-red-500">*</span>
+												{t("form.privacyPolicy")}
+											</Link>
+											{t("form.gdprConsent").split(t("form.privacyPolicy"))[1]}{" "}
+											<span className="text-red-500">{t("form.required")}</span>
 										</span>
 									</label>
 									{errors.gdprConsent && (
@@ -465,12 +470,12 @@ export function QuoteRequestModal({
 									{isSubmitting ? (
 										<>
 											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											Skickar...
+											{t("form.sending")}
 										</>
 									) : (
 										<>
 											<Send className="mr-2 h-4 w-4" />
-											Skicka förfrågan
+											{t("form.submit")}
 										</>
 									)}
 								</Button>

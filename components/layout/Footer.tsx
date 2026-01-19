@@ -12,6 +12,7 @@ import {
 	Twitter,
 	Youtube,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import Logo from "../common/logo";
 import type { SiteConfigType } from "@/config/site";
@@ -61,6 +62,7 @@ export function Footer({
 	footerSettings,
 	logoUrl,
 }: FooterProps) {
+	const t = useTranslations("footer");
 	const currentYear = new Date().getFullYear();
 	const primaryAddress = config.company.addresses[0];
 
@@ -243,7 +245,7 @@ export function Footer({
 
 						{/* Social Media */}
 						<div>
-							<h4 className="font-bold text-lg mb-6">Follow Us</h4>
+							<h4 className="font-bold text-lg mb-6">{t("followUs")}</h4>
 							<div className="flex gap-3 flex-wrap">
 								{socialIcons.map(({ Icon, href, label }) => (
 									<a
@@ -265,7 +267,7 @@ export function Footer({
 
 					<div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/50">
 						<p>
-							&copy; {currentYear} {config.company.name}. All rights reserved.
+							&copy; {currentYear} {config.company.name}. {t("copyright")}
 						</p>
 						<div className="flex gap-6">
 							{settings.bottomLinks.map((link) => (
