@@ -22,8 +22,8 @@ interface ProductCategorySectionProps {
 }
 
 export function ProductCategorySection({
-	badge = "OUR PRODUCTS",
-	title = "Natural Dairy Products",
+	badge = "POPULAR CATEGORIES",
+	title = "Explore Our Categories",
 	categories,
 }: ProductCategorySectionProps) {
 	if (!categories || categories.length === 0) return null;
@@ -66,7 +66,7 @@ export function ProductCategorySection({
 							}}
 						>
 							<Link
-								href={`/store?category=${category.slug}`}
+								href={`/products/category/${category.slug}`}
 								className="group relative block aspect-[4/5] overflow-hidden rounded-lg"
 							>
 								{/* Background Image with fade-in */}

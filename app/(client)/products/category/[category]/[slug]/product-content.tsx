@@ -50,6 +50,8 @@ export function ProductContent({
 				heroSettings={product.heroSettings}
 				overviewImage={product.overviewImage}
 				productImages={product.productImages}
+				productId={product._id || product.id}
+				initialLikeCount={product.likeCount || 0}
 			/>
 
 			{/* Product Variants Selector */}
@@ -57,6 +59,7 @@ export function ProductContent({
 				<ProductVariantsSelector
 					variants={product.productVariants}
 					currentSlug={product.slug}
+					categorySlug={product.primaryCategory?.slug || product.categories?.[0]?.slug || "uncategorized"}
 				/>
 			)}
 

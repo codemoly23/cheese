@@ -10,6 +10,26 @@ import { cn } from "@/lib/utils/cn";
 interface ProductVariantsSelectorProps {
 	variants: ProductVariant[];
 	currentSlug: string;
+	/** Current category slug for proper URL generation */
+	categorySlug?: string;
+}
+
+/**
+ * Convert Swedish product URLs to English format
+ * Swedish: /produkter/produkt/[slug] -> English: /products/category/[category]/[slug]
+ */
+function normalizeVariantUrl(url: string, categorySlug: string = "uncategorized"): string {
+	// Check if URL is Swedish format
+	if (url.startsWith("/produkter/produkt/")) {
+		const slug = url.replace("/produkter/produkt/", "");
+		return `/products/category/${categorySlug}/${slug}`;
+	}
+	// Check if URL is missing the full path (just slug or relative)
+	if (!url.startsWith("/products/") && !url.startsWith("http")) {
+		const slug = url.startsWith("/") ? url.slice(1) : url;
+		return `/products/category/${categorySlug}/${slug}`;
+	}
+	return url;
 }
 
 /**
@@ -20,6 +40,7 @@ interface ProductVariantsSelectorProps {
 export function ProductVariantsSelector({
 	variants,
 	currentSlug,
+	categorySlug = "uncategorized",
 }: ProductVariantsSelectorProps) {
 	if (!variants || variants.length === 0) {
 		return null;
@@ -35,8 +56,10 @@ export function ProductVariantsSelector({
 					className="flex flex-wrap justify-center gap-4 md:gap-8"
 				>
 					{variants.map((variant, index) => {
+						// Normalize the URL to English format
+						const normalizedUrl = normalizeVariantUrl(variant.url, categorySlug);
 						// Check if this variant is the current product
-						const isActive = variant.url.includes(currentSlug);
+						const isActive = normalizedUrl.includes(currentSlug) || variant.url.includes(currentSlug);
 
 						return (
 							<motion.div
@@ -46,7 +69,7 @@ export function ProductVariantsSelector({
 								transition={{ duration: 0.4, delay: index * 0.1 }}
 							>
 								<Link
-									href={variant.url}
+									href={normalizedUrl}
 									className={cn(
 										"group relative flex flex-col items-center gap-2 p-4 rounded-2xl transition-all duration-300",
 										isActive

@@ -122,6 +122,7 @@ export type ProductType = {
 		id: string;
 	};
 	publishedAt: string | null;
+	likeCount: number;
 	createdAt: string;
 	updatedAt: string;
 	id: string;

@@ -282,3 +282,12 @@ export async function revalidateStorePage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.STORE_PAGE, "default");
 	revalidatePath(PATHS.STORE);
 }
+
+/**
+ * Revalidate quality page
+ * Call this when quality/certifications page content is updated
+ */
+export async function revalidateQualityPage(): Promise<void> {
+	revalidateTag(CACHE_TAGS.QUALITY_PAGE, "default");
+	revalidatePath(PATHS.QUALITY);
+}

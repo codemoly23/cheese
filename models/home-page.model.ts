@@ -619,8 +619,8 @@ const TestimonialsSectionSchema = new Schema<ITestimonialsSection>(
  */
 const CategoryShowcaseSectionSchema = new Schema<ICategoryShowcaseSection>(
 	{
-		badge: { type: String, trim: true, default: "OUR PRODUCTS" },
-		title: { type: String, trim: true, default: "Natural Dairy Products" },
+		badge: { type: String, trim: true, default: "POPULAR CATEGORIES" },
+		title: { type: String, trim: true, default: "Explore Our Categories" },
 		maxCategories: { type: Number, default: 3, min: 1, max: 12 },
 	},
 	{ _id: false }
@@ -744,8 +744,8 @@ const HomePageSchema = new Schema<IHomePage>(
 		categoryShowcase: {
 			type: CategoryShowcaseSectionSchema,
 			default: {
-				badge: "OUR PRODUCTS",
-				title: "Natural Dairy Products",
+				badge: "POPULAR CATEGORIES",
+				title: "Explore Our Categories",
 				maxCategories: 3,
 			},
 		},

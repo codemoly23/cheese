@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MapPin, Heart } from "lucide-react";
@@ -12,6 +13,8 @@ interface ProductHeroNewProps {
 	heroSettings?: HeroSettings | null;
 	overviewImage?: string;
 	productImages?: string[];
+	productId?: string;
+	initialLikeCount?: number;
 }
 
 /**
@@ -25,11 +28,68 @@ export function ProductHeroNew({
 	heroSettings,
 	overviewImage,
 	productImages,
+	productId,
+	initialLikeCount = 0,
 }: ProductHeroNewProps) {
+	const [likeCount, setLikeCount] = useState(initialLikeCount);
+	const [hasLiked, setHasLiked] = useState(false);
+	const [isLiking, setIsLiking] = useState(false);
+
+	// Check if user has already liked this product (using localStorage)
+	useEffect(() => {
+		if (productId) {
+			const likedProducts = JSON.parse(localStorage.getItem("likedProducts") || "[]");
+			setHasLiked(likedProducts.includes(productId));
+		}
+	}, [productId]);
+
+	const handleLike = async () => {
+		if (!productId || isLiking) return;
+
+		setIsLiking(true);
+		const likedProducts = JSON.parse(localStorage.getItem("likedProducts") || "[]");
+
+		try {
+			if (hasLiked) {
+				// Unlike
+				const response = await fetch(`/api/products/${productId}/like`, {
+					method: "DELETE",
+				});
+				if (response.ok) {
+					const data = await response.json();
+					setLikeCount(data.likeCount);
+					setHasLiked(false);
+					localStorage.setItem(
+						"likedProducts",
+						JSON.stringify(likedProducts.filter((id: string) => id !== productId))
+					);
+				}
+			} else {
+				// Like
+				const response = await fetch(`/api/products/${productId}/like`, {
+					method: "POST",
+				});
+				if (response.ok) {
+					const data = await response.json();
+					setLikeCount(data.likeCount);
+					setHasLiked(true);
+					localStorage.setItem(
+						"likedProducts",
+						JSON.stringify([...likedProducts, productId])
+					);
+				}
+			}
+		} catch (error) {
+			console.error("Error toggling like:", error);
+		} finally {
+			setIsLiking(false);
+		}
+	};
+
 	const themeColor = heroSettings?.themeColor || "#6B7280";
 	const badge = heroSettings?.badge;
-	const ctaText = heroSettings?.ctaText || "WHERE TO BUY";
-	const ctaUrl = heroSettings?.ctaUrl || "/contact-us";
+	const ctaText = heroSettings?.ctaText || "FIND IN STORE";
+	const ctaUrl = heroSettings?.ctaUrl || "/products";
 
 	// Get the primary image
 	const primaryImage = overviewImage || productImages?.[0];
@@ -117,10 +177,16 @@ export function ProductHeroNew({
 							</Link>
 							<button
 								type="button"
-								className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 text-white rounded-full font-semibold text-sm hover:bg-white/20 transition-colors border border-white/20"
+								onClick={handleLike}
+								disabled={isLiking || !productId}
+								className={`inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-colors border ${
+									hasLiked
+										? "bg-red-500/20 text-white border-red-400/40 hover:bg-red-500/30"
+										: "bg-white/10 text-white border-white/20 hover:bg-white/20"
+								} ${isLiking ? "opacity-50 cursor-wait" : ""} ${!productId ? "opacity-50 cursor-not-allowed" : ""}`}
 							>
-								<Heart className="w-4 h-4" />
-								<span>13</span>
+								<Heart className={`w-4 h-4 ${hasLiked ? "fill-red-400 text-red-400" : ""}`} />
+								<span>{likeCount}</span>
 							</button>
 						</motion.div>
 					</motion.div>

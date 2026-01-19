@@ -439,8 +439,8 @@ export default function StartsidaPage() {
 				},
 			},
 			categoryShowcase: {
-				badge: "OUR PRODUCTS",
-				title: "Natural Dairy Products",
+				badge: "POPULAR CATEGORIES",
+				title: "Explore Our Categories",
 				maxCategories: 3,
 			},
 			productCarousel: {
@@ -706,8 +706,8 @@ export default function StartsidaPage() {
 						},
 					},
 					categoryShowcase: {
-						badge: content.categoryShowcase?.badge || "OUR PRODUCTS",
-						title: content.categoryShowcase?.title || "Natural Dairy Products",
+						badge: content.categoryShowcase?.badge || "POPULAR CATEGORIES",
+						title: content.categoryShowcase?.title || "Explore Our Categories",
 						maxCategories: content.categoryShowcase?.maxCategories || 3,
 					},
 					productCarousel: {
@@ -1557,7 +1557,7 @@ export default function StartsidaPage() {
 													<Input
 														{...field}
 														value={field.value || ""}
-														placeholder="OUR PRODUCTS"
+														placeholder="POPULAR CATEGORIES"
 													/>
 												</FormControl>
 												<FormDescription>
@@ -1577,7 +1577,7 @@ export default function StartsidaPage() {
 													<Input
 														{...field}
 														value={field.value || ""}
-														placeholder="Natural Dairy Products"
+														placeholder="Explore Our Categories"
 													/>
 												</FormControl>
 												<FormDescription>

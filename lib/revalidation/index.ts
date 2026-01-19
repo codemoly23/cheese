@@ -44,6 +44,7 @@ export const CACHE_TAGS = {
 	KOPGUIDE_PAGE: "kopguide-page",
 	MINIUTBILDNING_PAGE: "miniutbildning-page",
 	RESELLER_PAGE: "reseller-page",
+	QUALITY_PAGE: "quality-page",
 
 	// Sitemaps
 	SITEMAPS: "sitemaps",
@@ -77,6 +78,7 @@ export const PATHS = {
 	KOPGUIDE: "/starta-eget/kopguide",
 	MINIUTBILDNING: "/starta-eget/miniutbildning",
 	RESELLER: "/aterforsaljare",
+	QUALITY: "/quality",
 } as const;
 
 // Default revalidation time in seconds (24 hours)

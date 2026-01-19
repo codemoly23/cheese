@@ -86,7 +86,7 @@ export function StoreHero({ data }: StoreHeroProps) {
 						<Button
 							size="lg"
 							variant="outline"
-							className="h-12 gap-2 rounded-full border-white/30 bg-primary/10 px-8 text-white backdrop-blur-sm hover:bg-primary/20"
+							className="h-12 gap-2 rounded-full border-primary/30 bg-primary/10 px-8 text-primary backdrop-blur-sm hover:bg-primary/20"
 							asChild
 						>
 							<a href="#opening-hours">
@@ -99,14 +99,14 @@ export function StoreHero({ data }: StoreHeroProps) {
 					{/* Quick Info */}
 					<motion.div
 						variants={fadeUp}
-						className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-white/80"
+						className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-primary"
 					>
 						<div className="flex items-center gap-2">
-							<MapPin className="h-4 w-4 text-secondary" />
+							<MapPin className="h-4 w-4 text-primary" />
 							<span>Boxholm, Sweden</span>
 						</div>
 						<div className="flex items-center gap-2">
-							<span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse" />
+							<span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse" />
 							<span>Open Today</span>
 						</div>
 					</motion.div>

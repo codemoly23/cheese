@@ -100,6 +100,7 @@ export interface IProduct extends Document {
 	visibility: Visibility;
 	lastEditedBy?: mongoose.Types.ObjectId;
 	publishedAt?: Date;
+	likeCount: number;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -411,6 +412,11 @@ const ProductSchema = new Schema<IProduct>(
 		publishedAt: {
 			type: Date,
 			default: null,
+		},
+		likeCount: {
+			type: Number,
+			default: 0,
+			min: 0,
 		},
 	},
 	{

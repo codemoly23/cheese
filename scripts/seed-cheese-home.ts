@@ -68,8 +68,8 @@ const homePageData = {
 
 	// Category Showcase Section - displays product categories on home page
 	categoryShowcase: {
-		badge: "OUR PRODUCTS",
-		title: "Natural Dairy Products",
+		badge: "POPULAR CATEGORIES",
+		title: "Explore Our Categories",
 		maxCategories: 3,
 	},
 
