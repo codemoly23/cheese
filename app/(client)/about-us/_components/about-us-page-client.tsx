@@ -27,7 +27,7 @@ export function AboutUsPageClient({
 	offices,
 }: AboutUsPageClientProps) {
 	// Set navbar variant
-	useSetNavbarVariant("light");
+	useSetNavbarVariant("default");
 
 	const visibility = data.sectionVisibility || {
 		history: true,

@@ -11,6 +11,7 @@ interface ProductData {
 	_id?: string;
 	name: string;
 	slug: string;
+	categorySlug: string;
 	images?: string[];
 	rating?: number;
 	reviewCount?: number;
@@ -118,7 +119,7 @@ export function ProductCarousel({
 										transition={{ duration: 0.3, delay: index * 0.05 }}
 									>
 										<Link
-											href={`/store/${product.slug}`}
+											href={`/products/category/${product.categorySlug}/${product.slug}`}
 											className="group block text-center"
 										>
 											{/* Product Card with Light Background */}

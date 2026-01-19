@@ -37,6 +37,13 @@ export const CACHE_TAGS = {
 	FAQ_PAGE: "faq-page",
 	CONTACT_PAGE: "contact-page",
 	STORE_PAGE: "store-page",
+	CAREERS_PAGE: "careers-page",
+	TRAINING_PAGE: "training-page",
+	STARTA_EGET_PAGE: "starta-eget-page",
+	VARFOR_VALJA_SYNOS_PAGE: "varfor-valja-synos-page",
+	KOPGUIDE_PAGE: "kopguide-page",
+	MINIUTBILDNING_PAGE: "miniutbildning-page",
+	RESELLER_PAGE: "reseller-page",
 
 	// Sitemaps
 	SITEMAPS: "sitemaps",
@@ -50,6 +57,7 @@ export const PATHS = {
 	HOME: "/",
 	PRODUCTS: "/produkter",
 	KATEGORI: "/kategori",
+	KLINIKUTRUSTNING: "/klinikutrustning",
 	BLOG: "/blogg",
 	BLOG_EN: "/blog",
 	NEWS: "/nyheter",
@@ -62,6 +70,13 @@ export const PATHS = {
 	FAQ: "/faq",
 	CONTACT: "/kontakt",
 	STORE: "/butik-i-boxholm",
+	CAREERS: "/karriar",
+	TRAINING: "/utbildning",
+	STARTA_EGET: "/starta-eget",
+	VARFOR_VALJA_SYNOS: "/starta-eget/varfor-valja-synos",
+	KOPGUIDE: "/starta-eget/kopguide",
+	MINIUTBILDNING: "/starta-eget/miniutbildning",
+	RESELLER: "/aterforsaljare",
 } as const;
 
 // Default revalidation time in seconds (24 hours)

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { careersPageService } from "@/lib/services/careers-page.service";
 import { updateCareersPageSchema } from "@/lib/validations/careers-page.validation";
 import { revalidateCareersPage } from "@/lib/revalidation/actions";
+import type { CareersPageData } from "@/lib/repositories/careers-page.repository";
 
 export async function GET() {
 	try {
@@ -29,7 +30,7 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		const updated = await careersPageService.updateCareersPage(result.data);
+		const updated = await careersPageService.updateCareersPage(result.data as Partial<CareersPageData>);
 
 		// Revalidate ISR cache
 		await revalidateCareersPage();

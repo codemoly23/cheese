@@ -6,6 +6,7 @@ import {
 	updateResellerPage,
 } from "@/lib/services/reseller-page.service";
 import { updateResellerPageSchema } from "@/lib/validations/reseller-page.validation";
+import type { UpdateResellerPageInput } from "@/lib/repositories/reseller-page.repository";
 import { logger } from "@/lib/utils/logger";
 
 /**
@@ -55,7 +56,7 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		const data = await updateResellerPage(validationResult.data);
+		const data = await updateResellerPage(validationResult.data as UpdateResellerPageInput);
 
 		logger.info("Reseller page updated successfully");
 

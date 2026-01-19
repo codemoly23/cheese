@@ -17,9 +17,9 @@ import { searchService } from "@/lib/services/search.service";
 import { SearchPageClient } from "./search-page";
 import { SearchPageSkeleton } from "@/components/search/SearchSkeleton";
 
-// ISR: Revalidate every 60 seconds for development, 24 hours for production
+// ISR: Revalidate every 24 hours
 // Note: Search mode uses searchParams which makes those requests dynamic
-export const revalidate = process.env.NODE_ENV === 'development' ? 60 : 86400;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
 	const [seo, siteSettings] = await Promise.all([
@@ -143,14 +143,21 @@ export default async function Home({ searchParams }: HomeProps) {
 	// Limit products to configured max (default 6)
 	const maxProducts = homePage.productCarousel?.maxProducts || 6;
 	// Serialize products to plain objects for client component
-	const productsToShow = publishedProducts.data.slice(0, maxProducts).map((product) => ({
-		_id: product._id?.toString(),
-		name: product.title,
-		slug: product.slug,
-		images: product.productImages,
-		rating: 5, // Default 5 star rating for all products
-		reviewCount: 0,
-	}));
+	const productsToShow = publishedProducts.data.slice(0, maxProducts).map((product) => {
+		// Get category slug from primaryCategory or first category
+		const primaryCat = product.primaryCategory as { slug?: string } | null;
+		const categorySlug = primaryCat?.slug || "uncategorized";
+
+		return {
+			_id: product._id?.toString(),
+			name: product.title,
+			slug: product.slug,
+			categorySlug,
+			images: product.productImages,
+			rating: 5, // Default 5 star rating for all products
+			reviewCount: 0,
+		};
+	});
 
 	return (
 		<div className="flex flex-col min-h-screen">

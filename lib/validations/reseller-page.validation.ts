@@ -4,9 +4,9 @@ import { z } from "zod";
  * Section visibility schema
  */
 export const resellerSectionVisibilitySchema = z.object({
-	hero: z.boolean().default(true),
-	benefits: z.boolean().default(true),
-	form: z.boolean().default(true),
+	hero: z.boolean(),
+	benefits: z.boolean(),
+	form: z.boolean(),
 });
 
 /**

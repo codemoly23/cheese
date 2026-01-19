@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { trainingPageService } from "@/lib/services/training-page.service";
 import { updateTrainingPageSchema } from "@/lib/validations/training-page.validation";
 import { revalidateTrainingPage } from "@/lib/revalidation/actions";
+import type { TrainingPageData } from "@/lib/repositories/training-page.repository";
 
 export async function GET() {
 	try {
@@ -29,7 +30,7 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		const updated = await trainingPageService.updateTrainingPage(result.data);
+		const updated = await trainingPageService.updateTrainingPage(result.data as Partial<TrainingPageData>);
 
 		// Revalidate ISR cache
 		await revalidateTrainingPage();

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getStorePage, updateStorePage } from "@/lib/services/store-page.service";
 import { updateStorePageSchema } from "@/lib/validations/store-page.validation";
 import { revalidateStorePage } from "@/lib/revalidation/actions";
+import type { UpdateStorePageInput } from "@/lib/repositories/store-page.repository";
 
 /**
  * GET /api/store-page
@@ -40,7 +41,7 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		const updatedPage = await updateStorePage(validationResult.data);
+		const updatedPage = await updateStorePage(validationResult.data as UpdateStorePageInput);
 
 		// Revalidate ISR cache
 		await revalidateStorePage();

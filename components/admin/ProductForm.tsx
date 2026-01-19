@@ -592,6 +592,7 @@ function countErrorsPerTab(errors: FormError[]): Record<TabId, number> {
 		media: 0,
 		specs: 0,
 		qna: 0,
+		appearance: 0,
 		seo: 0,
 	};
 
@@ -988,6 +989,7 @@ export function ProductForm({
 			media: [],
 			specs: [],
 			qna: [],
+			appearance: [],
 			seo: [],
 		};
 		for (const error of formErrors) {

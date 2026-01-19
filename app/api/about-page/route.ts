@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAboutPage, updateAboutPage } from "@/lib/services/about-page.service";
 import { updateAboutPageSchema } from "@/lib/validations/about-page.validation";
 import { revalidateAboutPage } from "@/lib/revalidation/actions";
+import type { UpdateAboutPageInput } from "@/lib/repositories/about-page.repository";
 
 /**
  * GET /api/about-page
@@ -40,7 +41,7 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		const updatedPage = await updateAboutPage(validationResult.data);
+		const updatedPage = await updateAboutPage(validationResult.data as UpdateAboutPageInput);
 
 		// Revalidate ISR cache
 		await revalidateAboutPage();
