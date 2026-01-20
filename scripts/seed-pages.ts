@@ -126,9 +126,13 @@ const aboutPageData = {
 	],
 
 	imageGallery: {
-		title: "Våra lokaler",
-		subtitle: "Besök oss i Stockholm eller Linköping",
+		badge: "Våra lokaler",
+		title: "Välkommen att besöka oss",
+		subtitle: "Besök oss i Stockholm eller Linköping för demonstration av våra produkter",
 		images: [],
+		ctaTitle: "Boka ett besök",
+		ctaSubtitle: "Vi visar gärna våra produkter och svarar på dina frågor",
+		ctaButtonText: "Kontakta oss",
 	},
 
 	faq: {

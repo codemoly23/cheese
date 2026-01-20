@@ -88,6 +88,7 @@ export const ctaSectionSchema = z.object({
 	formTitle: z.string().max(100).optional(),
 	formSubtitle: z.string().max(300).optional(),
 	formCtaText: z.string().max(100).optional(),
+	formCtaHref: z.string().max(500).optional(),
 });
 
 /**

@@ -97,7 +97,14 @@ const heroData = {
 };
 
 // Also update image gallery with proper images
+// All fields are filled to ensure proper display on the landing page
+// Badge: Short label shown above the title (e.g., "OUR FACILITIES")
+// Title: Main heading of the gallery section
+// Subtitle: Description text below the title
+// Images: Array of gallery images with title and subtitle for each
+// CTA fields: Call-to-action card at the bottom with title, subtitle, and button
 const imageGalleryData = {
+	badge: "OUR FACILITIES",
 	title: "Life on Our Farm",
 	subtitle: "A glimpse into our daily operations and the care we put into every product",
 	images: [
@@ -122,6 +129,9 @@ const imageGalleryData = {
 			subtitle: "Ready for your table",
 		},
 	],
+	ctaTitle: "Want to see more?",
+	ctaSubtitle: "Book a virtual tour of our facilities and see how we make our products",
+	ctaButtonText: "Book Tour",
 };
 
 // About section with proper image

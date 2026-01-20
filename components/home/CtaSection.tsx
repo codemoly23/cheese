@@ -34,11 +34,11 @@ const CtaSection = ({ data, phone, email }: CtaSectionProps) => {
 								</div>
 								<div>
 									<h4 className="text-lg font-bold">
-										{data.phoneTitle || "Ring oss direkt"}
+										{data.phoneTitle || "Call Us"}
 									</h4>
 									<p className="text-slate-600">
 										{data.phoneSubtitle ||
-											"Vi finns tillgängliga för att hjälpa dig"}
+											"We are available to help you"}
 									</p>
 									<a
 										href={`tel:${phone}`}
@@ -55,10 +55,10 @@ const CtaSection = ({ data, phone, email }: CtaSectionProps) => {
 								</div>
 								<div>
 									<h4 className="text-lg font-bold text-secondary">
-										{data.emailTitle || "E-post"}
+										{data.emailTitle || "Email Us"}
 									</h4>
 									<p className="text-slate-600">
-										{data.emailSubtitle || "Skicka oss ett meddelande"}
+										{data.emailSubtitle || "Send us a message"}
 									</p>
 									<a
 										href={`mailto:${email}`}
@@ -74,15 +74,15 @@ const CtaSection = ({ data, phone, email }: CtaSectionProps) => {
 					<div className="w-full">
 						<div className="bg-white rounded-2xl shadow-xl border border-border/50 p-8 text-center">
 							<h3 className="text-2xl font-bold text-secondary mb-4">
-								{data.formTitle || "Har du frågor?"}
+								{data.formTitle || "Get in Touch"}
 							</h3>
 							<p className="text-slate-600 mb-8">
 								{data.formSubtitle ||
-									"Fyll i vårt kontaktformulär så återkommer vi till dig inom 24 timmar."}
+									"Fill out the form and we'll get back to you within 24 hours"}
 							</p>
 							<Button asChild size="lg" className="w-full">
-								<Link href="/kontakt">
-									{data.formCtaText || "Gå till kontaktformuläret"}
+								<Link href={data.formCtaHref || "/contact-us"}>
+									{data.formCtaText || "Send Message"}
 									<ArrowRight className="ml-2 h-5 w-5" />
 								</Link>
 							</Button>

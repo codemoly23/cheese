@@ -3,9 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ImageComponent } from "../common/image-component";
 import { useSetNavbarVariant } from "@/lib/context/navbar-variant-context";
-import type { IHeroSection, IHeroSlide } from "@/models/home-page.model";
+import type { IHeroSection } from "@/models/home-page.model";
 
 interface HeroSliderProps {
 	data: IHeroSection;
@@ -18,6 +19,7 @@ export function HeroSlider({ data }: HeroSliderProps) {
 	// Filter active slides
 	const slides = (data.slides || []).filter((slide) => slide.isActive !== false);
 	const autoPlayInterval = data.autoPlayInterval || 5000;
+	const showArrows = data.showArrows !== false; // Default to true
 
 	// Set navbar variant for dark hero
 	useSetNavbarVariant("dark-hero");
@@ -40,6 +42,20 @@ export function HeroSlider({ data }: HeroSliderProps) {
 		// Resume auto-play after 10 seconds of inactivity
 		setTimeout(() => setIsAutoPlaying(true), 10000);
 	}, []);
+
+	// Go to previous slide
+	const goToPrevSlide = useCallback(() => {
+		setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+		setIsAutoPlaying(false);
+		setTimeout(() => setIsAutoPlaying(true), 10000);
+	}, [slides.length]);
+
+	// Go to next slide
+	const goToNextSlide = useCallback(() => {
+		setCurrentSlide((prev) => (prev + 1) % slides.length);
+		setIsAutoPlaying(false);
+		setTimeout(() => setIsAutoPlaying(true), 10000);
+	}, [slides.length]);
 
 	// If no slides, don't render
 	if (slides.length === 0) return null;
@@ -141,6 +157,29 @@ export function HeroSlider({ data }: HeroSliderProps) {
 					</motion.div>
 				</AnimatePresence>
 			</div>
+
+			{/* Navigation Arrows */}
+			{showArrows && slides.length > 1 && (
+				<>
+					{/* Previous Arrow */}
+					<button
+						onClick={goToPrevSlide}
+						className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 hover:border-white/40 transition-all duration-300 group"
+						aria-label="Previous slide"
+					>
+						<ChevronLeft className="w-6 h-6 md:w-7 md:h-7 group-hover:-translate-x-0.5 transition-transform" />
+					</button>
+
+					{/* Next Arrow */}
+					<button
+						onClick={goToNextSlide}
+						className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 hover:border-white/40 transition-all duration-300 group"
+						aria-label="Next slide"
+					>
+						<ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-0.5 transition-transform" />
+					</button>
+				</>
+			)}
 
 			{/* Slide Indicators / Pagination */}
 			{slides.length > 1 && (

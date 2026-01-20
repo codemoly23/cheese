@@ -23,11 +23,27 @@ interface ImageGalleryProps {
  * - SEO-optimized with semantic HTML and proper alt attributes
  * - Lazy loading for performance
  * - Keyboard accessible
+ * - Empty fields are automatically hidden
  *
  * @returns {JSX.Element} The ImageGallery component
  */
 export function ImageGallery({ data }: ImageGalleryProps) {
 	const [isTourModalOpen, setIsTourModalOpen] = useState(false);
+
+	// Check if badge has content
+	const hasBadge = data?.badge && data.badge.trim().length > 0;
+	// Check if title has content
+	const hasTitle = data?.title && data.title.trim().length > 0;
+	// Check if subtitle has content
+	const hasSubtitle = data?.subtitle && data.subtitle.trim().length > 0;
+	// Check if CTA section has content
+	const hasCtaTitle = data?.ctaTitle && data.ctaTitle.trim().length > 0;
+	const hasCtaSubtitle = data?.ctaSubtitle && data.ctaSubtitle.trim().length > 0;
+	const hasCtaButtonText = data?.ctaButtonText && data.ctaButtonText.trim().length > 0;
+	// Show CTA section only if at least title or button text exists
+	const showCtaSection = hasCtaTitle || hasCtaButtonText;
+	// Check if header section has any content
+	const showHeader = hasBadge || hasTitle || hasSubtitle;
 
 	return (
 		<section
@@ -39,42 +55,50 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 			<div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
 			<div className="_container relative z-10">
-				{/* Section Header */}
-				<motion.div
-					initial="initial"
-					whileInView="animate"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={staggerContainer}
-					className="text-center mb-12 md:mb-16"
-				>
+				{/* Section Header - Only show if there's content */}
+				{showHeader && (
 					<motion.div
-						variants={fadeUp}
-						transition={defaultTransition}
-						className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 w-fit border border-primary/20 mb-6 mx-auto"
+						initial="initial"
+						whileInView="animate"
+						viewport={{ once: true, margin: "-100px" }}
+						variants={staggerContainer}
+						className="text-center mb-12 md:mb-16"
 					>
-						<Eye className="h-4 w-4 text-primary" />
-						<span className="text-xs font-extrabold text-primary uppercase tracking-wider">
-							{data?.badge}
-						</span>
+						{hasBadge && (
+							<motion.div
+								variants={fadeUp}
+								transition={defaultTransition}
+								className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 w-fit border border-primary/20 mb-6 mx-auto"
+							>
+								<Eye className="h-4 w-4 text-primary" />
+								<span className="text-xs font-extrabold text-primary uppercase tracking-wider">
+									{data.badge}
+								</span>
+							</motion.div>
+						)}
+
+						{hasTitle && (
+							<motion.h2
+								id="gallery-heading"
+								variants={fadeUp}
+								transition={defaultTransition}
+								className="text-4xl md:text-5xl lg:text-6xl font-black text-secondary mb-4 tracking-tight"
+							>
+								{data.title}
+							</motion.h2>
+						)}
+
+						{hasSubtitle && (
+							<motion.p
+								variants={fadeUp}
+								transition={defaultTransition}
+								className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto font-medium"
+							>
+								{data.subtitle}
+							</motion.p>
+						)}
 					</motion.div>
-
-					<motion.h2
-						id="gallery-heading"
-						variants={fadeUp}
-						transition={defaultTransition}
-						className="text-4xl md:text-5xl lg:text-6xl font-black text-secondary mb-4 tracking-tight"
-					>
-						{data?.title}
-					</motion.h2>
-
-					<motion.p
-						variants={fadeUp}
-						transition={defaultTransition}
-						className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto font-medium"
-					>
-						{data?.subtitle}
-					</motion.p>
-				</motion.div>
+				)}
 
 				{/* Gallery Grid */}
 				<motion.div
@@ -144,32 +168,42 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 					))}
 				</motion.div>
 
-				{/* Bottom CTA Section */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.6, delay: 0.4 }}
-					className="mt-12 md:mt-16 text-center"
-				>
-					<div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl p-6 md:p-8 shadow-xl">
-						<div className="flex-1 text-left">
-							<h3 className="text-lg md:text-xl font-extrabold text-secondary mb-2 tracking-tight">
-								{data?.ctaTitle}
-							</h3>
-							<p className="text-secondary/50 text-sm md:text-base font-medium">
-								{data?.ctaSubtitle}
-							</p>
+				{/* Bottom CTA Section - Only show if there's content */}
+				{showCtaSection && (
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.6, delay: 0.4 }}
+						className="mt-12 md:mt-16 text-center"
+					>
+						<div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl p-6 md:p-8 shadow-xl">
+							{(hasCtaTitle || hasCtaSubtitle) && (
+								<div className="flex-1 text-left">
+									{hasCtaTitle && (
+										<h3 className="text-lg md:text-xl font-extrabold text-secondary mb-2 tracking-tight">
+											{data.ctaTitle}
+										</h3>
+									)}
+									{hasCtaSubtitle && (
+										<p className="text-secondary/50 text-sm md:text-base font-medium">
+											{data.ctaSubtitle}
+										</p>
+									)}
+								</div>
+							)}
+							{hasCtaButtonText && (
+								<button
+									onClick={() => setIsTourModalOpen(true)}
+									className="shrink-0 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-bold rounded-full transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+									aria-label={data.ctaButtonText}
+								>
+									{data.ctaButtonText}
+								</button>
+							)}
 						</div>
-						<button
-							onClick={() => setIsTourModalOpen(true)}
-							className="shrink-0 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-bold rounded-full transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-							aria-label={data?.ctaButtonText}
-						>
-							{data?.ctaButtonText}
-						</button>
-					</div>
-				</motion.div>
+					</motion.div>
+				)}
 			</div>
 
 			{/* Tour Request Modal */}

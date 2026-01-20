@@ -166,15 +166,15 @@ export default function Error({
 							className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 tracking-tight"
 							style={{ color: "#0C2C46" }}
 						>
-							Något gick fel
+							Something went wrong
 						</h2>
 
 						<p
 							className="text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto font-medium mb-10 leading-relaxed"
 							style={{ color: "rgba(12, 44, 70, 0.75)" }}
 						>
-							Vi upplever tekniska svårigheter. Försök igen eller
-							kontakta oss om problemet kvarstår.
+							We are experiencing technical difficulties. Please try again
+							or contact us if the problem persists.
 						</p>
 
 						{/* Error Details (Development only) */}
@@ -227,7 +227,7 @@ export default function Error({
 								aria-label="Try again"
 							>
 								<RefreshCw className="h-5 w-5 transition-transform group-hover:rotate-180" />
-								Försök igen
+								Try again
 								<ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
 							</button>
 
@@ -242,7 +242,7 @@ export default function Error({
 								}}
 							>
 								<Home className="h-5 w-5 transition-transform group-hover:-translate-y-0.5" />
-								Tillbaka till startsidan
+								Back to home
 							</Link>
 						</div>
 					</motion.div>
@@ -261,17 +261,17 @@ export default function Error({
 							className="text-sm font-bold mb-5 uppercase tracking-widest"
 							style={{ color: "#0C2C46" }}
 						>
-							Behöver du hjälp?
+							Need help?
 						</p>
 						<p
 							className="text-base md:text-lg font-medium mb-6 leading-relaxed"
 							style={{ color: "rgba(12, 44, 70, 0.75)" }}
 						>
-							Om problemet kvarstår, kontakta vår support så hjälper vi
-							dig.
+							If the problem persists, contact our support team and
+							we will help you.
 						</p>
 						<a
-							href="/kontakt"
+							href="/contact-us"
 							className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
 							style={{
 								background: "rgba(0, 148, 158, 0.1)",
@@ -279,7 +279,7 @@ export default function Error({
 								border: "1px solid rgba(0, 148, 158, 0.2)",
 							}}
 						>
-							Kontakta support
+							Contact support
 							<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
 						</a>
 					</motion.div>

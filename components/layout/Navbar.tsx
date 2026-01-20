@@ -26,6 +26,7 @@ import MobileNavbar from "./MobileNavbar";
 import ProtectedNavbar from "./ProtectedNavbar";
 import { NavbarSearch } from "./NavbarSearch";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { authClient } from "@/lib/auth-client";
 
 interface SocialMedia {
 	facebook?: string;
@@ -48,6 +49,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 	const { variant } = useNavbarVariant();
 	const t = useTranslations("navigation");
 	const tCommon = useTranslations("common");
+	const { data: session } = authClient.useSession();
 
 	// Always use light text since navbar now has a dark primary background
 	const useLightText = true;
@@ -238,7 +240,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 								</NavigationMenu>
 							</div>
 
-							{/* Right Actions - Social Icons, User, Cart, Search */}
+							{/* Right Actions - Social Icons, Search, Language, User/Dashboard */}
 							<div className="hidden lg:flex items-center gap-4 shrink-0">
 								{/* Social Media Icons */}
 								{socialMedia && (
@@ -314,27 +316,28 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 									)} />
 								)}
 
-								{/* User Account */}
-								<Link
-									href="/login"
-									className={cn(
-										"transition-colors",
-										useLightText
-											? "text-white/70 hover:text-white"
-											: "text-secondary/70 hover:text-secondary"
-									)}
-								>
-									<User className="h-5 w-5" />
-								</Link>
-
 								{/* Search */}
 								<NavbarSearch useLightText={useLightText} />
 
 								{/* Language Switcher */}
 								<LanguageSwitcher variant="compact" />
-							</div>
-							<div className="hidden lg:block">
-								<ProtectedNavbar />
+
+								{/* User Account / Dashboard - Show login icon if not logged in, avatar if logged in */}
+								{session ? (
+									<ProtectedNavbar />
+								) : (
+									<Link
+										href="/login"
+										className={cn(
+											"transition-colors",
+											useLightText
+												? "text-white/70 hover:text-white"
+												: "text-secondary/70 hover:text-secondary"
+										)}
+									>
+										<User className="h-5 w-5" />
+									</Link>
+								)}
 							</div>
 
 							{/* Mobile Menu */}

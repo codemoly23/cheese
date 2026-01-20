@@ -53,6 +53,8 @@ export interface IHeroSection {
 	slides?: IHeroSlide[];
 	/** Auto-play interval in milliseconds (default: 5000) */
 	autoPlayInterval?: number;
+	/** Show navigation arrows on slider (default: true) */
+	showArrows?: boolean;
 	/** Legacy single hero fields (used when isSlider is false) */
 	badge?: string;
 	title?: string;
@@ -129,6 +131,7 @@ export interface ICtaSection {
 	formTitle?: string;
 	formSubtitle?: string;
 	formCtaText?: string;
+	formCtaHref?: string;
 }
 
 /**
@@ -413,6 +416,7 @@ const HeroSectionSchema = new Schema<IHeroSection>(
 		isSlider: { type: Boolean, default: true },
 		slides: { type: [HeroSlideSchema], default: [] },
 		autoPlayInterval: { type: Number, default: 5000 },
+		showArrows: { type: Boolean, default: true },
 		// Legacy single hero fields
 		badge: { type: String, trim: true },
 		title: { type: String, trim: true },
@@ -573,6 +577,7 @@ const CtaSectionSchema = new Schema<ICtaSection>(
 		formTitle: { type: String, trim: true },
 		formSubtitle: { type: String, trim: true },
 		formCtaText: { type: String, trim: true },
+		formCtaHref: { type: String, trim: true },
 	},
 	{ _id: false }
 );

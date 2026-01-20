@@ -27,6 +27,8 @@ import ProtectedNavbar from "./ProtectedNavbar";
 import { QuoteRequestModal } from "./QuoteRequestModal";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
+import { User } from "lucide-react";
 
 interface MobileNavbarProps {
 	useLightText?: boolean;
@@ -39,6 +41,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 	const { data: navigationData, isLoading } = useNavigation();
+	const { data: session } = authClient.useSession();
 	const t = useTranslations("navigation");
 	const tCommon = useTranslations("common");
 
@@ -106,10 +109,21 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 						</form>
 					</div>
 
-					{/* User Profile Section */}
+					{/* User Profile Section - Show dashboard if logged in, login link if not */}
 					<div className="shrink-0 px-4 py-3 border-b border-gray-100 bg-gray-50/50">
 						<div className="flex items-center gap-3">
-							<ProtectedNavbar />
+							{session ? (
+								<ProtectedNavbar />
+							) : (
+								<Link
+									href="/login"
+									className="flex items-center gap-2 text-sm font-medium text-secondary hover:text-primary transition-colors"
+									onClick={() => setOpen(false)}
+								>
+									<User className="h-5 w-5" />
+									<span>{t("login")}</span>
+								</Link>
+							)}
 						</div>
 					</div>
 

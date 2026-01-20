@@ -304,6 +304,7 @@ const homePageFormSchema = z.object({
 			isSlider: z.boolean().optional(),
 			slides: z.array(heroSlideSchema).optional(),
 			autoPlayInterval: z.number().optional(),
+			showArrows: z.boolean().optional(),
 			// Legacy single hero fields
 			badge: z.string().optional(),
 			title: z.string().optional(),
@@ -373,6 +374,7 @@ const homePageFormSchema = z.object({
 			formTitle: z.string().optional(),
 			formSubtitle: z.string().optional(),
 			formCtaText: z.string().optional(),
+			formCtaHref: z.string().optional(),
 		})
 		.optional(),
 
@@ -419,6 +421,7 @@ export default function StartsidaPage() {
 				isSlider: true,
 				slides: [],
 				autoPlayInterval: 5000,
+				showArrows: true,
 				// Legacy single hero fields
 				badge: "",
 				title: "",
@@ -523,6 +526,7 @@ export default function StartsidaPage() {
 				formTitle: "",
 				formSubtitle: "",
 				formCtaText: "",
+				formCtaHref: "",
 			},
 			richContent: "",
 			seo: {
@@ -675,6 +679,7 @@ export default function StartsidaPage() {
 						isSlider: content.hero?.isSlider !== false,
 						slides: content.hero?.slides || [],
 						autoPlayInterval: content.hero?.autoPlayInterval || 5000,
+						showArrows: content.hero?.showArrows !== false,
 						// Legacy single hero fields
 						badge: content.hero?.badge || "",
 						title: content.hero?.title || "",
@@ -806,6 +811,7 @@ export default function StartsidaPage() {
 						formTitle: content.ctaSection?.formTitle || "",
 						formSubtitle: content.ctaSection?.formSubtitle || "",
 						formCtaText: content.ctaSection?.formCtaText || "",
+						formCtaHref: content.ctaSection?.formCtaHref || "",
 					},
 					richContent: content.richContent || "",
 					seo: {
@@ -1306,28 +1312,50 @@ export default function StartsidaPage() {
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
-									<FormField
-										control={form.control}
-										name="hero.autoPlayInterval"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Auto-Play Interval (ms)</FormLabel>
-												<FormControl>
-													<Input
-														type="number"
-														{...field}
-														value={field.value || 5000}
-														onChange={(e) => field.onChange(Number(e.target.value))}
-														placeholder="5000"
-													/>
-												</FormControl>
-												<FormDescription>
-													Time between slide transitions in milliseconds (e.g., 5000 = 5 seconds).
-												</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
+									<div className="space-y-6">
+										<FormField
+											control={form.control}
+											name="hero.autoPlayInterval"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Auto-Play Interval (ms)</FormLabel>
+													<FormControl>
+														<Input
+															type="number"
+															{...field}
+															value={field.value || 5000}
+															onChange={(e) => field.onChange(Number(e.target.value))}
+															placeholder="5000"
+														/>
+													</FormControl>
+													<FormDescription>
+														Time between slide transitions in milliseconds (e.g., 5000 = 5 seconds).
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="hero.showArrows"
+											render={({ field }) => (
+												<FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+													<div className="space-y-0.5">
+														<FormLabel className="text-base">Show Navigation Arrows</FormLabel>
+														<FormDescription>
+															Display left/right arrow buttons on the slider for manual navigation.
+														</FormDescription>
+													</div>
+													<FormControl>
+														<Switch
+															checked={field.value !== false}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+												</FormItem>
+											)}
+										/>
+									</div>
 								</CardContent>
 							</Card>
 
@@ -3701,9 +3729,29 @@ export default function StartsidaPage() {
 														<Input
 															{...field}
 															value={field.value || ""}
-															placeholder="Go to contact form"
+															placeholder="Send Message"
 														/>
 													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+										<FormField
+											control={form.control}
+											name="ctaSection.formCtaHref"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Button Link</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															value={field.value || ""}
+															placeholder="/contact-us"
+														/>
+													</FormControl>
+													<FormDescription>
+														The URL the button will link to (e.g., /contact-us)
+													</FormDescription>
 													<FormMessage />
 												</FormItem>
 											)}

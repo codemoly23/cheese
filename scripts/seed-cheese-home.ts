@@ -88,8 +88,8 @@ const homePageData = {
 			subtitle: "",
 			description: "Handcrafted with care from locally sourced milk. Experience the authentic taste of traditional cheese making.",
 			image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=800&h=1000&fit=crop",
-			ctaText: "",
-			ctaHref: "",
+			ctaText: "SHOP NOW",
+			ctaHref: "/products",
 		},
 		rightBanner: {
 			badge: "Award Winning",
@@ -98,7 +98,7 @@ const homePageData = {
 			description: "",
 			image: "https://images.unsplash.com/photo-1559561853-08451507cbe7?w=800&h=1000&fit=crop",
 			ctaText: "LEARN MORE",
-			ctaHref: "/about",
+			ctaHref: "/about-us",
 		},
 	},
 
@@ -135,6 +135,7 @@ const homePageData = {
 	hero: {
 		isSlider: true,
 		autoPlayInterval: 6000,
+		showArrows: true,
 		slides: [
 			{
 				badge: "BORN OF NATURE",
@@ -143,7 +144,7 @@ const homePageData = {
 					"We carefully follow traditions passed down through generations to ensure every wheel of cheese is flawless. We use only natural ingredients and age our cheeses in special conditions.",
 				backgroundImage: "/storage/images/hero/hero-cows.jpg",
 				ctaText: "READ MORE",
-				ctaHref: "/about",
+				ctaHref: "/about-us",
 				isActive: true,
 			},
 			{
@@ -153,7 +154,7 @@ const homePageData = {
 					"We carefully follow traditions passed down through generations to ensure every wheel of cheese is flawless. We use only natural ingredients and age our cheeses in special conditions.",
 				backgroundImage: "/storage/images/hero/hero-cheese.jpg",
 				ctaText: "READ MORE",
-				ctaHref: "/store",
+				ctaHref: "/our-store",
 				isActive: true,
 			},
 			{
@@ -222,7 +223,7 @@ const homePageData = {
 		subtitle:
 			"Discover our range of artisan cheeses and dairy products, crafted with care using traditional methods",
 		ctaText: "View All Products",
-		ctaHref: "/store",
+		ctaHref: "/products",
 		products: [
 			{
 				name: "Aged Cheddar",
@@ -231,7 +232,7 @@ const homePageData = {
 					"Our signature aged cheddar, matured for 18 months to develop a rich, complex flavor with crystalline texture.",
 				status: "Best Seller",
 				image: "/storage/images/products/aged-cheddar.jpg",
-				href: "/store/aged-cheddar",
+				href: "/products",
 			},
 			{
 				name: "Creamy Brie",
@@ -240,7 +241,7 @@ const homePageData = {
 					"A luxuriously creamy brie with a bloomy white rind and buttery, earthy flavor that melts in your mouth.",
 				status: "Popular",
 				image: "/storage/images/products/creamy-brie.jpg",
-				href: "/store/creamy-brie",
+				href: "/products",
 			},
 			{
 				name: "Fresh Mozzarella",
@@ -249,7 +250,7 @@ const homePageData = {
 					"Hand-pulled mozzarella made fresh daily. Perfect for salads, pizzas, or simply enjoyed with olive oil.",
 				status: "New",
 				image: "/storage/images/products/fresh-mozzarella.jpg",
-				href: "/store/fresh-mozzarella",
+				href: "/products",
 			},
 			{
 				name: "Farmhouse Butter",
@@ -258,7 +259,7 @@ const homePageData = {
 					"Rich, golden butter churned from fresh cream. A taste of pure countryside in every spread.",
 				status: "",
 				image: "/storage/images/products/farmhouse-butter.jpg",
-				href: "/store/farmhouse-butter",
+				href: "/products",
 			},
 		],
 	},
@@ -359,12 +360,12 @@ Every wheel of cheese that leaves our farm carries with it our family's dedicati
 		],
 		primaryCta: {
 			text: "Learn Our Story",
-			href: "/about",
+			href: "/about-us",
 			variant: "primary",
 		},
 		secondaryCta: {
 			text: "Visit the Farm",
-			href: "/contact",
+			href: "/contact-us",
 			variant: "outline",
 		},
 		certificationBadge: {
@@ -415,6 +416,7 @@ Every wheel of cheese that leaves our farm carries with it our family's dedicati
 		formTitle: "Get in Touch",
 		formSubtitle: "Fill out the form and we'll get back to you within 24 hours",
 		formCtaText: "Send Message",
+		formCtaHref: "/contact-us",
 	},
 
 	// SEO
@@ -475,25 +477,25 @@ const siteSettingsData = {
 			badge: "CHEESEMAKING",
 			title: "We make the creative solutions for modern brands.",
 			ctaText: "About Us",
-			ctaHref: "/about",
+			ctaHref: "/about-us",
 		},
 		quickLinksTitle: "Links",
 		contactTitle: "Office",
 		newsletterTitle: "Stay Updated",
 		quickLinks: [
-			{ label: "About Us", href: "/about" },
-			{ label: "Our Products", href: "/store" },
-			{ label: "Farm Tours", href: "/tours" },
-			{ label: "Articles", href: "/articles" },
-			{ label: "Contact", href: "/contact" },
+			{ label: "About Us", href: "/about-us" },
+			{ label: "Our Products", href: "/products" },
+			{ label: "Our Store", href: "/our-store" },
+			{ label: "Blog", href: "/blog" },
+			{ label: "Contact", href: "/contact-us" },
 		],
 		newsletterDescription:
 			"Subscribe to get updates on new products, recipes, and farm news.",
 		newsletterPlaceholder: "Your email address",
 		newsletterButtonText: "Subscribe",
 		bottomLinks: [
-			{ label: "Privacy Policy", href: "/privacy" },
-			{ label: "Terms of Service", href: "/terms" },
+			{ label: "Privacy Policy", href: "/faq" },
+			{ label: "Terms of Service", href: "/faq" },
 			{ label: "Sitemap", href: "/sitemap.xml" },
 		],
 	},
