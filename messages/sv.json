@@ -42,7 +42,10 @@
 		"becomeReseller": "Bli Återförsäljare",
 		"noCategories": "Inga kategorier tillgängliga",
 		"searchPlaceholder": "Sök produkter, artiklar...",
-		"requestQuote": "Begär offert"
+		"requestQuote": "Begär offert",
+		"login": "Logga in",
+		"logout": "Logga ut",
+		"dashboard": "Instrumentpanel"
 	},
 	"footer": {
 		"description": "Premiumost hantverksmässigt tillverkad med tradition och passion.",

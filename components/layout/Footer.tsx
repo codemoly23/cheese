@@ -237,8 +237,8 @@ export function Footer({
 						<div>
 							<h4 className="font-bold text-lg mb-6">{settings.quickLinksTitle}</h4>
 							<ul className="space-y-3 text-sm text-primary-foreground/70">
-								{settings.quickLinks.map((item) => (
-									<li key={item.href}>{renderLink(item)}</li>
+								{settings.quickLinks.map((item, index) => (
+									<li key={`${item.href}-${index}`}>{renderLink(item)}</li>
 								))}
 							</ul>
 						</div>
@@ -270,9 +270,9 @@ export function Footer({
 							&copy; {currentYear} {config.company.name}. {t("copyright")}
 						</p>
 						<div className="flex gap-6">
-							{settings.bottomLinks.map((link) => (
+							{settings.bottomLinks.map((link, index) => (
 								<Link
-									key={link.href}
+									key={`${link.href}-${index}`}
 									href={link.href}
 									className="hover:text-white"
 									{...(link.isExternal && {

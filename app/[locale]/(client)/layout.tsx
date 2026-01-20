@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getLocale } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
@@ -25,19 +25,22 @@ export default async function ClientLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	// Get the current locale from the route
+	const locale = await getLocale();
+
 	// Fetch site settings from database in parallel
 	const [siteConfig, brandingSettings, footerSettings, socialMedia, messages] = await Promise.all([
 		getLegacySiteConfig(),
 		getBrandingSettings(),
 		getFooterSettings(),
 		getSocialMedia(),
-		getMessages({ locale: "en" }),
+		getMessages(),
 	]);
 
 	const logoUrl = brandingSettings?.logoUrl;
 
 	return (
-		<NextIntlClientProvider locale="en" messages={messages}>
+		<NextIntlClientProvider locale={locale} messages={messages}>
 			<CookieConsentProvider>
 				<NavbarVariantProvider>
 					<div className="flex flex-col min-h-screen">

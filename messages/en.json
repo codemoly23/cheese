@@ -42,7 +42,10 @@
 		"becomeReseller": "Become Our Reseller",
 		"noCategories": "No categories available",
 		"searchPlaceholder": "Search products, articles...",
-		"requestQuote": "Request Quote"
+		"requestQuote": "Request Quote",
+		"login": "Login",
+		"logout": "Logout",
+		"dashboard": "Dashboard"
 	},
 	"footer": {
 		"description": "Premium artisan cheese crafted with tradition and passion.",
