@@ -1,5 +1,5 @@
 /**
- * Seed script for Team Page (Vårt Team) data
+ * Seed script for Team Page (Vårt Team) data - Cheese Theme
  * Run with: npx tsx scripts/seed-team-page.ts
  */
 
@@ -47,7 +47,7 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// Team page data based on Synos Medical
+// Team page data for Boxholm Cheese
 const teamPageData = {
 	sectionVisibility: {
 		hero: true,
@@ -62,76 +62,84 @@ const teamPageData = {
 	// Hero Section
 	hero: {
 		badge: "Vårt Team",
-		title: "Möt experterna bakom Synos Medical",
+		title: "Möt teamet bakom Boxholms Ost",
 		subtitle:
-			"Vi är ett dedikerat team av professionella med mångårig erfarenhet inom estetisk medicinteknologi och kundsupport.",
+			"Vi är ett dedikerat team av ostmästare, mjölkbönder och entusiaster som brinner för att skapa de finaste hantverksgjorda ostarna.",
 	},
 
 	// Stats Section
 	stats: [
 		{
-			value: "15+",
-			label: "År i branschen",
+			value: "100+",
+			label: "År av tradition",
 		},
 		{
-			value: "500+",
+			value: "1000+",
 			label: "Nöjda kunder",
 		},
 		{
-			value: "10+",
-			label: "Experter i teamet",
+			value: "15+",
+			label: "Ostssorter",
 		},
 		{
-			value: "48h",
-			label: "Service-garanti",
+			value: "5",
+			label: "Generationer",
 		},
 	],
 
 	// Team Members
 	teamMembers: [
 		{
-			name: "Johan Andersson",
-			role: "VD & Grundare",
+			name: "Erik Lindgren",
+			role: "VD & Ostmästare",
 			department: "Ledning",
-			bio: "Johan har över 15 års erfarenhet inom medicinteknologi och har byggt upp Synos Medical till att bli en ledande leverantör av klinikutrustning i Skandinavien.",
+			bio: "Erik representerar femte generationen av ostmästare i familjen. Med över 30 års erfarenhet leder han mejeriet med samma passion som sina förfäder.",
 			image: "/storage/images/team/placeholder.jpg",
-			email: "johan@synosmedical.se",
+			email: "erik@boxholmsost.se",
 			linkedin: "https://linkedin.com/in/",
-			phone: "010-205 15 01",
-		},
-		{
-			name: "Maria Svensson",
-			role: "Säljchef",
-			department: "Försäljning",
-			bio: "Maria leder vårt säljteam och ansvarar för att våra kunder alltid får den bästa rådgivningen och supporten.",
-			image: "/storage/images/team/placeholder.jpg",
-			email: "maria@synosmedical.se",
-			linkedin: "https://linkedin.com/in/",
-		},
-		{
-			name: "Erik Lindqvist",
-			role: "Teknisk chef",
-			department: "Service",
-			bio: "Erik och hans team säkerställer att alla maskiner fungerar optimalt. Han har över 10 års erfarenhet av laserteknik.",
-			image: "/storage/images/team/placeholder.jpg",
-			email: "erik@synosmedical.se",
+			phone: "+46 142-510 50",
 		},
 		{
 			name: "Anna Bergström",
-			role: "Utbildningsansvarig",
-			department: "Utbildning",
-			bio: "Anna ansvarar för alla våra utbildningsprogram och ser till att våra kunder får den kunskap de behöver för att använda utrustningen på bästa sätt.",
+			role: "Produktionschef",
+			department: "Produktion",
+			bio: "Anna ansvarar för all osttillverkning och säkerställer att varje ost håller högsta kvalitet. Hennes expertis inom mjölkkemi är oöverträffad.",
 			image: "/storage/images/team/placeholder.jpg",
-			email: "anna@synosmedical.se",
+			email: "anna@boxholmsost.se",
+			linkedin: "https://linkedin.com/in/",
 		},
 		{
-			name: "Peter Holm",
-			role: "Kundsupport",
-			department: "Support",
-			bio: "Peter är första kontakten för våra kunder och ser till att alla frågor besvaras snabbt och professionellt.",
+			name: "Lars Johansson",
+			role: "Kvalitetsansvarig",
+			department: "Kvalitet",
+			bio: "Lars övervakar alla kvalitetskontroller och certifieringar. Han ser till att våra ostar alltid uppfyller de strängaste standarderna.",
 			image: "/storage/images/team/placeholder.jpg",
-			email: "support@synosmedical.se",
-			phone: "010-205 15 01",
+			email: "lars@boxholmsost.se",
+		},
+		{
+			name: "Maria Svensson",
+			role: "Försäljningschef",
+			department: "Försäljning",
+			bio: "Maria leder vårt säljteam och bygger relationer med återförsäljare och restauranger över hela Sverige. Hennes mål är att sprida kärleken till hantverksost.",
+			image: "/storage/images/team/placeholder.jpg",
+			email: "maria@boxholmsost.se",
+		},
+		{
+			name: "Johan Pettersson",
+			role: "Mejeriingenjör",
+			department: "Teknik",
+			bio: "Johan kombinerar traditionella metoder med modern teknik för att optimera vår produktion utan att kompromissa med kvaliteten.",
+			image: "/storage/images/team/placeholder.jpg",
+			email: "johan@boxholmsost.se",
+		},
+		{
+			name: "Karin Andersson",
+			role: "Kundservice",
+			department: "Support",
+			bio: "Karin är första kontakten för våra kunder och hjälper med allt från beställningar till produktrekommendationer.",
+			image: "/storage/images/team/placeholder.jpg",
+			email: "kundservice@boxholmsost.se",
+			phone: "+46 142-510 50",
 		},
 	],
 
@@ -139,27 +147,27 @@ const teamPageData = {
 	valuesSection: {
 		title: "Våra värderingar",
 		subtitle:
-			"Det som driver oss varje dag är att hjälpa våra kunder lyckas med sina verksamheter.",
+			"Det som driver oss varje dag är kärleken till hantverksost och respekten för traditioner.",
 		values: [
 			{
-				title: "Kundfokus",
+				title: "Tradition",
 				description:
-					"Vi sätter alltid kunden först och strävar efter att överträffa förväntningarna i varje interaktion.",
+					"Vi bevarar och hedrar de traditionella metoderna som gått i arv genom generationer, samtidigt som vi utvecklas med tiden.",
 			},
 			{
 				title: "Kvalitet",
 				description:
-					"Vi erbjuder endast produkter och tjänster av högsta kvalitet, noggrant utvalda och testade.",
+					"Varje ost vi producerar representerar vårt engagemang för högsta kvalitet - från mjölken till den färdiga produkten.",
 			},
 			{
-				title: "Innovation",
+				title: "Hantverk",
 				description:
-					"Vi ligger alltid i framkant med den senaste tekniken och utvecklingen inom lasermedicin.",
+					"Vi tror på kraften i handgjorda produkter. Varje ost formas med omsorg av erfarna ostmästare.",
 			},
 			{
-				title: "Tillgänglighet",
+				title: "Hållbarhet",
 				description:
-					"Vi finns alltid tillgängliga för våra kunder med snabb service och support.",
+					"Vi arbetar med lokala mjölkbönder och strävar efter hållbara metoder som är bra för både miljön och våra produkter.",
 			},
 		],
 	},
@@ -168,14 +176,14 @@ const teamPageData = {
 	joinUs: {
 		title: "Vill du bli en del av vårt team?",
 		description:
-			"Vi söker alltid efter talangfulla personer som delar vår passion för medicinteknologi och kundservice. Se våra lediga tjänster och ta nästa steg i din karriär.",
+			"Vi söker passionerade människor som delar vår kärlek till hantverksost och vill vara med och föra traditionen vidare. Se våra lediga tjänster eller skicka en spontanansökan.",
 		primaryCta: {
 			text: "Se lediga tjänster",
-			href: "/om-oss/lediga-tjanster",
+			href: "/careers",
 		},
 		secondaryCta: {
 			text: "Skicka spontanansökan",
-			href: "/kontakt",
+			href: "/contact-us",
 		},
 	},
 
@@ -183,9 +191,9 @@ const teamPageData = {
 	contact: {
 		title: "Kontakta oss",
 		description:
-			"Har du frågor eller vill veta mer om vårt team? Vi finns här för dig.",
-		phone: "010-205 15 01",
-		email: "info@synosmedical.se",
+			"Har du frågor eller vill veta mer om vårt team och våra ostar? Vi finns här för dig.",
+		phone: "+46 142-510 50",
+		email: "info@boxholmsost.se",
 	},
 
 	// Rich Content (HTML)
@@ -193,9 +201,9 @@ const teamPageData = {
 
 	// SEO
 	seo: {
-		title: "Vårt Team | Synos Medical",
+		title: "Vårt Team | Boxholms Ost",
 		description:
-			"Möt teamet bakom Synos Medical - experter inom estetisk medicinteknologi med mångårig erfarenhet och passion för kundsupport.",
+			"Möt teamet bakom Boxholms Ost - erfarna ostmästare och entusiaster som brinner för hantverksgjorda ostar med över 100 års tradition.",
 		ogImage: "/storage/images/og-team.jpg",
 	},
 };
@@ -236,7 +244,7 @@ async function seedTeamPage() {
 		console.log("\n========================================");
 		console.log("TEAM PAGE DATA SEEDED SUCCESSFULLY!");
 		console.log("========================================\n");
-		console.log("Preview at: /om-oss/team");
+		console.log("Preview at: /about-us/team");
 	} catch (error) {
 		console.error("Error seeding team page:", error);
 	} finally {

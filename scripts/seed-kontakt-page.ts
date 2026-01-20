@@ -1,5 +1,5 @@
 /**
- * Seed script for Kontakt Page data
+ * Seed script for Kontakt Page data (Cheese Theme)
  * Run with: npx tsx scripts/seed-kontakt-page.ts
  */
 
@@ -47,7 +47,7 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// Kontakt page data based on reference website synos.se/kontakt
+// Kontakt page data for Boxholm Cheese
 const kontaktPageData = {
 	sectionVisibility: {
 		hero: true,
@@ -63,16 +63,16 @@ const kontaktPageData = {
 		badge: "Vi finns här för dig",
 		title: "Kontakta oss",
 		subtitle:
-			"Har du frågor om våra produkter, utbildningar eller vill veta mer om hur du startar egen klinik? Vårt team finns här för att hjälpa dig.",
+			"Har du frågor om våra ostar, vill göra en beställning eller är intresserad av att bli återförsäljare? Vårt team finns här för att hjälpa dig.",
 		responseTime: "Svar inom 24 timmar",
-		officeLocationsText: "Kontor i Stockholm & Linköping",
+		officeLocationsText: "Mejeri i Boxholm, Sverige",
 	},
 
 	// Contact Cards
 	phoneCard: {
 		icon: "Phone",
 		title: "Telefon",
-		subtitle: "Mån-Fre 09:00-17:00",
+		subtitle: "Mån-Fre 08:00-17:00",
 	},
 	emailCard: {
 		icon: "Mail",
@@ -88,19 +88,19 @@ const kontaktPageData = {
 	// Form Section
 	formSection: {
 		badge: "Skicka meddelande",
-		title: "Berätta om ditt projekt",
+		title: "Hör av dig till oss",
 		subtitle:
 			"Fyll i formuläret så återkommer vi till dig så snart som möjligt.",
 	},
 
 	// Office Section
 	officeSection: {
-		badge: "Våra kontor",
-		title: "Besök oss",
+		badge: "Besök oss",
+		title: "Vårt mejeri",
 		subtitle:
-			"Vi har kontor i Stockholm och Linköping. Välkommen att besöka oss!",
-		openingHours: "Mån-Fre 09:00-17:00",
-		closedText: "Helger stängt",
+			"Besök vårt mejeri i Boxholm och upplev hur vi tillverkar ost med traditionella metoder. Vi välkomnar besökare!",
+		openingHours: "Mån-Fre 08:00-17:00, Lör 10:00-14:00",
+		closedText: "Söndagar stängt",
 	},
 
 	// FAQ Section
@@ -116,19 +116,19 @@ const kontaktPageData = {
 					"Vi strävar efter att svara på alla förfrågningar inom 24 timmar på vardagar.",
 			},
 			{
-				question: "Kan jag boka ett möte?",
+				question: "Kan jag beställa ost direkt från mejeriet?",
 				answer:
-					"Absolut! Ange i ditt meddelande att du vill boka ett möte så återkommer vi med förslag på tider.",
+					"Ja, du kan beställa direkt från oss! Kontakta oss för att diskutera dina behov och vi ordnar leverans.",
 			},
 			{
-				question: "Erbjuder ni demonstrationer?",
+				question: "Erbjuder ni guidade turer på mejeriet?",
 				answer:
-					"Ja, vi erbjuder kostnadsfria produktdemonstrationer på våra kontor eller hos er.",
+					"Ja, vi erbjuder guidade turer där du får se osttillverkningen och provsmaka våra produkter. Boka i förväg!",
 			},
 			{
-				question: "Finns ni tillgängliga på plats?",
+				question: "Hur blir jag återförsäljare?",
 				answer:
-					"Vi rekommenderar att boka tid innan besök för att säkerställa att rätt person finns tillgänglig.",
+					"Vi samarbetar gärna med butiker och restauranger. Kontakta oss för att diskutera partnerskap och villkor.",
 			},
 		],
 	},
@@ -138,9 +138,9 @@ const kontaktPageData = {
 
 	// SEO
 	seo: {
-		title: "Kontaktuppgifter till oss på Synos Medical",
+		title: "Kontakta Boxholms Ost - Ditt lokala mejeri",
 		description:
-			"Här hittar du telefonnummer och e-postadresser till all personal på Synos Medical.",
+			"Kontakta oss på Boxholms Ost för frågor om våra hantverksgjorda ostar, beställningar eller för att bli återförsäljare. Telefon: +46 142-510 50.",
 		ogImage: "/storage/images/og-kontakt.jpg",
 	},
 };

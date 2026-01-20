@@ -1,5 +1,5 @@
 /**
- * Unified Seed script for all CMS pages
+ * Unified Seed script for all CMS pages - Cheese/Dairy Theme
  * Run with: npx tsx scripts/seed-pages.ts
  *
  * Options:
@@ -56,8 +56,7 @@ if (!MONGODB_URI) {
 }
 
 // ============================================================================
-// ABOUT PAGE DATA (Om Oss)
-// Based on redesigned page with dark hero, mission, stats, gallery, FAQ, testimonials, partners, CTA
+// ABOUT PAGE DATA - Cheese/Dairy Theme
 // ============================================================================
 const aboutPageData = {
 	sectionVisibility: {
@@ -72,153 +71,152 @@ const aboutPageData = {
 	},
 
 	hero: {
-		badge: "Om Synos Medical",
-		title: "Om Oss",
-		subtitle: "Sveriges ledande leverantör av professionell klinikutrustning och lasermaskiner. Vi kombinerar kvalitetsprodukter med utbildning och support i världsklass.",
+		badge: "About Boxholm Cheese",
+		title: "About Us",
+		subtitle: "Sweden's premium artisan cheese maker since 1890. We combine traditional craftsmanship with passion to create cheese that tells a story of heritage and quality.",
 	},
 
 	mission: {
-		badge: "Vår Mission",
-		title: "Vi levererar kvalitet och trygghet",
-		description: "Synos Medical erbjuder professionella lasermaskiner och medicinsk utrustning till kliniker och salonger i Skandinavien. Alla våra produkter är noggrant testade och tillverkade enligt den senaste forskningen. Vi vet hur viktigt det är för dig att kunna erbjuda bästa kvalitet till dina patienter - med Synos som partner kan du vara säker på att du har rätt utrustning.",
-		image: "",
+		badge: "Our Mission",
+		title: "We deliver quality and tradition",
+		description: "Boxholm Cheese has been crafting premium artisan cheese for over 130 years. Our commitment to quality starts with locally sourced Swedish milk from farms in Östergötland. Every wheel of cheese is made using time-honored techniques passed down through generations of master cheese makers.",
+		image: "/storage/images/about/family-farm.jpg",
 		features: [
 			{
 				icon: "Target",
-				title: "Kvalitetsfokus",
-				description: "Noggrant testade produkter från ledande tillverkare med fokus på kvalitet och säkerhet",
-				image: "/images/kvalitetsfokus-bg.jpg",
-				buttonText: "Upptäck mer →",
-				buttonLink: "/produkter",
+				title: "Quality First",
+				description: "Premium ingredients and traditional methods ensure every cheese meets our high standards",
+				image: "/storage/images/about/quality-bg.jpg",
+				buttonText: "Learn More →",
+				buttonLink: "/quality",
 			},
 			{
 				icon: "Award",
-				title: "Certifierad utbildning",
-				description: "Fullständig utbildning ingår vid varje köp för att säkerställa optimal användning",
-				image: "/images/certifierad-utbildning-bg.jpg",
-				buttonText: "Upptäck mer →",
-				buttonLink: "/utbildningar",
+				title: "Award Winning",
+				description: "Our cheeses have won numerous awards for exceptional taste and craftsmanship",
+				image: "/storage/images/about/awards-bg.jpg",
+				buttonText: "Learn More →",
+				buttonLink: "/quality",
 			},
 			{
 				icon: "Users",
-				title: "Personlig kontakt",
-				description: "Dedikerade experter som guidar dig genom processen från start till mål",
-				image: "/images/personlig-kontakt-bg.jpg",
-				buttonText: "Upptäck mer →",
-				buttonLink: "/kontakt",
+				title: "Family Tradition",
+				description: "Four generations of cheese makers dedicated to preserving authentic flavors",
+				image: "/storage/images/about/family-bg.jpg",
+				buttonText: "Learn More →",
+				buttonLink: "/about-us",
 			},
 			{
 				icon: "Sparkles",
-				title: "Trygg service",
-				description: "2 års garanti och livstidssupport för trygghet och säkerhet",
-				image: "/images/trygg-service-bg.jpg",
-				buttonText: "Upptäck mer →",
-				buttonLink: "/kontakt",
+				title: "Sustainable Practices",
+				description: "Eco-friendly production methods that respect our environment and community",
+				image: "/storage/images/about/sustainable-bg.jpg",
+				buttonText: "Learn More →",
+				buttonLink: "/quality",
 			},
 		],
 	},
 
 	stats: [
-		{ value: "500", suffix: "+", label: "Nöjda kunder" },
-		{ value: "15", suffix: "+", label: "Års erfarenhet" },
-		{ value: "48", suffix: "h", label: "Snabb service" },
-		{ value: "100", suffix: "%", label: "Svenskt bolag" },
+		{ value: "130", suffix: "+", label: "Years of Tradition" },
+		{ value: "50", suffix: "+", label: "Local Farms" },
+		{ value: "100", suffix: "%", label: "Swedish Milk" },
+		{ value: "24", suffix: "h", label: "Fresh Delivery" },
 	],
 
 	imageGallery: {
-		badge: "Våra lokaler",
-		title: "Välkommen att besöka oss",
-		subtitle: "Besök oss i Stockholm eller Linköping för demonstration av våra produkter",
+		badge: "Our Dairy",
+		title: "Visit Our Farm",
+		subtitle: "Experience the authentic cheese-making process at our family farm in Boxholm",
 		images: [],
-		ctaTitle: "Boka ett besök",
-		ctaSubtitle: "Vi visar gärna våra produkter och svarar på dina frågor",
-		ctaButtonText: "Kontakta oss",
+		ctaTitle: "Book a Visit",
+		ctaSubtitle: "We welcome visitors to see our cheese-making process firsthand",
+		ctaButtonText: "Contact Us",
 	},
 
 	faq: {
-		title: "Vanliga frågor",
-		subtitle: "Svar på de vanligaste frågorna om Synos Medical",
+		title: "Frequently Asked Questions",
+		subtitle: "Common questions about Boxholm Cheese",
 		items: [
 			{
-				question: "Var finns Synos Medical?",
-				answer: "Vi har kontor och showroom i både Stockholm (Gävlegatan 12A) och Linköping (Brigadgatan 16). Du är alltid välkommen att besöka oss för demonstration av våra produkter.",
+				question: "Where is Boxholm Cheese made?",
+				answer: "Our cheese is made at our family dairy in Boxholm, Östergötland, Sweden. We've been crafting cheese at this location since 1890, using milk from local farms within a 50km radius.",
 			},
 			{
-				question: "Ingår utbildning vid köp av utrustning?",
-				answer: "Ja, fullständig utbildning för 2 personer ingår alltid vid köp av utrustning. Utbildningen genomförs av våra certifierade experter och anpassas efter dina behov.",
+				question: "What makes your cheese special?",
+				answer: "Our cheese is made using traditional Swedish recipes and techniques passed down through four generations. We use only 100% Swedish milk from grass-fed cows and age our cheeses naturally without artificial additives.",
 			},
 			{
-				question: "Vilken garanti erbjuder ni?",
-				answer: "Vi erbjuder 2 års garanti på all utrustning samt 2 års fullservice på plats hos er. Dessutom har ni livstidssupport via telefon och e-post.",
+				question: "Can I visit the dairy?",
+				answer: "Yes! We welcome visitors to our farm. You can book a tour to see the cheese-making process and taste our products. Contact us to arrange a visit.",
 			},
 			{
-				question: "Kan man hyra eller leasa utrustning?",
-				answer: "Absolut! Vi erbjuder flexibla lösningar - köp, leasing eller hyra. Kontakta oss så hjälper vi dig hitta den bästa lösningen för din verksamhet.",
+				question: "Do you ship internationally?",
+				answer: "Currently we ship within Sweden and to select EU countries. Please contact us for international shipping inquiries.",
 			},
 			{
-				question: "Hur snabbt kan ni fixa en trasig maskin?",
-				answer: "Vi lagar din maskin inom 48 arbetstimmar. Vid akuta fall prioriterar vi alltid så att din verksamhet kan fortsätta så snabbt som möjligt.",
+				question: "Are your products organic?",
+				answer: "While not all products are certified organic, we use sustainable farming practices and source milk from farms that prioritize animal welfare and environmental responsibility.",
 			},
 		],
 	},
 
 	testimonials: {
-		title: "Vad våra kunder säger",
-		subtitle: "Läs om andras erfarenheter med Synos Medical",
+		title: "What Our Customers Say",
+		subtitle: "Read about experiences with Boxholm Cheese",
 		testimonials: [
 			{
-				quote: "Synos Medical har varit en fantastisk partner sedan vi startade vår klinik. Utbildningen var professionell och supporten är alltid snabb och hjälpsam.",
+				quote: "The Gräddost from Boxholm is simply the best cream cheese I've ever tasted. The rich, creamy texture and authentic flavor bring back childhood memories.",
 				author: "Maria Andersson",
-				role: "Klinikägare",
-				company: "Skönhetskliniken Stockholm",
+				role: "Home Chef",
+				company: "Stockholm",
 				rating: 5,
 			},
 			{
-				quote: "Kvaliteten på utrustningen är överlägsen och servicen är i världsklass. Jag rekommenderar Synos till alla kollegor i branschen.",
+				quote: "As a restaurant owner, I'm very particular about the ingredients I use. Boxholm Cheese consistently delivers exceptional quality that my customers love.",
 				author: "Johan Eriksson",
-				role: "Hudterapeut",
-				company: "Skin Care Clinic",
+				role: "Chef & Owner",
+				company: "Restaurang Smak",
 				rating: 5,
 			},
 			{
-				quote: "Att starta egen klinik kändes överväldigande, men Synos guidade mig genom hela processen. Från val av utrustning till finansiering och utbildning.",
+				quote: "We've been serving Boxholm cheese at our hotel breakfast for years. The quality and freshness are unmatched, and guests always ask about it.",
 				author: "Sara Lindqvist",
-				role: "Grundare",
-				company: "Beauty Lab Göteborg",
+				role: "Manager",
+				company: "Grand Hotel Linköping",
 				rating: 5,
 			},
 		],
 	},
 
 	partners: {
-		title: "Våra partners",
-		subtitle: "Vi samarbetar med ledande varumärken inom branschen",
+		title: "Our Partners",
+		subtitle: "Trusted by leading retailers and restaurants across Sweden",
 		partners: [],
 	},
 
 	cta: {
-		title: "Redo att komma igång?",
-		description: "Kontakta oss idag för en kostnadsfri konsultation. Vi hjälper dig hitta rätt utrustning för din verksamhet.",
+		title: "Ready to taste the tradition?",
+		description: "Contact us today to learn more about our products or to place an order. We'd love to share our cheese with you.",
 		primaryCta: {
-			text: "Kontakta oss",
-			href: "/kontakt",
+			text: "Contact Us",
+			href: "/contact-us",
 		},
 		secondaryCta: {
-			text: "Se produkter",
-			href: "/produkter",
+			text: "View Products",
+			href: "/products",
 		},
 	},
 
 	seo: {
-		title: "Om oss - Synos Medical | Sveriges ledande leverantör av klinikutrustning",
-		description: "Lär känna Synos Medical - Sveriges främsta leverantör av professionella lasermaskiner och klinikutrustning. 15+ års erfarenhet, 500+ nöjda kunder.",
-		ogImage: "",
+		title: "About Us - Boxholm Cheese | Traditional Swedish Cheese Since 1890",
+		description: "Discover the story of Boxholm Cheese - Sweden's premium artisan cheese maker. 130+ years of tradition, quality, and authentic Swedish flavors.",
+		ogImage: "/storage/images/og-about.jpg",
 	},
 };
 
 // ============================================================================
-// TRAINING PAGE DATA (Utbildningar)
-// Based on redesigned page with dark hero, benefits, process steps, support, resources
+// TRAINING PAGE DATA - Cheese Theme (Farm Tours & Workshops)
 // ============================================================================
 const trainingPageData = {
 	sectionVisibility: {
@@ -233,121 +231,120 @@ const trainingPageData = {
 	},
 
 	hero: {
-		title: "Vi ser till att du kan använda vår utrustning",
-		titleHighlight: "på rätt sätt",
-		subtitle: "Professionell utbildning ingår alltid vid köp av utrustning från Synos Medical. Våra certifierade experter säkerställer att du får all kunskap du behöver för att erbjuda säkra och effektiva behandlingar.",
+		title: "Learn the Art of",
+		titleHighlight: "Cheese Making",
+		subtitle: "Join us for hands-on workshops and farm tours where you'll discover the traditional techniques behind our award-winning cheeses. Perfect for food enthusiasts, families, and groups.",
 	},
 
 	mainContent: {
-		title: "Utbildning i världsklass",
+		title: "Experience Authentic Cheese Making",
 		paragraphs: [
-			"När du investerar i utrustning från Synos Medical får du mycket mer än bara en maskin. Du får en komplett utbildning som ger dig självförtroende och kunskap att använda din utrustning på bästa sätt.",
-			"Våra utbildningar genomförs av erfarna experter som har många års praktisk erfarenhet inom branschen. De anpassar utbildningen efter dina förkunskaper och specifika behov.",
-			"Efter genomgången utbildning får du certifikat och möjlighet att teckna maskin- och patientansvarsförsäkring.",
+			"At Boxholm Cheese, we believe in sharing our passion for traditional cheese making. Our workshops and farm tours offer a unique opportunity to experience the craft firsthand.",
+			"Whether you're a curious food lover or an aspiring cheese maker, our experienced team will guide you through every step of the process - from milk to finished cheese.",
+			"All workshops include tastings of our cheese varieties and you'll take home your own handmade cheese.",
 		],
 	},
 
 	benefits: [
 		{
 			icon: "BookOpen",
-			title: "Teoretisk & Praktisk Utbildning",
-			description: "Omfattande utbildning som täcker både teori och praktisk tillämpning. Du lär dig allt från grundläggande principer till avancerade tekniker.",
+			title: "Hands-On Learning",
+			description: "Get your hands into the curds and learn by doing. Our workshops are interactive and educational.",
 		},
 		{
 			icon: "CheckSquare",
-			title: "Certifiering",
-			description: "Efter genomgången utbildning får du officiellt certifikat som bekräftar din kompetens att använda utrustningen.",
+			title: "Expert Guidance",
+			description: "Learn from our master cheese makers who have decades of experience in traditional techniques.",
 		},
 		{
 			icon: "HeartPlus",
-			title: "Patientansvarsförsäkring",
-			description: "Med certifikatet kan du teckna patientansvarsförsäkring för extra trygghet i din verksamhet.",
+			title: "Take Home Your Creation",
+			description: "Every participant takes home their own handmade cheese to enjoy and share.",
 		},
 		{
 			icon: "GraduationCap",
-			title: "Synos Academy",
-			description: "Fortsätt utvecklas med våra fördjupande kurser på Synos Academy - din portal för kontinuerlig utbildning.",
+			title: "Recipe Cards Included",
+			description: "Receive detailed instructions so you can continue making cheese at home.",
 		},
 	],
 
 	processSection: {
-		title: "Utbildningsprocessen",
-		subtitle: "En strukturerad utbildning som ger dig all kunskap du behöver",
+		title: "Workshop Process",
+		subtitle: "A structured experience that gives you real cheese-making skills",
 		steps: [
 			{
 				number: "1",
-				title: "Initial utbildning",
-				description: "2-5 dagars intensiv utbildning beroende på utrustningstyp. Kombinerar teori med praktiska övningar.",
+				title: "Farm Tour",
+				description: "Start with a guided tour of our dairy farm and meet our happy cows.",
 			},
 			{
 				number: "2",
-				title: "Praktisk träning",
-				description: "Handledda behandlingar på riktiga kunder under övervakning av våra experter.",
+				title: "Cheese Making",
+				description: "Learn the traditional techniques as you make your own cheese from fresh milk.",
 			},
 			{
 				number: "3",
-				title: "Certifiering",
-				description: "Kunskapsprov och praktisk examination. Vid godkänt resultat utfärdas officiellt certifikat.",
+				title: "Tasting Session",
+				description: "Sample our range of artisan cheeses paired with local accompaniments.",
 			},
 			{
 				number: "4",
-				title: "Uppföljning",
-				description: "Kontinuerlig support och möjlighet till vidareutbildning genom Synos Academy.",
+				title: "Take Home",
+				description: "Package your cheese creation to take home, along with recipe cards.",
 			},
 		],
 	},
 
 	supportSection: {
-		title: "Support när du behöver det",
+		title: "Questions About Our Workshops?",
 		paragraphs: [
-			"Efter utbildningen är du aldrig ensam. Vårt supportteam finns alltid tillgängligt för att svara på frågor och ge vägledning.",
-			"Vi erbjuder support via telefon, e-post och på plats. Vid akuta frågor prioriterar vi alltid att hjälpa dig snabbt.",
+			"We're happy to help you plan your visit. Whether it's a family outing, corporate event, or group booking, we can customize the experience.",
+			"Contact us for availability, group rates, and special arrangements.",
 		],
-		phone: "010-205 15 01",
-		email: "info@synos.se",
+		phone: "+46 142-510 50",
+		email: "info@boxholmsost.se",
 	},
 
 	inquirySection: {
-		badge: "Utbildningsförfrågan",
-		title: "Intresserad av våra utbildningar?",
-		subtitle: "Fyll i formuläret så kontaktar vi dig för att diskutera dina behov och svara på eventuella frågor.",
+		badge: "Book a Workshop",
+		title: "Interested in joining us?",
+		subtitle: "Fill out the form and we'll contact you with available dates and pricing.",
 	},
 
 	resourcesSection: {
-		title: "Relaterade resurser",
-		subtitle: "Utforska mer om hur vi kan hjälpa dig lyckas",
+		title: "Related Experiences",
+		subtitle: "Discover more ways to enjoy Boxholm Cheese",
 		resources: [
 			{
-				title: "Synos Academy",
-				description: "Vår digitala plattform för fördjupande kurser och certifieringar. Fortsätt utvecklas i din egen takt.",
-				href: "https://synos.academy/",
-				buttonText: "Besök Academy",
+				title: "Visit Our Store",
+				description: "Browse our full range of cheeses and dairy products at our farm shop.",
+				href: "/our-store",
+				buttonText: "Visit Store",
 			},
 			{
-				title: "Miniutbildning",
-				description: "En kortare introduktion som ger dig grundläggande kunskap om laserbehandlingar och utrustning.",
-				href: "/starta-eget/miniutbildning",
-				buttonText: "Läs mer",
+				title: "Our Products",
+				description: "Explore our award-winning cheese collection available for purchase.",
+				href: "/products",
+				buttonText: "View Products",
 			},
 			{
-				title: "Starta eget",
-				description: "Drömmer du om att öppna egen klinik? Vi guidar dig genom hela processen från start till mål.",
-				href: "/starta-eget",
-				buttonText: "Kom igång",
+				title: "Quality Standards",
+				description: "Learn about our commitment to quality and sustainable practices.",
+				href: "/quality",
+				buttonText: "Learn More",
 			},
 		],
 	},
 
 	seo: {
-		title: "Utbildningar - Synos Medical | Certifierad laserterapeut-utbildning",
-		description: "Professionell utbildning ingår vid köp av utrustning från Synos Medical. Bli certifierad laserterapeut med vår omfattande teoretiska och praktiska utbildning.",
+		title: "Cheese Making Workshops - Boxholm Cheese | Farm Tours & Experiences",
+		description: "Join our hands-on cheese making workshops at Boxholm Cheese. Learn traditional Swedish techniques, tour our farm, and take home your own handmade cheese.",
 		ogImage: "",
 	},
 };
 
 // ============================================================================
-// STARTA EGET PAGE DATA
-// Based on redesigned page with dark hero, benefits, features, FAQ, resources, contact form
+// STARTA EGET PAGE DATA - Become a Reseller/Partner
 // ============================================================================
 const startaEgetPageData = {
 	sectionVisibility: {
@@ -361,121 +358,120 @@ const startaEgetPageData = {
 	},
 
 	hero: {
-		title: "Drömmer du om frihet och framgång?",
-		titleHighlight: "Starta klinik med Synos!",
-		subtitle: "Att starta och driva en egen hudvårdsklinik måste inte vara svårt och tidskrävande. Med Synos som partner får du all hjälp du behöver - från val av utrustning och finansiering till utbildning och marknadsföring.",
-		callout: "I så fall är Synos Medical rätt samarbetspartner för dig!",
+		title: "Start Your Own",
+		titleHighlight: "Cheese Business",
+		subtitle: "Partner with Boxholm Cheese and bring Sweden's finest artisan cheese to your customers. We provide comprehensive support for retailers, restaurants, and distributors.",
+		callout: "Join our growing family of partners!",
 	},
 
 	mainContent: {
-		title: "Vi hjälper dig förverkliga din dröm",
-		subtitle: "Din partner genom hela resan",
+		title: "Partner with Sweden's Premium Cheese Maker",
+		subtitle: "Your path to success",
 		paragraphs: [
-			"Är du hudterapeut och funderar på att starta eget? Då har du kommit rätt! Synos Medical har hjälpt hundratals entreprenörer att starta sina egna framgångsrika kliniker.",
-			"Vi vet att steget från anställd till egen företagare kan kännas stort. Därför erbjuder vi ett komplett paket som täcker allt från uppstart till långsiktig tillväxt. Du får personlig vägledning av våra experter som har lång erfarenhet av att hjälpa nya klinikägare.",
-			"Med Synos får du inte bara tillgång till marknadens bästa utrustning - du får en partner som finns med dig hela vägen. Vi tror på långsiktiga relationer byggda på förtroende och ömsesidig framgång.",
+			"Are you a retailer, restaurant owner, or distributor looking to offer premium artisan cheese to your customers? Boxholm Cheese partners with businesses that share our passion for quality.",
+			"We provide more than just products - we offer a partnership built on tradition, quality, and mutual success. Our team supports you every step of the way.",
+			"With over 130 years of cheese-making heritage, Boxholm Cheese brings authentic Swedish flavors that customers love and remember.",
 		],
 	},
 
 	benefits: [
 		{
-			icon: "GraduationCap",
-			title: "Personlig utbildning",
-			description: "Fullständig utbildning för dig och din personal. Lär dig använda utrustningen på rätt sätt och bli certifierad laserterapeut.",
+			icon: "TrendingUp",
+			title: "Competitive Margins",
+			description: "Attractive wholesale pricing that ensures healthy margins for your business.",
 		},
 		{
-			icon: "Shield",
-			title: "Finansieringslösningar",
-			description: "Flexibla finansieringsalternativ som passar din situation. Köp, leasa eller hyr utrustning efter dina behov.",
-		},
-		{
-			icon: "Settings",
-			title: "Service & support",
-			description: "2 års fullservice på plats, 2 års garanti och livstidssupport. Vi finns alltid tillgängliga när du behöver hjälp.",
+			icon: "Truck",
+			title: "Reliable Delivery",
+			description: "Regular delivery schedules and fresh products guaranteed on every order.",
 		},
 		{
 			icon: "Award",
-			title: "Försäkringar",
-			description: "Efter genomgången utbildning kan du teckna maskin- och patientansvarsförsäkring för trygg verksamhet.",
+			title: "Premium Products",
+			description: "Award-winning cheeses that stand out and attract discerning customers.",
 		},
 		{
 			icon: "Users",
-			title: "Marknadsföring",
-			description: "Vi hjälper dig med marknadsföringsmaterial och tips för att attrahera och behålla kunder.",
+			title: "Marketing Support",
+			description: "POS materials, product information, and marketing assets to boost your sales.",
 		},
 		{
-			icon: "Star",
-			title: "Nätverk",
-			description: "Bli del av vårt nätverk med hundratals klinikägare. Utbyt erfarenheter och lär av varandra.",
+			icon: "HeadphonesIcon",
+			title: "Dedicated Support",
+			description: "A dedicated account manager to help with orders and any questions.",
+		},
+		{
+			icon: "Shield",
+			title: "Quality Guaranteed",
+			description: "Consistent quality backed by our 130+ year reputation for excellence.",
 		},
 	],
 
 	featuresSection: {
-		title: "Allt du behöver för att lyckas",
-		intro: "När du väljer Synos Medical som partner får du mycket mer än bara utrustning. Du får ett komplett stöd som ger dig de bästa förutsättningarna att lyckas.",
+		title: "Everything You Need to Succeed",
+		intro: "When you partner with Boxholm Cheese, you get comprehensive support to grow your business.",
 		features: [
 			{
-				title: "Val av utrustning",
-				description: "Vi hjälper dig välja rätt utrustning baserat på din målgrupp, budget och verksamhetsplan.",
+				title: "Product Training",
+				description: "Learn about our products, cheese care, and optimal serving suggestions.",
 			},
 			{
-				title: "Affärsplanering",
-				description: "Få hjälp att ta fram en realistisk affärsplan med intäktsprognoser och marknadsanalys.",
+				title: "Flexible Orders",
+				description: "Order sizes that fit your needs, from small retailers to large distributors.",
 			},
 			{
-				title: "Lokalsökning",
-				description: "Tips och råd kring val av lokal, inredning och praktiska krav för en klinik.",
+				title: "Fresh Delivery",
+				description: "Regular delivery schedules ensure your products are always fresh.",
 			},
 			{
-				title: "Juridisk vägledning",
-				description: "Information om tillstånd, registreringar och regelverk som gäller för din verksamhet.",
+				title: "Marketing Materials",
+				description: "Professional POS materials and product information for your store.",
 			},
 			{
-				title: "Finansiering",
-				description: "Kontakt med banker och finansbolag samt hjälp att ta fram underlag för lånansökan.",
+				title: "Tasting Events",
+				description: "We can support in-store tastings to introduce customers to our products.",
 			},
 			{
-				title: "Kontinuerlig utveckling",
-				description: "Löpande vidareutbildning och tillgång till nya behandlingsmetoder genom Synos Academy.",
+				title: "Seasonal Products",
+				description: "Access to limited edition and seasonal cheese varieties.",
 			},
 		],
 	},
 
 	resourcesSection: {
-		title: "Resurser för dig som vill starta eget",
-		subtitle: "Användbara guider och verktyg för din resa mot egen klinik",
+		title: "Resources for Partners",
+		subtitle: "Helpful information for potential and current partners",
 		resources: [
 			{
-				title: "Köpguide",
-				description: "En omfattande guide som hjälper dig välja rätt utrustning för din kommande klinik.",
-				href: "/starta-eget/kopguide",
-				buttonText: "Läs guiden",
+				title: "Product Catalog",
+				description: "Download our complete product catalog with specifications and pricing.",
+				href: "/contact-us",
+				buttonText: "Request Catalog",
 			},
 			{
-				title: "Miniutbildning",
-				description: "Få grundläggande kunskap om laserbehandlingar innan du investerar i utrustning.",
-				href: "/starta-eget/miniutbildning",
-				buttonText: "Anmäl dig",
+				title: "Quality Standards",
+				description: "Learn about our production methods and quality certifications.",
+				href: "/quality",
+				buttonText: "View Standards",
 			},
 			{
-				title: "Utbildningar",
-				description: "Läs mer om våra certifierade utbildningar som ingår vid köp av utrustning.",
-				href: "/utbildningar",
-				buttonText: "Se utbildningar",
+				title: "Visit Our Dairy",
+				description: "Schedule a visit to see our production facility and meet the team.",
+				href: "/our-store",
+				buttonText: "Plan Visit",
 			},
 		],
 	},
 
 	seo: {
-		title: "Starta eget - Synos Medical | Öppna egen hudvårdsklinik",
-		description: "Drömmer du om att starta egen klinik? Synos Medical hjälper dig med allt du behöver - utrustning, finansiering, utbildning och support. Kontakta oss idag!",
+		title: "Become a Partner - Boxholm Cheese | Wholesale & Distribution",
+		description: "Partner with Boxholm Cheese for premium Swedish artisan cheese. Attractive margins, reliable delivery, and marketing support for retailers and distributors.",
 		ogImage: "",
 	},
 };
 
 // ============================================================================
-// CAREERS PAGE DATA (Lediga Tjänster)
-// Based on redesigned page with dark hero, job listings, contact sidebar
+// CAREERS PAGE DATA - Cheese/Dairy Theme
 // ============================================================================
 const careersPageData = {
 	sectionVisibility: {
@@ -487,122 +483,95 @@ const careersPageData = {
 	},
 
 	hero: {
-		badge: "Karriär hos Synos",
-		title: "Driving Traders Toward",
-		titleHighlight: "Daily Wins",
-		subtitle: "Bli en del av Synos Medical-teamet. Vi söker engagerade medarbetare som vill växa tillsammans med oss och göra skillnad i branschen.",
+		badge: "Join Our Team",
+		title: "Build Your Career at",
+		titleHighlight: "Boxholm Cheese",
+		subtitle: "Be part of a team that's passionate about crafting Sweden's finest artisan cheese. We're always looking for talented people who share our values.",
 	},
 
 	benefitsSection: {
-		title: "Varför jobba hos oss?",
-		subtitle: "Vi erbjuder en stimulerande arbetsmiljö med stora möjligheter",
+		title: "Why Work With Us?",
+		subtitle: "Join a team that values tradition, quality, and community",
 		benefits: [
 			{
-				icon: "Briefcase",
-				title: "Flexibla arbetstider",
-				description: "Vi tror på balans mellan arbete och privatliv. Flexibla arbetstider gör det möjligt att planera din dag.",
+				icon: "Clock",
+				title: "Work-Life Balance",
+				description: "Regular hours and a supportive environment that respects your personal time.",
 			},
 			{
 				icon: "TrendingUp",
-				title: "Karriärutveckling",
-				description: "Möjlighet till kontinuerlig kompetensutveckling och karriärmöjligheter inom företaget.",
+				title: "Growth Opportunities",
+				description: "Learn traditional cheese-making skills and grow your career with us.",
 			},
 			{
 				icon: "Users",
-				title: "Fantastiskt team",
-				description: "Jobba tillsammans med engagerade kollegor som brinner för att hjälpa kunder lyckas.",
+				title: "Family Atmosphere",
+				description: "Join a close-knit team that feels like family, working together since 1890.",
 			},
 			{
 				icon: "Heart",
-				title: "Hälsoförmåner",
-				description: "Friskvårdsbidrag, sjukvårdsförsäkring och andra förmåner för din hälsa och välbefinnande.",
+				title: "Employee Benefits",
+				description: "Competitive salary, cheese discounts, and wellness benefits.",
 			},
 		],
 	},
 
 	jobOpeningsSection: {
-		title: "Success Journey",
-		subtitle: "Utforska våra lediga tjänster och ta nästa steg i din karriär.",
-		noJobsMessage: "Vi har för närvarande inga öppna positioner, men vi tar alltid emot spontanansökningar! Skicka din ansökan till karriar@synos.se",
+		title: "Current Openings",
+		subtitle: "Explore opportunities to join our team",
+		noJobsMessage: "We don't have any open positions at the moment, but we're always interested in hearing from talented people. Send your CV to karriar@boxholmsost.se",
 		jobOpenings: [
 			{
-				slug: "account-manager-stockholm",
-				title: "Account Manager",
-				location: "Stockholm, Sverige",
+				slug: "cheese-maker-assistant",
+				title: "Cheese Maker Assistant",
+				location: "Boxholm, Sweden",
 				workType: "On-site",
-				employmentType: "Heltid",
-				shortDescription: "Vi söker en driven Account Manager som vill vara med och utveckla våra kundrelationer och driva försäljning av medicinsk utrustning.",
+				employmentType: "Full-time",
+				shortDescription: "Join our production team and learn the art of traditional Swedish cheese making from our master cheese makers.",
 				featuredImage: "",
-				description: "<p>Som Account Manager hos Synos Medical blir du en nyckelperson i vårt säljteam. Du kommer att arbeta med att utveckla långsiktiga kundrelationer och hjälpa kliniker att hitta rätt utrustning för deras behov.</p><p>Du kommer att arbeta både med befintliga kunder och nykundsbearbetning. Vi erbjuder en stimulerande arbetsmiljö med goda utvecklingsmöjligheter.</p>",
+				description: "<p>We're looking for an enthusiastic person to join our cheese-making team. This is a unique opportunity to learn traditional cheese-making techniques from experienced craftspeople.</p><p>No prior experience required - we value passion and a willingness to learn. You'll work alongside our master cheese makers, learning every aspect of artisan cheese production.</p>",
 				requirements: [
-					"Minst 3 års erfarenhet av B2B-försäljning",
-					"Erfarenhet av medicinsk/estetisk bransch är meriterande",
-					"Utmärkta kommunikationsförmågor på svenska och engelska",
-					"B-körkort",
-					"Resultatorienterad med förmåga att arbeta självständigt",
+					"Passion for food and quality craftsmanship",
+					"Ability to work early mornings",
+					"Physical fitness for manual work",
+					"Attention to detail",
+					"Team player with positive attitude",
 				],
 				responsibilities: [
-					"Utveckla och underhålla kundrelationer",
-					"Identifiera och bearbeta nya affärsmöjligheter",
-					"Genomföra produktdemonstrationer hos kunder",
-					"Uppnå och överträffa försäljningsmål",
-					"Samarbeta med marketing och support för bästa kundupplevelse",
+					"Assist in daily cheese production",
+					"Monitor cheese aging process",
+					"Maintain cleanliness and hygiene standards",
+					"Help with packaging and quality control",
+					"Learn traditional cheese-making techniques",
 				],
-				applyLink: "mailto:karriar@synos.se?subject=Ansökan: Account Manager Stockholm",
+				applyLink: "mailto:karriar@boxholmsost.se?subject=Application: Cheese Maker Assistant",
 				isActive: true,
 				publishedAt: new Date(),
 			},
 			{
-				slug: "teknisk-support-linkoping",
-				title: "Teknisk Supportspecialist",
-				location: "Linköping, Sverige",
-				workType: "Hybrid",
-				employmentType: "Heltid",
-				shortDescription: "Vi söker en tekniskt kunnig person som kan ge support till våra kunder och hjälpa till med installation och service av medicinsk utrustning.",
-				featuredImage: "",
-				description: "<p>Som Teknisk Supportspecialist hos Synos Medical är du den som hjälper våra kunder när de behöver teknisk assistans. Du kommer att arbeta med både support på distans och servicebesök hos kunder.</p><p>Rollen passar dig som är tekniskt intresserad och gillar att lösa problem. Du får arbeta med avancerad medicinsk utrustning och blir en viktig del av vårt serviceteam.</p>",
-				requirements: [
-					"Teknisk utbildning eller motsvarande erfarenhet",
-					"Erfarenhet av kundservice/support",
-					"God problemlösningsförmåga",
-					"B-körkort (servicebesök hos kunder)",
-					"Flytande svenska, god engelska",
-				],
-				responsibilities: [
-					"Ge teknisk support via telefon och e-post",
-					"Genomföra servicebesök och installationer hos kunder",
-					"Dokumentera supportärenden och lösningar",
-					"Utbilda kunder i användning av utrustning",
-					"Bidra till förbättring av supportprocesser",
-				],
-				applyLink: "mailto:karriar@synos.se?subject=Ansökan: Teknisk Support Linköping",
-				isActive: true,
-				publishedAt: new Date(),
-			},
-			{
-				slug: "utbildare-laserteknik",
-				title: "Utbildare - Laserteknik",
-				location: "Stockholm / Linköping",
+				slug: "farm-shop-assistant",
+				title: "Farm Shop Assistant",
+				location: "Boxholm, Sweden",
 				workType: "On-site",
-				employmentType: "Heltid",
-				shortDescription: "Vill du dela med dig av din kunskap? Vi söker en erfaren utbildare inom laserteknik som kan utbilda våra kunder i säker och effektiv användning av laserbehandlingar.",
+				employmentType: "Part-time",
+				shortDescription: "Help us share our passion for artisan cheese with visitors at our farm shop.",
 				featuredImage: "",
-				description: "<p>Som Utbildare hos Synos Medical kommer du att ansvara för utbildning av kunder som köpt utrustning av oss. Du kommer att planera och genomföra både teoretiska och praktiska utbildningsmoment.</p><p>Rollen passar dig som har gedigen erfarenhet av laserbehandlingar och brinner för att lära ut. Du blir en ambassadör för Synos och spelar en viktig roll i våra kunders framgång.</p>",
+				description: "<p>We're seeking a friendly and knowledgeable person to join our farm shop team. You'll be the face of Boxholm Cheese, helping customers discover our products.</p><p>This role is perfect for someone who loves cheese, enjoys meeting people, and wants to work in a beautiful farm setting.</p>",
 				requirements: [
-					"Certifierad laserterapeut med minst 5 års erfarenhet",
-					"Erfarenhet av att utbilda/handleda andra",
-					"Utmärkta pedagogiska förmågor",
-					"God kunskap om säkerhetsföreskrifter",
-					"Flytande svenska och engelska",
+					"Excellent customer service skills",
+					"Knowledge of or interest in cheese and dairy products",
+					"Swedish and English language skills",
+					"Weekend availability",
+					"Friendly and approachable personality",
 				],
 				responsibilities: [
-					"Planera och genomföra kundutbildningar",
-					"Utveckla utbildningsmaterial och kurser",
-					"Säkerställa att kunder får certifiering efter genomförd utbildning",
-					"Hålla dig uppdaterad om nya behandlingsmetoder",
-					"Bidra till utveckling av Synos Academy",
+					"Assist customers and provide product recommendations",
+					"Handle sales and cash register",
+					"Maintain shop displays and inventory",
+					"Conduct cheese tastings for visitors",
+					"Support farm tour activities",
 				],
-				applyLink: "mailto:karriar@synos.se?subject=Ansökan: Utbildare Laserteknik",
+				applyLink: "mailto:karriar@boxholmsost.se?subject=Application: Farm Shop Assistant",
 				isActive: true,
 				publishedAt: new Date(),
 			},
@@ -610,41 +579,40 @@ const careersPageData = {
 	},
 
 	valuesSection: {
-		title: "Våra värderingar",
-		subtitle: "Det här är vad som driver oss framåt",
+		title: "Our Values",
+		subtitle: "What drives us every day",
 		values: [
-			"Kundframgång först - vi lyckas när våra kunder lyckas",
-			"Kvalitet utan kompromiss - vi levererar alltid det bästa",
-			"Kontinuerlig utveckling - vi lär och växer tillsammans",
-			"Teamwork - vi stöttar varandra och firar framgångar",
+			"Quality without compromise - every wheel of cheese is crafted with care",
+			"Respect for tradition - honoring 130+ years of cheese-making heritage",
+			"Sustainability - caring for our land, animals, and community",
+			"Teamwork - supporting each other like family",
 		],
 	},
 
 	contactSidebar: {
-		title: "Alltid nära dig",
-		address: "Gävlegatan 12A, 113 30 Stockholm",
-		email: "karriar@synos.se",
-		phone: "010-205 15 01",
+		title: "Get in Touch",
+		address: "Boxholms Mejeri, 590 10 Boxholm, Sweden",
+		email: "karriar@boxholmsost.se",
+		phone: "+46 142-510 50",
 		secondaryPhone: "",
-		formTitle: "Säg hej!",
+		formTitle: "Apply Now",
 	},
 
 	expertCta: {
-		badge: "Vi stöttar dig",
-		title: "Prata med vårt HR-team",
-		subtitle: "Har du frågor om att jobba hos oss? Tveka inte att höra av dig - vi berättar gärna mer om hur det är att vara en del av Synos-teamet.",
+		badge: "Questions?",
+		title: "Want to Know More?",
+		subtitle: "Contact us if you have questions about working at Boxholm Cheese. We're happy to tell you more about life on the farm.",
 	},
 
 	seo: {
-		title: "Lediga Tjänster - Synos Medical | Karriär inom medicinsk utrustning",
-		description: "Se våra lediga tjänster och bli en del av Synos Medical-teamet. Vi söker engagerade medarbetare som vill växa med oss. Ansök idag!",
+		title: "Careers - Boxholm Cheese | Join Our Team",
+		description: "Explore career opportunities at Boxholm Cheese. Join our team of passionate cheese makers and be part of Sweden's cheese-making tradition since 1890.",
 		ogImage: "",
 	},
 };
 
 // ============================================================================
-// LEGAL PAGE DATA (Juridisk Information)
-// Based on redesigned page with dark hero, legal cards, company info, terms, GDPR rights
+// LEGAL PAGE DATA - Cheese/Dairy Theme
 // ============================================================================
 const legalPageData = {
 	sectionVisibility: {
@@ -657,164 +625,156 @@ const legalPageData = {
 	},
 
 	hero: {
-		badge: "Juridisk Information",
-		title: "Juridisk Information",
-		subtitle: "Här hittar du viktig information om våra villkor, integritetspolicy och dina rättigheter som kund hos Synos Medical.",
+		badge: "Legal Information",
+		title: "Legal Information",
+		subtitle: "Important information about our terms, privacy policy, and your rights as a customer of Boxholm Cheese.",
 	},
 
 	legalCards: [
 		{
 			icon: "Shield",
-			title: "Integritetspolicy",
-			description: "Läs om hur vi samlar in, använder och skyddar dina personuppgifter enligt GDPR.",
-			href: "/integritetspolicy",
+			title: "Privacy Policy",
+			description: "Learn how we collect, use, and protect your personal data in accordance with GDPR.",
+			href: "/privacy-policy",
 			highlights: [
-				"GDPR-kompatibel",
-				"Transparent datahantering",
-				"Dina rättigheter",
+				"GDPR compliant",
+				"Transparent data handling",
+				"Your rights",
 			],
 		},
 		{
 			icon: "FileText",
-			title: "Allmänna villkor",
-			description: "Våra allmänna villkor för köp, garanti och service av produkter och tjänster.",
-			href: "#allmanna-villkor",
+			title: "Terms & Conditions",
+			description: "Our general terms for purchases, delivery, and customer service.",
+			href: "#terms",
 			highlights: [
-				"Köpvillkor",
-				"Garantivillkor",
-				"Servicevillkor",
+				"Purchase terms",
+				"Delivery information",
+				"Returns policy",
 			],
 		},
 		{
 			icon: "Scale",
-			title: "Köpvillkor",
-			description: "Detaljerad information om betalning, leverans, ångerrätt och reklamation.",
-			href: "#kopvillkor",
+			title: "Purchase Terms",
+			description: "Detailed information about payment, delivery, returns, and complaints.",
+			href: "#purchase-terms",
 			highlights: [
-				"Betalningsalternativ",
-				"Leveransinformation",
-				"Ångerrätt",
+				"Payment options",
+				"Delivery info",
+				"Return policy",
 			],
 		},
 		{
 			icon: "Cookie",
 			title: "Cookies",
-			description: "Information om hur vi använder cookies på vår webbplats för att förbättra din upplevelse.",
+			description: "Information about how we use cookies to improve your experience on our website.",
 			href: "/cookies",
 			highlights: [
-				"Nödvändiga cookies",
-				"Analyscookies",
-				"Marknadsföringscookies",
+				"Essential cookies",
+				"Analytics cookies",
+				"Marketing cookies",
 			],
 		},
 	],
 
 	companyInfo: {
-		companyName: "Synos Medical AB",
-		organizationNumber: "559350-5765",
-		vatNumber: "SE559350576501",
-		registeredSeat: "Stockholm",
+		companyName: "Boxholms Ost AB",
+		organizationNumber: "556xxx-xxxx",
+		vatNumber: "SE556xxxxxxxx01",
+		registeredSeat: "Boxholm",
 		offices: [
 			{
-				name: "Huvudkontor Stockholm",
-				address: "Gävlegatan 12A, 113 30 Stockholm",
-			},
-			{
-				name: "Kontor Linköping",
-				address: "Brigadgatan 16, 587 58 Linköping",
+				name: "Head Office & Dairy",
+				address: "Boxholms Mejeri, 590 10 Boxholm, Sweden",
 			},
 		],
-		email: "info@synos.se",
-		phone: "010-205 15 01",
+		email: "info@boxholmsost.se",
+		phone: "+46 142-510 50",
 	},
 
 	termsSection: {
-		title: "Allmänna villkor",
+		title: "Terms & Conditions",
 		terms: [
 			{
-				title: "1. Beställning och avtal",
-				content: "Avtal om köp ingås när vi bekräftat din beställning via e-post. Vi förbehåller oss rätten att neka beställningar om det finns felaktigheter i prissättning eller lagerstatus.",
+				title: "1. Orders and Agreements",
+				content: "A purchase agreement is entered when we confirm your order via email. We reserve the right to decline orders in case of pricing errors or stock issues.",
 			},
 			{
-				title: "2. Priser och betalning",
-				content: "Alla priser anges i SEK exklusive moms om inget annat anges. Vi erbjuder olika betalningsalternativ inklusive faktura, kortbetalning och finansiering via våra samarbetspartners.",
+				title: "2. Prices and Payment",
+				content: "All prices are in SEK including VAT unless otherwise stated. We offer various payment options including card payment and invoice for business customers.",
 			},
 			{
-				title: "3. Leverans",
-				content: "Leveranstid varierar beroende på produkt och lagerstatus. Vi meddelar alltid förväntad leveranstid vid orderbekräftelse. Leverans sker med försäkrad frakt.",
+				title: "3. Delivery",
+				content: "Delivery times vary depending on product availability. Fresh products are shipped with temperature-controlled transport. We always communicate expected delivery times at order confirmation.",
 			},
 			{
-				title: "4. Garanti",
-				content: "Vi erbjuder 2 års garanti på all utrustning. Garantin omfattar material- och tillverkningsfel. Garantin gäller inte för förslitning vid normal användning.",
+				title: "4. Product Quality",
+				content: "Our products are made fresh and have limited shelf life. Best before dates are clearly marked on all products. Please store according to product instructions.",
 			},
 			{
-				title: "5. Service och underhåll",
-				content: "Vi erbjuder serviceavtal för regelbundet underhåll av utrustning. Vid akut service prioriterar vi ärenden och strävar efter att lösa problem inom 48 timmar.",
+				title: "5. Returns and Complaints",
+				content: "Due to the perishable nature of our products, returns are only accepted if products are damaged or defective. Please contact us within 24 hours of delivery for any issues.",
 			},
 			{
-				title: "6. Ångerrätt",
-				content: "För konsumenter gäller 14 dagars ångerrätt enligt distansavtalslagen. Ångerrätten gäller inte för specialbeställda produkter eller tjänster som påbörjats.",
-			},
-			{
-				title: "7. Reklamation",
-				content: "Reklamation ska göras skriftligen inom skälig tid efter att fel upptäckts. Kontakta oss via e-post eller telefon för att inleda reklamationsärende.",
+				title: "6. Right of Withdrawal",
+				content: "For consumers, 14-day right of withdrawal applies according to distance selling regulations. This does not apply to perishable food products.",
 			},
 		],
 	},
 
 	gdprSection: {
-		title: "Dina GDPR-rättigheter",
+		title: "Your GDPR Rights",
 		rights: [
 			{
-				title: "Rätt till tillgång",
-				description: "Du har rätt att få veta vilka personuppgifter vi behandlar om dig.",
+				title: "Right to Access",
+				description: "You have the right to know what personal data we process about you.",
 			},
 			{
-				title: "Rätt till rättelse",
-				description: "Du har rätt att få felaktiga uppgifter rättade.",
+				title: "Right to Rectification",
+				description: "You have the right to have incorrect data corrected.",
 			},
 			{
-				title: "Rätt till radering",
-				description: "Under vissa förutsättningar har du rätt att få dina uppgifter raderade.",
+				title: "Right to Erasure",
+				description: "Under certain conditions, you have the right to have your data deleted.",
 			},
 			{
-				title: "Rätt till begränsning",
-				description: "Du har rätt att begränsa behandlingen av dina uppgifter.",
+				title: "Right to Restriction",
+				description: "You have the right to limit the processing of your data.",
 			},
 			{
-				title: "Rätt till dataportabilitet",
-				description: "Du har rätt att få ut dina uppgifter i ett maskinläsbart format.",
+				title: "Right to Data Portability",
+				description: "You have the right to receive your data in a machine-readable format.",
 			},
 			{
-				title: "Rätt att invända",
-				description: "Du har rätt att invända mot behandling för direktmarknadsföring.",
+				title: "Right to Object",
+				description: "You have the right to object to processing for direct marketing.",
 			},
 		],
 		primaryCta: {
-			text: "Läs integritetspolicyn",
-			href: "/integritetspolicy",
+			text: "Read Privacy Policy",
+			href: "/privacy-policy",
 		},
 		secondaryCta: {
-			text: "Kontakta oss",
-			href: "/kontakt",
+			text: "Contact Us",
+			href: "/contact-us",
 		},
 	},
 
 	ctaSection: {
-		text: "Har du frågor om våra villkor eller behöver hjälp med något juridiskt? Tveka inte att kontakta oss - vi hjälper dig gärna.",
+		text: "Have questions about our terms or need help? Don't hesitate to contact us - we're happy to assist.",
 		primaryCta: {
-			text: "Kontakta oss",
-			href: "/kontakt",
+			text: "Contact Us",
+			href: "/contact-us",
 		},
 		secondaryCta: {
-			text: "Ring oss: 010-205 15 01",
-			href: "tel:0102051501",
+			text: "Call: +46 142-510 50",
+			href: "tel:+46142-51050",
 		},
 	},
 
 	seo: {
-		title: "Juridisk Information - Synos Medical | Villkor och integritetspolicy",
-		description: "Läs om Synos Medicals allmänna villkor, integritetspolicy, GDPR-rättigheter och företagsinformation. Transparent och pålitligt.",
+		title: "Legal Information - Boxholm Cheese | Terms & Privacy",
+		description: "Read about Boxholm Cheese's terms and conditions, privacy policy, and your GDPR rights. Transparent and trustworthy.",
 		ogImage: "",
 	},
 };
@@ -847,7 +807,7 @@ async function seedAboutPage(db: mongoose.mongo.Db) {
 }
 
 async function seedTrainingPage(db: mongoose.mongo.Db) {
-	console.log("\n--- Seeding Training Page ---");
+	console.log("\n--- Seeding Training Page (Workshops) ---");
 	const collection = db.collection("training_page");
 	const existingDoc = await collection.findOne({});
 
@@ -870,7 +830,7 @@ async function seedTrainingPage(db: mongoose.mongo.Db) {
 }
 
 async function seedStartaEgetPage(db: mongoose.mongo.Db) {
-	console.log("\n--- Seeding Starta Eget Page ---");
+	console.log("\n--- Seeding Starta Eget Page (Partnership) ---");
 	const collection = db.collection("starta_eget_page");
 	const existingDoc = await collection.findOne({});
 
@@ -967,26 +927,14 @@ async function main() {
 		if (seedLegal) await seedLegalPage(db);
 
 		console.log("\n========================================");
-		console.log("PAGE DATA SEEDED SUCCESSFULLY!");
+		console.log("CHEESE THEME PAGE DATA SEEDED SUCCESSFULLY!");
 		console.log("========================================");
 		console.log("\nSeeded pages:");
-		if (seedAbout) console.log("  ✓ About Page (Om Oss)");
-		if (seedTraining) console.log("  ✓ Training Page (Utbildningar)");
-		if (seedStarta) console.log("  ✓ Starta Eget Page");
-		if (seedCareers) console.log("  ✓ Careers Page (Lediga Tjänster)");
-		if (seedLegal) console.log("  ✓ Legal Page (Juridisk Information)");
-		console.log("\nYou can now view these pages:");
-		if (seedAbout) console.log("  - /om-oss");
-		if (seedTraining) console.log("  - /utbildningar");
-		if (seedStarta) console.log("  - /starta-eget");
-		if (seedCareers) console.log("  - /om-oss/lediga-tjanster");
-		if (seedLegal) console.log("  - /om-oss/juridisk-information");
-		console.log("\nManage content in the dashboard:");
-		if (seedAbout) console.log("  - /dashboard/webbplats/om-oss");
-		if (seedTraining) console.log("  - /dashboard/webbplats/utbildningar");
-		if (seedStarta) console.log("  - /dashboard/webbplats/starta-eget");
-		if (seedCareers) console.log("  - /dashboard/webbplats/lediga-tjanster");
-		if (seedLegal) console.log("  - /dashboard/webbplats/juridisk-information");
+		if (seedAbout) console.log("  ✓ About Page");
+		if (seedTraining) console.log("  ✓ Training/Workshops Page");
+		if (seedStarta) console.log("  ✓ Partnership Page");
+		if (seedCareers) console.log("  ✓ Careers Page");
+		if (seedLegal) console.log("  ✓ Legal Page");
 		console.log("\n========================================\n");
 	} catch (error) {
 		console.error("Error seeding pages:", error);

@@ -1,5 +1,5 @@
 /**
- * Seed script for FAQ Page data
+ * Seed script for FAQ Page data (Cheese Theme)
  * Run with: npx tsx scripts/seed-faq-page.ts
  */
 
@@ -47,7 +47,7 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// FAQ page data based on reference website synos.se/faq (screenshot 2)
+// FAQ page data for Boxholm Cheese
 const faqPageData = {
 	sectionVisibility: {
 		hero: true,
@@ -60,14 +60,14 @@ const faqPageData = {
 	// Hero Section
 	hero: {
 		badge: "FAQ",
-		title: "Vanliga frågor och svar om köp av",
-		titleHighlight: "klinikutrustning",
+		title: "Vanliga frågor om",
+		titleHighlight: "hantverksost",
 		subtitle:
-			"Här får du svar på de vanligaste frågorna som ställs inför köp av microneedling, medicinsk laser, co2-laser med mera",
+			"Här får du svar på de vanligaste frågorna om våra ostar, beställningar, leveranser och hur du blir återförsäljare.",
 		stats: [
-			{ value: "50+", label: "Besvarade frågor" },
+			{ value: "30+", label: "Besvarade frågor" },
 			{ value: "24h", label: "Svarstid" },
-			{ value: "10+", label: "År erfarenhet" },
+			{ value: "100+", label: "År tradition" },
 		],
 	},
 
@@ -77,57 +77,110 @@ const faqPageData = {
 		noResultsText: "Inga resultat hittades. Prova att söka på något annat.",
 		helpText: "Hittar du inte svaret på din fråga?",
 		helpButtonText: "Kontakta oss",
-		helpButtonHref: "/kontakt",
+		helpButtonHref: "/contact-us",
 		categories: [
-			{ id: "general", name: "Allmänt", icon: "HelpCircle", order: 0 },
-			{ id: "training", name: "Utbildning", icon: "GraduationCap", order: 1 },
-			{ id: "products", name: "Produkter", icon: "Package", order: 2 },
-			{ id: "safety", name: "Säkerhet", icon: "Shield", order: 3 },
-			{ id: "support", name: "Support", icon: "HeadphonesIcon", order: 4 },
+			{ id: "products", name: "Våra ostar", icon: "Package", order: 0 },
+			{ id: "ordering", name: "Beställning", icon: "ShoppingCart", order: 1 },
+			{ id: "storage", name: "Förvaring", icon: "Refrigerator", order: 2 },
+			{ id: "reseller", name: "Återförsäljare", icon: "Store", order: 3 },
+			{ id: "visit", name: "Besök oss", icon: "MapPin", order: 4 },
 		],
 		items: [
-			// General Questions
+			// Product Questions
 			{
-				question: "Vad är Synos Medical?",
+				question: "Vilka ostar tillverkar ni?",
 				answer:
-					"Synos Medical erbjuder professionella lasermaskiner och utrustning till kliniker och salonger runt om i Skandinavien. Våra maskiner är högtestade och sålda, vid testade och säkrade i linje med den senaste medicinska forskningen. Vi jobbar med leverantörer från några av världens främsta lasertillverkare och sjukleverantörer som finns masterbehandlingar för alla sorters laserbehandlingar.",
-				category: "general",
-				order: 0,
-			},
-			{
-				question: "Erbjuder Synos Medical laserutbildningar? Vad kostar utbildningar?",
-				answer:
-					"Tyvärr erbjuder vi inga utbildningar separat från maskinköp, en grundlig utbildning ingår alltid i priset vid köp av en maskin. Vi är medvetna om att väl utrustning används av personer med olika bakgrunder, erfarenheter och kunskap. Därför vi alltid skräddarsyr utbildningen efter deltagarnas förutsättningar och behov. Vi går inte bara igenom själva användandet av den specifika maskinen utan även andra viktiga aspekter, exempelvis maskinvals och patientskärhet.",
-				category: "training",
-				order: 0,
-			},
-			{
-				question: "Jag tänker att starta verksamhet inom laserhårborttagning/tatueringsborttagning, var ska jag börja?",
-				answer:
-					"På många sätt är det bättre att du börjar med att höra av dig till oss för att boka ett möte. Då kan vi tillsammans gå igenom vilka förutsättningar, behov och förväntningar du har. Vi kan försla maskiner och utrustning som passar just er. Med hjälp av vår utbildning kan du skickskärta att personalen använder maskinen på rätt sätt och att patienterna får en effektiv och säker behandling.",
-				category: "general",
-				order: 1,
-			},
-			{
-				question: "Vilka märken erbjuder ni?",
-				answer:
-					"Vi på Synos Medical AB har samlat ihop de absolut bästa maskinerna inom sina respektive områden. Synos Medical är återförsäljare av DEKA Lasers, Asclepion Laser, Jena surgical och IDS LTD.",
+					"Vi tillverkar ett brett sortiment av hantverksgjorda ostar, från mjuka färskostar till lagrade hårda ostar. Vårt mest kända sortiment inkluderar traditionell Boxholmsost, getost, och säsongsbetonade specialiteter. Alla våra ostar tillverkas med lokalt producerad mjölk och traditionella metoder.",
 				category: "products",
 				order: 0,
 			},
 			{
-				question: "Säljer ni maskiner med microneedling?",
+				question: "Är era ostar gjorda av opastöriserad mjölk?",
 				answer:
-					"Hos oss kan du köpa Vivace Fractional Micro Needle RF (av Dermascope Magazine utsedd till 'Bästa microneedling RF' år 2022) som levererar fraktionerad radiofrekvens med hjälp av microneedlingsnålar. Maskinen kombinerar det bästa med microneedlingstekniken och den fraktionerade radiofrekvensen på ett sätt som ger helt oslagbara resultat vid hudföryngring och förtsynning. Läs mer om Vivace här!",
+					"Vi erbjuder både ostar gjorda av pastöriserad och opastöriserad mjölk. Våra lagrade ostar med lång mognadsperiod görs ofta av opastöriserad mjölk för att bevara mjölkens naturliga smaker och enzymer. Information om mjölktyp finns alltid angiven på förpackningen.",
 				category: "products",
 				order: 1,
 			},
 			{
-				question: "Hur vet jag att era produkter är säkra?",
+				question: "Innehåller era produkter tillsatser eller konserveringsmedel?",
 				answer:
-					"Utrustning genomgår kliniska studier och är bevisat effektiva för att skicksäkerlla att de verkligen ger de resultat som vi garanterar vara kunder. Vår utrustning används då att hjälpa människor i hela Skandinavien. Det innebär att det ligger ett stort ansvar på oss och de maskiner vi erbjuder. Vi säkerställer alltid att våra produkter är säkra, effektiva och att det finns forskning som stödjer maskinernas funktion och användning. Vi utför även egna tester för att säkerställa att maskinerna levererar ett tillförlitligt resultat. Om vi hittar att en viss teknik eller maskin inte fyller våra högt ställda krav så tar vi helt enkelt inte in dessa produkter till vårt sortiment. För oss är det yttersta att värt att utrustning håller precis vad vi lovar. Detta är ett skäkerhet både för dig som kund och för de patienter som i sluttändan kommer att behandlas med vår utrustning.",
-				category: "safety",
+					"Nej, vi använder inga konstgjorda tillsatser eller konserveringsmedel i våra ostar. Vi arbetar med traditionella metoder där tid, salt och naturlig mognad skapar smaken och bevarar osten. Det är så ost har tillverkats i hundratals år.",
+				category: "products",
+				order: 2,
+			},
+			// Ordering Questions
+			{
+				question: "Hur kan jag beställa ost?",
+				answer:
+					"Du kan beställa direkt från oss genom att kontakta vår butik via telefon eller e-post. Vi levererar över hela Sverige och kan även arrangera internationella leveranser för större beställningar. Besök gärna vår butik i Boxholm för att provsmaka innan du beställer!",
+				category: "ordering",
 				order: 0,
+			},
+			{
+				question: "Vad är minsta beställningsstorlek?",
+				answer:
+					"För privatkunder finns ingen minsta beställning - du kan köpa precis så mycket du önskar. För restauranger och återförsäljare rekommenderar vi en minsta beställning på 5 kg för att säkerställa optimal leveranskostnad.",
+				category: "ordering",
+				order: 1,
+			},
+			{
+				question: "Hur lång är leveranstiden?",
+				answer:
+					"Vi skickar normalt beställningar inom 1-2 arbetsdagar. Leveranstiden beror på din plats och valt fraktsätt, men de flesta kunder får sin ost inom 2-4 arbetsdagar. Vi använder kyltransport för att säkerställa att osten kommer fram i perfekt skick.",
+				category: "ordering",
+				order: 2,
+			},
+			// Storage Questions
+			{
+				question: "Hur ska jag förvara osten?",
+				answer:
+					"Hårdostar förvaras bäst i kylskåp vid 4-8°C, gärna insvept i ostpapper eller bakplåtspapper. Mjuka ostar bör förvaras kallt och ätas inom några dagar efter öppning. Ta alltid ut osten ur kylskåpet ca 30 minuter före servering för bästa smakupplevelse.",
+				category: "storage",
+				order: 0,
+			},
+			{
+				question: "Kan jag frysa ost?",
+				answer:
+					"Vi rekommenderar inte att frysa ost då det påverkar texturen negativt. Hårdostar kan dock frysas om nödvändigt - de fungerar då bäst i matlagning efter upptining. Mjuka ostar bör aldrig frysas.",
+				category: "storage",
+				order: 1,
+			},
+			{
+				question: "Hur länge håller osten?",
+				answer:
+					"Hållbarheten varierar beroende på osttyp. Lagrade hårdostar kan hålla i flera månader oöppnade i kylskåp. Mjukare ostar har kortare hållbarhet, typiskt 2-4 veckor. Se alltid bäst-före-datum på förpackningen för specifik information.",
+				category: "storage",
+				order: 2,
+			},
+			// Reseller Questions
+			{
+				question: "Hur blir jag återförsäljare?",
+				answer:
+					"Vi välkomnar samarbeten med butiker, restauranger och delikatesshandlare som värdesätter kvalitetsost. Kontakta oss för att diskutera villkor, sortiment och leveransupplägg. Vi erbjuder konkurrenskraftiga priser och support för våra återförsäljare.",
+				category: "reseller",
+				order: 0,
+			},
+			{
+				question: "Erbjuder ni provleveranser för restauranger?",
+				answer:
+					"Ja, vi erbjuder provpaket för restauranger och butiker som vill testa våra produkter innan de inleder ett samarbete. Kontakta oss så ordnar vi ett anpassat provpaket.",
+				category: "reseller",
+				order: 1,
+			},
+			// Visit Questions
+			{
+				question: "Kan jag besöka mejeriet?",
+				answer:
+					"Absolut! Vi välkomnar besökare till vårt mejeri i Boxholm. Du kan besöka vår butik, provsmaka ostar och lära dig om osttillverkning. Vi erbjuder även guidade turer för grupper - boka i förväg för att säkerställa plats.",
+				category: "visit",
+				order: 0,
+			},
+			{
+				question: "Vilka är öppettiderna?",
+				answer:
+					"Vår butik är öppen måndag-fredag 08:00-17:00 och lördagar 10:00-14:00. Vi har stängt på söndagar och helgdagar. Kontakta oss för att boka guidning eller gruppbesök utanför ordinarie öppettider.",
+				category: "visit",
+				order: 1,
 			},
 		],
 	},
@@ -136,24 +189,23 @@ const faqPageData = {
 	sidebar: {
 		contactTitle: "Behöver du hjälp?",
 		contactDescription:
-			"Vårt team finns här för att svara på dina frågor och hjälpa dig hitta rätt lösning.",
-		phone: "010-205 15 01",
-		email: "info@synos.se",
-		officeHours: "Mån-Fre 09:00-17:00",
+			"Vårt team finns här för att svara på dina frågor om våra ostar och hjälpa dig med din beställning.",
+		phone: "+46 142-510 50",
+		email: "info@boxholmsost.se",
+		officeHours: "Mån-Fre 08:00-17:00",
 		contactButtonText: "Kontakta oss",
-		contactButtonHref: "/kontakt",
+		contactButtonHref: "/contact-us",
 		quickLinksTitle: "Snabblänkar",
 		quickLinks: [
-			{ label: "Kontaktkort", href: "/kontakt" },
-			{ label: "Andreas Tanzi", href: "/team#andreas" },
-			{ label: "Jakob Malmsten", href: "/team#jakob" },
-			{ label: "Hitta rätt utrustning", href: "/klinikutrustning" },
-			{ label: "Köpguide för privatkunder", href: "/privatkunder" },
+			{ label: "Våra produkter", href: "/products" },
+			{ label: "Bli återförsäljare", href: "/become-our-reseller" },
+			{ label: "Om oss", href: "/about-us" },
+			{ label: "Besök vår butik", href: "/our-store" },
+			{ label: "Kvalitet & certifieringar", href: "/quality" },
 		],
-		officesTitle: "Våra kontor",
+		officesTitle: "Hitta oss",
 		offices: [
-			{ name: "Stockholm", address: "Gävlegatan 12A, 113 30 Stockholm" },
-			{ name: "Linköping", address: "Brigadgatan 16, 587 58 Linköping" },
+			{ name: "Boxholms Mejeri", address: "Boxholms Mejeri, 590 10 Boxholm" },
 		],
 	},
 
@@ -161,7 +213,7 @@ const faqPageData = {
 	newsletter: {
 		title: "Håll dig uppdaterad",
 		subtitle:
-			"Prenumerera på vårt nyhetsbrev för de senaste nyheterna om klinikutrustning och branschtrender.",
+			"Prenumerera på vårt nyhetsbrev för nyheter om säsongsostar, recept och specialerbjudanden.",
 		inputPlaceholder: "Din e-postadress",
 		buttonText: "Prenumerera",
 		loadingText: "Skickar...",
@@ -170,40 +222,38 @@ const faqPageData = {
 			"Genom att prenumerera godkänner du vår integritetspolicy. Du kan avsluta prenumerationen när som helst.",
 	},
 
-	// Rich Content (from WordPress text editor - the main FAQ content)
+	// Rich Content (HTML)
 	richContent: `
-<h2>Vad är Synos Medical?</h2>
-<p>Synos Medical erbjuder professionella lasermaskiner och utrustning till kliniker och salonger runt om i Skandinavien. Våra maskiner är högtestade, väl testade och säkrade i linje med den senaste medicinska forskningen. Vi jobbar med leverantörer från några av världens främsta <a href="/klinikutrustning">lasertillverkare</a> och sjukleverantörer som finns masterbehandlingar för alla sorters laserbehandlingar.</p>
+<h2>Om Boxholms Ost</h2>
+<p>Boxholms Ost är ett traditionellt svenskt mejeri med rötter som sträcker sig över hundra år tillbaka. Vi tillverkar hantverksgjorda ostar med samma omsorg och hängivenhet som generationerna före oss, samtidigt som vi möter dagens kvalitets- och hygienkrav.</p>
 
-<h2>Erbjuder Synos Medical laserutbildningar? Vad kostar utbildningar?</h2>
-<p>Tyvärr erbjuder vi inga utbildningar separat från maskinköp, en grundlig utbildning ingår alltid i priset vid köp av en maskin. Vi är medvetna om att väl utrustning används av personer med olika bakgrunder, erfarenheter och kunskap. Därför vi alltid skräddarsyr utbildningen efter deltagarnas förutsättningar och behov. Vi går inte bara <a href="/utbildningar">igenom</a> själva användandet av den specifika maskinen utan även andra viktiga aspekter, exempelvis maskinvals och patientskärhet.</p>
+<h2>Vårt sortiment</h2>
+<p>Vi erbjuder ett brett utbud av ostar, från mjuka färskostar till lagrade hårdostar. Varje ost tillverkas med omsorg av våra erfarna ostmästare, med lokalt producerad mjölk av högsta kvalitet. Besök vår <a href="/products">produktsida</a> för att se hela sortimentet.</p>
 
-<h2>Jag tänker att starta verksamhet inom laserhårborttagning/tatueringsborttagning, var ska jag börja?</h2>
-<p>På många sätt är det bättre att du börjar med att höra av dig till oss för att boka ett möte. Då kan vi tillsammans gå igenom vilka förutsättningar, behov och förväntningar du har. Vi kan försla maskiner och utrustning som passar just er. Med hjälp av vår utbildning kan du skickskärta att personalen använder maskinen på rätt sätt och att patienterna får en effektiv och säker behandling.</p>
+<h2>Beställningar och leverans</h2>
+<p>Vi levererar våra ostar i kyltransport över hela Sverige. För större beställningar eller internationella leveranser, <a href="/contact-us">kontakta oss</a> så hittar vi en lösning som passar dina behov.</p>
 
-<h2>Vilka märken erbjuder ni?</h2>
-<p>Vi på Synos Medical AB har samlat ihop de absolut bästa maskinerna inom sina respektive områden. Synos Medical är återförsäljare av DEKA Lasers, Asclepion Laser, Jena surgical och IDS LTD.</p>
+<h2>Bli återförsäljare</h2>
+<p>Är du intresserad av att sälja våra ostar i din butik eller servera dem på din restaurang? Vi samarbetar med utvalda partners som delar vår passion för kvalitetsost. <a href="/become-our-reseller">Läs mer om återförsäljarskap</a> eller kontakta oss direkt.</p>
 
-<h2>Säljer ni maskiner med microneedling?</h2>
-<p>Hos oss kan du köpa <a href="/produkter/vivace">Vivace</a> Fractional Micro Needle RF (av Dermascope Magazine utsedd till "Bästa microneedling RF" år 2022) som levererar fraktionerad radiofrekvens med hjälp av <a href="/behandlingar/microneedling">microneedlingsnålar</a>. Maskinen kombinerar det bästa med <a href="/behandlingar/microneedling">microneedlingstekniken</a> och den fraktionerade radiofrekvensen på ett sätt som ger helt oslagbara resultat vid <a href="/behandlingar/hudföryngring">hudföryngring</a> och förtsynning. <a href="/produkter/vivace">Läs mer om Vivace här!</a></p>
-
-<h2>Hur vet jag att era produkter är säkra?</h2>
-<p>Utrustning genomgår kliniska studier och är bevisat effektiva för att säkerställa att de verkligen ger de resultat som vi garanterar vara kunder. Vår utrustning används då att hjälpa människor i hela Skandinavien. Det innebär att det ligger ett stort ansvar på oss och de maskiner vi erbjuder.</p>
-<p>Vi säkerställer alltid att våra produkter är säkra, effektiva och att det finns forskning som stödjer maskinernas funktion och användning. Vi utför även egna tester för att säkerställa att maskinerna levererar ett tillförlitligt resultat. Om vi hittar att en viss teknik eller maskin inte fyller våra högt ställda krav så tar vi helt enkelt inte in dessa produkter till vårt sortiment. För oss är det yttersta att värt att utrustning håller precis vad vi lovar. Detta är ett säkerhet både för dig som kund och för de patienter som i sluttändan kommer att behandlas med vår utrustning.</p>
+<h2>Besök vårt mejeri</h2>
+<p>Välkommen till Boxholm för en unik upplevelse! I vår gårdsbutik kan du provsmaka och köpa våra ostar direkt. Vi erbjuder även guidade turer där du får lära dig om osttillverkningens konst. <a href="/our-store">Se öppettider och hitta hit</a>.</p>
 `,
 
 	// SEO
 	seo: {
-		title: "Vanliga frågor och svar om köp av klinikutrustning",
+		title: "Vanliga frågor om hantverksost | Boxholms Ost",
 		description:
-			"Här får du svar på de vanligaste frågorna som ställs inför köp av microneedling, medicinsk laser, co2-laser med mera",
+			"Få svar på vanliga frågor om våra hantverksgjorda ostar, beställningar, leveranser och hur du blir återförsäljare. Vi finns här för att hjälpa dig!",
 		keywords: [
 			"FAQ",
 			"vanliga frågor",
-			"klinikutrustning",
-			"laser",
-			"microneedling",
-			"Synos Medical",
+			"ost",
+			"hantverksost",
+			"Boxholm",
+			"svensk ost",
+			"beställa ost",
+			"återförsäljare",
 		],
 		ogImage: "/storage/images/og-faq.jpg",
 	},
