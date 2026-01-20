@@ -88,32 +88,31 @@ export async function getSiteConfig(): Promise<SiteConfigType> {
  * but will eventually be removed. All new code should use getSiteConfig().
  */
 export const siteConfig: SiteConfigType = {
-	// Fallback values - these will be overwritten at runtime
-	name: "Synos Medical",
-	description:
-		"Sveriges ledande leverantör av MDR-certifierad klinikutrustning för laser, hårborttagning, tatueringsborttagning och hudföryngring.",
+	// Fallback values - these will be overwritten at runtime by database values
+	name: "Your Company",
+	description: "Your company description goes here.",
 	url: getSiteUrl(),
 	ogImage: `${getSiteUrl()}/og-image.jpg`,
 	links: {
-		facebook: "https://www.facebook.com/synosmedical",
-		instagram: "https://www.instagram.com/synosmedical",
-		linkedin: "https://www.linkedin.com/company/synos-medical",
+		facebook: "",
+		instagram: "",
+		linkedin: "",
 	},
 	company: {
-		name: "Synos Medical AB",
-		orgNumber: "556871-8075",
-		email: "info@synos.se",
-		phone: "010-205 15 01",
-		noreplyEmail: "noreply@synos.se",
+		name: "Your Company AB",
+		orgNumber: "000000-0000",
+		email: "info@example.com",
+		phone: "000-000 00 00",
+		noreplyEmail: "noreply@example.com",
 		addresses: [
 			{
-				name: "Stockholm",
-				street: "Turebergsvägen 5",
-				postalCode: "19147",
-				city: "Stockholm",
+				name: "Main Office",
+				street: "Street Address",
+				postalCode: "00000",
+				city: "City",
 				country: "Sverige",
-				lat: 59.4196154,
-				lng: 17.9620161,
+				lat: 0,
+				lng: 0,
 			},
 		],
 	},

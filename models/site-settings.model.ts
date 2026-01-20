@@ -190,13 +190,12 @@ const SeoSettingsSchema = new Schema<ISeoSettings>(
 			type: String,
 			required: [true, "Site name is required"],
 			trim: true,
-			default: "Synos Medical",
+			default: "Your Company",
 		},
 		siteDescription: {
 			type: String,
 			trim: true,
-			default:
-				"Sveriges ledande leverantör av MDR-certifierad klinikutrustning för laser, hårborttagning, tatueringsborttagning och hudföryngring.",
+			default: "Your company description goes here.",
 		},
 		ogImage: { type: String, trim: true },
 		keywords: [{ type: String, trim: true }],
@@ -213,7 +212,7 @@ const BrandingSettingsSchema = new Schema<IBrandingSettings>(
 		logoUrl: {
 			type: String,
 			trim: true,
-			default: "/storage/synos-logo-beige-glow.svg",
+			default: "/storage/logo.svg",
 		},
 		faviconUrl: { type: String, trim: true },
 	},
@@ -337,13 +336,13 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
 			type: String,
 			required: [true, "Company name is required"],
 			trim: true,
-			default: "Synos Medical AB",
+			default: "Your Company AB",
 		},
 		orgNumber: {
 			type: String,
 			required: [true, "Organization number is required"],
 			trim: true,
-			default: "556871-8075",
+			default: "000000-0000",
 		},
 		vatNumber: {
 			type: String,
@@ -353,14 +352,14 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
 			type: String,
 			required: [true, "Phone number is required"],
 			trim: true,
-			default: "010-205 15 01",
+			default: "000-000 00 00",
 		},
 		email: {
 			type: String,
 			required: [true, "Email is required"],
 			trim: true,
 			lowercase: true,
-			default: "info@synos.se",
+			default: "info@example.com",
 		},
 		noreplyEmail: {
 			type: String,
@@ -371,45 +370,31 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
 			type: [OfficeSchema],
 			default: [
 				{
-					name: "Stockholm",
-					street: "Turebergsvägen 5",
-					postalCode: "191 47",
-					city: "Sollentuna",
+					name: "Main Office",
+					street: "Street Address",
+					postalCode: "00000",
+					city: "City",
 					country: "Sverige",
 					isHeadquarters: true,
-					isVisible: true,
-				},
-				{
-					name: "Linköping",
-					street: "Datalinjen 5",
-					postalCode: "583 30",
-					city: "Linköping",
-					country: "Sverige",
-					isHeadquarters: false,
 					isVisible: true,
 				},
 			],
 		},
 		socialMedia: {
 			type: SocialMediaSchema,
-			default: {
-				facebook: "https://www.facebook.com/synosmedical",
-				instagram: "https://www.instagram.com/synosmedical",
-				linkedin: "https://www.linkedin.com/company/synos-medical",
-			},
+			default: {},
 		},
 		seo: {
 			type: SeoSettingsSchema,
 			default: {
-				siteName: "Synos Medical",
-				siteDescription:
-					"Sveriges ledande leverantör av MDR-certifierad klinikutrustning för laser, hårborttagning, tatueringsborttagning och hudföryngring.",
+				siteName: "Your Company",
+				siteDescription: "Your company description goes here.",
 			},
 		},
 		branding: {
 			type: BrandingSettingsSchema,
 			default: {
-				logoUrl: "/storage/synos-logo-beige-glow.svg",
+				logoUrl: "/storage/logo.svg",
 			},
 		},
 		footer: {
