@@ -20,15 +20,15 @@ const geistMono = Geist_Mono({
 
 // Default keywords as fallback
 const DEFAULT_KEYWORDS = [
-	"laser",
-	"medicinsk utrustning",
-	"hårborttagning",
-	"tatueringsborttagning",
-	"hudföryngring",
-	"MDR-certifierad",
-	"klinikutrustning",
-	"Soprano",
-	"Harmony XL PRO",
+	"artisan cheese",
+	"dairy farm",
+	"natural dairy products",
+	"handcrafted cheese",
+	"farm fresh",
+	"organic dairy",
+	"cheese making",
+	"dairy products",
+	"traditional cheese",
 ];
 
 /**
@@ -42,21 +42,21 @@ export async function generateMetadata(): Promise<Metadata> {
 		process.env.BETTER_AUTH_URL ||
 		"http://localhost:3000";
 
-	const siteName = settings.seo?.siteName || "Synos Medical";
+	const siteName = settings.seo?.siteName || "Milatte Farm";
 	const siteDescription =
 		settings.seo?.siteDescription ||
-		"Sveriges ledande leverantör av MDR-certifierad klinikutrustning för laser, hårborttagning, tatueringsborttagning och hudföryngring.";
+		"Premium artisan cheeses and natural dairy products from our family farm.";
 	const ogImage = settings.seo?.ogImage || "/og-image.jpg";
 	const keywords =
 		settings.seo?.keywords && settings.seo.keywords.length > 0
 			? settings.seo.keywords
 			: DEFAULT_KEYWORDS;
-	const companyName = settings.companyName || "Synos Medical AB";
+	const companyName = settings.companyName || "Milatte Dairy Farms";
 
 	return {
 		metadataBase: new URL(siteUrl),
 		title: {
-			default: `${siteName} - Sveriges ledande leverantör av MDR-certifierad klinikutrustning`,
+			default: `${siteName} - Premium Artisan Cheese & Dairy Products`,
 			template: `%s | ${siteName}`,
 		},
 		description: siteDescription,

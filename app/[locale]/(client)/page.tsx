@@ -27,12 +27,12 @@ export async function generateMetadata(): Promise<Metadata> {
 		getSiteSettings(),
 	]);
 
-	const siteName = siteSettings.seo?.siteName || "Synos Medical";
+	const siteName = siteSettings.seo?.siteName || "Milatte Farm";
 	const siteDescription =
 		siteSettings.seo?.siteDescription ||
-		"Sveriges ledande leverantör av MDR-certifierad klinikutrustning";
+		"Premium artisan cheeses and natural dairy products from our family farm";
 
-	const title = seo?.title || `${siteName} - Medicinsk utrustning`;
+	const title = seo?.title || `${siteName} - Artisan Cheese & Dairy`;
 	const description = seo?.description || siteDescription;
 
 	return {

@@ -210,7 +210,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 		return initial;
 	});
 	const [logoUrl, setLogoUrl] = useState<string | null>(null);
-	const [companyName, setCompanyName] = useState<string>("Synos");
+	const [companyName, setCompanyName] = useState<string>("Milatte");
 
 	// Fetch site settings for logo and company name
 	useEffect(() => {
