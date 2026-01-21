@@ -60,9 +60,9 @@ const officeSchema = z.object({
 });
 
 const footerLinkSchema = z.object({
-	label: z.string().min(1, "Label is required"),
-	href: z.string().min(1, "URL is required"),
-	isExternal: z.boolean(),
+	label: z.string().optional().default(""),
+	href: z.string().optional().default(""),
+	isExternal: z.boolean().optional().default(false),
 });
 
 const footerBannerSchema = z.object({
@@ -278,20 +278,43 @@ export default function SettingsPage() {
 	const onSubmit = async (values: SettingsFormValues) => {
 		try {
 			setSaving(true);
+			console.log("Submitting settings:", values);
+
+			// Filter out empty links from quickLinks and bottomLinks
+			const cleanedValues = {
+				...values,
+				footer: {
+					...values.footer,
+					quickLinks: values.footer.quickLinks?.filter(
+						link => link.label && link.href
+					) || [],
+					bottomLinks: values.footer.bottomLinks?.filter(
+						link => link.label && link.href
+					) || [],
+				},
+			};
+
+			console.log("Cleaned values:", cleanedValues);
 
 			const response = await fetch("/api/site-settings", {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(values),
+				body: JSON.stringify(cleanedValues),
 			});
 
 			const data = await response.json();
+			console.log("Response:", response.status, data);
 
 			if (!response.ok) {
 				throw new Error(data.message || "Failed to save settings");
 			}
 
 			toast.success("Settings saved successfully");
+
+			// Reload the page after 1 second to reflect changes
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
 		} catch (error) {
 			console.error("Error saving settings:", error);
 			toast.error(
@@ -323,7 +346,33 @@ export default function SettingsPage() {
 			</div>
 
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+				<form
+					onSubmit={form.handleSubmit(
+						onSubmit,
+						(errors) => {
+							console.error("Form validation errors:", errors);
+
+							// Get all error messages
+							const errorMessages: string[] = [];
+
+							// Check for company errors
+							if (errors.companyName) errorMessages.push("Company name is required");
+							if (errors.orgNumber) errorMessages.push("Organization number is required");
+							if (errors.email) errorMessages.push("Valid email is required");
+							if (errors.phone) errorMessages.push("Phone number is required");
+
+							// Check for office errors
+							if (errors.offices) {
+								errorMessages.push("Please check office information");
+							}
+
+							// Show first error or generic message
+							const firstError = errorMessages[0] || "Please fix all validation errors before saving";
+							toast.error(firstError);
+						}
+					)}
+					className="space-y-6"
+				>
 					<Tabs defaultValue="company" className="space-y-6">
 						<TabsList className="grid w-full grid-cols-6">
 							<TabsTrigger value="company" className="flex items-center gap-2">

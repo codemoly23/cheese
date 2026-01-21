@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -36,6 +36,7 @@ import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/common/logo";
+import { ImageComponent } from "@/components/common/image-component";
 
 interface NavItem {
 	title: string;
@@ -208,6 +209,25 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 		});
 		return initial;
 	});
+	const [logoUrl, setLogoUrl] = useState<string | null>(null);
+	const [companyName, setCompanyName] = useState<string>("Synos");
+
+	// Fetch site settings for logo and company name
+	useEffect(() => {
+		const fetchSettings = async () => {
+			try {
+				const response = await fetch("/api/site-settings");
+				const data = await response.json();
+				if (response.ok && data.data) {
+					setLogoUrl(data.data.branding?.logoUrl || null);
+					setCompanyName(data.data.companyName || "Synos");
+				}
+			} catch (error) {
+				console.error("Failed to fetch site settings:", error);
+			}
+		};
+		fetchSettings();
+	}, []);
 
 	const toggleSection = (sectionTitle: string) => {
 		setExpandedSections((prev) => ({
@@ -329,10 +349,23 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 				>
 					{isCollapsed ? (
 						<div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-							<span className="text-white font-bold text-sm">S</span>
+							<span className="text-white font-bold text-sm">
+								{companyName.charAt(0).toUpperCase()}
+							</span>
 						</div>
+					) : logoUrl ? (
+						<ImageComponent
+							src={logoUrl}
+							alt={companyName}
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="h-12 w-32 sm:h-14 sm:w-40 lg:h-14 lg:w-40 p-2 py-1.5 rounded"
+						/>
 					) : (
-						<Logo asLink={false} />
+						<div className="text-lg font-bold text-primary">
+							{companyName}
+						</div>
 					)}
 				</Link>
 			</div>
