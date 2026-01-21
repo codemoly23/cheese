@@ -38,12 +38,18 @@ export default async function AboutUsPage() {
 		(office) => office.isVisible !== false
 	);
 
+	// Serialize MongoDB objects to plain objects for client component
+	const serializedAboutPage = JSON.parse(JSON.stringify(aboutPage));
+	const serializedKontaktPage = JSON.parse(JSON.stringify(kontaktPage));
+	const serializedSiteSettings = JSON.parse(JSON.stringify(siteSettings));
+	const serializedOffices = JSON.parse(JSON.stringify(visibleOffices));
+
 	return (
 		<AboutUsPageClient
-			data={aboutPage}
-			kontaktData={kontaktPage}
-			siteSettings={siteSettings}
-			offices={visibleOffices}
+			data={serializedAboutPage}
+			kontaktData={serializedKontaktPage}
+			siteSettings={serializedSiteSettings}
+			offices={serializedOffices}
 		/>
 	);
 }

@@ -25,5 +25,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function QualityPage() {
 	const data = await getQualityPage();
 
-	return <QualityPageClient data={data} />;
+	// Serialize MongoDB object to plain object for client component
+	const serializedData = JSON.parse(JSON.stringify(data));
+
+	return <QualityPageClient data={serializedData} />;
 }

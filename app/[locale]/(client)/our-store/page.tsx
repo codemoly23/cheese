@@ -27,5 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function StorePage() {
 	const storePage = await getStorePage();
 
-	return <StorePageClient data={storePage} />;
+	// Serialize MongoDB object to plain object for client component
+	const serializedData = JSON.parse(JSON.stringify(storePage));
+
+	return <StorePageClient data={serializedData} />;
 }
