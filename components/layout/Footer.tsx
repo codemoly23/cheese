@@ -55,12 +55,14 @@ interface FooterProps {
 	config: SiteConfigType;
 	footerSettings?: IFooterSettings;
 	logoUrl?: string;
+	companyName?: string;
 }
 
 export function Footer({
 	config,
 	footerSettings,
 	logoUrl,
+	companyName,
 }: FooterProps) {
 	const t = useTranslations("footer");
 	const currentYear = new Date().getFullYear();
@@ -191,7 +193,7 @@ export function Footer({
 						{/* Brand Column */}
 						<div className="space-y-4">
 							<div className="flex items-center gap-2 mb-4">
-								<Logo logoUrl={logoUrl} />
+								<Logo logoUrl={logoUrl} companyName={companyName} />
 							</div>
 							<p className="text-primary-foreground/70 text-sm leading-relaxed">
 								{config.description}

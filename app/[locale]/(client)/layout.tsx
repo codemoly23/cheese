@@ -12,6 +12,7 @@ import {
 	getBrandingSettings,
 	getFooterSettings,
 	getSocialMedia,
+	getSiteSettings,
 } from "@/lib/services/site-settings.service";
 
 /**
@@ -29,27 +30,30 @@ export default async function ClientLayout({
 	const locale = await getLocale();
 
 	// Fetch site settings from database in parallel
-	const [siteConfig, brandingSettings, footerSettings, socialMedia, messages] = await Promise.all([
+	const [siteConfig, brandingSettings, footerSettings, socialMedia, siteSettings, messages] = await Promise.all([
 		getLegacySiteConfig(),
 		getBrandingSettings(),
 		getFooterSettings(),
 		getSocialMedia(),
+		getSiteSettings(),
 		getMessages(),
 	]);
 
 	const logoUrl = brandingSettings?.logoUrl;
+	const companyName = siteSettings?.companyName || "Milatte Dairy Farms";
 
 	return (
 		<NextIntlClientProvider locale={locale} messages={messages}>
 			<CookieConsentProvider>
 				<NavbarVariantProvider>
 					<div className="flex flex-col min-h-screen">
-						<Navbar config={siteConfig} logoUrl={logoUrl} socialMedia={socialMedia} />
+						<Navbar config={siteConfig} logoUrl={logoUrl} companyName={companyName} socialMedia={socialMedia} />
 						<main className="flex-1 w-full">{children}</main>
 						<Footer
 							config={siteConfig}
 							footerSettings={footerSettings}
 							logoUrl={logoUrl}
+							companyName={companyName}
 						/>
 						<MobileBottomNav />
 						<CallbackPopup />

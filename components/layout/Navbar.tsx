@@ -39,10 +39,11 @@ interface SocialMedia {
 interface NavbarProps {
 	config: SiteConfigType;
 	logoUrl?: string;
+	companyName?: string;
 	socialMedia?: SocialMedia;
 }
 
-export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
+export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProps) {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMounted, setIsMounted] = useState(false);
 	const { data: navigationData } = useNavigation();
@@ -75,7 +76,7 @@ export function Navbar({ config, logoUrl, socialMedia }: NavbarProps) {
 					>
 						<div className="_container">
 							<div className="flex bg-none items-center justify-between gap-1 lg:gap-2">
-								<Logo logoUrl={logoUrl} />
+								<Logo logoUrl={logoUrl} companyName={companyName} />
 								<div className="hidden lg:flex items-center justify-center flex-1" />
 								<div className="hidden lg:flex items-center" />
 								<div className="hidden xl:flex items-center gap-2 shrink-0" />
