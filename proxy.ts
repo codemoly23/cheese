@@ -132,15 +132,8 @@ export async function proxy(request: NextRequest) {
 	}
 
 	// No locale in pathname - this is for default locale (en)
-	// Check if user prefers a different locale from cookie or Accept-Language header
-	const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value as Locale | undefined;
-
-	// If cookie indicates a non-default locale, redirect to that locale
-	if (cookieLocale && cookieLocale !== defaultLocale && locales.includes(cookieLocale)) {
-		const newUrl = new URL(`/${cookieLocale}${pathname}`, request.url);
-		newUrl.search = request.nextUrl.search;
-		return NextResponse.redirect(newUrl);
-	}
+	// Don't auto-redirect based on cookie - let users manually switch languages
+	// The cookie is only used for persistence after manual language switch
 
 	// Default locale - rewrite internally to include locale for routing
 	// This makes /about internally route to /en/about so [locale] segment works
