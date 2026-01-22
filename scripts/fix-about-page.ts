@@ -170,14 +170,14 @@ async function fixAboutPage() {
 		console.log(`Document ID: ${result._id}`);
 
 		// Verify the data
-		const verification = await AboutPage.findOne({});
+		const verification = await AboutPage.findOne({}) as Record<string, unknown> | null;
 		console.log("\nVerifying inserted data:");
-		console.log(`- Has history section: ${!!verification.history}`);
-		console.log(`- Has customers section: ${!!verification.customers}`);
-		console.log(`- Has team section: ${!!verification.team}`);
-		console.log(`- Has contact section: ${!!verification.contact}`);
-		console.log(`- Has OLD mission section: ${!!verification.mission}`);
-		console.log(`- Has OLD stats section: ${!!verification.stats}`);
+		console.log(`- Has history section: ${!!verification?.history}`);
+		console.log(`- Has customers section: ${!!verification?.customers}`);
+		console.log(`- Has team section: ${!!verification?.team}`);
+		console.log(`- Has contact section: ${!!verification?.contact}`);
+		console.log(`- Has OLD mission section: ${!!verification?.mission}`);
+		console.log(`- Has OLD stats section: ${!!verification?.stats}`);
 
 		console.log("\n========================================");
 		console.log("ABOUT PAGE FIXED SUCCESSFULLY!");

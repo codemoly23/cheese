@@ -21,7 +21,7 @@ const Logo = ({
 			width={0}
 			height={0}
 			sizes="100vw"
-			className="h-12 w-32 sm:h-14 sm:w-40 lg:h-14 lg:w-40 p-2 py-1.5 rounded"
+			className="h-14 w-36 sm:h-16 sm:w-44 lg:h-16 lg:w-48 p-2 py-1.5 rounded"
 		/>
 	) : (
 		<div className="text-xl sm:text-2xl font-bold text-white px-2">

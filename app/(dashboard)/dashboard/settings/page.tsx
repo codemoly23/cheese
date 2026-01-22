@@ -60,9 +60,9 @@ const officeSchema = z.object({
 });
 
 const footerLinkSchema = z.object({
-	label: z.string().optional().default(""),
-	href: z.string().optional().default(""),
-	isExternal: z.boolean().optional().default(false),
+	label: z.string(),
+	href: z.string(),
+	isExternal: z.boolean(),
 });
 
 const footerBannerSchema = z.object({
@@ -118,11 +118,11 @@ const settingsFormSchema = z.object({
 		quickLinksTitle: z.string().optional(),
 		contactTitle: z.string().optional(),
 		newsletterTitle: z.string().optional(),
-		quickLinks: z.array(footerLinkSchema).optional(),
+		quickLinks: z.array(footerLinkSchema),
 		newsletterDescription: z.string().optional(),
 		newsletterPlaceholder: z.string().optional(),
 		newsletterButtonText: z.string().optional(),
-		bottomLinks: z.array(footerLinkSchema).optional(),
+		bottomLinks: z.array(footerLinkSchema),
 	}),
 });
 

@@ -221,7 +221,7 @@ export function CallbackPopup() {
 					)}
 				>
 					<p className="font-semibold text-secondary text-sm">
-						Synos Medical
+						Glada Bonden Mejeri AB
 					</p>
 					<p className="text-slate-600 text-sm mt-1">Prata med oss!</p>
 					<p className="text-slate-500 text-xs mt-1">
@@ -364,26 +364,8 @@ export function CallbackPopup() {
 
 								{/* Logo */}
 								<div className="flex flex-col items-center gap-2">
-									<svg
-										className="w-32 h-auto"
-										viewBox="0 0 120 24"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<text
-											x="0"
-											y="20"
-											fill="white"
-											fontSize="24"
-											fontWeight="bold"
-											fontFamily="system-ui, sans-serif"
-											letterSpacing="4"
-										>
-											SYNOS
-										</text>
-									</svg>
-									<span className="text-xs text-white/70 tracking-widest uppercase">
-										Medical Equipment
+									<span className="text-xl font-bold text-white tracking-wide">
+										Glada Bonden Mejeri AB
 									</span>
 								</div>
 

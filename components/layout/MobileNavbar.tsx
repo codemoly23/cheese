@@ -144,7 +144,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 										{/* Dynamic Produkter menu */}
 										{item.isDynamic ? (
 											<>
-												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary">
+												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary uppercase">
 													<span className="flex-1 text-left">
 														{t(item.titleKey)}
 													</span>
@@ -222,7 +222,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 										) : item.items ? (
 											// Static menu items with subitems (Starta Eget, Om Oss)
 											<>
-												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary">
+												<AccordionTrigger className="px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 hover:no-underline rounded-lg transition-all data-[state=open]:bg-secondary/5 data-[state=open]:text-secondary uppercase">
 													<span className="flex-1 text-left">
 														{t(item.titleKey)}
 													</span>
@@ -246,7 +246,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 											// Simple link items (Nyheter och artiklar, Utbildningar, Kontakt)
 											<Link
 												href={item.href}
-												className="flex items-center px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 rounded-lg transition-all"
+												className="flex items-center px-3 py-2.5 text-sm font-medium text-secondary hover:text-secondary hover:bg-secondary/5 rounded-lg transition-all uppercase"
 												onClick={() => setOpen(false)}
 											>
 												{t(item.titleKey)}
