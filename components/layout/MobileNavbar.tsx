@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { User } from "lucide-react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface MobileNavbarProps {
 	useLightText?: boolean;
@@ -86,7 +87,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 					{/* Compact Header */}
 					<div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-gray-100">
 						<div onClick={() => setOpen(false)}>
-							<Logo />
+							<Logo textClassName="text-secondary" />
 						</div>
 						<SheetClose asChild>
 							<button className="p-2 rounded-full hover:bg-gray-100 transition-colors">
@@ -97,16 +98,19 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 
 					{/* Search Section */}
 					<div className="shrink-0 px-4 py-3 border-b border-gray-100">
-						<form onSubmit={handleSearch} className="relative">
-							<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-							<Input
-								type="text"
-								value={searchValue}
-								onChange={(e) => setSearchValue(e.target.value)}
-								placeholder={t("searchPlaceholder")}
-								className="pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-primary"
-							/>
-						</form>
+						<div className="flex items-center gap-2">
+							<form onSubmit={handleSearch} className="relative flex-1">
+								<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+								<Input
+									type="text"
+									value={searchValue}
+									onChange={(e) => setSearchValue(e.target.value)}
+									placeholder={t("searchPlaceholder")}
+									className="pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-primary"
+								/>
+							</form>
+							<LanguageSwitcher variant="compact" theme="light" />
+						</div>
 					</div>
 
 					{/* User Profile Section - Show dashboard if logged in, login link if not */}

@@ -6,6 +6,7 @@ interface LogoProps {
 	className?: string;
 	logoUrl?: string;
 	companyName?: string;
+	textClassName?: string;
 }
 
 const Logo = ({
@@ -13,6 +14,7 @@ const Logo = ({
 	className = "shrink-0",
 	logoUrl,
 	companyName = "Milatte Farm",
+	textClassName = "text-white",
 }: LogoProps) => {
 	const content = logoUrl ? (
 		<ImageComponent
@@ -24,7 +26,7 @@ const Logo = ({
 			className="h-14 w-36 sm:h-16 sm:w-44 lg:h-16 lg:w-48 p-2 py-1.5 rounded"
 		/>
 	) : (
-		<div className="text-xl sm:text-2xl font-bold text-white px-2">
+		<div className={`text-xl sm:text-2xl font-bold ${textClassName} px-2`}>
 			{companyName}
 		</div>
 	);

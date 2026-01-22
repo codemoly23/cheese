@@ -3,39 +3,41 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Home, Package, Phone, Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils/cn";
 
 interface NavItem {
-	label: string;
+	labelKey: string;
 	href: string;
 	icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }
 
 const navItems: NavItem[] = [
 	{
-		label: "Hem",
+		labelKey: "home",
 		href: "/",
 		icon: Home,
 	},
 	{
-		label: "Produkter",
-		href: "/produkter",
+		labelKey: "products",
+		href: "/products",
 		icon: Package,
 	},
 	{
-		label: "Om Oss",
-		href: "/om-oss",
+		labelKey: "about",
+		href: "/about-us",
 		icon: Info,
 	},
 	{
-		label: "Kontakt",
-		href: "/kontakt",
+		labelKey: "contact",
+		href: "/contact-us",
 		icon: Phone,
 	},
 ];
 
 export function MobileBottomNav() {
 	const pathname = usePathname();
+	const t = useTranslations("navigation");
 
 	const isActive = (href: string) => {
 		if (href === "/") {
@@ -119,7 +121,7 @@ export function MobileBottomNav() {
 												: "text-gray-500 group-hover:text-primary/70"
 										)}
 									>
-										{item.label}
+										{t(item.labelKey)}
 									</span>
 								</Link>
 							);

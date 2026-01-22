@@ -22,9 +22,10 @@ import {
 
 interface LanguageSwitcherProps {
 	variant?: "default" | "compact";
+	theme?: "dark" | "light";
 }
 
-export function LanguageSwitcher({ variant = "default" }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ variant = "default", theme = "dark" }: LanguageSwitcherProps) {
 	const locale = useLocale() as Locale;
 	const pathname = usePathname();
 	const [isPending, startTransition] = useTransition();
@@ -71,7 +72,10 @@ export function LanguageSwitcher({ variant = "default" }: LanguageSwitcherProps)
 					variant="ghost"
 					size={variant === "compact" ? "sm" : "md"}
 					className={cn(
-						"gap-1.5 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200",
+						"gap-1.5 transition-all duration-200",
+						theme === "dark"
+							? "text-white/70 hover:text-white hover:bg-white/10"
+							: "text-secondary/70 hover:text-secondary hover:bg-secondary/10",
 						isPending && "opacity-70 pointer-events-none"
 					)}
 					disabled={isPending}
