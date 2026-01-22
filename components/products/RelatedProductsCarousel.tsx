@@ -134,7 +134,7 @@ export function RelatedProductsCarousel({
 								className="flex-shrink-0 w-[280px] md:w-[300px] snap-start"
 							>
 								<Link
-									href={`/produkter/produkt/${product.slug}`}
+									href={`/products/category/${product.primaryCategory?.slug || product.categories?.[0]?.slug || "uncategorized"}/${product.slug}`}
 									className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
 								>
 									{/* Product Image */}

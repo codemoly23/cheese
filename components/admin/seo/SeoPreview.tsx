@@ -123,7 +123,7 @@ function GoogleDesktopPreview({
 		"Add a meta description to improve your search appearance.";
 	const displayUrl = `https://${
 		data.siteUrl || defaultDomain
-	}/produkter/produkt/${data.slug || "product-slug"}`;
+	}/products/category/uncategorized/${data.slug || "product-slug"}`;
 
 	// Desktop shows more characters
 	const truncatedTitle =

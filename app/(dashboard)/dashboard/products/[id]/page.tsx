@@ -380,7 +380,7 @@ export default function EditProductPage() {
 						{product.visibility == "public" &&
 							product.publishType == "publish" && (
 								<Link
-									href={`/produkter/produkt/${product.slug}`}
+									href={`/products/category/${(product.primaryCategory as { slug?: string })?.slug || (product.categories as { slug?: string }[])?.[0]?.slug || "uncategorized"}/${product.slug}`}
 									target="_blank"
 								>
 									<Button variant="outline" size="sm">

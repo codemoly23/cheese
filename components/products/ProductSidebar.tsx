@@ -50,7 +50,7 @@ export function ProductSidebar({
 						{categories.map((category) => (
 							<Link
 								key={category.id}
-								href={`/produkter/${category.slug}`}
+								href={`/products/category/${category.slug}`}
 								className={`block rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
 									activeCategory === category.slug
 										? "bg-primary text-primary-foreground"

@@ -93,7 +93,7 @@ export function Navbar({ config }: NavbarProps) {
 																				className="space-y-2"
 																			>
 																				<Link
-																					href={`/kategori/${category.slug}`}
+																					href={`/products/category/${category.slug}`}
 																					className="block text-sm font-bold text-secondary hover:text-secondary hover:underline transition-colors"
 																				>
 																					{category.name}
@@ -111,7 +111,7 @@ export function Navbar({ config }: NavbarProps) {
 																									}
 																								>
 																									<Link
-																										href={`/kategori/${product.primaryCategorySlug}/${product.slug}`}
+																										href={`/products/category/${product.primaryCategorySlug}/${product.slug}`}
 																										className="block text-sm text-slate-400 hover:text-secondary transition-colors line-clamp-1 hover:underline"
 																									>
 																										{

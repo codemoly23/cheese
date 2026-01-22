@@ -2,7 +2,7 @@
  * Product Categories Sitemap
  *
  * Generates sitemap for all product categories.
- * URL Pattern: /klinikutrustning/[slug]/
+ * URL Pattern: /products/category/[slug]/
  *
  * Matches WordPress: product_category-sitemap.xml
  */

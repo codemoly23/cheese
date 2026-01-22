@@ -103,7 +103,7 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
 								asChild
 								className="bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"
 							>
-								<Link href={`/produkter/produkt/${product.slug}`}>
+								<Link href={`/products/category/${product.categories?.[0] || "uncategorized"}/${product.slug}`}>
 									Läs mer & Specifikationer
 								</Link>
 							</Button>
@@ -116,7 +116,7 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
 
 	// Grid variant
 	return (
-		<Link href={`/produkter/produkt/${product.slug}`}>
+		<Link href={`/products/category/${product.categories?.[0] || "uncategorized"}/${product.slug}`}>
 			<Card className="group h-full overflow-hidden border-primary/10 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 translate transition-all duration-300 p-0!">
 				{/* Image */}
 				<div className="relative h-56 overflow-hidden bg-primary/50">

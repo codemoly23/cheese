@@ -9,8 +9,8 @@
  * - News categories: /nyheter/category/[slug]/
  * - News tags: /nyheter/tag/[slug]/
  * - News authors: /nyheter/author/[slug]/
- * - Products: /klinikutrustning/[category]/[slug]/
- * - Product categories: /klinikutrustning/[slug]/
+ * - Products: /products/category/[category]/[slug]/
+ * - Product categories: /products/category/[slug]/
  */
 
 import { getSiteUrl } from "@/config/site";
@@ -93,21 +93,21 @@ export function buildAuthorUrl(slug: string): string {
 
 /**
  * Build product URL
- * Pattern: /klinikutrustning/[category]/[slug]/
+ * Pattern: /products/category/[category]/[slug]/
  */
 export function buildProductUrl(
 	categorySlug: string,
 	productSlug: string
 ): string {
-	return `${SITEMAP_CONFIG.baseUrl}/klinikutrustning/${categorySlug}/${productSlug}`;
+	return `${SITEMAP_CONFIG.baseUrl}/products/category/${categorySlug}/${productSlug}`;
 }
 
 /**
  * Build product category URL
- * Pattern: /klinikutrustning/[slug]/
+ * Pattern: /products/category/[slug]/
  */
 export function buildProductCategoryUrl(slug: string): string {
-	return `${SITEMAP_CONFIG.baseUrl}/klinikutrustning/${slug}`;
+	return `${SITEMAP_CONFIG.baseUrl}/products/category/${slug}`;
 }
 
 // ============================================================================

@@ -1986,7 +1986,7 @@ export function ProductForm({
 													<Label>URL</Label>
 													<Input
 														{...register(`productVariants.${index}.url`)}
-														placeholder="e.g., /produkter/produkt/baby-loaf"
+														placeholder="e.g., /products/category/cheese/baby-loaf"
 														disabled={isLoading}
 													/>
 												</div>

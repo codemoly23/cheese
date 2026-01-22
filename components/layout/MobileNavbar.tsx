@@ -254,7 +254,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																					{category.products.map((product) => (
 																						<Link
 																							key={product._id}
-																							href={`/kategori/${product.primaryCategorySlug}/${product.slug}`}
+																							href={`/products/category/${product.primaryCategorySlug}/${product.slug}`}
 																							className="block px-3 py-1.5 text-xs text-gray-500 hover:text-secondary hover:bg-secondary/5 rounded-md transition-all"
 																							onClick={() => setOpen(false)}
 																						>
@@ -262,7 +262,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																						</Link>
 																					))}
 																					<Link
-																						href={`/kategori/${category.slug}`}
+																						href={`/products/category/${category.slug}`}
 																						className="block px-3 py-1.5 text-xs text-secondary font-medium hover:underline"
 																						onClick={() => setOpen(false)}
 																					>
@@ -274,7 +274,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																	) : (
 																		/* Category without products - just a link */
 																		<Link
-																			href={`/kategori/${category.slug}`}
+																			href={`/products/category/${category.slug}`}
 																			className="flex items-center px-3 py-2 text-sm font-medium text-primary hover:text-primary/80 hover:bg-secondary/5 rounded-lg transition-all"
 																			onClick={() => setOpen(false)}
 																		>

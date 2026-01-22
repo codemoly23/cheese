@@ -141,7 +141,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 															(category) => (
 																<div key={category._id}>
 																	<Link
-																		href={`/kategori/${category.slug}`}
+																		href={`/products/category/${category.slug}`}
 																		className="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 hover:text-secondary hover:bg-secondary/5 rounded-lg transition-all"
 																		onClick={() =>
 																			setOpen(false)
@@ -163,7 +163,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																						key={
 																							product._id
 																						}
-																						href={`/kategori/${product.primaryCategorySlug}/${product.slug}`}
+																						href={`/products/category/${product.primaryCategorySlug}/${product.slug}`}
 																						className="block px-3 py-1.5 text-xs text-gray-500 hover:text-secondary hover:bg-secondary/5 rounded-md transition-all"
 																						onClick={() =>
 																							setOpen(
@@ -179,7 +179,7 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 																			{category.products
 																				.length > 3 && (
 																				<Link
-																					href={`/kategori/${category.slug}`}
+																					href={`/products/category/${category.slug}`}
 																					className="block px-3 py-1.5 text-xs text-secondary font-medium hover:underline"
 																					onClick={() =>
 																						setOpen(false)

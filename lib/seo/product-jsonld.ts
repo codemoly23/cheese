@@ -8,7 +8,7 @@ import { getSiteConfig, getSiteUrl, type SiteConfigType } from "@/config/site";
 export async function generateProductJsonLd(product: ProductType) {
 	const siteConfig = await getSiteConfig();
 	const baseUrl = siteConfig.url;
-	const productUrl = `${baseUrl}/produkter/produkt/${product.slug}`;
+	const productUrl = `${baseUrl}/products/category/uncategorized/${product.slug}`;
 	const images = product.productImages?.length
 		? product.productImages.map((img) =>
 				img.startsWith("http") ? img : `${baseUrl}${img}`
@@ -67,7 +67,7 @@ export async function generateBreadcrumbJsonLd(
 			"@type": "ListItem" as const,
 			position: 2,
 			name: "Produkter",
-			item: `${baseUrl}/produkter`,
+			item: `${baseUrl}/products`,
 		},
 	];
 
@@ -77,20 +77,20 @@ export async function generateBreadcrumbJsonLd(
 			"@type": "ListItem" as const,
 			position: 3,
 			name: categoryName,
-			item: `${baseUrl}/produkter/kategori/${product.categories[0].slug}`,
+			item: `${baseUrl}/products/category/${product.categories[0].slug}`,
 		});
 		items.push({
 			"@type": "ListItem" as const,
 			position: 4,
 			name: product.title,
-			item: `${baseUrl}/produkter/produkt/${product.slug}`,
+			item: `${baseUrl}/products/category/uncategorized/${product.slug}`,
 		});
 	} else {
 		items.push({
 			"@type": "ListItem" as const,
 			position: 3,
 			name: product.title,
-			item: `${baseUrl}/produkter/produkt/${product.slug}`,
+			item: `${baseUrl}/products/category/uncategorized/${product.slug}`,
 		});
 	}
 

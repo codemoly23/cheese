@@ -321,7 +321,7 @@ export function InquiryDetail({ submission }: InquiryDetailProps) {
 											<p className="font-medium">{submission.productName}</p>
 											{submission.productSlug && (
 												<Link
-													href={`/produkter/produkt/${submission.productSlug}`}
+													href={`/products/category/uncategorized/${submission.productSlug}`}
 													target="_blank"
 													className="text-primary hover:underline flex items-center gap-1 text-sm"
 												>

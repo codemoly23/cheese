@@ -11,7 +11,7 @@ export interface NavItem {
 /**
  * Main Navigation Configuration
  *
- * Navigation Order: Home | About Us | Quality | Products | Our Store | Become Our Reseller | Contact Us | Blog
+ * Navigation Order: Home | About Us | Quality | Products | Our Store | Blog | Become Our Reseller | Contact Us
  *
  * Uses translation keys from messages/[locale].json -> navigation namespace
  */
@@ -42,6 +42,11 @@ export const mainNavNew: NavItem[] = [
 		href: "/our-store",
 	},
 	{
+		titleKey: "blog",
+		title: "Blog",
+		href: "/blog",
+	},
+	{
 		titleKey: "becomeReseller",
 		title: "Become Our Reseller",
 		href: "/become-our-reseller",
@@ -50,10 +55,5 @@ export const mainNavNew: NavItem[] = [
 		titleKey: "contact",
 		title: "Contact Us",
 		href: "/contact-us",
-	},
-	{
-		titleKey: "blog",
-		title: "Blog",
-		href: "/blog",
 	},
 ];

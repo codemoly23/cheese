@@ -136,7 +136,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																				className="space-y-0"
 																			>
 																				<Link
-																					href={`/kategori/${category.slug}`}
+																					href={`/products/category/${category.slug}`}
 																					className="block text-sm font-bold text-primary hover:text-primary/80 hover:underline transition-colors"
 																				>
 																					{category.name}
@@ -154,7 +154,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																									}
 																								>
 																									<Link
-																										href={`/kategori/${product.primaryCategorySlug}/${product.slug}`}
+																										href={`/products/category/${product.primaryCategorySlug}/${product.slug}`}
 																										className="block text-sm text-slate-600 hover:text-secondary transition-colors line-clamp-1 hover:underline"
 																									>
 																										{

@@ -2,7 +2,7 @@
  * Products Sitemap
  *
  * Generates sitemap for all published products.
- * URL Pattern: /klinikutrustning/[category]/[slug]/
+ * URL Pattern: /products/[category]/[slug]/
  *
  * Matches WordPress: product-sitemap.xml
  */
@@ -29,9 +29,9 @@ export async function GET(): Promise<NextResponse> {
 
 		const urls: SitemapUrl[] = [];
 
-		// Add main products listing page (at /klinikutrustning/)
+		// Add main products listing page (at /products/)
 		urls.push({
-			loc: `${SITEMAP_CONFIG.baseUrl}/klinikutrustning`,
+			loc: `${SITEMAP_CONFIG.baseUrl}/products`,
 			lastmod: formatSitemapDate(new Date()),
 			changefreq: SITEMAP_CONFIG.changeFreq.listing,
 			priority: SITEMAP_CONFIG.priority.mainListing,

@@ -53,16 +53,16 @@ const officeSchema = z.object({
 	street: z.string().min(1, "Street is required"),
 	postalCode: z.string().min(1, "Postal code is required"),
 	city: z.string().min(1, "City is required"),
-	country: z.string(),
-	isHeadquarters: z.boolean(),
-	isVisible: z.boolean(),
+	country: z.string().default(""),
+	isHeadquarters: z.boolean().default(false),
+	isVisible: z.boolean().default(true),
 	mapEmbedUrl: z.string().optional(),
 });
 
 const footerLinkSchema = z.object({
 	label: z.string(),
 	href: z.string(),
-	isExternal: z.boolean(),
+	isExternal: z.boolean().default(false),
 });
 
 const footerBannerSchema = z.object({
@@ -257,11 +257,17 @@ export default function SettingsPage() {
 						quickLinksTitle: settings.footer?.quickLinksTitle || "Links",
 						contactTitle: settings.footer?.contactTitle || "Office",
 						newsletterTitle: settings.footer?.newsletterTitle || "Stay Updated",
-						quickLinks: settings.footer?.quickLinks || [],
+						quickLinks: (settings.footer?.quickLinks || []).map((link: { label: string; href: string; isExternal?: boolean }) => ({
+							...link,
+							isExternal: link.isExternal ?? false,
+						})),
 						newsletterDescription: settings.footer?.newsletterDescription || "",
 						newsletterPlaceholder: settings.footer?.newsletterPlaceholder || "Your email address",
 						newsletterButtonText: settings.footer?.newsletterButtonText || "Subscribe",
-						bottomLinks: settings.footer?.bottomLinks || [],
+						bottomLinks: (settings.footer?.bottomLinks || []).map((link: { label: string; href: string; isExternal?: boolean }) => ({
+							...link,
+							isExternal: link.isExternal ?? false,
+						})),
 					},
 				});
 			} catch (error) {
