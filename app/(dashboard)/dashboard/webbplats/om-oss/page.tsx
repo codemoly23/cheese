@@ -21,6 +21,9 @@ import {
 	Linkedin,
 	Building2,
 	GripVertical,
+	Play,
+	Images,
+	BarChart3,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -90,12 +93,58 @@ const formSchema = z.object({
 			)
 			.optional(),
 	}),
+	video: z.object({
+		backgroundImage: z.string().optional(),
+		titleHighlighted: z.string().optional(),
+		titleNormal: z.string().optional(),
+		videoUrl: z.string().optional(),
+		buttonLabel: z.string().optional(),
+	}),
+	gallery: z.object({
+		backgroundImage: z.string().optional(),
+		backgroundColor: z.string().optional(),
+		title: z.string().optional(),
+		images: z
+			.array(
+				z.object({
+					src: z.string().optional(),
+					alt: z.string().optional(),
+				})
+			)
+			.optional(),
+	}),
 	contact: z.object({
 		title: z.string().optional(),
 		subtitle: z.string().optional(),
 		showContactForm: z.boolean().optional(),
 		showMap: z.boolean().optional(),
 		showOffices: z.boolean().optional(),
+	}),
+	stats: z.object({
+		backgroundColor: z.string().optional(),
+		items: z
+			.array(
+				z.object({
+					image: z.string().optional(),
+					value: z.string().optional(),
+					label: z.string().optional(),
+					description: z.string().optional(),
+				})
+			)
+			.optional(),
+	}),
+	imageDescription: z.object({
+		backgroundColor: z.string().optional(),
+		items: z
+			.array(
+				z.object({
+					image: z.string().optional(),
+					title: z.string().optional(),
+					description: z.string().optional(),
+					watermarkImage: z.string().optional(),
+				})
+			)
+			.optional(),
 	}),
 	seo: z.object({
 		title: z.string().optional(),
@@ -116,17 +165,25 @@ export default function AboutPageCMS() {
 			sectionVisibility: {
 				history: true,
 				customers: true,
+				video: true,
+				gallery: true,
 				team: true,
 				contact: true,
+				stats: true,
+				imageDescription: true,
 			},
 			history: { timelineItems: [] },
 			customers: { customers: [] },
+			video: {},
+			gallery: { backgroundColor: "#f5f0e8", images: [] },
 			team: { members: [] },
 			contact: {
 				showContactForm: true,
 				showMap: true,
 				showOffices: true,
 			},
+			stats: { backgroundColor: "#ffffff", items: [] },
+			imageDescription: { backgroundColor: "#f5f0e8", items: [] },
 			seo: {},
 		},
 	});
@@ -150,6 +207,24 @@ export default function AboutPageCMS() {
 		remove: removeTeamMember,
 	} = useFieldArray({ control: form.control, name: "team.members" });
 
+	const {
+		fields: galleryFields,
+		append: appendGalleryImage,
+		remove: removeGalleryImage,
+	} = useFieldArray({ control: form.control, name: "gallery.images" });
+
+	const {
+		fields: statsFields,
+		append: appendStatItem,
+		remove: removeStatItem,
+	} = useFieldArray({ control: form.control, name: "stats.items" });
+
+	const {
+		fields: imageDescriptionFields,
+		append: appendImageDescriptionItem,
+		remove: removeImageDescriptionItem,
+	} = useFieldArray({ control: form.control, name: "imageDescription.items" });
+
 	// Fetch initial data
 	useEffect(() => {
 		const fetchData = async () => {
@@ -162,8 +237,12 @@ export default function AboutPageCMS() {
 					sectionVisibility: data.sectionVisibility || {
 						history: true,
 						customers: true,
+						video: true,
+						gallery: true,
 						team: true,
 						contact: true,
+						stats: true,
+						imageDescription: true,
 					},
 					history: {
 						badge: data.history?.badge || "",
@@ -176,6 +255,19 @@ export default function AboutPageCMS() {
 						subtitle: data.customers?.subtitle || "",
 						customers: data.customers?.customers || [],
 					},
+					video: {
+						backgroundImage: data.video?.backgroundImage || "",
+						titleHighlighted: data.video?.titleHighlighted || "",
+						titleNormal: data.video?.titleNormal || "",
+						videoUrl: data.video?.videoUrl || "",
+						buttonLabel: data.video?.buttonLabel || "",
+					},
+					gallery: {
+						backgroundImage: data.gallery?.backgroundImage || "",
+						backgroundColor: data.gallery?.backgroundColor || "#f5f0e8",
+						title: data.gallery?.title || "",
+						images: data.gallery?.images || [],
+					},
 					team: {
 						title: data.team?.title || "",
 						subtitle: data.team?.subtitle || "",
@@ -187,6 +279,14 @@ export default function AboutPageCMS() {
 						showContactForm: data.contact?.showContactForm ?? true,
 						showMap: data.contact?.showMap ?? true,
 						showOffices: data.contact?.showOffices ?? true,
+					},
+					stats: {
+						backgroundColor: data.stats?.backgroundColor || "#ffffff",
+						items: data.stats?.items || [],
+					},
+					imageDescription: {
+						backgroundColor: data.imageDescription?.backgroundColor || "#f5f0e8",
+						items: data.imageDescription?.items || [],
 					},
 					seo: data.seo || {},
 				});
@@ -283,9 +383,25 @@ export default function AboutPageCMS() {
 						<Building2 className="h-4 w-4" />
 						Our Customers
 					</TabsTrigger>
+					<TabsTrigger value="video" className="gap-2">
+						<Play className="h-4 w-4" />
+						Video
+					</TabsTrigger>
+					<TabsTrigger value="gallery" className="gap-2">
+						<Images className="h-4 w-4" />
+						Gallery
+					</TabsTrigger>
 					<TabsTrigger value="team" className="gap-2">
 						<Users className="h-4 w-4" />
 						Our Team
+					</TabsTrigger>
+					<TabsTrigger value="stats" className="gap-2">
+						<BarChart3 className="h-4 w-4" />
+						Stats
+					</TabsTrigger>
+					<TabsTrigger value="imageDescription" className="gap-2">
+						<Images className="h-4 w-4" />
+						Image & Description
 					</TabsTrigger>
 					<TabsTrigger value="contact" className="gap-2">
 						<Phone className="h-4 w-4" />
@@ -308,7 +424,11 @@ export default function AboutPageCMS() {
 							{[
 								{ key: "history", label: "History Section" },
 								{ key: "customers", label: "Our Customers" },
+								{ key: "video", label: "Video Section" },
+								{ key: "gallery", label: "Image Gallery" },
 								{ key: "team", label: "Our Team" },
+								{ key: "stats", label: "Stats Section" },
+								{ key: "imageDescription", label: "Image & Description" },
 								{ key: "contact", label: "Contact Section" },
 							].map(({ key, label }) => (
 								<div
@@ -579,6 +699,189 @@ export default function AboutPageCMS() {
 					</Card>
 				</TabsContent>
 
+				{/* Video Tab */}
+				<TabsContent value="video">
+					<Card>
+						<CardHeader>
+							<CardTitle>Video Section</CardTitle>
+							<CardDescription>Full-width video section with play button overlay</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							<div className="space-y-2">
+								<Label>Background Image</Label>
+								<MediaPicker
+									type="image"
+									value={form.watch("video.backgroundImage") || null}
+									onChange={(url) => form.setValue("video.backgroundImage", url || "")}
+									placeholder="Select background image"
+									galleryTitle="Select Background Image"
+								/>
+							</div>
+
+							<div className="grid gap-4 md:grid-cols-2">
+								<div className="space-y-2">
+									<Label>Title (Highlighted)</Label>
+									<Input
+										{...form.register("video.titleHighlighted")}
+										placeholder="e.g., Work Every Day"
+									/>
+									<p className="text-xs text-muted-foreground">
+										This text will have a colored background highlight
+									</p>
+								</div>
+								<div className="space-y-2">
+									<Label>Title (Normal)</Label>
+									<Input
+										{...form.register("video.titleNormal")}
+										placeholder="e.g., to Produce Delicious and Fresh Milk"
+									/>
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<Label>Video URL</Label>
+								<Input
+									{...form.register("video.videoUrl")}
+									placeholder="e.g., https://www.youtube.com/watch?v=..."
+								/>
+								<p className="text-xs text-muted-foreground">
+									Supports YouTube, Vimeo, or direct video URLs
+								</p>
+							</div>
+
+							<div className="space-y-2">
+								<Label>Button Label</Label>
+								<Input
+									{...form.register("video.buttonLabel")}
+									placeholder="e.g., video tour"
+								/>
+							</div>
+						</CardContent>
+					</Card>
+				</TabsContent>
+
+				{/* Gallery Tab */}
+				<TabsContent value="gallery">
+					<Card>
+						<CardHeader>
+							<CardTitle>Image Gallery Section</CardTitle>
+							<CardDescription>Horizontal image slider with lightbox (click to view larger)</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							{/* Background Options */}
+							<div className="space-y-4">
+								<Label className="text-base">Background</Label>
+								<p className="text-sm text-muted-foreground">
+									Choose either an image or a solid color. If both are set, the image will be used.
+								</p>
+								<div className="grid gap-4 md:grid-cols-2">
+									<div className="space-y-2">
+										<Label>Background Image</Label>
+										<MediaPicker
+											type="image"
+											value={form.watch("gallery.backgroundImage") || null}
+											onChange={(url) => form.setValue("gallery.backgroundImage", url || "")}
+											placeholder="Select background image"
+											galleryTitle="Select Background Image"
+										/>
+									</div>
+									<div className="space-y-2">
+										<Label>Background Color (fallback)</Label>
+										<div className="flex items-center gap-3">
+											<input
+												type="color"
+												{...form.register("gallery.backgroundColor")}
+												className="h-10 w-20 cursor-pointer rounded border"
+											/>
+											<Input
+												{...form.register("gallery.backgroundColor")}
+												placeholder="#f5f0e8"
+												className="max-w-[150px]"
+											/>
+										</div>
+										<p className="text-xs text-muted-foreground">
+											Used when no image is set
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<Label>Section Title/Description</Label>
+								<Textarea
+									{...form.register("gallery.title")}
+									placeholder="e.g., Our farm is not just a production facility but also an open space for visitors..."
+									rows={3}
+								/>
+							</div>
+
+							{/* Gallery Images */}
+							<div className="space-y-4">
+								<div className="flex items-center justify-between">
+									<Label className="text-base">Gallery Images</Label>
+									<Button
+										type="button"
+										variant="outline"
+										size="sm"
+										onClick={() => appendGalleryImage({ src: "", alt: "" })}
+									>
+										<Plus className="mr-2 h-4 w-4" />
+										Add Image
+									</Button>
+								</div>
+
+								{galleryFields.length === 0 && (
+									<p className="text-center text-muted-foreground py-8">
+										No images added yet. Click &quot;Add Image&quot; to get started.
+									</p>
+								)}
+
+								<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+									{galleryFields.map((field, index) => (
+										<div
+											key={field.id}
+											className="rounded-lg border p-4 space-y-3"
+										>
+											<div className="flex items-center justify-between">
+												<span className="text-sm font-medium">
+													Image {index + 1}
+												</span>
+												<Button
+													type="button"
+													variant="ghost"
+													size="sm"
+													onClick={() => removeGalleryImage(index)}
+												>
+													<Trash2 className="h-4 w-4 text-destructive" />
+												</Button>
+											</div>
+											<div className="space-y-2">
+												<MediaPicker
+													type="image"
+													value={form.watch(`gallery.images.${index}.src`) || null}
+													onChange={(url) =>
+														form.setValue(`gallery.images.${index}.src`, url || "")
+													}
+													placeholder="Select image"
+													galleryTitle="Select Gallery Image"
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label className="text-xs">Alt Text (optional)</Label>
+												<Input
+													{...form.register(`gallery.images.${index}.alt`)}
+													placeholder="Image description"
+													className="text-sm"
+												/>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+				</TabsContent>
+
 				{/* Team Tab */}
 				<TabsContent value="team">
 					<Card>
@@ -735,6 +1038,264 @@ export default function AboutPageCMS() {
 										</div>
 									</div>
 								))}
+							</div>
+						</CardContent>
+					</Card>
+				</TabsContent>
+
+				{/* Stats Tab */}
+				<TabsContent value="stats">
+					<Card>
+						<CardHeader>
+							<CardTitle>Stats Section</CardTitle>
+							<CardDescription>Display key numbers and statistics with images (e.g., number of cows, goats, liters per day)</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							{/* Background Color */}
+							<div className="space-y-2">
+								<Label>Background Color</Label>
+								<div className="flex items-center gap-3">
+									<input
+										type="color"
+										{...form.register("stats.backgroundColor")}
+										className="h-10 w-20 cursor-pointer rounded border"
+									/>
+									<Input
+										{...form.register("stats.backgroundColor")}
+										placeholder="#ffffff"
+										className="max-w-[150px]"
+									/>
+									<span className="text-sm text-muted-foreground">
+										Choose or enter a hex color
+									</span>
+								</div>
+							</div>
+
+							{/* Stat Items */}
+							<div className="space-y-4">
+								<div className="flex items-center justify-between">
+									<Label className="text-base">Stat Items</Label>
+									<Button
+										type="button"
+										variant="outline"
+										size="sm"
+										onClick={() =>
+											appendStatItem({ image: "", value: "", label: "", description: "" })
+										}
+									>
+										<Plus className="mr-2 h-4 w-4" />
+										Add Stat
+									</Button>
+								</div>
+
+								{statsFields.length === 0 && (
+									<p className="text-center text-muted-foreground py-8">
+										No stats added yet. Click &quot;Add Stat&quot; to get started.
+									</p>
+								)}
+
+								<div className="grid gap-4 lg:grid-cols-2">
+									{statsFields.map((field, index) => (
+										<div
+											key={field.id}
+											className="rounded-lg border p-4 space-y-4"
+										>
+											<div className="flex items-center justify-between">
+												<span className="text-sm font-medium">
+													Stat {index + 1}
+												</span>
+												<Button
+													type="button"
+													variant="ghost"
+													size="sm"
+													onClick={() => removeStatItem(index)}
+												>
+													<Trash2 className="h-4 w-4 text-destructive" />
+												</Button>
+											</div>
+
+											<div className="space-y-2">
+												<Label>Image</Label>
+												<MediaPicker
+													type="image"
+													value={form.watch(`stats.items.${index}.image`) || null}
+													onChange={(url) =>
+														form.setValue(`stats.items.${index}.image`, url || "")
+													}
+													placeholder="Select stat image (e.g., cow, goat, milk bottles)"
+													galleryTitle="Select Stat Image"
+												/>
+											</div>
+
+											<div className="grid gap-4 md:grid-cols-2">
+												<div className="space-y-2">
+													<Label>Value (Number)</Label>
+													<Input
+														{...form.register(`stats.items.${index}.value`)}
+														placeholder="e.g., 87, 236, 4K+"
+													/>
+													<p className="text-xs text-muted-foreground">
+														The large number to display
+													</p>
+												</div>
+												<div className="space-y-2">
+													<Label>Label</Label>
+													<Input
+														{...form.register(`stats.items.${index}.label`)}
+														placeholder="e.g., Cows, Goats, Liters per day"
+													/>
+													<p className="text-xs text-muted-foreground">
+														Text below the number
+													</p>
+												</div>
+											</div>
+
+											<div className="space-y-2">
+												<Label>Description (optional)</Label>
+												<Textarea
+													{...form.register(`stats.items.${index}.description`)}
+													placeholder="A brief description about this stat..."
+													rows={2}
+												/>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+				</TabsContent>
+
+				{/* Image Description Tab */}
+				<TabsContent value="imageDescription">
+					<Card>
+						<CardHeader>
+							<CardTitle>Image & Description Section</CardTitle>
+							<CardDescription>
+								Add image-description pairs with watermark backgrounds. Layout alternates automatically.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-6">
+							{/* Background Color */}
+							<div className="space-y-2 max-w-xs">
+								<Label>Section Background Color</Label>
+								<div className="flex gap-2">
+									<Input
+										{...form.register("imageDescription.backgroundColor")}
+										placeholder="#f5f0e8"
+									/>
+									<input
+										type="color"
+										value={form.watch("imageDescription.backgroundColor") || "#f5f0e8"}
+										onChange={(e) =>
+											form.setValue("imageDescription.backgroundColor", e.target.value)
+										}
+										className="w-10 h-10 rounded border cursor-pointer"
+									/>
+								</div>
+							</div>
+
+							{/* Items */}
+							<div className="space-y-4">
+								<div className="flex items-center justify-between">
+									<Label className="text-base font-semibold">Items</Label>
+									<Button
+										type="button"
+										variant="outline"
+										size="sm"
+										onClick={() =>
+											appendImageDescriptionItem({
+												image: "",
+												title: "",
+												description: "",
+												watermarkImage: "",
+											})
+										}
+									>
+										<Plus className="mr-2 h-4 w-4" />
+										Add Item
+									</Button>
+								</div>
+
+								{imageDescriptionFields.length === 0 && (
+									<p className="text-sm text-muted-foreground text-center py-8 border rounded-lg">
+										No items yet. Click &quot;Add Item&quot; to create your first image-description pair.
+									</p>
+								)}
+
+								<div className="space-y-6">
+									{imageDescriptionFields.map((field, index) => (
+										<div
+											key={field.id}
+											className="relative rounded-lg border p-6 space-y-4"
+										>
+											{/* Header with index and delete */}
+											<div className="flex items-center justify-between">
+												<span className="text-sm font-medium text-muted-foreground">
+													Item {index + 1} {index % 2 === 0 ? "(Image Left)" : "(Image Right)"}
+												</span>
+												<Button
+													type="button"
+													variant="ghost"
+													size="sm"
+													onClick={() => removeImageDescriptionItem(index)}
+													className="text-destructive hover:text-destructive"
+												>
+													<Trash2 className="h-4 w-4" />
+												</Button>
+											</div>
+
+											<div className="grid gap-4 md:grid-cols-2">
+												{/* Main Image */}
+												<div className="space-y-2">
+													<Label>Main Image</Label>
+													<MediaPicker
+														type="image"
+														value={form.watch(`imageDescription.items.${index}.image`) || null}
+														onChange={(url) =>
+															form.setValue(`imageDescription.items.${index}.image`, url || "")
+														}
+														placeholder="Select image"
+														galleryTitle="Select Main Image"
+													/>
+												</div>
+
+												{/* Watermark Image */}
+												<div className="space-y-2">
+													<Label>Watermark Image (Background)</Label>
+													<MediaPicker
+														type="image"
+														value={form.watch(`imageDescription.items.${index}.watermarkImage`) || null}
+														onChange={(url) =>
+															form.setValue(`imageDescription.items.${index}.watermarkImage`, url || "")
+														}
+														placeholder="Select watermark image"
+														galleryTitle="Select Watermark Image"
+													/>
+												</div>
+											</div>
+
+											{/* Title */}
+											<div className="space-y-2">
+												<Label>Title</Label>
+												<Input
+													{...form.register(`imageDescription.items.${index}.title`)}
+													placeholder="e.g., Natural & Organic Products"
+												/>
+											</div>
+
+											{/* Description */}
+											<div className="space-y-2">
+												<Label>Description</Label>
+												<Textarea
+													{...form.register(`imageDescription.items.${index}.description`)}
+													placeholder="Enter description text..."
+													rows={4}
+												/>
+											</div>
+										</div>
+									))}
+								</div>
 							</div>
 						</CardContent>
 					</Card>

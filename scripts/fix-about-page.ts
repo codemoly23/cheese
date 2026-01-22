@@ -41,8 +41,11 @@ const correctAboutPageData = {
 	sectionVisibility: {
 		history: true,
 		customers: true,
+		video: true,
+		gallery: true,
 		team: true,
 		contact: true,
+		stats: true,
 	},
 	history: {
 		badge: "Our Story",
@@ -98,6 +101,45 @@ const correctAboutPageData = {
 				name: "NK Department Store",
 				logo: "/storage/images/customers/nk.png",
 				industry: "Retail",
+			},
+		],
+	},
+	video: {
+		backgroundImage: "/storage/images/about/cows-field.jpg",
+		titleHighlighted: "Work Every Day",
+		titleNormal: "to Produce Delicious and Fresh Milk",
+		videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+		buttonLabel: "video tour",
+	},
+	gallery: {
+		// Background options - image takes priority, color is fallback
+		backgroundImage: "",
+		backgroundColor: "#f5f0e8",
+		title: "Our farm is not just a production facility but also an open space for visitors. We invite everyone to see how our products are made",
+		images: [
+			{
+				src: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=600&fit=crop",
+				alt: "Fresh milk in glass bottle",
+			},
+			{
+				src: "https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&h=500&fit=crop",
+				alt: "Fresh cream pouring into jar",
+			},
+			{
+				src: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&h=600&fit=crop",
+				alt: "Beautiful cow on the farm",
+			},
+			{
+				src: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=400&h=500&fit=crop",
+				alt: "Happy farmer with animals",
+			},
+			{
+				src: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&h=600&fit=crop",
+				alt: "Variety of artisan cheeses",
+			},
+			{
+				src: "https://images.unsplash.com/photo-1559561853-08451507cbe7?w=400&h=500&fit=crop",
+				alt: "Cheese making process",
 			},
 		],
 	},
@@ -174,6 +216,8 @@ async function fixAboutPage() {
 		console.log("\nVerifying inserted data:");
 		console.log(`- Has history section: ${!!verification?.history}`);
 		console.log(`- Has customers section: ${!!verification?.customers}`);
+		console.log(`- Has video section: ${!!verification?.video}`);
+		console.log(`- Has gallery section: ${!!verification?.gallery}`);
 		console.log(`- Has team section: ${!!verification?.team}`);
 		console.log(`- Has contact section: ${!!verification?.contact}`);
 		console.log(`- Has OLD mission section: ${!!verification?.mission}`);

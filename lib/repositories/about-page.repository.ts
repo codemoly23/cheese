@@ -5,8 +5,12 @@ import {
 	type IAboutPage,
 	type IHistorySection,
 	type ICustomersSection,
+	type IVideoSection,
+	type IGallerySection,
 	type ITeamSection,
 	type IContactSection,
+	type IStatsSection,
+	type IImageDescriptionSection,
 	type IAboutSectionVisibility,
 	type IAboutPageSeo,
 } from "@/models/about-page.model";
@@ -25,15 +29,33 @@ export interface UpdateAboutPageInput {
 	sectionVisibility?: IAboutSectionVisibility;
 	history?: Partial<IHistorySection>;
 	customers?: Partial<ICustomersSection>;
+	video?: Partial<IVideoSection>;
+	gallery?: Partial<IGallerySection>;
 	team?: Partial<ITeamSection>;
 	contact?: Partial<IContactSection>;
+	stats?: Partial<IStatsSection>;
+	imageDescription?: Partial<IImageDescriptionSection>;
 	seo?: Partial<IAboutPageSeo>;
 }
 
 /**
  * Plain object type for AboutPage
  */
-export type AboutPageData = Omit<IAboutPage, keyof Document>;
+export interface AboutPageData {
+	_id: string;
+	sectionVisibility: IAboutSectionVisibility;
+	history: IHistorySection;
+	customers: ICustomersSection;
+	video: IVideoSection;
+	gallery: IGallerySection;
+	team: ITeamSection;
+	contact: IContactSection;
+	stats: IStatsSection;
+	imageDescription: IImageDescriptionSection;
+	seo: IAboutPageSeo;
+	updatedAt: Date;
+	createdAt: Date;
+}
 
 /**
  * AboutPage Repository
@@ -77,12 +99,28 @@ class AboutPageRepository {
 			updateData.customers = data.customers;
 		}
 
+		if (data.video) {
+			updateData.video = data.video;
+		}
+
+		if (data.gallery) {
+			updateData.gallery = data.gallery;
+		}
+
 		if (data.team) {
 			updateData.team = data.team;
 		}
 
 		if (data.contact) {
 			updateData.contact = data.contact;
+		}
+
+		if (data.stats) {
+			updateData.stats = data.stats;
+		}
+
+		if (data.imageDescription) {
+			updateData.imageDescription = data.imageDescription;
 		}
 
 		if (data.seo) {
