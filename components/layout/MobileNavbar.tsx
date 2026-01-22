@@ -28,8 +28,16 @@ import { QuoteRequestModal } from "./QuoteRequestModal";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
-import { User } from "lucide-react";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { User, Globe, Check } from "lucide-react";
+import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
+import { locales, defaultLocale, localeFlags, localeLabels, type Locale } from "@/i18n/config";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface MobileNavbarProps {
 	useLightText?: boolean;
@@ -37,6 +45,8 @@ interface MobileNavbarProps {
 
 const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 	const router = useRouter();
+	const pathname = usePathname();
+	const locale = useLocale() as Locale;
 	const [open, setOpen] = useState(false);
 	const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
@@ -45,6 +55,40 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 	const { data: session } = authClient.useSession();
 	const t = useTranslations("navigation");
 	const tCommon = useTranslations("common");
+
+	const switchLocale = (newLocale: Locale) => {
+		if (newLocale === locale) return;
+
+		// Remove current locale prefix from pathname
+		let pathWithoutLocale = pathname;
+		for (const loc of locales) {
+			if (pathname === `/${loc}`) {
+				pathWithoutLocale = "/";
+				break;
+			}
+			if (pathname.startsWith(`/${loc}/`)) {
+				pathWithoutLocale = pathname.substring(loc.length + 1);
+				break;
+			}
+		}
+
+		// Build new URL
+		let newUrl: string;
+		if (newLocale === defaultLocale) {
+			newUrl = pathWithoutLocale || "/";
+		} else {
+			newUrl = `/${newLocale}${pathWithoutLocale}`;
+		}
+
+		// Set cookie for locale persistence
+		document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
+
+		// Close menu first, then navigate
+		setOpen(false);
+		setTimeout(() => {
+			window.location.href = newUrl;
+		}, 100);
+	};
 
 	const handleQuoteClick = () => {
 		setOpen(false);
@@ -109,7 +153,33 @@ const MobileNavbar = ({ useLightText = false }: MobileNavbarProps) => {
 									className="pl-10 pr-4 h-10 bg-gray-50 border-gray-200 rounded-lg text-sm focus:ring-primary"
 								/>
 							</form>
-							<LanguageSwitcher variant="compact" theme="light" />
+							{/* Language Switcher Dropdown */}
+							<DropdownMenu modal={false}>
+								<DropdownMenuTrigger asChild>
+									<button className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-secondary bg-gray-100 hover:bg-gray-200 rounded-lg transition-all">
+										<Globe className="h-3.5 w-3.5" />
+										<span>{localeFlags[locale]} {locale.toUpperCase()}</span>
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="end" className="min-w-[120px]">
+									{locales.map((loc) => (
+										<DropdownMenuItem
+											key={loc}
+											onClick={() => switchLocale(loc)}
+											className={cn(
+												"cursor-pointer flex items-center justify-between gap-2",
+												loc === locale && "bg-accent font-medium"
+											)}
+										>
+											<span className="flex items-center gap-2">
+												<span>{localeFlags[loc]}</span>
+												<span>{localeLabels[loc]}</span>
+											</span>
+											{loc === locale && <Check className="h-4 w-4 text-primary" />}
+										</DropdownMenuItem>
+									))}
+								</DropdownMenuContent>
+							</DropdownMenu>
 						</div>
 					</div>
 

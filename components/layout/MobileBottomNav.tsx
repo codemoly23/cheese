@@ -3,8 +3,9 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Home, Package, Phone, Info } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { cn } from "@/lib/utils/cn";
+import { defaultLocale, type Locale } from "@/i18n/config";
 
 interface NavItem {
 	labelKey: string;
@@ -37,13 +38,33 @@ const navItems: NavItem[] = [
 
 export function MobileBottomNav() {
 	const pathname = usePathname();
+	const locale = useLocale() as Locale;
 	const t = useTranslations("navigation");
+
+	// Get locale-prefixed href
+	const getLocalizedHref = (href: string) => {
+		if (locale === defaultLocale) {
+			return href;
+		}
+		return `/${locale}${href}`;
+	};
+
+	// Get pathname without locale prefix for comparison
+	const getPathWithoutLocale = () => {
+		if (locale !== defaultLocale && pathname.startsWith(`/${locale}`)) {
+			const stripped = pathname.substring(locale.length + 1);
+			return stripped || "/";
+		}
+		return pathname;
+	};
+
+	const pathWithoutLocale = getPathWithoutLocale();
 
 	const isActive = (href: string) => {
 		if (href === "/") {
-			return pathname === "/";
+			return pathWithoutLocale === "/";
 		}
-		return pathname.startsWith(href);
+		return pathWithoutLocale.startsWith(href);
 	};
 
 	// Find active index for indicator positioning
@@ -82,7 +103,7 @@ export function MobileBottomNav() {
 							return (
 								<Link
 									key={item.href}
-									href={item.href}
+									href={getLocalizedHref(item.href)}
 									className={cn(
 										"relative flex flex-col items-center justify-center flex-1 py-2.5 px-1 rounded-xl transition-all duration-300 group",
 										active ? "text-primary" : "text-gray-500"
