@@ -21,6 +21,46 @@ import {
 export interface UpdateHomePageInput {
 	sectionVisibility?: ISectionVisibility;
 	hero?: Partial<IHeroSection>;
+	categoryShowcase?: {
+		badge?: string;
+		title?: string;
+		maxCategories?: number;
+	};
+	productCarousel?: {
+		badge?: string;
+		title?: string;
+		maxProducts?: number;
+	};
+	promoBanner?: {
+		leftBanner?: {
+			badge?: string;
+			title?: string;
+			subtitle?: string;
+			description?: string;
+			image?: string;
+			ctaText?: string;
+			ctaHref?: string;
+		};
+		rightBanner?: {
+			badge?: string;
+			title?: string;
+			subtitle?: string;
+			description?: string;
+			image?: string;
+			ctaText?: string;
+			ctaHref?: string;
+		};
+	};
+	featureBanner?: {
+		image?: string;
+		title?: string;
+		titleHighlight?: string;
+		features?: Array<{
+			icon?: string;
+			title?: string;
+			description?: string;
+		}>;
+	};
 	features?: IFeatureHighlight[];
 	productShowcase?: Partial<IProductShowcaseSection>;
 	imageGallery?: Partial<IImageGallerySection>;
@@ -29,6 +69,7 @@ export interface UpdateHomePageInput {
 	testimonialsSection?: Partial<ITestimonialsSection>;
 	ctaSection?: Partial<ICtaSection>;
 	seo?: Partial<IHomePageSeo>;
+	richContent?: string;
 }
 
 /**
@@ -86,6 +127,38 @@ class HomePageRepository {
 			Object.entries(data.hero).forEach(([key, value]) => {
 				if (value !== undefined) {
 					updateData[`hero.${key}`] = value;
+				}
+			});
+		}
+
+		if (data.categoryShowcase) {
+			Object.entries(data.categoryShowcase).forEach(([key, value]) => {
+				if (value !== undefined) {
+					updateData[`categoryShowcase.${key}`] = value;
+				}
+			});
+		}
+
+		if (data.productCarousel) {
+			Object.entries(data.productCarousel).forEach(([key, value]) => {
+				if (value !== undefined) {
+					updateData[`productCarousel.${key}`] = value;
+				}
+			});
+		}
+
+		if (data.promoBanner) {
+			Object.entries(data.promoBanner).forEach(([key, value]) => {
+				if (value !== undefined) {
+					updateData[`promoBanner.${key}`] = value;
+				}
+			});
+		}
+
+		if (data.featureBanner) {
+			Object.entries(data.featureBanner).forEach(([key, value]) => {
+				if (value !== undefined) {
+					updateData[`featureBanner.${key}`] = value;
 				}
 			});
 		}
@@ -149,6 +222,10 @@ class HomePageRepository {
 					updateData[`seo.${key}`] = value;
 				}
 			});
+		}
+
+		if (data.richContent !== undefined) {
+			updateData.richContent = data.richContent;
 		}
 
 		// Use findOneAndUpdate with upsert and lean() to get plain object

@@ -18,9 +18,29 @@ export const trustIndicatorSchema = z.object({
 });
 
 /**
+ * Hero Slide schema - for slider-based hero
+ */
+export const heroSlideSchema = z.object({
+	badge: z.string().max(200).optional(),
+	title: z.string().max(500).optional(),
+	subtitle: z.string().max(1000).optional(),
+	backgroundImage: z.string().optional(),
+	ctaText: z.string().max(100).optional(),
+	ctaHref: z.string().max(500).optional(),
+	isActive: z.boolean().optional(),
+});
+
+/**
  * Hero Section schema - all fields optional to allow empty content
+ * Supports both single hero and slider mode
  */
 export const heroSectionSchema = z.object({
+	// Slider mode fields
+	isSlider: z.boolean().optional(),
+	slides: z.array(heroSlideSchema).optional(),
+	autoPlayInterval: z.number().min(1000).max(30000).optional(),
+	showArrows: z.boolean().optional(),
+	// Legacy single hero fields
 	badge: z.string().max(200).optional(),
 	title: z.string().max(200).optional(),
 	titleHighlight: z.string().max(200).optional(),
@@ -29,6 +49,7 @@ export const heroSectionSchema = z.object({
 	secondaryCta: ctaButtonSchema.optional(),
 	backgroundImage: z.string().optional(),
 	mainImage: z.string().optional(),
+	mobileImage: z.string().optional(),
 	trustIndicators: z.array(trustIndicatorSchema).optional(),
 });
 
@@ -147,7 +168,7 @@ export const productShowcaseSectionSchema = z.object({
 	subtitle: z.string().max(500).optional(),
 	ctaText: z.string().max(100).optional(),
 	ctaHref: z.string().max(500).optional(),
-	products: z.array(productShowcaseItemSchema),
+	products: z.array(productShowcaseItemSchema).optional(),
 });
 
 /**
@@ -166,7 +187,7 @@ export const imageGallerySectionSchema = z.object({
 	badge: z.string().max(100).optional(),
 	title: z.string().max(200).optional(),
 	subtitle: z.string().max(500).optional(),
-	images: z.array(galleryImageSchema),
+	images: z.array(galleryImageSchema).optional(),
 	ctaTitle: z.string().max(200).optional(),
 	ctaSubtitle: z.string().max(300).optional(),
 	ctaButtonText: z.string().max(100).optional(),
@@ -203,7 +224,7 @@ export const testimonialItemSchema = z.object({
 export const testimonialsSectionSchema = z.object({
 	title: z.string().max(200).optional(),
 	subtitle: z.string().max(500).optional(),
-	testimonials: z.array(testimonialItemSchema),
+	testimonials: z.array(testimonialItemSchema).optional(),
 });
 
 /**
@@ -301,6 +322,7 @@ export const updateHomePageSchema = z.object({
 	testimonialsSection: testimonialsSectionSchema.partial().optional(),
 	ctaSection: ctaSectionSchema.partial().optional(),
 	seo: homePageSeoSchema.partial().optional(),
+	richContent: z.string().optional(),
 });
 
 // Type exports

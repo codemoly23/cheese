@@ -11,6 +11,7 @@ import {
 } from "@/lib/utils/api-response";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { HOME_PAGE_CACHE_TAG } from "@/lib/services/home-page.service";
+import { locales } from "@/i18n/config";
 
 /**
  * GET /api/home-page
@@ -19,6 +20,11 @@ import { HOME_PAGE_CACHE_TAG } from "@/lib/services/home-page.service";
 export async function GET() {
 	try {
 		const homePage = await homePageRepository.get();
+
+		// Debug: Log fetched hero data
+		logger.info("GET - Fetched hero data", {
+			heroSlides: homePage.hero?.slides?.map((s: { title?: string }) => s.title),
+		});
 
 		return successResponse(homePage, "Home page content retrieved successfully");
 	} catch (error: unknown) {
@@ -48,6 +54,12 @@ export async function PUT(request: NextRequest) {
 
 		// Parse and validate request body
 		const body = await request.json();
+
+		// Debug: Log incoming hero data
+		logger.info("Incoming hero data from form", {
+			heroSlides: body.hero?.slides?.map((s: { title?: string }) => s.title),
+		});
+
 		const validationResult = updateHomePageSchema.safeParse(body);
 
 		if (!validationResult.success) {
@@ -60,18 +72,37 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
+		// Debug: Log validated data
+		logger.info("Validated hero data", {
+			heroSlides: validationResult.data.hero?.slides?.map((s: { title?: string }) => s.title),
+		});
+
 		// Update home page
 		const homePage = await homePageRepository.update(validationResult.data);
+
+		// Debug: Log saved data
+		logger.info("Saved hero data", {
+			heroSlides: homePage.hero?.slides?.map((s: { title?: string }) => s.title),
+		});
 
 		logger.info("Home page content updated", {
 			updatedBy: session.user.id,
 		});
 
-		// Revalidate cache tag for all home page queries
-		revalidateTag(HOME_PAGE_CACHE_TAG, "default");
+		// Revalidate cache tag for all home page queries (Next.js 16 requires "max" as second arg)
+		revalidateTag(HOME_PAGE_CACHE_TAG, "max");
 
-		// Revalidate home page
-		revalidatePath("/", "page");
+		// Revalidate home page for all locales
+		revalidatePath("/", "layout");
+		// Also revalidate each locale path explicitly
+		for (const locale of locales) {
+			revalidatePath(`/${locale}`, "page");
+		}
+
+		logger.info("Cache revalidated for home page", {
+			tag: HOME_PAGE_CACHE_TAG,
+			paths: ["/", ...locales.map((l) => `/${l}`)],
+		});
 
 		return successResponse(homePage, "Home page content updated successfully");
 	} catch (error: unknown) {

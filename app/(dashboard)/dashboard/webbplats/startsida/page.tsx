@@ -609,7 +609,10 @@ export default function StartsidaPage() {
 		const fetchContent = async () => {
 			try {
 				setLoading(true);
-				const response = await fetch("/api/home-page");
+				// Add timestamp to bypass browser cache
+				const response = await fetch(`/api/home-page?t=${Date.now()}`, {
+					cache: "no-store",
+				});
 				const data = await response.json();
 
 				if (!response.ok) {
