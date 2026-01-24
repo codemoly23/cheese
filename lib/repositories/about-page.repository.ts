@@ -72,7 +72,7 @@ class AboutPageRepository {
 
 		if (!aboutPage) {
 			const created = await AboutPage.create({});
-			aboutPage = created.toObject() as AboutPageData;
+			aboutPage = toPlainObject(created.toObject()) as unknown as AboutPageData;
 		}
 
 		return toPlainObject(aboutPage);

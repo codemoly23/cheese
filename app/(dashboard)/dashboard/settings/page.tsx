@@ -53,16 +53,16 @@ const officeSchema = z.object({
 	street: z.string().min(1, "Street is required"),
 	postalCode: z.string().min(1, "Postal code is required"),
 	city: z.string().min(1, "City is required"),
-	country: z.string().default(""),
-	isHeadquarters: z.boolean().default(false),
-	isVisible: z.boolean().default(true),
+	country: z.string().optional(),
+	isHeadquarters: z.boolean().optional(),
+	isVisible: z.boolean().optional(),
 	mapEmbedUrl: z.string().optional(),
 });
 
 const footerLinkSchema = z.object({
 	label: z.string(),
 	href: z.string(),
-	isExternal: z.boolean().default(false),
+	isExternal: z.boolean().optional(),
 });
 
 const footerBannerSchema = z.object({

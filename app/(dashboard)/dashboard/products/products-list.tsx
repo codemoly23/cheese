@@ -52,6 +52,7 @@ interface Product {
 	visibility: "public" | "hidden";
 	productImages: string[];
 	categories: { _id: string; name: string; slug: string }[];
+	primaryCategory?: { _id: string; name: string; slug: string } | null;
 	updatedAt: string;
 	createdAt: string;
 }

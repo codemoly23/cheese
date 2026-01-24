@@ -277,10 +277,11 @@ export const sectionVisibilitySchema = z.object({
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
+	processSteps: z.boolean(),
 	about: z.boolean(),
 	testimonials: z.boolean(),
 	cta: z.boolean(),
-	richContent: z.boolean().default(false),
+	richContent: z.boolean(),
 });
 
 /**

@@ -4,14 +4,14 @@ import { z } from "zod";
 // SECTION VISIBILITY
 // ============================================================================
 export const aboutSectionVisibilitySchema = z.object({
-	history: z.boolean().optional().default(true),
-	customers: z.boolean().optional().default(true),
-	video: z.boolean().optional().default(true),
-	gallery: z.boolean().optional().default(true),
-	team: z.boolean().optional().default(true),
-	contact: z.boolean().optional().default(true),
-	stats: z.boolean().optional().default(true),
-	imageDescription: z.boolean().optional().default(true),
+	history: z.boolean().optional(),
+	customers: z.boolean().optional(),
+	video: z.boolean().optional(),
+	gallery: z.boolean().optional(),
+	team: z.boolean().optional(),
+	contact: z.boolean().optional(),
+	stats: z.boolean().optional(),
+	imageDescription: z.boolean().optional(),
 });
 
 // ============================================================================
