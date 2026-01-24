@@ -5,7 +5,6 @@ import {
 	type IHomePage,
 	type IHeroSection,
 	type IFeatureHighlight,
-	type IProcessStepsSection,
 	type IAboutSection,
 	type ICtaSection,
 	type IHomePageSeo,
@@ -64,7 +63,6 @@ export interface UpdateHomePageInput {
 	features?: IFeatureHighlight[];
 	productShowcase?: Partial<IProductShowcaseSection>;
 	imageGallery?: Partial<IImageGallerySection>;
-	processStepsSection?: Partial<IProcessStepsSection>;
 	aboutSection?: Partial<IAboutSection>;
 	testimonialsSection?: Partial<ITestimonialsSection>;
 	ctaSection?: Partial<ICtaSection>;
@@ -183,14 +181,6 @@ class HomePageRepository {
 			});
 		}
 
-		if (data.processStepsSection) {
-			Object.entries(data.processStepsSection).forEach(([key, value]) => {
-				if (value !== undefined) {
-					updateData[`processStepsSection.${key}`] = value;
-				}
-			});
-		}
-
 		if (data.aboutSection) {
 			Object.entries(data.aboutSection).forEach(([key, value]) => {
 				if (value !== undefined) {
@@ -294,14 +284,6 @@ class HomePageRepository {
 	async getImageGallery(): Promise<IImageGallerySection> {
 		const homePage = await this.get();
 		return homePage.imageGallery;
-	}
-
-	/**
-	 * Get process steps section only
-	 */
-	async getProcessStepsSection(): Promise<IProcessStepsSection> {
-		const homePage = await this.get();
-		return homePage.processStepsSection;
 	}
 
 	/**

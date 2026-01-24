@@ -63,26 +63,6 @@ export const featureHighlightSchema = z.object({
 });
 
 /**
- * Process Step schema - required fields only when adding a step
- */
-export const processStepSchema = z.object({
-	stepNumber: z.string().max(10).optional(),
-	title: z.string().max(100).optional(),
-	description: z.string().max(500).optional(),
-	icon: z.string().max(50).optional(),
-});
-
-/**
- * Process Steps Section schema - all fields optional
- */
-export const processStepsSectionSchema = z.object({
-	badge: z.string().max(100).optional(),
-	title: z.string().max(200).optional(),
-	subtitle: z.string().max(500).optional(),
-	steps: z.array(processStepSchema).optional(),
-});
-
-/**
  * About Section schema - all fields optional
  */
 export const aboutSectionSchema = z.object({
@@ -297,7 +277,6 @@ export const sectionVisibilitySchema = z.object({
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
-	processSteps: z.boolean(),
 	about: z.boolean(),
 	testimonials: z.boolean(),
 	cta: z.boolean(),
@@ -317,7 +296,6 @@ export const updateHomePageSchema = z.object({
 	features: z.array(featureHighlightSchema).optional(),
 	productShowcase: productShowcaseSectionSchema.partial().optional(),
 	imageGallery: imageGallerySectionSchema.partial().optional(),
-	processStepsSection: processStepsSectionSchema.partial().optional(),
 	aboutSection: aboutSectionExtendedSchema.partial().optional(),
 	testimonialsSection: testimonialsSectionSchema.partial().optional(),
 	ctaSection: ctaSectionSchema.partial().optional(),
@@ -330,8 +308,6 @@ export type CtaButtonInput = z.infer<typeof ctaButtonSchema>;
 export type TrustIndicatorInput = z.infer<typeof trustIndicatorSchema>;
 export type HeroSectionInput = z.infer<typeof heroSectionSchema>;
 export type FeatureHighlightInput = z.infer<typeof featureHighlightSchema>;
-export type ProcessStepInput = z.infer<typeof processStepSchema>;
-export type ProcessStepsSectionInput = z.infer<typeof processStepsSectionSchema>;
 export type AboutSectionInput = z.infer<typeof aboutSectionSchema>;
 export type CtaSectionInput = z.infer<typeof ctaSectionSchema>;
 export type HomePageSeoInput = z.infer<typeof homePageSeoSchema>;

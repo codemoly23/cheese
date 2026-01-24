@@ -129,22 +129,6 @@ const featureSchema = z.object({
 	description: z.string().optional(),
 });
 
-// Process Step schema - optional fields
-const processStepSchema = z.object({
-	stepNumber: z.string().optional(),
-	title: z.string().optional(),
-	description: z.string().optional(),
-	icon: z.string().optional(),
-});
-
-// Process Steps Section schema - all optional
-const processStepsSectionSchema = z.object({
-	badge: z.string().optional(),
-	title: z.string().optional(),
-	subtitle: z.string().optional(),
-	steps: z.array(processStepSchema).optional(),
-});
-
 // Hero Slide schema for slider mode
 const heroSlideSchema = z.object({
 	badge: z.string().optional(),
@@ -285,7 +269,6 @@ const sectionVisibilitySchema = z.object({
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
-	processSteps: z.boolean(),
 	about: z.boolean(),
 	testimonials: z.boolean(),
 	cta: z.boolean(),
@@ -334,9 +317,6 @@ const homePageFormSchema = z.object({
 
 	// Features
 	features: z.array(featureSchema).optional(),
-
-	// Process Steps Section
-	processStepsSection: processStepsSectionSchema.optional(),
 
 	// Product Showcase
 	productShowcase: productShowcaseSectionSchema.optional(),
@@ -410,7 +390,6 @@ export default function StartsidaPage() {
 				features: true,
 				productShowcase: true,
 				imageGallery: true,
-				processSteps: true,
 				about: true,
 				testimonials: true,
 				cta: true,
@@ -478,12 +457,6 @@ export default function StartsidaPage() {
 				features: [],
 			},
 			features: [],
-			processStepsSection: {
-				badge: "",
-				title: "",
-				subtitle: "",
-				steps: [],
-			},
 			productShowcase: {
 				title: "",
 				subtitle: "",
@@ -543,15 +516,6 @@ export default function StartsidaPage() {
 		append: appendFeature,
 		remove: removeFeature,
 	} = useFieldArray({ control: form.control, name: "features" });
-
-	const {
-		fields: processStepFields,
-		append: appendProcessStep,
-		remove: removeProcessStep,
-	} = useFieldArray({
-		control: form.control,
-		name: "processStepsSection.steps",
-	});
 
 	const {
 		fields: slideFields,
@@ -632,7 +596,6 @@ export default function StartsidaPage() {
 					features: true,
 					productShowcase: true,
 					imageGallery: true,
-					processSteps: true,
 					about: true,
 					testimonials: true,
 					cta: true,
@@ -661,9 +624,6 @@ export default function StartsidaPage() {
 					imageGallery:
 						content.sectionVisibility?.imageGallery ??
 						defaultVisibility.imageGallery,
-					processSteps:
-						content.sectionVisibility?.processSteps ??
-						defaultVisibility.processSteps,
 					about:
 						content.sectionVisibility?.about ?? defaultVisibility.about,
 					testimonials:
@@ -750,12 +710,6 @@ export default function StartsidaPage() {
 						features: content.featureBanner?.features || [],
 					},
 					features: content.features || [],
-					processStepsSection: {
-						badge: content.processStepsSection?.badge || "",
-						title: content.processStepsSection?.title || "",
-						subtitle: content.processStepsSection?.subtitle || "",
-						steps: content.processStepsSection?.steps || [],
-					},
 					productShowcase: {
 						title: content.productShowcase?.title || "",
 						subtitle: content.productShowcase?.subtitle || "",
@@ -867,7 +821,6 @@ export default function StartsidaPage() {
 		features: "Features",
 		productShowcase: "Product Showcase",
 		imageGallery: "Image Gallery",
-		processStepsSection: "Process Steps",
 		aboutSection: "About Section",
 		testimonialsSection: "Testimonials",
 		ctaSection: "CTA Section",
@@ -993,7 +946,6 @@ export default function StartsidaPage() {
 							<TabsTrigger value="features">Features</TabsTrigger>
 							<TabsTrigger value="products">Products</TabsTrigger>
 							<TabsTrigger value="gallery">Gallery</TabsTrigger>
-							<TabsTrigger value="process">Process</TabsTrigger>
 							<TabsTrigger value="about">About</TabsTrigger>
 							<TabsTrigger value="testimonials">Testimonials</TabsTrigger>
 							<TabsTrigger value="cta">CTA</TabsTrigger>
@@ -1178,28 +1130,6 @@ export default function StartsidaPage() {
 														</FormLabel>
 														<FormDescription>
 															Facilities image gallery.
-														</FormDescription>
-													</div>
-													<FormControl>
-														<Switch
-															checked={field.value}
-															onCheckedChange={field.onChange}
-														/>
-													</FormControl>
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="sectionVisibility.processSteps"
-											render={({ field }) => (
-												<FormItem className="flex items-center justify-between rounded-lg border p-4">
-													<div className="space-y-0.5">
-														<FormLabel className="text-base">
-															Process Steps
-														</FormLabel>
-														<FormDescription>
-															How it works section.
 														</FormDescription>
 													</div>
 													<FormControl>
@@ -2828,263 +2758,6 @@ export default function StartsidaPage() {
 															)}
 														/>
 													</div>
-												</CardContent>
-											</Card>
-										))
-									)}
-								</CardContent>
-							</Card>
-						</TabsContent>
-
-						{/* Process Steps Tab */}
-						<TabsContent value="process" className="space-y-6">
-							{/* Section Header */}
-							<Card>
-								<CardHeader>
-									<CardTitle>Section Settings</CardTitle>
-									<CardDescription>
-										Title and description for the process steps
-										section.
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<FormField
-										control={form.control}
-										name="processStepsSection.badge"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Badge Text</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														value={field.value || ""}
-														placeholder="How it works"
-													/>
-												</FormControl>
-												<FormDescription>
-													Small text displayed above the title.
-												</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
-										name="processStepsSection.title"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Section Title</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														value={field.value || ""}
-														placeholder="Seamless purchasing process"
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
-										name="processStepsSection.subtitle"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Section Description</FormLabel>
-												<FormControl>
-													<Textarea
-														{...field}
-														value={field.value || ""}
-														placeholder="We make it simple, transparent and efficient..."
-														rows={2}
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-								</CardContent>
-							</Card>
-
-							{/* Steps */}
-							<Card>
-								<CardHeader>
-									<CardTitle className="flex items-center justify-between">
-										<span>Process Steps</span>
-										<Button
-											type="button"
-											variant="outline"
-											size="sm"
-											onClick={() =>
-												appendProcessStep({
-													stepNumber: String(
-														processStepFields.length + 1
-													).padStart(2, "0"),
-													icon: "Search",
-													title: "",
-													description: "",
-												})
-											}
-										>
-											<Plus className="h-4 w-4 mr-1" />
-											Add
-										</Button>
-									</CardTitle>
-									<CardDescription>
-										Step-by-step process for how customers can
-										purchase.
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									{processStepFields.length === 0 ? (
-										<div className="text-center py-8 text-muted-foreground">
-											No process steps added.
-										</div>
-									) : (
-										processStepFields.map((field, index) => (
-											<Card key={field.id} className="border-dashed">
-												<CardHeader className="pb-3">
-													<div className="flex items-center justify-between">
-														<CardTitle className="text-base">
-															Step {index + 1}
-														</CardTitle>
-														<Button
-															type="button"
-															variant="ghost"
-															size="sm"
-															onClick={async () => {
-																const confirmed = await confirm({
-																	title: "Remove Process Step",
-																	description: "Are you sure you want to remove this step?",
-																	confirmText: "Remove",
-																});
-																if (confirmed) removeProcessStep(index);
-															}}
-															className="text-destructive hover:text-destructive"
-														>
-															<Trash2 className="h-4 w-4" />
-														</Button>
-													</div>
-												</CardHeader>
-												<CardContent className="space-y-4">
-													<div className="grid gap-4 sm:grid-cols-2">
-														<FormField
-															control={form.control}
-															name={`processStepsSection.steps.${index}.stepNumber`}
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel>
-																		Step Number
-																	</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			value={field.value || ""}
-																			placeholder="01"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-														<FormField
-															control={form.control}
-															name={`processStepsSection.steps.${index}.icon`}
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel>Icon</FormLabel>
-																	<Select
-																		onValueChange={
-																			field.onChange
-																		}
-																		defaultValue={field.value}
-																	>
-																		<FormControl>
-																			<SelectTrigger>
-																				<SelectValue placeholder="Select icon">
-																					{field.value && (
-																						<span className="flex items-center gap-2">
-																							<IconPreview
-																								name={
-																									field.value
-																								}
-																								className="h-4 w-4"
-																							/>
-																							<span>
-																								{
-																									field.value
-																								}
-																							</span>
-																						</span>
-																					)}
-																				</SelectValue>
-																			</SelectTrigger>
-																		</FormControl>
-																		<SelectContent>
-																			{AVAILABLE_ICONS.map(
-																				(icon) => (
-																					<SelectItem
-																						key={icon}
-																						value={icon}
-																					>
-																						<span className="flex items-center gap-2">
-																							<IconPreview
-																								name={
-																									icon
-																								}
-																								className="h-4 w-4"
-																							/>
-																							<span>
-																								{icon}
-																							</span>
-																						</span>
-																					</SelectItem>
-																				)
-																			)}
-																		</SelectContent>
-																	</Select>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-													<FormField
-														control={form.control}
-														name={`processStepsSection.steps.${index}.title`}
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel>Title</FormLabel>
-																<FormControl>
-																	<Input
-																		{...field}
-																		value={field.value || ""}
-																		placeholder="Browse & Select"
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-													<FormField
-														control={form.control}
-														name={`processStepsSection.steps.${index}.description`}
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel>
-																	Description
-																</FormLabel>
-																<FormControl>
-																	<Textarea
-																		{...field}
-																		value={field.value || ""}
-																		placeholder="Explore our comprehensive catalog..."
-																		rows={2}
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
 												</CardContent>
 											</Card>
 										))
