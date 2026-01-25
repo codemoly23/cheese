@@ -14,6 +14,7 @@ const madeDillan = localFont({
 	src: "../MADE Dillan PERSONAL USE.otf",
 	variable: "--font-heading",
 	display: "swap",
+	weight: "100 900",
 });
 
 // Raleway - Standard Interface Font for navigation, buttons, body text
@@ -113,7 +114,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="sv">
+		<html lang="sv" className="overflow-x-hidden">
 			<head>
 				{/* Google Tag Manager */}
 				<Script
@@ -159,7 +160,7 @@ export default function RootLayout({
 				</noscript>
 			</head>
 			<body
-				className={`${raleway.variable} ${madeDillan.variable} antialiased bg-background font-sans`}
+				className={`${raleway.variable} ${madeDillan.variable} antialiased bg-background font-sans overflow-x-hidden`}
 			>
 				{/* Google Tag Manager (noscript) */}
 				<noscript>

@@ -59,14 +59,14 @@ export function ProductReviews({ reviews, productName }: ProductReviewsProps) {
 						<Star className="h-4 w-4 fill-current" />
 						<span className="text-sm font-semibold">Kundrecensioner</span>
 					</div>
-					<h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
+					<h2 className="text-3xl md:text-4xl font-medium text-secondary mb-4">
 						Vad våra kunder säger
 					</h2>
 
 					{/* Average Rating */}
 					<div className="flex items-center justify-center gap-4 mt-6">
 						<div className="text-center">
-							<div className="text-5xl font-bold text-secondary mb-2">
+							<div className="text-5xl font-medium text-secondary mb-2">
 								{averageRating.toFixed(1)}
 							</div>
 							{renderStars(Math.round(averageRating), "lg")}

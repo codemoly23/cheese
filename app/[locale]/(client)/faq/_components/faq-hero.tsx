@@ -62,7 +62,7 @@ export function FAQHero() {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, delay: 0.2 }}
-						className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary mb-6 leading-tight"
+						className="text-4xl sm:text-5xl lg:text-6xl font-medium text-secondary mb-6 leading-tight"
 					>
 						Har du frågor om våra{" "}
 						<span className="text-primary">produkter och tjänster?</span>

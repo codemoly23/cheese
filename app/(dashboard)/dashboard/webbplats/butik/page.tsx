@@ -250,7 +250,7 @@ export default function StorePageCMS() {
 			{/* Header */}
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Store in Boxholm</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Store in Boxholm</h1>
 					<p className="text-muted-foreground">
 						Manage your store page content
 					</p>

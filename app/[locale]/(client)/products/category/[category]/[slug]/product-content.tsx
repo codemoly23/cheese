@@ -109,7 +109,7 @@ export function ProductContent({
 											className="mb-12"
 											id="specifications"
 										>
-											<h2 className="text-2xl md:text-3xl font-bold text-secondary mb-6">
+											<h2 className="text-2xl md:text-3xl font-medium text-secondary mb-6">
 												Technical Specifications
 											</h2>
 											<div className="rounded-2xl bg-background border border-border/80 shadow-sm overflow-hidden">

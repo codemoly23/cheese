@@ -55,7 +55,7 @@ export function StoreGallery({ data }: StoreGalleryProps) {
 								</span>
 							</div>
 							{data.title && (
-								<h2 className="text-3xl font-bold text-secondary md:text-4xl mb-4">
+								<h2 className="text-3xl font-medium text-secondary md:text-4xl mb-4">
 									{data.title}
 								</h2>
 							)}

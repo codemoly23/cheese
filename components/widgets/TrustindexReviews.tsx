@@ -92,7 +92,7 @@ export function TrustindexReviews({ compact = false }: TrustindexReviewsProps) {
 							</h3>
 						) : (
 							<>
-								<h2 className="text-3xl md:text-4xl font-bold text-secondary mb-3">
+								<h2 className="text-3xl md:text-4xl font-medium text-secondary mb-3">
 									Vad våra kunder säger
 								</h2>
 								<p className="text-muted-foreground max-w-2xl mx-auto">
@@ -159,7 +159,7 @@ export function TrustindexReviews({ compact = false }: TrustindexReviewsProps) {
 					<span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
 						Kundrecensioner
 					</span>
-					<h2 className="text-3xl md:text-4xl font-bold text-secondary mb-3">
+					<h2 className="text-3xl md:text-4xl font-medium text-secondary mb-3">
 						Vad våra kunder säger
 					</h2>
 					<p className="text-muted-foreground max-w-2xl mx-auto">

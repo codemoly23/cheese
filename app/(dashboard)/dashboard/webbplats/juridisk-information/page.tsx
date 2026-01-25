@@ -316,7 +316,7 @@ export default function LegalPageAdmin() {
 		<div className="space-y-6">
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Legal Information Page</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Legal Information Page</h1>
 					<p className="text-muted-foreground">
 						Manage legal information, terms and GDPR.
 					</p>

@@ -134,7 +134,7 @@ export function SearchPageClient({
 							Din sökning &quot;{results.query}&quot; gav {totalResults} träffar
 						</p>
 					)}
-					<h1 className="text-2xl sm:text-3xl font-bold text-secondary">
+					<h1 className="text-2xl sm:text-3xl font-medium text-secondary">
 						{hasSearched ? "Sökresultat" : "Sök"}
 					</h1>
 				</div>

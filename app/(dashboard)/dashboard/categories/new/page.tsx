@@ -134,7 +134,7 @@ export default function NewCategoryPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-3xl font-bold">Create Category</h1>
+						<h1 className="text-3xl font-medium">Create Category</h1>
 						<p className="text-slate-600">
 							Add a new category to your catalog
 						</p>

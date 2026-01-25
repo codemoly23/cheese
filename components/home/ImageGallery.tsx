@@ -82,7 +82,7 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 								id="gallery-heading"
 								variants={fadeUp}
 								transition={defaultTransition}
-								className="text-4xl md:text-5xl lg:text-6xl font-black text-secondary mb-4 tracking-tight"
+								className="text-4xl md:text-5xl lg:text-6xl font-medium text-secondary mb-4 tracking-tight"
 							>
 								{data.title}
 							</motion.h2>
@@ -146,7 +146,7 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 								{/* Content Card */}
 								<div className="bg-black/50 backdrop-blur-sm rounded-xl p-4 md:p-5 transition-all duration-300 group-hover:bg-black/60">
 									{/* Title */}
-									<h3 className="text-lg md:text-xl font-bold text-white mb-1 line-clamp-2 tracking-tight">
+									<h3 className="text-lg md:text-xl font-medium text-white mb-1 line-clamp-2 tracking-tight">
 										{image.title}
 									</h3>
 
@@ -181,7 +181,7 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 							{(hasCtaTitle || hasCtaSubtitle) && (
 								<div className="flex-1 text-left">
 									{hasCtaTitle && (
-										<h3 className="text-lg md:text-xl font-extrabold text-secondary mb-2 tracking-tight">
+										<h3 className="text-lg md:text-xl font-medium text-secondary mb-2 tracking-tight">
 											{data.ctaTitle}
 										</h3>
 									)}

@@ -103,7 +103,7 @@ export function NewBlogPostClient({
 					</Button>
 				</Link>
 				<div>
-					<h1 className="text-3xl font-bold">New Blog Post</h1>
+					<h1 className="text-3xl font-medium">New Blog Post</h1>
 					<p className="text-slate-600">Create a new blog post</p>
 				</div>
 			</div>

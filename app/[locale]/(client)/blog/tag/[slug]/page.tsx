@@ -111,7 +111,7 @@ export default async function BlogTagPage({ params }: TagPageProps) {
 					<p className="mb-2 text-sm font-medium uppercase tracking-wider text-primary">
 						Tag
 					</p>
-					<h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+					<h1 className="mb-4 text-4xl font-medium tracking-tight text-foreground md:text-5xl">
 						{tagName}
 					</h1>
 					<p className="text-lg text-muted-foreground">

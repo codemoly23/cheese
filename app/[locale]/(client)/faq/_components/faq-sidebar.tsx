@@ -24,7 +24,7 @@ export function FAQSidebar() {
 				transition={{ duration: 0.5 }}
 				className="rounded-2xl border-2 border-tertiary bg-white/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300"
 			>
-				<h3 className="text-xl font-bold text-secondary mb-4">
+				<h3 className="text-xl font-medium text-secondary mb-4">
 					Behöver du hjälp?
 				</h3>
 				<p className="text-secondary/70 mb-6 leading-relaxed">
@@ -102,7 +102,7 @@ export function FAQSidebar() {
 				transition={{ duration: 0.5, delay: 0.1 }}
 				className="rounded-2xl border-2 border-tertiary bg-linear-to-br from-tertiary/40 to-tertiary/20 p-6 shadow-lg"
 			>
-				<h3 className="text-xl font-bold text-secondary mb-4">
+				<h3 className="text-xl font-medium text-secondary mb-4">
 					Snabblänkar
 				</h3>
 				<ul className="space-y-3">
@@ -145,7 +145,7 @@ export function FAQSidebar() {
 			>
 				<div className="flex items-center gap-2 mb-4">
 					<MapPin className="h-5 w-5 text-primary" />
-					<h3 className="text-xl font-bold text-secondary">Våra kontor</h3>
+					<h3 className="text-xl font-medium text-secondary">Våra kontor</h3>
 				</div>
 				<div className="space-y-4 text-sm">
 					<div>

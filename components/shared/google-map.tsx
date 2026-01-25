@@ -48,7 +48,7 @@ export function GoogleMap({ lat, lng, title, address }: GoogleMapProps) {
 								<MapPin className="h-8 w-8 text-secondary" />
 							</div>
 						</div>
-						<h3 className="mb-2 text-xl font-bold text-secondary">
+						<h3 className="mb-2 text-xl font-medium text-secondary">
 							{title}
 						</h3>
 						<p className="mb-6 text-sm text-slate-600">{address}</p>

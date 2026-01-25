@@ -147,7 +147,7 @@ export function EditBlogPostClient({
 					</Link>
 					<div>
 						<div className="flex items-center gap-2">
-							<h1 className="text-3xl font-bold">{post.title}</h1>
+							<h1 className="text-3xl font-medium">{post.title}</h1>
 							{getStatusBadge(post.publishType)}
 						</div>
 						<p className="text-slate-600">/{post.slug}</p>

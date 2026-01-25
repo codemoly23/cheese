@@ -17,7 +17,7 @@ interface ProductAccordionProps {
 /**
  * Product Accordion Component
  * Tillamook-inspired design with dark theme box and collapsible sections
- * Replaces the existing ProductFAQ component
+ * Multiple accordions can be open at the same time
  */
 export function ProductAccordion({
 	title,
@@ -25,25 +25,52 @@ export function ProductAccordion({
 	sections,
 	heroSettings,
 }: ProductAccordionProps) {
-	// Find the first section that should be open by default, otherwise -1
-	const defaultOpenIndex = sections.findIndex((s) => s.isOpen);
-	const [openIndex, setOpenIndex] = useState<number>(
-		defaultOpenIndex >= 0 ? defaultOpenIndex : -1
+	// Initialize with first section open, or sections marked as isOpen
+	const getInitialOpenSections = () => {
+		const openSections = new Set<number>();
+		sections.forEach((section, index) => {
+			if (section.isOpen) {
+				openSections.add(index);
+			}
+		});
+		// If no sections are marked as open, open the first one
+		if (openSections.size === 0 && sections.length > 0) {
+			openSections.add(0);
+		}
+		return openSections;
+	};
+
+	const [openSections, setOpenSections] = useState<Set<number>>(
+		getInitialOpenSections
 	);
 
 	const themeColor = heroSettings?.themeColor || "#1e3a5f";
 
 	const toggleSection = (index: number) => {
-		setOpenIndex((prev) => (prev === index ? -1 : index));
+		setOpenSections((prev) => {
+			const newSet = new Set(prev);
+			if (newSet.has(index)) {
+				newSet.delete(index);
+			} else {
+				newSet.add(index);
+			}
+			return newSet;
+		});
 	};
 
+	const isOpen = (index: number) => openSections.has(index);
+
 	return (
-		<section className="w-full py-8 md:py-12 bg-cream-50" style={{ backgroundColor: "#FFF8E7" }}>
+		<section
+			className="w-full py-8 md:py-12"
+			style={{ backgroundColor: "#FFF8E7" }}
+		>
 			<div className="_container max-w-4xl">
 				{/* Dark themed info box with arrow pointer */}
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
 					transition={{ duration: 0.5 }}
 					className="relative"
 				>
@@ -75,39 +102,37 @@ export function ProductAccordion({
 
 				{/* Accordion sections */}
 				{sections && sections.length > 0 && (
-					<div className="mt-4 space-y-2" style={{ overflowAnchor: "none" }}>
+					<div className="mt-4 space-y-2">
 						{sections.map((section, index) => (
 							<motion.div
 								key={section._id || index}
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
+								initial={{ opacity: 0, y: 10 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true }}
 								transition={{ duration: 0.4, delay: index * 0.1 }}
 								className={cn(
 									"border-b border-gray-200 bg-white rounded-lg overflow-hidden",
-									openIndex === index && "shadow-md"
+									isOpen(index) && "shadow-md"
 								)}
-								style={{ overflowAnchor: "none" }}
 							>
 								{/* Accordion header */}
 								<button
 									type="button"
 									onClick={() => toggleSection(index)}
 									className="w-full flex items-center justify-center gap-3 py-4 px-6 text-center hover:bg-gray-50 transition-colors"
-									aria-expanded={openIndex === index}
+									aria-expanded={isOpen(index)}
 								>
 									<span className="text-sm md:text-base font-bold uppercase tracking-wider text-primary">
 										{section.title}
 									</span>
 									<motion.div
-										animate={{ rotate: openIndex === index ? 180 : 0 }}
+										animate={{ rotate: isOpen(index) ? 180 : 0 }}
 										transition={{ duration: 0.3 }}
 									>
 										<ChevronDown
 											className={cn(
 												"w-5 h-5 transition-colors",
-												openIndex === index
-													? "text-primary"
-													: "text-gray-400"
+												isOpen(index) ? "text-primary" : "text-gray-400"
 											)}
 										/>
 									</motion.div>
@@ -115,14 +140,13 @@ export function ProductAccordion({
 
 								{/* Accordion content */}
 								<AnimatePresence initial={false}>
-									{openIndex === index && (
+									{isOpen(index) && (
 										<motion.div
 											initial={{ height: 0, opacity: 0 }}
 											animate={{ height: "auto", opacity: 1 }}
 											exit={{ height: 0, opacity: 0 }}
-											transition={{ duration: 0.2, ease: "easeOut" }}
+											transition={{ duration: 0.3, ease: "easeInOut" }}
 											className="overflow-hidden"
-											style={{ overflowAnchor: "none" }}
 										>
 											<div className="px-6 pb-6 text-center">
 												{section.content.startsWith("<") ? (

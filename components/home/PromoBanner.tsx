@@ -66,7 +66,7 @@ export function PromoBanner({ leftBanner, rightBanner }: PromoBannerProps) {
 									</span>
 								)}
 								{leftBanner.title && (
-									<h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-3">
+									<h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-3">
 										{leftBanner.title}
 									</h3>
 								)}
@@ -112,12 +112,12 @@ export function PromoBanner({ leftBanner, rightBanner }: PromoBannerProps) {
 									</span>
 								)}
 								{rightBanner.subtitle && (
-									<span className="text-2xl md:text-3xl font-heading font-bold text-white mb-1">
+									<span className="text-2xl md:text-3xl font-heading font-medium text-white mb-1">
 										{rightBanner.subtitle}
 									</span>
 								)}
 								{rightBanner.title && (
-									<h3 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">
+									<h3 className="text-2xl md:text-3xl font-heading font-medium text-white mb-6">
 										{rightBanner.title}
 									</h3>
 								)}

@@ -142,8 +142,7 @@ export function ProductHeroNew({
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5, delay: 0.2 }}
-							className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight"
-							style={{ fontFamily: "system-ui, sans-serif" }}
+							className="text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-tight leading-tight"
 						>
 							{title}
 						</motion.h1>
@@ -154,7 +153,7 @@ export function ProductHeroNew({
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: 0.3 }}
-								className="text-lg md:text-xl text-white/80 max-w-md"
+								className="text-lg md:text-xl text-white/80 max-w-md tracking-wide leading-relaxed"
 							>
 								{shortDescription}
 							</motion.p>

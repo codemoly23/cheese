@@ -31,7 +31,7 @@ export function FAQSidebarClient({ data }: FAQSidebarClientProps) {
 					className="rounded-2xl border-2 border-tertiary bg-white/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300"
 				>
 					{data.contactTitle && (
-						<h3 className="text-xl font-bold text-secondary mb-4">
+						<h3 className="text-xl font-medium text-secondary mb-4">
 							{data.contactTitle}
 						</h3>
 					)}
@@ -122,7 +122,7 @@ export function FAQSidebarClient({ data }: FAQSidebarClientProps) {
 					className="rounded-2xl border-2 border-tertiary bg-linear-to-br from-tertiary/40 to-tertiary/20 p-6 shadow-lg"
 				>
 					{data.quickLinksTitle && (
-						<h3 className="text-xl font-bold text-secondary mb-4">
+						<h3 className="text-xl font-medium text-secondary mb-4">
 							{data.quickLinksTitle}
 						</h3>
 					)}
@@ -155,7 +155,7 @@ export function FAQSidebarClient({ data }: FAQSidebarClientProps) {
 					<div className="flex items-center gap-2 mb-4">
 						<MapPin className="h-5 w-5 text-primary" />
 						{data.officesTitle && (
-							<h3 className="text-xl font-bold text-secondary">
+							<h3 className="text-xl font-medium text-secondary">
 								{data.officesTitle}
 							</h3>
 						)}

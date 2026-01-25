@@ -94,7 +94,7 @@ export function Navbar({ config }: NavbarProps) {
 																			>
 																				<Link
 																					href={`/products/category/${category.slug}`}
-																					className="block text-sm font-bold text-secondary hover:text-secondary hover:underline transition-colors"
+																					className="block text-sm font-medium text-secondary hover:text-secondary hover:underline transition-colors"
 																				>
 																					{category.name}
 																				</Link>

@@ -52,7 +52,7 @@ export function BlogAuthor({ author }: BlogAuthorProps) {
 						<div className="mb-1 text-sm font-semibold text-primary uppercase tracking-wide">
 							Om författaren
 						</div>
-						<h3 className="mb-1 text-xl font-bold text-secondary">
+						<h3 className="mb-1 text-xl font-medium text-secondary">
 							{author.name}
 						</h3>
 						<p className="mb-3 text-sm text-muted-foreground">

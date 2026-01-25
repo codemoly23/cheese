@@ -175,7 +175,7 @@ export function InquiryDetail({ submission }: InquiryDetailProps) {
 						</Link>
 						<div>
 							<div className="flex items-center gap-2">
-								<h1 className="text-2xl font-bold">{submission.fullName}</h1>
+								<h1 className="text-2xl font-medium">{submission.fullName}</h1>
 								<Badge className={statusColors[currentStatus]}>
 									{currentStatus}
 								</Badge>

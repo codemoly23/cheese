@@ -55,7 +55,7 @@ export function Hero() {
 
 						<motion.h1
 							variants={staggerItem}
-							className="text-4xl font-bold tracking-tight text-secondary-dark sm:text-5xl lg:text-6xl xl:text-7xl"
+							className="text-4xl font-medium tracking-tight text-secondary-dark sm:text-5xl lg:text-6xl xl:text-7xl"
 						>
 							Professional{" "}
 							<span className="text-primary">Medical Equipment</span> for
@@ -141,7 +141,7 @@ export function Hero() {
 							>
 								<div className="grid grid-cols-3 gap-4 text-center">
 									<div>
-										<div className="text-2xl font-bold text-secondary">
+										<div className="text-2xl font-medium text-secondary">
 											500+
 										</div>
 										<div className="text-xs text-white/70 mt-1">
@@ -149,7 +149,7 @@ export function Hero() {
 										</div>
 									</div>
 									<div>
-										<div className="text-2xl font-bold text-secondary">
+										<div className="text-2xl font-medium text-secondary">
 											100%
 										</div>
 										<div className="text-xs text-white/70 mt-1">
@@ -157,7 +157,7 @@ export function Hero() {
 										</div>
 									</div>
 									<div>
-										<div className="text-2xl font-bold text-secondary">
+										<div className="text-2xl font-medium text-secondary">
 											24/7
 										</div>
 										<div className="text-xs text-white/70 mt-1">

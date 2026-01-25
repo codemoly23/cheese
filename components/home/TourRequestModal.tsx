@@ -207,7 +207,7 @@ export function TourRequestModal({
 							</div>
 
 							{/* Success Message */}
-							<h2 className="mt-5 text-xl font-bold text-secondary">
+							<h2 className="mt-5 text-xl font-medium text-secondary">
 								Tack för din förfrågan!
 							</h2>
 							<p className="mt-2 text-sm text-foreground/60 leading-relaxed">

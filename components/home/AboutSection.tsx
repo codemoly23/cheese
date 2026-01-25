@@ -57,7 +57,7 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 							</span>
 						</div>
 					)}
-					<h2 className="text-4xl md:text-5xl font-bold text-secondary leading-tight font-heading">
+					<h2 className="text-4xl md:text-5xl font-medium text-secondary leading-tight font-heading">
 						{data.title}{" "}
 						{data.titleHighlight && (
 							<span className="text-primary">{data.titleHighlight}</span>

@@ -53,7 +53,7 @@ export function ResellerHero({ data }: ResellerHeroProps) {
 					{/* Heading */}
 					<motion.h1
 						variants={fadeUp}
-						className="mb-6 text-4xl font-bold tracking-tight text-primary md:text-5xl lg:text-6xl"
+						className="mb-6 text-4xl font-medium tracking-tight text-primary md:text-5xl lg:text-6xl"
 					>
 						{data.title}
 					</motion.h1>

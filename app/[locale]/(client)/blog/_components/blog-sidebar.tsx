@@ -85,7 +85,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Search className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">{t.searchArticles}</h3>
+					<h3 className="font-medium text-foreground">{t.searchArticles}</h3>
 				</div>
 				<form onSubmit={handleSearch} className="flex gap-2">
 					<Input
@@ -112,7 +112,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Tag className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">{t.categories}</h3>
+					<h3 className="font-medium text-foreground">{t.categories}</h3>
 				</div>
 				<div className="space-y-2">
 					<button
@@ -152,7 +152,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<TrendingUp className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">{t.recentArticles}</h3>
+					<h3 className="font-medium text-foreground">{t.recentArticles}</h3>
 				</div>
 				<div className="space-y-4">
 					{recentArticles.map((article) => (
@@ -190,7 +190,7 @@ export function BlogSidebar({
 			>
 				<div className="mb-4 flex items-center gap-2">
 					<Mail className="h-5 w-5 text-primary" />
-					<h3 className="font-bold text-foreground">{t.newsletter}</h3>
+					<h3 className="font-medium text-foreground">{t.newsletter}</h3>
 				</div>
 				<p className="mb-4 text-sm text-muted-foreground">
 					{t.newsletterDescription}

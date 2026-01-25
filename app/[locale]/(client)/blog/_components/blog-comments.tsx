@@ -165,7 +165,7 @@ export function BlogComments({ postId }: BlogCommentsProps) {
 					<motion.div variants={fadeUp} className="mb-12 text-center">
 						<div className="mb-4 flex items-center justify-center gap-2">
 							<MessageSquare className="h-6 w-6 text-primary" />
-							<h2 className="text-3xl font-bold text-secondary md:text-4xl">
+							<h2 className="text-3xl font-medium text-secondary md:text-4xl">
 								Kommentarer
 							</h2>
 						</div>
@@ -230,7 +230,7 @@ export function BlogComments({ postId }: BlogCommentsProps) {
 						variants={fadeUp}
 						className="rounded-2xl border border-border bg-white p-8 shadow-sm"
 					>
-						<h3 className="mb-6 text-xl font-bold text-secondary">
+						<h3 className="mb-6 text-xl font-medium text-secondary">
 							Lämna en kommentar
 						</h3>
 						<form onSubmit={handleSubmit} className="space-y-4">

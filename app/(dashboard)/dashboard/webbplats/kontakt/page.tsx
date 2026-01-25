@@ -265,7 +265,7 @@ export default function KontaktPage() {
 		<div className="space-y-6">
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Contact Page</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Contact Page</h1>
 					<p className="text-muted-foreground">
 						Manage the content on the contact page.
 					</p>

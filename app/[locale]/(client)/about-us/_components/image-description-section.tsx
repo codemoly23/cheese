@@ -92,7 +92,7 @@ export function ImageDescriptionSection({ data }: ImageDescriptionSectionProps) 
 									{/* Text Content */}
 									<div className={`${!isImageLeft ? "md:[direction:ltr]" : ""} max-w-xl`}>
 										{item.title && (
-											<h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary mb-4 md:mb-6 font-heading italic">
+											<h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-secondary mb-4 md:mb-6 font-heading italic">
 												{item.title}
 											</h3>
 										)}

@@ -369,7 +369,7 @@ export function CallbackPopup() {
 									</span>
 								</div>
 
-								<DialogTitle className="mt-6 text-xl font-semibold flex items-center justify-center gap-2">
+								<DialogTitle className="mt-6 text-xl font-light font-sans flex items-center justify-center gap-2">
 									Bli uppringd <Phone className="w-5 h-5" />
 								</DialogTitle>
 

@@ -228,7 +228,7 @@ export default function QualityAdminPage() {
 		<div className="space-y-6">
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Quality Page</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Quality Page</h1>
 					<p className="text-muted-foreground">
 						Manage the quality and certifications page content.
 					</p>

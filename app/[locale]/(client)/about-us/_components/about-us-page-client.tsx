@@ -209,7 +209,7 @@ export function AboutUsPageClient({
 							{data.history?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary uppercase tracking-[0.2em] mb-4"
+									className="text-3xl md:text-4xl lg:text-5xl font-medium text-secondary uppercase tracking-[0.2em] mb-4"
 								>
 									{data.history.title}
 								</motion.h2>
@@ -279,7 +279,7 @@ export function AboutUsPageClient({
 														<p className="text-primary text-4xl md:text-5xl mb-3 font-heading italic">
 															{item.year}
 														</p>
-														<h3 className="text-sm font-bold text-secondary uppercase tracking-[0.15em] mb-4">
+														<h3 className="text-sm font-medium text-secondary uppercase tracking-[0.15em] mb-4">
 															{item.title}
 														</h3>
 														{item.description && (
@@ -309,7 +309,7 @@ export function AboutUsPageClient({
 														<p className="text-primary text-4xl md:text-5xl mb-3 font-heading italic">
 															{item.year}
 														</p>
-														<h3 className="text-sm font-bold text-secondary uppercase tracking-[0.15em] mb-4">
+														<h3 className="text-sm font-medium text-secondary uppercase tracking-[0.15em] mb-4">
 															{item.title}
 														</h3>
 														{item.description && (
@@ -432,7 +432,7 @@ export function AboutUsPageClient({
 							{data.customers?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+									className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 								>
 									{data.customers.title}
 								</motion.h2>
@@ -475,7 +475,7 @@ export function AboutUsPageClient({
 									)}
 
 									{/* Customer Name */}
-									<h3 className="text-xl font-bold text-secondary mb-2">
+									<h3 className="text-xl font-medium text-secondary mb-2">
 										{customer.name}
 									</h3>
 
@@ -664,7 +664,7 @@ export function AboutUsPageClient({
 							{data.team?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+									className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 								>
 									{data.team.title}
 								</motion.h2>
@@ -721,7 +721,7 @@ export function AboutUsPageClient({
 
 									{/* Info */}
 									<div className="text-center">
-										<h3 className="text-xl md:text-2xl font-bold text-secondary mb-1">
+										<h3 className="text-xl md:text-2xl font-medium text-secondary mb-1">
 											{member.name}
 										</h3>
 										<p className="text-sm md:text-base text-muted-foreground">
@@ -813,7 +813,7 @@ export function AboutUsPageClient({
 									{data.contact?.title && (
 										<motion.h2
 											variants={fadeUp}
-											className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+											className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 										>
 											{data.contact.title}
 										</motion.h2>

@@ -72,7 +72,7 @@ export function AnimatedContactCards({
 							<div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-all duration-300 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white">
 								<PhoneIcon className="h-7 w-7" />
 							</div>
-							<h3 className="mb-2 text-xl font-bold text-secondary">
+							<h3 className="mb-2 text-xl font-medium text-secondary">
 								{phoneCard.title}
 							</h3>
 							<a
@@ -100,7 +100,7 @@ export function AnimatedContactCards({
 							<div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-all duration-300 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white">
 								<EmailIcon className="h-7 w-7" />
 							</div>
-							<h3 className="mb-2 text-xl font-bold text-secondary">
+							<h3 className="mb-2 text-xl font-medium text-secondary">
 								{emailCard.title}
 							</h3>
 							<a
@@ -128,7 +128,7 @@ export function AnimatedContactCards({
 							<div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-all duration-300 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white">
 								<SocialIcon className="h-7 w-7" />
 							</div>
-							<h3 className="mb-2 text-xl font-bold text-secondary">
+							<h3 className="mb-2 text-xl font-medium text-secondary">
 								{socialCard.title}
 							</h3>
 							<div className="mb-3 flex gap-3">

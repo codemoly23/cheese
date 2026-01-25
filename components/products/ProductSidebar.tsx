@@ -30,7 +30,7 @@ export function ProductSidebar({
 			{/* Categories Filter */}
 			<Card className="border-primary/50 bg-card/80 backdrop-blur-sm p-0!">
 				<CardHeader className="px-3 py-2">
-					<CardTitle className="text-xl font-semibold">
+					<CardTitle className="text-xl font-medium">
 						Behandlingskategorier
 					</CardTitle>
 					<Link
@@ -67,7 +67,7 @@ export function ProductSidebar({
 			{/* Quick Info Card */}
 			<Card className="border-primary/50 bg-linear-to-br from-primary/20 to-slate-100">
 				<CardHeader className="pb-3">
-					<CardTitle className="text-base font-semibold text-foreground">
+					<CardTitle className="text-base font-medium text-foreground">
 						Behöver du hjälp?
 					</CardTitle>
 				</CardHeader>
@@ -88,7 +88,7 @@ export function ProductSidebar({
 			{/* Features Card */}
 			<Card className="border-primary/50 bg-card/80 backdrop-blur-sm">
 				<CardHeader className="pb-3">
-					<CardTitle className="text-base font-semibold text-foreground">
+					<CardTitle className="text-base font-medium text-foreground">
 						Varför välja Synos?
 					</CardTitle>
 				</CardHeader>

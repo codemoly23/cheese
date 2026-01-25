@@ -32,7 +32,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 							</span>
 						</div>
 					)}
-					<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
+					<h2 className="mb-4 text-3xl font-medium text-secondary md:text-4xl">
 						{data.title}
 					</h2>
 					<p className="mb-12 text-lg text-foreground/70">{data.subtitle}</p>
@@ -52,7 +52,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 								<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary transition-all duration-300 group-hover:bg-secondary group-hover:text-white">
 									<CheckCircle2 className="h-5 w-5" />
 								</div>
-								<h3 className="font-bold text-secondary">{faq.question}</h3>
+								<h3 className="font-medium text-secondary">{faq.question}</h3>
 							</div>
 							<p className="pl-11 text-sm text-foreground/70">{faq.answer}</p>
 						</motion.div>

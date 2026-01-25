@@ -236,7 +236,7 @@ export function AnimatedOfficeLocations({
 						</span>
 					</div>
 				)}
-				<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
+				<h2 className="mb-4 text-3xl font-medium text-secondary md:text-4xl">
 					{data.title}
 				</h2>
 				<p className="text-lg text-foreground/70">{data.subtitle}</p>
@@ -311,7 +311,7 @@ export function AnimatedOfficeLocations({
 						>
 							<div className="mb-6 flex items-start justify-between">
 								<div>
-									<h3 className="mb-2 text-2xl font-bold text-secondary">
+									<h3 className="mb-2 text-2xl font-medium text-secondary">
 										{activeAddress.name}
 									</h3>
 									<div className="flex items-center gap-2 text-sm text-foreground/70">

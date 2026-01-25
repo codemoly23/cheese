@@ -84,7 +84,7 @@ export function RelatedProductsCarousel({
 					transition={{ duration: 0.5 }}
 					className="flex items-center justify-between mb-8"
 				>
-					<h2 className="text-2xl md:text-3xl font-bold text-primary">
+					<h2 className="text-2xl md:text-3xl font-medium text-primary">
 						{title}
 					</h2>
 
@@ -171,7 +171,7 @@ export function RelatedProductsCarousel({
 
 									{/* Product Info */}
 									<div className="p-4">
-										<h3 className="font-bold text-lg text-primary group-hover:text-secondary transition-colors line-clamp-2 mb-2">
+										<h3 className="font-medium text-lg text-primary group-hover:text-secondary transition-colors line-clamp-2 mb-2">
 											{product.title}
 										</h3>
 										{product.shortDescription && (

@@ -26,7 +26,7 @@ export function AnimatedFormSection({ data }: AnimatedFormSectionProps) {
 						</span>
 					</div>
 				)}
-				<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
+				<h2 className="mb-4 text-3xl font-medium text-secondary md:text-4xl">
 					{data.title}
 				</h2>
 				<p className="text-lg text-foreground/70">{data.subtitle}</p>

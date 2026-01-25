@@ -337,7 +337,7 @@ export default function AboutPageCMS() {
 			{/* Header */}
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">About Us</h1>
+					<h1 className="text-3xl font-medium tracking-tight">About Us</h1>
 					<p className="text-muted-foreground">
 						Manage your About Us page content
 					</p>

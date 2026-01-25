@@ -70,7 +70,7 @@ export function Testimonials() {
 					transition={{ duration: 0.5 }}
 					className="mx-auto max-w-2xl text-center mb-16"
 				>
-					<h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4">
+					<h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl mb-4">
 						Vad våra kunder säger
 					</h2>
 					<p className="text-lg text-muted-foreground">

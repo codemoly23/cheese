@@ -50,7 +50,7 @@ export function StoreInfo({ data }: StoreInfoProps) {
 
 						{/* Title */}
 						{data.title && (
-							<h2 className="text-3xl font-bold text-secondary md:text-4xl">
+							<h2 className="text-3xl font-medium text-secondary md:text-4xl">
 								{data.title}
 							</h2>
 						)}

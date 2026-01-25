@@ -31,7 +31,7 @@ export function Testimonials({ data }: TestimonialsProps) {
 					{/* Header */}
 					<div className="lg:col-span-1">
 						{data?.title && (
-							<h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading">
+							<h2 className="text-3xl md:text-4xl font-medium mb-6 font-heading">
 								{data.title}
 							</h2>
 						)}

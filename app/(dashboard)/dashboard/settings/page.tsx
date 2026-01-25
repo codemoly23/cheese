@@ -345,7 +345,7 @@ export default function SettingsPage() {
 	return (
 		<div className="space-y-6">
 			<div>
-				<h1 className="text-3xl font-bold tracking-tight">Site Settings</h1>
+				<h1 className="text-3xl font-medium tracking-tight">Site Settings</h1>
 				<p className="text-muted-foreground">
 					Manage your website settings, contact information, and SEO defaults.
 				</p>

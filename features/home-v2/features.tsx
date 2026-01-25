@@ -157,7 +157,7 @@ export function Features() {
 						<span className="text-primary">●</span>
 						Why Choose Us
 					</motion.div>
-					<h2 className="text-3xl font-bold tracking-tight text-secondary-dark sm:text-4xl lg:text-5xl mb-6">
+					<h2 className="text-3xl font-medium tracking-tight text-secondary-dark sm:text-4xl lg:text-5xl mb-6">
 						Why Choose Synos Medical?
 					</h2>
 					<p className="text-lg text-secondary-light/80 leading-relaxed">
@@ -185,7 +185,7 @@ export function Features() {
 								{feature.icon}
 							</div>
 
-							<h3 className="mb-4 text-xl font-bold text-secondary-dark group-hover:text-primary transition-colors duration-300">
+							<h3 className="mb-4 text-xl font-medium text-secondary-dark group-hover:text-primary transition-colors duration-300">
 								{feature.title}
 							</h3>
 

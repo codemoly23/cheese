@@ -201,7 +201,7 @@ export default function ResellerPageCMS() {
 			{/* Header */}
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Become Our Reseller</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Become Our Reseller</h1>
 					<p className="text-muted-foreground">
 						Manage your reseller application page content
 					</p>

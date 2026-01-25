@@ -87,7 +87,10 @@ function ProductCardDB({
 				</div>
 
 				<CardHeader className="px-2 py-1">
-					<h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-primary line-clamp-2">
+					<h3
+						className="text-lg font-medium text-foreground transition-colors group-hover:text-primary line-clamp-2"
+						style={{ fontFamily: 'Raleway, sans-serif' }}
+					>
 						{product.title}
 					</h3>
 				</CardHeader>
@@ -137,7 +140,7 @@ function ProductSidebar({
 			{/* Categories Filter */}
 			<Card className="border-primary/50 bg-card/80 backdrop-blur-sm p-0!">
 				<CardHeader className="px-3 py-2">
-					<CardTitle className="text-xl font-semibold">
+					<CardTitle className="text-xl font-medium">
 						Categories
 					</CardTitle>
 					<Link
@@ -166,7 +169,7 @@ function ProductSidebar({
 			{/* Quick Info Card */}
 			<Card className="border-primary/50 bg-linear-to-br from-primary/20 to-slate-100">
 				<CardHeader className="pb-3">
-					<CardTitle className="text-base font-semibold text-foreground">
+					<CardTitle className="text-base font-medium text-foreground">
 						Need Help?
 					</CardTitle>
 				</CardHeader>
@@ -317,7 +320,7 @@ export default async function ProductsPage() {
 
 				{/* Page Header */}
 				<div className="mb-8">
-					<h1 className="mb-3 text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+					<h1 className="mb-3 text-4xl font-medium tracking-tight text-foreground md:text-5xl">
 						Our Products
 					</h1>
 					<p className="max-w-3xl text-lg text-muted-foreground">

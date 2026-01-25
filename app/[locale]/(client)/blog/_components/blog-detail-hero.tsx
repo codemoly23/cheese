@@ -80,7 +80,7 @@ export function BlogDetailHero({ article }: BlogDetailHeroProps) {
 					{/* Title */}
 					<motion.h1
 						variants={fadeUp}
-						className="mb-6 text-3xl font-bold tracking-tight text-secondary md:text-4xl lg:text-5xl"
+						className="mb-6 text-3xl font-medium tracking-tight text-secondary md:text-4xl lg:text-5xl"
 					>
 						{article.title}
 					</motion.h1>

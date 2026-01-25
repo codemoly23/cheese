@@ -66,7 +66,7 @@ export function BlogContent({ article }: BlogContentProps) {
 					initial="initial"
 					animate="animate"
 					variants={fadeUp}
-					className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-secondary prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-3xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-2xl prose-p:mb-4 prose-p:leading-relaxed prose-p:text-muted-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:my-4 prose-li:my-2 prose-img:rounded-lg prose-img:shadow-md"
+					className="prose prose-lg max-w-none prose-headings:font-medium prose-headings:text-secondary prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-3xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-2xl prose-p:mb-4 prose-p:leading-relaxed prose-p:text-muted-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:my-4 prose-li:my-2 prose-img:rounded-lg prose-img:shadow-md"
 					dangerouslySetInnerHTML={{ __html: sanitizedContent }}
 				/>
 
@@ -82,7 +82,7 @@ export function BlogContent({ article }: BlogContentProps) {
 					>
 						<div className="mb-4 flex items-center gap-2">
 							<Share2 className="h-5 w-5 text-primary" />
-							<h3 className="font-bold text-foreground">Dela artikel</h3>
+							<h3 className="font-medium text-foreground">Dela artikel</h3>
 						</div>
 						<div className="space-y-2">
 							<Button

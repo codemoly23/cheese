@@ -242,7 +242,7 @@ export function Hero({ data }: HeroProps) {
 											<ShieldCheck className="h-5 w-5 text-primary" />
 										</div>
 										<div>
-											<div className="text-sm font-bold text-secondary">
+											<div className="text-sm font-medium text-secondary">
 												{data.certificationCard!.title}
 											</div>
 											<div className="text-xs text-muted-foreground">
@@ -257,7 +257,7 @@ export function Hero({ data }: HeroProps) {
 													<span className="text-muted-foreground">
 														{data.certificationCard.progressLabel}
 													</span>
-													<span className="font-bold text-secondary">
+													<span className="font-medium text-secondary">
 														{data.certificationCard.progressValue}
 													</span>
 												</div>

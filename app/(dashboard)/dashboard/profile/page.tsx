@@ -460,7 +460,7 @@ export default function ProfilePage() {
 				<div className="bg-white rounded-lg shadow-sm border">
 					{/* Header */}
 					<div className="border-b px-6 py-4">
-						<h1 className="text-2xl font-bold text-gray-900">
+						<h1 className="text-2xl font-medium text-gray-900">
 							Profile Settings
 						</h1>
 						<p className="text-sm text-gray-600 mt-1">

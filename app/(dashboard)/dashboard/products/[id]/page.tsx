@@ -360,7 +360,7 @@ export default function EditProductPage() {
 							</Button>
 						</Link>
 						<div>
-							<h1 className="text-3xl font-bold">{product.title}</h1>
+							<h1 className="text-3xl font-medium">{product.title}</h1>
 							<p className="text-slate-600">/{product.slug}</p>
 						</div>
 					</div>

@@ -55,7 +55,7 @@ export function Stats() {
 							<div className="mb-3 text-5xl font-bold text-primary lg:text-6xl group-hover:text-secondary group-hover:scale-125 transition-all duration-300">
 								{stat.value}
 							</div>
-							<div className="mb-2 text-xl font-bold text-secondary-dark group-hover:text-primary transition-colors duration-300">
+							<div className="mb-2 text-xl font-medium text-secondary-dark group-hover:text-primary transition-colors duration-300">
 								{stat.label}
 							</div>
 							<div className="text-sm text-secondary-dark/70">

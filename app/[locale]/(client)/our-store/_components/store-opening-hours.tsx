@@ -23,7 +23,7 @@ export function StoreOpeningHours({ data }: StoreOpeningHoursProps) {
 					</div>
 					<div>
 						{data.title && (
-							<CardTitle className="text-2xl font-bold text-secondary">
+							<CardTitle className="text-2xl font-medium text-secondary">
 								{data.title}
 							</CardTitle>
 						)}

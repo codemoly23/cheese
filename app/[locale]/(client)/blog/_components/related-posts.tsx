@@ -70,7 +70,7 @@ export function RelatedPosts({
 						</motion.div>
 						<motion.h2
 							variants={fadeUp}
-							className="text-3xl font-bold text-secondary md:text-4xl"
+							className="text-3xl font-medium text-secondary md:text-4xl"
 						>
 							{t.title}
 						</motion.h2>

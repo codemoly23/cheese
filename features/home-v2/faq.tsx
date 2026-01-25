@@ -98,7 +98,7 @@ export function FAQ() {
 						transition={{ duration: 0.5 }}
 						className="text-center mb-16"
 					>
-						<h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4">
+						<h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl mb-4">
 							Vanliga frågor
 						</h2>
 						<p className="text-lg text-muted-foreground">

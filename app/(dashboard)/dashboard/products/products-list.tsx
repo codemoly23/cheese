@@ -265,7 +265,7 @@ export function ProductsList({
 				{/* Header */}
 				<div className="flex justify-between items-center">
 					<div>
-						<h1 className="text-3xl font-bold">Products</h1>
+						<h1 className="text-3xl font-medium">Products</h1>
 						<p className="text-slate-600">Manage your product catalog</p>
 					</div>
 					<Link href="/dashboard/products/new">

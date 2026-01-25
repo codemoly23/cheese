@@ -42,7 +42,10 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
 					{/* Content Section */}
 					<div className="flex flex-1 flex-col p-6">
 						<div className="mb-3">
-							<h3 className="mb-2 text-2xl font-semibold text-foreground transition-colors group-hover:text-primary">
+							<h3
+								className="mb-2 text-2xl font-medium text-foreground transition-colors group-hover:text-primary"
+								style={{ fontFamily: 'Raleway, sans-serif' }}
+							>
 								{product.name}
 							</h3>
 							<p className="text-sm text-muted-foreground line-clamp-2">
@@ -133,7 +136,10 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
 				</div>
 
 				<CardHeader className="px-2 py-1">
-					<h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-primary line-clamp-2">
+					<h3
+						className="text-lg font-medium text-foreground transition-colors group-hover:text-primary line-clamp-2"
+						style={{ fontFamily: 'Raleway, sans-serif' }}
+					>
 						{product.name}
 					</h3>
 				</CardHeader>

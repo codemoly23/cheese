@@ -328,7 +328,7 @@ export default function BlogCategoriesPage() {
 				{/* Header */}
 				<div className="flex justify-between items-center">
 					<div>
-						<h1 className="text-3xl font-bold">Blog Categories</h1>
+						<h1 className="text-3xl font-medium">Blog Categories</h1>
 						<p className="text-slate-600">
 							Manage your blog post categories
 						</p>

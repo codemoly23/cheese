@@ -98,7 +98,7 @@ export default function NewBlogCategoryPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-3xl font-bold">Create Blog Category</h1>
+						<h1 className="text-3xl font-medium">Create Blog Category</h1>
 						<p className="text-slate-600">
 							Add a new category for your blog posts
 						</p>

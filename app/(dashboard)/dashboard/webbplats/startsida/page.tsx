@@ -914,7 +914,7 @@ export default function StartsidaPage() {
 		<div className="space-y-6">
 			<div className="flex items-start justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight">Home Page</h1>
+					<h1 className="text-3xl font-medium tracking-tight">Home Page</h1>
 					<p className="text-muted-foreground">
 						Manage the content on the home page.
 					</p>

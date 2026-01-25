@@ -51,7 +51,7 @@ export function Testimonials() {
 						transition={defaultTransition}
 						className="text-center mb-16"
 					>
-						<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+						<h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4">
 							Vad våra{" "}
 							<span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
 								kunder säger
@@ -119,7 +119,7 @@ export function Testimonials() {
 					>
 						<div className="flex flex-wrap justify-center gap-8 items-center">
 							<div className="text-center">
-								<div className="text-4xl font-bold text-secondary mb-2">
+								<div className="text-4xl font-medium text-secondary mb-2">
 									500+
 								</div>
 								<div className="text-slate-400">Nöjda kunder</div>
@@ -133,7 +133,7 @@ export function Testimonials() {
 							</div>
 							<div className="h-12 w-px bg-glass-border hidden md:block" />
 							<div className="text-center">
-								<div className="text-4xl font-bold text-secondary mb-2">
+								<div className="text-4xl font-medium text-secondary mb-2">
 									100%
 								</div>
 								<div className="text-slate-400">MDR-certifierat</div>

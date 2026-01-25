@@ -158,7 +158,7 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
 						<p className="mb-2 text-sm font-medium uppercase tracking-wider text-primary">
 							Author
 						</p>
-						<h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+						<h1 className="mb-2 text-4xl font-medium tracking-tight text-foreground md:text-5xl">
 							{author.name}
 						</h1>
 						<p className="mb-4 text-lg text-muted-foreground">

@@ -20,7 +20,7 @@ const CtaSection = ({ data, phone, email }: CtaSectionProps) => {
 			<div className="_container relative z-10">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 					<div className="max-w-2xl">
-						<h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white font-heading">
+						<h2 className="text-4xl md:text-5xl font-medium mb-6 tracking-tight text-white font-heading">
 							{data.title}
 						</h2>
 						<p className="text-white/80 text-xl mb-8 leading-relaxed">
@@ -73,7 +73,7 @@ const CtaSection = ({ data, phone, email }: CtaSectionProps) => {
 
 					<div className="w-full">
 						<div className="bg-background rounded-2xl shadow-xl border border-border/50 p-8 text-center">
-							<h3 className="text-2xl font-bold text-secondary mb-4 font-heading">
+							<h3 className="text-2xl font-medium text-secondary mb-4 font-heading">
 								{data.formTitle || "Get in Touch"}
 							</h3>
 							<p className="text-foreground/70 mb-8">

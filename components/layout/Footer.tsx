@@ -159,14 +159,14 @@ export function Footer({
 					<div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
 						{/* Badge */}
 						{banner.badge && (
-							<span className="inline-block px-4 py-1.5 bg-white/90 text-secondary text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6">
+							<span className="inline-block px-4 py-1.5 bg-white/90 text-secondary text-xs font-medium tracking-[0.2em] uppercase rounded-full mb-6">
 								{banner.badge}
 							</span>
 						)}
 
 						{/* Title */}
 						{banner.title && (
-							<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white max-w-3xl mb-8 leading-tight drop-shadow-lg">
+							<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-medium text-white max-w-3xl mb-8 leading-tight drop-shadow-lg">
 								{banner.title}
 							</h2>
 						)}

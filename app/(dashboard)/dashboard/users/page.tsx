@@ -169,7 +169,7 @@ export default function UsersPage() {
 				{/* Header */}
 				<div className="border-b px-6 py-4 flex items-center justify-between">
 					<div>
-						<h1 className="text-2xl font-bold text-gray-900">
+						<h1 className="text-2xl font-medium text-gray-900">
 							User Management
 						</h1>
 						<p className="text-sm text-gray-600 mt-1">

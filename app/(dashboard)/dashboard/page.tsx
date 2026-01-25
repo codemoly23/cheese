@@ -69,7 +69,7 @@ export default function DashboardPage() {
 		<div className="space-y-8">
 			{/* Welcome Section */}
 			<div className="bg-white rounded-lg shadow-sm border p-6">
-				<h1 className="text-3xl font-bold text-gray-900 mb-2">
+				<h1 className="text-3xl font-medium text-gray-900 mb-2">
 					Welcome back, {userData?.user.name || "User"}!
 				</h1>
 				<p className="text-gray-600">
@@ -121,7 +121,7 @@ export default function DashboardPage() {
 			{/* Profile Info */}
 			<div className="bg-white rounded-lg shadow-sm border p-6">
 				<div className="flex items-center justify-between mb-4">
-					<h2 className="text-xl font-bold text-gray-900">
+					<h2 className="text-xl font-medium text-gray-900">
 						Profile Information
 					</h2>
 					<Link
@@ -165,7 +165,7 @@ export default function DashboardPage() {
 
 			{/* Quick Actions */}
 			<div className="bg-white rounded-lg shadow-sm border p-6">
-				<h2 className="text-xl font-bold text-gray-900 mb-4">
+				<h2 className="text-xl font-medium text-gray-900 mb-4">
 					Quick Actions
 				</h2>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">

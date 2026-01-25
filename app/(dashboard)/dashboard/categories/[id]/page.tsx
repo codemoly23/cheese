@@ -161,7 +161,7 @@ export default function EditCategoryPage() {
 							</Button>
 						</Link>
 						<div>
-							<h1 className="text-3xl font-bold">{category.name}</h1>
+							<h1 className="text-3xl font-medium">{category.name}</h1>
 							<p className="text-slate-600">/{category.slug}</p>
 						</div>
 					</div>

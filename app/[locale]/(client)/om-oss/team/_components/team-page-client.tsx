@@ -56,7 +56,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 							{data.hero?.title && (
 								<motion.h1
 									variants={fadeUp}
-									className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary mb-6"
+									className="text-3xl md:text-4xl lg:text-5xl font-medium text-secondary mb-6"
 								>
 									{data.hero.title}
 								</motion.h1>
@@ -150,7 +150,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 
 									{/* Member Info */}
 									<div className="text-center max-w-sm">
-										<h3 className="text-xl md:text-2xl font-bold text-secondary mb-1">
+										<h3 className="text-xl md:text-2xl font-medium text-secondary mb-1">
 											{member.name}
 										</h3>
 										<p className="text-sm md:text-base text-primary font-medium mb-2">
@@ -223,7 +223,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 							{data.valuesSection?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+									className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 								>
 									{data.valuesSection.title}
 								</motion.h2>
@@ -251,7 +251,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 									variants={fadeUp}
 									className="bg-background p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
 								>
-									<h3 className="text-lg font-bold text-secondary mb-2">
+									<h3 className="text-lg font-medium text-secondary mb-2">
 										{value.title}
 									</h3>
 									{value.description && (
@@ -280,7 +280,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 							{data.joinUs?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+									className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 								>
 									{data.joinUs.title}
 								</motion.h2>
@@ -334,7 +334,7 @@ export function TeamPageClient({ data }: TeamPageClientProps) {
 							{data.contact?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary mb-4"
+									className="text-3xl md:text-4xl font-medium text-secondary mb-4"
 								>
 									{data.contact.title}
 								</motion.h2>

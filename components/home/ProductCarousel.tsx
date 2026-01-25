@@ -81,7 +81,7 @@ export function ProductCarousel({
 						</span>
 					)}
 					{title && (
-						<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-secondary">
+						<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-medium text-secondary">
 							{title}
 						</h2>
 					)}

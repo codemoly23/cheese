@@ -105,7 +105,7 @@ export function BlogCard({ article, index = 0, basePath = "/blogg", locale = "sv
 						</div>
 
 						{/* Title */}
-						<h3 className="mb-3 text-xl font-bold text-foreground transition-colors group-hover:text-primary line-clamp-2">
+						<h3 className="mb-3 text-xl font-medium text-foreground transition-colors group-hover:text-primary line-clamp-2">
 							{article.title}
 						</h3>
 

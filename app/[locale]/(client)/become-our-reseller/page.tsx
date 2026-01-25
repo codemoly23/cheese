@@ -77,7 +77,7 @@ export default async function BecomeOurResellerPage() {
 						{(benefits.title || benefits.subtitle) && (
 							<div className="text-center mb-12">
 								{benefits.title && (
-									<h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
+									<h2 className="text-3xl md:text-4xl font-heading font-medium text-secondary mb-4">
 										{benefits.title}
 									</h2>
 								)}
@@ -126,7 +126,7 @@ export default async function BecomeOurResellerPage() {
 							{(formSection.title || formSection.subtitle) && (
 								<div className="text-center mb-8">
 									{formSection.title && (
-										<h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
+										<h2 className="text-3xl md:text-4xl font-heading font-medium text-secondary mb-4">
 											{formSection.title}
 										</h2>
 									)}

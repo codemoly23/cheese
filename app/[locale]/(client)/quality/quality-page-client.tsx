@@ -64,7 +64,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 
 							<motion.h1
 								variants={fadeUp}
-								className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
+								className={`text-4xl md:text-5xl lg:text-6xl font-medium mb-6 ${
 									data.hero?.backgroundImage ? "text-white" : "text-secondary"
 								}`}
 							>
@@ -122,7 +122,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 									{/* Certificate Info */}
 									<div className="p-6">
 										{cert.title && (
-											<h3 className="text-xl font-bold text-secondary mb-2">
+											<h3 className="text-xl font-medium text-secondary mb-2">
 												{cert.title}
 											</h3>
 										)}
@@ -153,7 +153,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 							{data.description?.title && (
 								<motion.h2
 									variants={fadeUp}
-									className="text-3xl md:text-4xl font-bold text-secondary text-center mb-8"
+									className="text-3xl md:text-4xl font-medium text-secondary text-center mb-8"
 								>
 									{data.description.title}
 								</motion.h2>
@@ -178,7 +178,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 					<section className="py-20 md:py-28 lg:py-32">
 						<div className="_container">
 							<div className="text-center">
-								<h1 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
+								<h1 className="text-3xl md:text-4xl font-medium text-secondary mb-4">
 									Quality & Certifications
 								</h1>
 								<p className="text-muted-foreground">

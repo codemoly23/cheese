@@ -186,7 +186,7 @@ export function ContactInquiryForm() {
 				<div className="w-10 h-10 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
 					<CheckCircle2 className="h-10 w-10 text-green-600" />
 				</div>
-				<h2 className="text-2xl md:text-3xl font-bold text-secondary mb-4">
+				<h2 className="text-2xl md:text-3xl font-medium text-secondary mb-4">
 					{t("success.title")}
 				</h2>
 				<p className="text-lg text-muted-foreground mb-6">

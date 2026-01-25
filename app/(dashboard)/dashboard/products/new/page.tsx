@@ -261,7 +261,7 @@ export default function NewProductPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-3xl font-bold">Create Product</h1>
+						<h1 className="text-3xl font-medium">Create Product</h1>
 						<p className="text-slate-600">
 							Add a new product to your catalog
 						</p>

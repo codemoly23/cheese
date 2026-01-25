@@ -299,7 +299,7 @@ export function BlogPostsClient({
 				{/* Header */}
 				<div className="flex justify-between items-center">
 					<div>
-						<h1 className="text-3xl font-bold">Blog Posts</h1>
+						<h1 className="text-3xl font-medium">Blog Posts</h1>
 						<p className="text-slate-600">Manage your blog content</p>
 					</div>
 					<Link href="/dashboard/blog/new">
