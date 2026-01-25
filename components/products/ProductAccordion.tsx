@@ -42,9 +42,8 @@ export function ProductAccordion({
 			<div className="_container max-w-4xl">
 				{/* Dark themed info box with arrow pointer */}
 				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
 					transition={{ duration: 0.5 }}
 					className="relative"
 				>
@@ -76,18 +75,18 @@ export function ProductAccordion({
 
 				{/* Accordion sections */}
 				{sections && sections.length > 0 && (
-					<div className="mt-4 space-y-2">
+					<div className="mt-4 space-y-2" style={{ overflowAnchor: "none" }}>
 						{sections.map((section, index) => (
 							<motion.div
 								key={section._id || index}
-								initial={{ opacity: 0, y: 10 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true }}
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
 								transition={{ duration: 0.4, delay: index * 0.1 }}
 								className={cn(
 									"border-b border-gray-200 bg-white rounded-lg overflow-hidden",
 									openIndex === index && "shadow-md"
 								)}
+								style={{ overflowAnchor: "none" }}
 							>
 								{/* Accordion header */}
 								<button
@@ -115,14 +114,15 @@ export function ProductAccordion({
 								</button>
 
 								{/* Accordion content */}
-								<AnimatePresence>
+								<AnimatePresence initial={false}>
 									{openIndex === index && (
 										<motion.div
 											initial={{ height: 0, opacity: 0 }}
 											animate={{ height: "auto", opacity: 1 }}
 											exit={{ height: 0, opacity: 0 }}
-											transition={{ duration: 0.3, ease: "easeInOut" }}
+											transition={{ duration: 0.2, ease: "easeOut" }}
 											className="overflow-hidden"
+											style={{ overflowAnchor: "none" }}
 										>
 											<div className="px-6 pb-6 text-center">
 												{section.content.startsWith("<") ? (
