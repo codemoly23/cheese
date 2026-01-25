@@ -319,11 +319,12 @@
   /* blue color #c7deff , #80bdff , #3f9dff , #4592ff */
   /* red color #b94a48 , #f2dede , #eed3d7 */
 
-  /* suneditor contents */
-  .sun-editor-editable {
-    font-family: Helvetica Neue;
-    font-size: 13px;
-    color: #333;
+  /* suneditor contents - Glada Bonden Brand Typography Override */
+  .sun-editor-editable,
+  .sun-editor-preview {
+    font-family: var(--font-sans), "Raleway", sans-serif !important;
+    font-size: 14px;
+    color: #143E6B;
     background-color: #fff;
     line-height: 1.5;
     word-break: normal;
@@ -332,13 +333,38 @@
     margin: 0;
   }
 
-  .sun-editor-editable * {
+  .sun-editor-editable *,
+  .sun-editor-preview * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: inherit;
-    font-size: inherit;
+    font-family: var(--font-sans), "Raleway", sans-serif !important;
     color: inherit;
+  }
+
+  /* Override headings in editor to use MADE Dillan */
+  .sun-editor-editable h1,
+  .sun-editor-editable h2,
+  .sun-editor-editable h3,
+  .sun-editor-editable h4,
+  .sun-editor-editable h5,
+  .sun-editor-editable h6,
+  .sun-editor-preview h1,
+  .sun-editor-preview h2,
+  .sun-editor-preview h3,
+  .sun-editor-preview h4,
+  .sun-editor-preview h5,
+  .sun-editor-preview h6 {
+    font-family: var(--font-heading), "MADE Dillan", serif !important;
+    color: #143E6B;
+  }
+
+  /* Override inline Georgia/serif styles in editor content */
+  .sun-editor-preview [style*="Georgia"],
+  .sun-editor-preview [style*="serif"],
+  .sun-editor-editable [style*="Georgia"],
+  .sun-editor-editable [style*="serif"] {
+    font-family: var(--font-sans), "Raleway", sans-serif !important;
   }
 
   /* RTL - editable */
