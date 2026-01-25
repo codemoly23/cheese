@@ -72,12 +72,12 @@ export default async function BecomeOurResellerPage() {
 
 			{/* Benefits Section */}
 			{sectionVisibility.benefits && benefits.benefits && benefits.benefits.length > 0 && (
-				<section id="benefits" className="py-16 bg-white">
+				<section id="benefits" className="py-16 bg-background">
 					<div className="_container">
 						{(benefits.title || benefits.subtitle) && (
 							<div className="text-center mb-12">
 								{benefits.title && (
-									<h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-4">
+									<h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
 										{benefits.title}
 									</h2>
 								)}
@@ -95,7 +95,7 @@ export default async function BecomeOurResellerPage() {
 								return (
 									<div
 										key={index}
-										className="p-6 rounded-2xl bg-slate-50 border border-border hover:shadow-lg transition-shadow"
+										className="p-6 rounded-2xl bg-muted border border-border hover:shadow-lg transition-shadow"
 									>
 										<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
 											<IconComponent className="h-6 w-6 text-primary" />
@@ -120,13 +120,13 @@ export default async function BecomeOurResellerPage() {
 
 			{/* Form Section */}
 			{sectionVisibility.form && (
-				<section id="application-form" className="section-padding bg-slate-50">
+				<section id="application-form" className="section-padding bg-muted">
 					<div className="_container">
 						<div className="mx-auto max-w-3xl">
 							{(formSection.title || formSection.subtitle) && (
 								<div className="text-center mb-8">
 									{formSection.title && (
-										<h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-4">
+										<h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
 											{formSection.title}
 										</h2>
 									)}

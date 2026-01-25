@@ -75,7 +75,7 @@ export default async function ContactUsPage() {
 			/>
 
 			{/* Contact Form Section */}
-			<section className="section-padding bg-white">
+			<section className="section-padding bg-background">
 				<div className="_container">
 					<div className="mx-auto max-w-3xl">
 						<AnimatedFormSection data={kontaktPage.formSection} />
@@ -84,7 +84,7 @@ export default async function ContactUsPage() {
 			</section>
 
 			{/* Office Locations Section */}
-			<section className="section-padding bg-slate-50">
+			<section className="section-padding bg-muted">
 				<div className="_container overflow-hidden">
 					<AnimatedOfficeLocations
 						data={kontaktPage.officeSection}

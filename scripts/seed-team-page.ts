@@ -47,43 +47,43 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// Team page data for Boxholm Cheese
+// Team page data for Boxholm Cheese (English content)
 const teamPageData = {
 	sectionVisibility: {
 		hero: true,
 		stats: true,
 		teamMembers: true,
 		values: true,
-		joinUs: true,
+		joinUs: false, // Disabled - not showing recruitment section
 		contact: true,
 		richContent: false,
 	},
 
 	// Hero Section
 	hero: {
-		badge: "Vårt Team",
-		title: "Möt teamet bakom Boxholms Ost",
+		badge: "Our Team",
+		title: "Meet the Team Behind Boxholm Cheese",
 		subtitle:
-			"Vi är ett dedikerat team av ostmästare, mjölkbönder och entusiaster som brinner för att skapa de finaste hantverksgjorda ostarna.",
+			"We are a dedicated team of master cheese makers, dairy farmers, and enthusiasts who are passionate about creating the finest artisan cheeses.",
 	},
 
 	// Stats Section
 	stats: [
 		{
 			value: "100+",
-			label: "År av tradition",
+			label: "Years of Tradition",
 		},
 		{
 			value: "1000+",
-			label: "Nöjda kunder",
+			label: "Happy Customers",
 		},
 		{
 			value: "15+",
-			label: "Ostssorter",
+			label: "Cheese Varieties",
 		},
 		{
 			value: "5",
-			label: "Generationer",
+			label: "Generations",
 		},
 	],
 
@@ -91,9 +91,9 @@ const teamPageData = {
 	teamMembers: [
 		{
 			name: "Erik Lindgren",
-			role: "VD & Ostmästare",
-			department: "Ledning",
-			bio: "Erik representerar femte generationen av ostmästare i familjen. Med över 30 års erfarenhet leder han mejeriet med samma passion som sina förfäder.",
+			role: "CEO & Master Cheese Maker",
+			department: "Leadership",
+			bio: "Erik represents the fifth generation of cheese makers in his family. With over 30 years of experience, he leads the dairy with the same passion as his ancestors, ensuring every wheel of cheese meets our exacting standards.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "erik@boxholmsost.se",
 			linkedin: "https://linkedin.com/in/",
@@ -101,42 +101,42 @@ const teamPageData = {
 		},
 		{
 			name: "Anna Bergström",
-			role: "Produktionschef",
-			department: "Produktion",
-			bio: "Anna ansvarar för all osttillverkning och säkerställer att varje ost håller högsta kvalitet. Hennes expertis inom mjölkkemi är oöverträffad.",
+			role: "Production Manager",
+			department: "Production",
+			bio: "Anna oversees all cheese production and ensures every product meets the highest quality standards. Her expertise in milk chemistry and aging processes is unmatched, making her invaluable to our operations.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "anna@boxholmsost.se",
 			linkedin: "https://linkedin.com/in/",
 		},
 		{
 			name: "Lars Johansson",
-			role: "Kvalitetsansvarig",
-			department: "Kvalitet",
-			bio: "Lars övervakar alla kvalitetskontroller och certifieringar. Han ser till att våra ostar alltid uppfyller de strängaste standarderna.",
+			role: "Quality Control Manager",
+			department: "Quality Assurance",
+			bio: "Lars supervises all quality controls and certifications. He ensures our cheeses always meet the strictest standards, from raw milk testing to final product inspection before shipping.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "lars@boxholmsost.se",
 		},
 		{
 			name: "Maria Svensson",
-			role: "Försäljningschef",
-			department: "Försäljning",
-			bio: "Maria leder vårt säljteam och bygger relationer med återförsäljare och restauranger över hela Sverige. Hennes mål är att sprida kärleken till hantverksost.",
+			role: "Sales Director",
+			department: "Sales",
+			bio: "Maria leads our sales team and builds relationships with retailers and restaurants across Sweden and beyond. Her mission is to spread the love for artisan cheese to new markets.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "maria@boxholmsost.se",
 		},
 		{
 			name: "Johan Pettersson",
-			role: "Mejeriingenjör",
-			department: "Teknik",
-			bio: "Johan kombinerar traditionella metoder med modern teknik för att optimera vår produktion utan att kompromissa med kvaliteten.",
+			role: "Dairy Engineer",
+			department: "Technical",
+			bio: "Johan combines traditional methods with modern technology to optimize our production without compromising quality. He ensures our equipment runs efficiently while preserving our artisanal approach.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "johan@boxholmsost.se",
 		},
 		{
 			name: "Karin Andersson",
-			role: "Kundservice",
+			role: "Customer Service",
 			department: "Support",
-			bio: "Karin är första kontakten för våra kunder och hjälper med allt från beställningar till produktrekommendationer.",
+			bio: "Karin is the first point of contact for our customers, helping with everything from orders to product recommendations. Her deep knowledge of our cheese varieties helps customers find their perfect match.",
 			image: "/storage/images/team/placeholder.jpg",
 			email: "kundservice@boxholmsost.se",
 			phone: "+46 142-510 50",
@@ -145,53 +145,52 @@ const teamPageData = {
 
 	// Values Section
 	valuesSection: {
-		title: "Våra värderingar",
+		title: "Our Values",
 		subtitle:
-			"Det som driver oss varje dag är kärleken till hantverksost och respekten för traditioner.",
+			"What drives us every day is our love for artisan cheese and respect for traditions passed down through generations.",
 		values: [
 			{
 				title: "Tradition",
 				description:
-					"Vi bevarar och hedrar de traditionella metoderna som gått i arv genom generationer, samtidigt som vi utvecklas med tiden.",
+					"We preserve and honor the traditional methods passed down through generations while evolving with the times to meet modern standards.",
 			},
 			{
-				title: "Kvalitet",
+				title: "Quality",
 				description:
-					"Varje ost vi producerar representerar vårt engagemang för högsta kvalitet - från mjölken till den färdiga produkten.",
+					"Every cheese we produce represents our commitment to the highest quality - from the fresh local milk to the finished product on your table.",
 			},
 			{
-				title: "Hantverk",
+				title: "Craftsmanship",
 				description:
-					"Vi tror på kraften i handgjorda produkter. Varje ost formas med omsorg av erfarna ostmästare.",
+					"We believe in the power of handmade products. Each cheese is carefully shaped and aged by experienced master cheese makers.",
 			},
 			{
-				title: "Hållbarhet",
+				title: "Sustainability",
 				description:
-					"Vi arbetar med lokala mjölkbönder och strävar efter hållbara metoder som är bra för både miljön och våra produkter.",
+					"We work with local dairy farmers and strive for sustainable practices that are good for both the environment and our products.",
 			},
 		],
 	},
 
-	// Join Us Section
+	// Join Us Section (Disabled)
 	joinUs: {
-		title: "Vill du bli en del av vårt team?",
-		description:
-			"Vi söker passionerade människor som delar vår kärlek till hantverksost och vill vara med och föra traditionen vidare. Se våra lediga tjänster eller skicka en spontanansökan.",
+		title: "",
+		description: "",
 		primaryCta: {
-			text: "Se lediga tjänster",
-			href: "/careers",
+			text: "",
+			href: "",
 		},
 		secondaryCta: {
-			text: "Skicka spontanansökan",
-			href: "/contact-us",
+			text: "",
+			href: "",
 		},
 	},
 
 	// Contact Section
 	contact: {
-		title: "Kontakta oss",
+		title: "Get in Touch",
 		description:
-			"Har du frågor eller vill veta mer om vårt team och våra ostar? Vi finns här för dig.",
+			"Have questions or want to know more about our team and our cheeses? We're here to help.",
 		phone: "+46 142-510 50",
 		email: "info@boxholmsost.se",
 	},
@@ -201,9 +200,9 @@ const teamPageData = {
 
 	// SEO
 	seo: {
-		title: "Vårt Team | Boxholms Ost",
+		title: "Our Team | Boxholm Cheese",
 		description:
-			"Möt teamet bakom Boxholms Ost - erfarna ostmästare och entusiaster som brinner för hantverksgjorda ostar med över 100 års tradition.",
+			"Meet the team behind Boxholm Cheese - experienced master cheese makers and enthusiasts passionate about artisan cheeses with over 100 years of tradition.",
 		ogImage: "/storage/images/og-team.jpg",
 	},
 };
@@ -244,7 +243,7 @@ async function seedTeamPage() {
 		console.log("\n========================================");
 		console.log("TEAM PAGE DATA SEEDED SUCCESSFULLY!");
 		console.log("========================================\n");
-		console.log("Preview at: /about-us/team");
+		console.log("Preview at: /om-oss/team");
 	} catch (error) {
 		console.error("Error seeding team page:", error);
 	} finally {

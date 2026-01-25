@@ -14,7 +14,7 @@ export function StoreMap({ data }: StoreMapProps) {
 		.join(", ");
 
 	return (
-		<Card className="h-full border-border bg-white shadow-sm overflow-hidden">
+		<Card className="h-full border-border bg-background shadow-sm overflow-hidden">
 			<CardHeader>
 				<div className="flex items-center gap-3">
 					<div className="rounded-full bg-primary/10 p-3">
@@ -78,7 +78,7 @@ export function StoreMap({ data }: StoreMapProps) {
 
 				{/* Directions */}
 				{data.directions && (
-					<div className="flex items-start gap-3 rounded-lg bg-slate-50 p-4">
+					<div className="flex items-start gap-3 rounded-lg bg-muted p-4">
 						<Navigation className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
 						<p className="text-sm text-muted-foreground">{data.directions}</p>
 					</div>

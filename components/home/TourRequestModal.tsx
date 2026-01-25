@@ -188,7 +188,7 @@ export function TourRequestModal({
 						{/* Close Button */}
 						<button
 							onClick={handleClose}
-							className="absolute top-3 right-3 p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200"
+							className="absolute top-3 right-3 p-1.5 rounded-full text-foreground/50 hover:text-foreground/70 hover:bg-muted transition-all duration-200"
 							aria-label="Stäng"
 						>
 							<X className="w-4 h-4" />
@@ -207,10 +207,10 @@ export function TourRequestModal({
 							</div>
 
 							{/* Success Message */}
-							<h2 className="mt-5 text-xl font-bold text-slate-800">
+							<h2 className="mt-5 text-xl font-bold text-secondary">
 								Tack för din förfrågan!
 							</h2>
-							<p className="mt-2 text-sm text-slate-500 leading-relaxed">
+							<p className="mt-2 text-sm text-foreground/60 leading-relaxed">
 								Vi kontaktar dig inom kort för att boka in din virtuella
 								rundtur.
 							</p>

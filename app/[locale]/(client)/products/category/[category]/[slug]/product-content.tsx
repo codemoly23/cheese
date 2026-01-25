@@ -77,7 +77,7 @@ export function ProductContent({
 			{(product.productDescription ||
 				(product.techSpecifications && product.techSpecifications.length > 0) ||
 				(product.beforeAfterImages && product.beforeAfterImages.length > 0)) && (
-				<section className="py-12 md:py-16 bg-white">
+				<section className="py-12 md:py-16 bg-background">
 					<div className="_container">
 						<div className="grid gap-8 lg:grid-cols-[1fr_340px]">
 							{/* Main Content */}
@@ -112,13 +112,13 @@ export function ProductContent({
 											<h2 className="text-2xl md:text-3xl font-bold text-secondary mb-6">
 												Technical Specifications
 											</h2>
-											<div className="rounded-2xl bg-white border border-slate-200/80 shadow-sm overflow-hidden">
-												<div className="divide-y divide-slate-100">
+											<div className="rounded-2xl bg-background border border-border/80 shadow-sm overflow-hidden">
+												<div className="divide-y divide-border">
 													{product?.techSpecifications?.map(
 														(spec, index) => (
 															<div
 																key={index}
-																className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 px-6 hover:bg-slate-50/80 transition-colors duration-200 gap-1 sm:gap-4"
+																className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 px-6 hover:bg-muted/80 transition-colors duration-200 gap-1 sm:gap-4"
 															>
 																<span className="font-medium text-foreground">
 																	{spec.title}
@@ -137,7 +137,7 @@ export function ProductContent({
 
 							{/* Sidebar - Sticky */}
 							<aside className="space-y-6">
-								<div className="sticky top-24 space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent pr-1">
+								<div className="sticky top-24 space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent pr-1">
 									<ProductDetailSidebar
 										brochureUrl={product.documentation}
 										videoUrl={product.youtubeUrl}

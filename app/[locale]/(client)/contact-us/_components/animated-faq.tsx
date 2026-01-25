@@ -15,7 +15,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 	}
 
 	return (
-		<section className="section-padding bg-slate-100">
+		<section className="section-padding bg-muted">
 			<div className="_container">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 					<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
 						{data.title}
 					</h2>
-					<p className="mb-12 text-lg text-slate-600">{data.subtitle}</p>
+					<p className="mb-12 text-lg text-foreground/70">{data.subtitle}</p>
 				</motion.div>
 
 				<div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
@@ -46,7 +46,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.4, delay: index * 0.1 }}
-							className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-secondary/30"
+							className="group rounded-2xl border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-secondary/30"
 						>
 							<div className="mb-3 flex items-start gap-3">
 								<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary transition-all duration-300 group-hover:bg-secondary group-hover:text-white">
@@ -54,7 +54,7 @@ export function AnimatedFAQ({ data }: AnimatedFAQProps) {
 								</div>
 								<h3 className="font-bold text-secondary">{faq.question}</h3>
 							</div>
-							<p className="pl-11 text-sm text-slate-600">{faq.answer}</p>
+							<p className="pl-11 text-sm text-foreground/70">{faq.answer}</p>
 						</motion.div>
 					))}
 				</div>

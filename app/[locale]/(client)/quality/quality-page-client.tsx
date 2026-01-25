@@ -26,7 +26,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 	);
 
 	return (
-		<div className="min-h-screen bg-white">
+		<div className="min-h-screen bg-background">
 			{/* Hero Section */}
 			{visibility.hero && (
 				<section
@@ -91,7 +91,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 
 			{/* Certificates Section */}
 			{visibility.certificates && sortedCertificates.length > 0 && (
-				<section className="py-16 md:py-20 lg:py-24 bg-slate-50">
+				<section className="py-16 md:py-20 lg:py-24 bg-muted">
 					<div className="_container">
 						<motion.div
 							variants={staggerContainer}
@@ -104,11 +104,11 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 								<motion.div
 									key={cert._id?.toString() || index}
 									variants={fadeUp}
-									className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+									className="bg-background rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
 								>
 									{/* Certificate Image */}
 									{cert.image && (
-										<div className="relative aspect-[4/3] bg-slate-100">
+										<div className="relative aspect-[4/3] bg-muted">
 											<ImageComponent
 												src={cert.image}
 												alt={cert.title || "Certificate"}
@@ -141,7 +141,7 @@ export function QualityPageClient({ data }: QualityPageClientProps) {
 
 			{/* Description Section */}
 			{visibility.description && (data.description?.title || data.description?.content) && (
-				<section className="py-16 md:py-20 lg:py-24 bg-white">
+				<section className="py-16 md:py-20 lg:py-24 bg-background">
 					<div className="_container">
 						<motion.div
 							variants={staggerContainer}

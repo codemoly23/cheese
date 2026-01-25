@@ -92,7 +92,7 @@ export function BlogListingClient({
 		<>
 			<BlogHero pageTitle={pageTitle} locale={locale} />
 
-			<section className="section-padding bg-slate-50">
+			<section className="section-padding bg-muted">
 				<div className="_container">
 					<div className="grid gap-8 lg:grid-cols-[1fr_350px]">
 						{/* Main Content */}
@@ -125,7 +125,7 @@ export function BlogListingClient({
 									))}
 								</motion.div>
 							) : (
-								<div className="rounded-2xl border border-border bg-white p-12 text-center shadow-sm">
+								<div className="rounded-2xl border border-border bg-background p-12 text-center shadow-sm">
 									<p className="text-lg text-muted-foreground">
 										{t.noArticlesFound}
 									</p>

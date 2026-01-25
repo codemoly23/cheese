@@ -14,11 +14,11 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 		data.certificationBadge?.title && data.certificationBadge?.description;
 
 	return (
-		<section className="section-padding bg-white relative overflow-hidden">
+		<section className="section-padding bg-background relative overflow-hidden">
 			<div className="_container grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 				{/* Only render image section if we have an image */}
 				{hasImage && (
-					<div className="relative h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-900/5">
+					<div className="relative h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-secondary/5">
 						<ImageComponent
 							src={data.image!}
 							alt="About Section Image"
@@ -32,16 +32,16 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 						{/* Decorative elements */}
 						<div className="absolute inset-0 bg-linear-to-t from-secondary/60 via-transparent to-transparent" />
 						{hasCertificationBadge && (
-							<div className="absolute bottom-8 left-8 right-8 text-white bg-secondary/30 p-8 rounded-3xl">
+							<div className="absolute bottom-8 left-8 right-8 text-white bg-secondary/80 backdrop-blur-sm p-8 rounded-3xl">
 								<div className="flex items-center gap-3 mb-2">
-									<div className="bg-success rounded-full p-1">
+									<div className="bg-primary rounded-full p-1">
 										<CheckCircle2 className="h-4 w-4 text-white" />
 									</div>
 									<span className="font-bold text-lg tracking-wide uppercase">
 										{data.certificationBadge!.title}
 									</span>
 								</div>
-								<p className="text-sm text-slate-200">
+								<p className="text-sm text-white/80">
 									{`"${data.certificationBadge!.description}"`}
 								</p>
 							</div>
@@ -57,13 +57,13 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 							</span>
 						</div>
 					)}
-					<h2 className="text-4xl md:text-5xl font-bold text-secondary leading-tight">
+					<h2 className="text-4xl md:text-5xl font-bold text-secondary leading-tight font-heading">
 						{data.title}{" "}
 						{data.titleHighlight && (
 							<span className="text-primary">{data.titleHighlight}</span>
 						)}
 					</h2>
-					<p className="text-slate-600 text-lg leading-relaxed">
+					<p className="text-foreground/70 text-lg leading-relaxed">
 						{data.content}
 					</p>
 

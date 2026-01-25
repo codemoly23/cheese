@@ -185,10 +185,10 @@ export function AboutUsPageClient({
 
 
 	return (
-		<div className="min-h-screen bg-white">
+		<div className="min-h-screen bg-background">
 			{/* History Section - Timeline Design */}
 			{visibility.history && hasHistory && (
-				<section className="py-20 md:py-28 lg:py-32 bg-white relative overflow-hidden">
+				<section className="py-20 md:py-28 lg:py-32 bg-background relative overflow-hidden">
 					<div className="_container relative z-10">
 						{/* Section Header */}
 						<motion.div
@@ -201,8 +201,7 @@ export function AboutUsPageClient({
 							{data.history?.badge && (
 								<motion.p
 									variants={fadeUp}
-									className="text-primary italic text-2xl md:text-3xl mb-2"
-									style={{ fontFamily: "Georgia, serif" }}
+									className="text-primary italic text-2xl md:text-3xl mb-2 font-heading"
 								>
 									{data.history.badge}
 								</motion.p>
@@ -256,7 +255,7 @@ export function AboutUsPageClient({
 												{isEven ? (
 													// Even rows: Image on left
 													item.image ? (
-														<div className="relative bg-white p-3 shadow-lg rounded-sm">
+														<div className="relative bg-background p-3 shadow-lg rounded-sm">
 															<ImageComponent
 																src={item.image}
 																alt={item.title || "Timeline image"}
@@ -266,9 +265,9 @@ export function AboutUsPageClient({
 															/>
 														</div>
 													) : (
-														<div className="relative bg-white p-3 shadow-lg rounded-sm">
-															<div className="aspect-[4/3] bg-slate-100 flex items-center justify-center">
-																<svg className="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<div className="relative bg-background p-3 shadow-lg rounded-sm">
+															<div className="aspect-[4/3] bg-muted flex items-center justify-center">
+																<svg className="w-16 h-16 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 																	<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
 																</svg>
 															</div>
@@ -277,10 +276,7 @@ export function AboutUsPageClient({
 												) : (
 													// Odd rows: Text on left (right-aligned)
 													<>
-														<p
-															className="text-primary text-4xl md:text-5xl mb-3"
-															style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}
-														>
+														<p className="text-primary text-4xl md:text-5xl mb-3 font-heading italic">
 															{item.year}
 														</p>
 														<h3 className="text-sm font-bold text-secondary uppercase tracking-[0.15em] mb-4">
@@ -310,10 +306,7 @@ export function AboutUsPageClient({
 												{isEven ? (
 													// Even rows: Text on right (left-aligned)
 													<>
-														<p
-															className="text-primary text-4xl md:text-5xl mb-3"
-															style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}
-														>
+														<p className="text-primary text-4xl md:text-5xl mb-3 font-heading italic">
 															{item.year}
 														</p>
 														<h3 className="text-sm font-bold text-secondary uppercase tracking-[0.15em] mb-4">
@@ -328,7 +321,7 @@ export function AboutUsPageClient({
 												) : (
 													// Odd rows: Image on right
 													item.image ? (
-														<div className="relative bg-white p-3 shadow-lg rounded-sm">
+														<div className="relative bg-background p-3 shadow-lg rounded-sm">
 															<ImageComponent
 																src={item.image}
 																alt={item.title || "Timeline image"}
@@ -338,9 +331,9 @@ export function AboutUsPageClient({
 															/>
 														</div>
 													) : (
-														<div className="relative bg-white p-3 shadow-lg rounded-sm">
-															<div className="aspect-[4/3] bg-slate-100 flex items-center justify-center">
-																<svg className="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<div className="relative bg-background p-3 shadow-lg rounded-sm">
+															<div className="aspect-[4/3] bg-muted flex items-center justify-center">
+																<svg className="w-16 h-16 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 																	<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
 																</svg>
 															</div>
@@ -384,7 +377,7 @@ export function AboutUsPageClient({
 							className="max-w-4xl"
 						>
 							{/* Title */}
-							<h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-secondary mb-8">
+							<h2 className="text-4xl md:text-5xl lg:text-6xl font-heading text-secondary mb-8">
 								{data.video?.titleHighlighted && (
 									<span className="bg-primary/80 px-3 py-1 text-secondary">
 										{data.video.titleHighlighted}
@@ -399,7 +392,7 @@ export function AboutUsPageClient({
 							{data.video?.videoUrl && (
 								<motion.button
 									onClick={() => setIsVideoModalOpen(true)}
-									className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-xl hover:scale-110 transition-transform duration-300 group cursor-pointer"
+									className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-background shadow-xl hover:scale-110 transition-transform duration-300 group cursor-pointer"
 									whileHover={{ scale: 1.1 }}
 									whileTap={{ scale: 0.95 }}
 								>
@@ -415,7 +408,7 @@ export function AboutUsPageClient({
 
 							{/* Button Label */}
 							{data.video?.buttonLabel && (
-								<p className="mt-6 text-secondary/80 italic font-serif text-lg">
+								<p className="mt-6 text-secondary/80 italic font-heading text-lg">
 									{data.video.buttonLabel}
 								</p>
 							)}
@@ -426,7 +419,7 @@ export function AboutUsPageClient({
 
 			{/* Our Customers Section */}
 			{visibility.customers && hasCustomers && (
-				<section className="py-16 md:py-20 lg:py-24 bg-slate-50">
+				<section className="py-16 md:py-20 lg:py-24 bg-muted">
 					<div className="_container">
 						{/* Section Header */}
 						<motion.div
@@ -466,7 +459,7 @@ export function AboutUsPageClient({
 								<motion.div
 									key={index}
 									variants={fadeUp}
-									className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border border-slate-100"
+									className="bg-background rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow border border-border"
 								>
 									{/* Customer Logo */}
 									{customer.logo && (
@@ -555,8 +548,7 @@ export function AboutUsPageClient({
 										initial={{ opacity: 0, y: 20 }}
 										whileInView={{ opacity: 1, y: 0 }}
 										viewport={{ once: true }}
-										className="text-xl md:text-2xl lg:text-3xl text-secondary max-w-2xl leading-relaxed"
-										style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}
+										className="text-xl md:text-2xl lg:text-3xl text-secondary max-w-2xl leading-relaxed font-heading italic"
 									>
 										{galleryData.title}
 									</motion.p>
@@ -659,7 +651,7 @@ export function AboutUsPageClient({
 
 			{/* Our Team Section */}
 			{visibility.team && hasTeam && (
-				<section className="relative z-10 py-16 md:py-20 lg:py-24 bg-white">
+				<section className="relative z-10 py-16 md:py-20 lg:py-24 bg-background">
 					<div className="_container">
 						{/* Section Header */}
 						<motion.div
@@ -715,7 +707,7 @@ export function AboutUsPageClient({
 													wrapperClasses="w-full h-full"
 												/>
 											) : (
-												<div className="w-full h-full flex items-center justify-center bg-slate-100">
+												<div className="w-full h-full flex items-center justify-center bg-muted">
 													<span className="text-4xl font-bold text-primary/40">
 														{(member.name || "?")
 															.split(" ")
@@ -777,18 +769,12 @@ export function AboutUsPageClient({
 									)}
 
 									{/* Value - Large Number with Animation */}
-									<h3
-										className="text-6xl md:text-7xl lg:text-8xl font-light text-secondary mb-2"
-										style={{ fontFamily: "Georgia, serif" }}
-									>
+									<h3 className="text-6xl md:text-7xl lg:text-8xl font-light text-secondary mb-2 font-heading">
 										<AnimatedCounter value={item.value || "0"} />
 									</h3>
 
 									{/* Label */}
-									<p
-										className="text-lg md:text-xl text-secondary italic mb-4"
-										style={{ fontFamily: "Georgia, serif" }}
-									>
+									<p className="text-lg md:text-xl text-secondary italic mb-4 font-heading">
 										{item.label}
 									</p>
 
@@ -812,10 +798,10 @@ export function AboutUsPageClient({
 
 			{/* Contact Section */}
 			{visibility.contact && hasContact && (
-				<section className="bg-slate-50">
+				<section className="bg-muted">
 					{/* Section Header */}
 					{(data.contact?.title || data.contact?.subtitle) && (
-						<div className="py-12 bg-white">
+						<div className="py-12 bg-background">
 							<div className="_container">
 								<motion.div
 									variants={staggerContainer}
@@ -847,7 +833,7 @@ export function AboutUsPageClient({
 
 					{/* Contact Form */}
 					{data.contact?.showContactForm && (
-						<div className="py-12 bg-white">
+						<div className="py-12 bg-background">
 							<div className="_container">
 								<div className="mx-auto max-w-3xl">
 									<AnimatedFormSection data={kontaktData.formSection} />
@@ -944,7 +930,7 @@ export function AboutUsPageClient({
 									e.stopPropagation();
 									setSelectedGalleryImage(selectedGalleryImage - 1);
 								}}
-								className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+								className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center text-white transition-colors z-10"
 								aria-label="Previous image"
 							>
 								<ChevronLeft className="w-6 h-6" />
@@ -958,7 +944,7 @@ export function AboutUsPageClient({
 									e.stopPropagation();
 									setSelectedGalleryImage(selectedGalleryImage + 1);
 								}}
-								className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+								className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center text-white transition-colors z-10"
 								aria-label="Next image"
 							>
 								<ChevronRight className="w-6 h-6" />

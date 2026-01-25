@@ -239,20 +239,20 @@ export function AnimatedOfficeLocations({
 				<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
 					{data.title}
 				</h2>
-				<p className="text-lg text-slate-600">{data.subtitle}</p>
+				<p className="text-lg text-foreground/70">{data.subtitle}</p>
 			</div>
 
 			{/* Tabs */}
 			{addresses.length > 1 && (
-				<div className="mb-6 flex gap-2 rounded-xl bg-slate-100 p-1.5">
+				<div className="mb-6 flex gap-2 rounded-xl bg-muted p-1.5">
 					{processedAddresses.map((address, index) => (
 						<button
 							key={address.name}
 							onClick={() => setActiveTab(index)}
 							className={`flex-1 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200 ${
 								activeTab === index
-									? "bg-white text-secondary shadow-md"
-									: "text-slate-600 hover:text-secondary"
+									? "bg-background text-secondary shadow-md"
+									: "text-foreground/70 hover:text-secondary"
 							}`}
 						>
 							{address.city}
@@ -264,7 +264,7 @@ export function AnimatedOfficeLocations({
 			{/* Map with Floating Card - Desktop: Side by Side, Mobile: Stacked */}
 			<div className="grid gap-6 lg:grid-cols-2">
 				{/* Map Section - Show embed or placeholder */}
-				<div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+				<div className="relative overflow-hidden rounded-2xl border border-border bg-background shadow-lg">
 					<div className="h-[400px] w-full">
 						{processedAddresses.map((address, index) => (
 							<motion.div
@@ -298,7 +298,7 @@ export function AnimatedOfficeLocations({
 
 				{/* Info Card */}
 				<motion.div
-					className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg"
+					className="rounded-2xl border border-border bg-background p-8 shadow-lg"
 					layout
 				>
 					<AnimatePresence mode="wait">
@@ -314,7 +314,7 @@ export function AnimatedOfficeLocations({
 									<h3 className="mb-2 text-2xl font-bold text-secondary">
 										{activeAddress.name}
 									</h3>
-									<div className="flex items-center gap-2 text-sm text-slate-600">
+									<div className="flex items-center gap-2 text-sm text-foreground/70">
 										<MapPin className="h-4 w-4 text-secondary" />
 										<span className="font-medium">{activeAddress.city}</span>
 									</div>
@@ -324,33 +324,33 @@ export function AnimatedOfficeLocations({
 								</div>
 							</div>
 
-							<div className="space-y-4 border-t border-slate-200 pt-6">
+							<div className="space-y-4 border-t border-border pt-6">
 								<div className="flex items-start gap-4">
-									<div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
-										<MapPin className="h-5 w-5 text-slate-600" />
+									<div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
+										<MapPin className="h-5 w-5 text-foreground/70" />
 									</div>
 									<div className="flex-1">
-										<p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+										<p className="mb-1 text-xs font-semibold uppercase tracking-wide text-foreground/60">
 											Adress
 										</p>
 										<p className="font-medium text-secondary">
 											{activeAddress.street}
 										</p>
-										<p className="text-sm text-slate-600">
+										<p className="text-sm text-foreground/70">
 											{activeAddress.postalCode} {activeAddress.city}
 										</p>
-										<p className="text-sm text-slate-600">
+										<p className="text-sm text-foreground/70">
 											{activeAddress.country}
 										</p>
 									</div>
 								</div>
 
 								<div className="flex items-start gap-4">
-									<div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
-										<Clock className="h-5 w-5 text-slate-600" />
+									<div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
+										<Clock className="h-5 w-5 text-foreground/70" />
 									</div>
 									<div className="flex-1">
-										<p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+										<p className="mb-1 text-xs font-semibold uppercase tracking-wide text-foreground/60">
 											Öppettider
 										</p>
 										{data.openingHours && (
@@ -359,7 +359,7 @@ export function AnimatedOfficeLocations({
 											</p>
 										)}
 										{data.closedText && (
-											<p className="text-sm text-slate-600">{data.closedText}</p>
+											<p className="text-sm text-foreground/70">{data.closedText}</p>
 										)}
 									</div>
 								</div>

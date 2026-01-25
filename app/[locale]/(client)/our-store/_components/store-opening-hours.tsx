@@ -15,7 +15,7 @@ export function StoreOpeningHours({ data }: StoreOpeningHoursProps) {
 	const currentDayName = dayNames[today];
 
 	return (
-		<Card className="h-full border-border bg-white shadow-sm">
+		<Card className="h-full border-border bg-background shadow-sm">
 			<CardHeader>
 				<div className="flex items-center gap-3">
 					<div className="rounded-full bg-primary/10 p-3">
@@ -47,7 +47,7 @@ export function StoreOpeningHours({ data }: StoreOpeningHoursProps) {
 									className={`flex items-center justify-between rounded-lg px-4 py-3 transition-colors ${
 										isToday
 											? "bg-primary/10 border border-primary/20"
-											: "bg-slate-50"
+											: "bg-muted"
 									}`}
 								>
 									<span

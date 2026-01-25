@@ -45,7 +45,7 @@ export function ProductCategorySection({
 						</span>
 					)}
 					{title && (
-						<h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-secondary">
+						<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-secondary">
 							{title}
 						</h2>
 					)}
@@ -96,7 +96,7 @@ export function ProductCategorySection({
 								{/* Category Title with underline animation */}
 								<div className="absolute bottom-0 left-0 right-0 p-6">
 									<div className="inline-block">
-										<h3 className="text-xl md:text-2xl font-serif font-bold text-white transition-transform duration-300 group-hover:translate-y-[-4px]">
+										<h3 className="text-xl md:text-2xl font-heading font-bold text-white transition-transform duration-300 group-hover:translate-y-[-4px]">
 											{category.name}
 										</h3>
 										{/* Animated underline - only visible on hover, matches text width */}

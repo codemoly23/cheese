@@ -125,12 +125,12 @@ export function SearchPageClient({
 	const totalResults = results?.totalResults || 0;
 
 	return (
-		<section className="py-12 bg-slate-50 min-h-[60vh]">
+		<section className="py-12 bg-muted min-h-[60vh]">
 			<div className="_container">
 				{/* Header */}
 				<div className="mb-8">
 					{hasSearched && results?.query && (
-						<p className="text-sm text-slate-500 mb-1">
+						<p className="text-sm text-foreground/60 mb-1">
 							Din sökning &quot;{results.query}&quot; gav {totalResults} träffar
 						</p>
 					)}
@@ -143,19 +143,19 @@ export function SearchPageClient({
 				<form onSubmit={handleSearch} className="mb-8">
 					<div className="flex flex-col sm:flex-row gap-4 items-center max-w-2xl">
 						<div className="relative flex-1 w-full">
-							<Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+							<Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground/50" />
 							<Input
 								type="text"
 								value={inputValue}
 								onChange={(e) => setInputValue(e.target.value)}
 								placeholder="Sök produkter, artiklar, kategorier..."
-								className="pl-12 pr-10 h-14 text-base rounded-full border-slate-200 focus:border-primary focus:ring-primary bg-white"
+								className="pl-12 pr-10 h-14 text-base rounded-full border-border focus:border-primary focus:ring-primary bg-background"
 							/>
 							{inputValue && (
 								<button
 									type="button"
 									onClick={() => setInputValue("")}
-									className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+									className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/50 hover:text-foreground/70"
 								>
 									<X className="h-5 w-5" />
 								</button>
@@ -247,7 +247,7 @@ export function SearchPageClient({
 								>
 									Föregående
 								</Button>
-								<span className="flex items-center px-4 text-sm text-slate-600">
+								<span className="flex items-center px-4 text-sm text-foreground/70">
 									Sida {page}
 								</span>
 								<Button
@@ -270,10 +270,10 @@ export function SearchPageClient({
 				{/* Initial State (no search yet) */}
 				{!isLoading && !hasSearched && (
 					<div className="text-center py-12">
-						<div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-							<Search className="h-8 w-8 text-slate-400" />
+						<div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+							<Search className="h-8 w-8 text-foreground/50" />
 						</div>
-						<p className="text-slate-500">
+						<p className="text-foreground/60">
 							Skriv minst 2 tecken för att börja söka
 						</p>
 					</div>

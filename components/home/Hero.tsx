@@ -41,7 +41,7 @@ export function Hero({ data }: HeroProps) {
 
 	return (
 		<section className={`relative w-full overflow-hidden padding-top pb-16 lg:pb-32 min-h-[100svh] lg:min-h-0 ${
-			isDarkBackground ? 'bg-slate-900' : 'bg-slate-100'
+			isDarkBackground ? 'bg-secondary' : 'bg-background'
 		}`}>
 			{/* Background Image - if provided from CMS */}
 			{hasBackgroundImage && (
@@ -55,7 +55,7 @@ export function Hero({ data }: HeroProps) {
 						wrapperClasses="w-full h-full"
 						className="object-cover w-full h-full opacity-40"
 					/>
-					<div className="absolute inset-0 bg-slate-900/60" />
+					<div className="absolute inset-0 bg-secondary/60" />
 				</div>
 			)}
 
@@ -76,7 +76,7 @@ export function Hero({ data }: HeroProps) {
 						wrapperClasses="w-full h-full"
 						className="object-cover w-full h-full"
 					/>
-					<div className="absolute inset-0 bg-gradient-to-t from-slate-100 via-slate-100/80 to-transparent" />
+					<div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
 				</div>
 			)}
 
@@ -113,7 +113,7 @@ export function Hero({ data }: HeroProps) {
 					{/* Description */}
 					{data.subtitle && (
 						<p className={`text-lg leading-relaxed max-w-xl ${
-							isDarkBackground ? 'text-slate-200' : 'text-slate-600'
+							isDarkBackground ? 'text-white/80' : 'text-foreground/70'
 						}`}>
 							{data.subtitle}
 						</p>
@@ -154,7 +154,7 @@ export function Hero({ data }: HeroProps) {
 					{/* Trust Indicators */}
 					{data.trustIndicators && data.trustIndicators.length > 0 && (
 						<div className={`flex items-center gap-6 pt-6 text-sm ${
-							isDarkBackground ? 'text-slate-300' : 'text-slate-600'
+							isDarkBackground ? 'text-white/70' : 'text-foreground/70'
 						}`}>
 							{data.trustIndicators
 								.filter((ind) => ind.icon && ind.text)

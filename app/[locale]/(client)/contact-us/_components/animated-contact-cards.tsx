@@ -65,7 +65,7 @@ export function AnimatedContactCards({
 					{/* Phone Card */}
 					<motion.div
 						variants={scaleIn}
-						className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
+						className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
 					>
 						<div className="absolute right-0 top-0 h-32 w-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-secondary/5 transition-all duration-300 group-hover:scale-150" />
 						<div className="relative">
@@ -82,7 +82,7 @@ export function AnimatedContactCards({
 								{phone}
 							</a>
 							{phoneCard.subtitle && (
-								<div className="flex items-center gap-2 text-sm text-slate-600">
+								<div className="flex items-center gap-2 text-sm text-foreground/70">
 									<Clock className="h-4 w-4" />
 									<span>{phoneCard.subtitle}</span>
 								</div>
@@ -93,7 +93,7 @@ export function AnimatedContactCards({
 					{/* Email Card */}
 					<motion.div
 						variants={scaleIn}
-						className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
+						className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
 					>
 						<div className="absolute right-0 top-0 h-32 w-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-secondary/5 transition-all duration-300 group-hover:scale-150" />
 						<div className="relative">
@@ -110,7 +110,7 @@ export function AnimatedContactCards({
 								{email}
 							</a>
 							{emailCard.subtitle && (
-								<div className="flex items-center gap-2 text-sm text-slate-600">
+								<div className="flex items-center gap-2 text-sm text-foreground/70">
 									<CheckCircle2 className="h-4 w-4" />
 									<span>{emailCard.subtitle}</span>
 								</div>
@@ -121,7 +121,7 @@ export function AnimatedContactCards({
 					{/* Social Media Card */}
 					<motion.div
 						variants={scaleIn}
-						className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
+						className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary/30"
 					>
 						<div className="absolute right-0 top-0 h-32 w-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-secondary/5 transition-all duration-300 group-hover:scale-150" />
 						<div className="relative">
@@ -137,7 +137,7 @@ export function AnimatedContactCards({
 										href={facebookUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-secondary transition-all hover:bg-secondary hover:text-white"
+										className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-secondary transition-all hover:bg-secondary hover:text-white"
 										aria-label="Facebook"
 									>
 										<svg
@@ -154,7 +154,7 @@ export function AnimatedContactCards({
 										href={instagramUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-secondary transition-all hover:bg-secondary hover:text-white"
+										className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-secondary transition-all hover:bg-secondary hover:text-white"
 										aria-label="Instagram"
 									>
 										<svg
@@ -171,7 +171,7 @@ export function AnimatedContactCards({
 										href={linkedinUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-secondary transition-all hover:bg-secondary hover:text-white"
+										className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-secondary transition-all hover:bg-secondary hover:text-white"
 										aria-label="LinkedIn"
 									>
 										<svg
@@ -185,7 +185,7 @@ export function AnimatedContactCards({
 								)}
 							</div>
 							{socialCard.subtitle && (
-								<p className="text-sm text-slate-600">{socialCard.subtitle}</p>
+								<p className="text-sm text-foreground/70">{socialCard.subtitle}</p>
 							)}
 						</div>
 					</motion.div>

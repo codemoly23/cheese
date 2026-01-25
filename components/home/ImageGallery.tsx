@@ -47,7 +47,7 @@ export function ImageGallery({ data }: ImageGalleryProps) {
 
 	return (
 		<section
-			className="section-padding bg-slate-100 overflow-hidden relative"
+			className="section-padding bg-background overflow-hidden relative"
 			aria-labelledby="gallery-heading"
 		>
 			{/* Decorative background elements */}

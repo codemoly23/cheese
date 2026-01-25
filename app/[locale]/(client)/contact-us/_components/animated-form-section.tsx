@@ -29,7 +29,7 @@ export function AnimatedFormSection({ data }: AnimatedFormSectionProps) {
 				<h2 className="mb-4 text-3xl font-bold text-secondary md:text-4xl">
 					{data.title}
 				</h2>
-				<p className="text-lg text-slate-600">{data.subtitle}</p>
+				<p className="text-lg text-foreground/70">{data.subtitle}</p>
 			</div>
 			<ContactInquiryForm />
 		</motion.div>

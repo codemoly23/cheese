@@ -81,7 +81,7 @@ export function ProductCarousel({
 						</span>
 					)}
 					{title && (
-						<h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-secondary">
+						<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-secondary">
 							{title}
 						</h2>
 					)}
@@ -134,7 +134,7 @@ export function ProductCarousel({
 													/>
 												) : (
 													<div className="absolute inset-0 bg-muted/30 flex items-center justify-center">
-														<span className="text-secondary/30 text-5xl font-serif">
+														<span className="text-secondary/30 text-5xl font-heading">
 															{product.name.charAt(0)}
 														</span>
 													</div>
@@ -145,7 +145,7 @@ export function ProductCarousel({
 											{renderStars(product.rating || 5)}
 
 											{/* Product Name */}
-											<h3 className="text-lg md:text-xl font-serif font-medium text-secondary group-hover:text-primary transition-colors">
+											<h3 className="text-lg md:text-xl font-heading font-medium text-secondary group-hover:text-primary transition-colors">
 												{product.name}
 											</h3>
 										</Link>

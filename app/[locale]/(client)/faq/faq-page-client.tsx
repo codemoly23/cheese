@@ -48,7 +48,7 @@ export function FAQPageClient({ data }: FAQPageClientProps) {
 		.sort((a, b) => (a.order || 0) - (b.order || 0));
 
 	return (
-		<div className="min-h-screen bg-slate-50">
+		<div className="min-h-screen bg-muted">
 			{/* Hero Section */}
 			{visibility.hero && hasHero && <FAQHeroClient data={data.hero} />}
 

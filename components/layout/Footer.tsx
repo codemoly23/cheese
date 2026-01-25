@@ -148,7 +148,7 @@ export function Footer({
 							priority={false}
 						/>
 					) : (
-						<div className="absolute inset-0 bg-gradient-to-b from-amber-100 to-amber-200" />
+						<div className="absolute inset-0 bg-gradient-to-b from-[#FDF9EF] to-[#E8A641]/30" />
 					)}
 
 					{/* Gradient Overlay - Fade to footer color */}
@@ -166,7 +166,7 @@ export function Footer({
 
 						{/* Title */}
 						{banner.title && (
-							<h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white max-w-3xl mb-8 leading-tight drop-shadow-lg">
+							<h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white max-w-3xl mb-8 leading-tight drop-shadow-lg">
 								{banner.title}
 							</h2>
 						)}

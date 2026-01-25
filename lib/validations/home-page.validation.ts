@@ -277,7 +277,7 @@ export const sectionVisibilitySchema = z.object({
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
-	processSteps: z.boolean(),
+	processSteps: z.boolean().default(true),
 	about: z.boolean(),
 	testimonials: z.boolean(),
 	cta: z.boolean(),

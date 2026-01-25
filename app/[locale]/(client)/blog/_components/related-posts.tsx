@@ -49,7 +49,7 @@ export function RelatedPosts({
 	}
 
 	return (
-		<section className="section-padding bg-slate-50">
+		<section className="section-padding bg-muted">
 			<div className="_container">
 				<motion.div
 					initial="initial"

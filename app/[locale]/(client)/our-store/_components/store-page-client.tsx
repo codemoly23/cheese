@@ -26,7 +26,7 @@ export function StorePageClient({ data }: StorePageClientProps) {
 
 			{/* Opening Hours and Map - Side by side on larger screens */}
 			{(sectionVisibility.openingHours || sectionVisibility.map) && (
-				<section className="section-padding bg-slate-50">
+				<section className="section-padding bg-muted">
 					<div className="_container">
 						<motion.div
 							initial="initial"

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Raleway } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
@@ -8,14 +9,18 @@ import { FB_PIXEL_ID } from "@/lib/analytics/facebook-pixel";
 import { ToasterProvider } from "@/components/providers/toaster-provider";
 import { getSiteSettings } from "@/lib/services/site-settings.service";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
+// MADE Dillan - Heritage Header Font for H1, H2, hero titles
+const madeDillan = localFont({
+	src: "../MADE Dillan PERSONAL USE.otf",
+	variable: "--font-heading",
+	display: "swap",
 });
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+// Raleway - Standard Interface Font for navigation, buttons, body text
+const raleway = Raleway({
 	subsets: ["latin"],
+	variable: "--font-sans",
+	display: "swap",
 });
 
 // Default keywords as fallback
@@ -154,7 +159,7 @@ export default function RootLayout({
 				</noscript>
 			</head>
 			<body
-				className={`${geistSans.className} ${geistMono.variable} antialiased bg-slate-100`}
+				className={`${raleway.variable} ${madeDillan.variable} antialiased bg-background font-sans`}
 			>
 				{/* Google Tag Manager (noscript) */}
 				<noscript>

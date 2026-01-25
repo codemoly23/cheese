@@ -80,7 +80,7 @@ export function FeatureBanner({ data }: FeatureBannerProps) {
 					{/* Title with Highlight */}
 					{data.title && (
 						<motion.h2
-							className="text-2xl md:text-3xl lg:text-4xl font-serif text-center text-secondary max-w-3xl mb-12 leading-relaxed"
+							className="text-2xl md:text-3xl lg:text-4xl font-heading text-center text-secondary max-w-3xl mb-12 leading-relaxed"
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
@@ -116,7 +116,7 @@ export function FeatureBanner({ data }: FeatureBannerProps) {
 
 										{/* Title */}
 										{feature.title && (
-											<h3 className="text-lg md:text-xl font-serif font-medium text-secondary mb-2">
+											<h3 className="text-lg md:text-xl font-heading font-medium text-secondary mb-2">
 												{feature.title}
 											</h3>
 										)}

@@ -72,7 +72,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 			<div>
 				<div className="fixed top-0 left-0 z-50 w-full">
 					<nav
-						className="py-2 sm:py-3 transition-all duration-300 bg-[#2C2D38]"
+						className="py-2 sm:py-3 transition-all duration-300 bg-secondary"
 					>
 						<div className="_container">
 							<div className="flex bg-none items-center justify-between gap-1 lg:gap-2">
@@ -96,7 +96,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 		<div>
 			<div className="fixed top-0 left-0 z-50 w-full">
 				<nav
-					className={`py-2 sm:py-3 transition-all duration-300 bg-[#2C2D38] ${
+					className={`py-2 sm:py-3 transition-all duration-300 bg-secondary ${
 						isScrolled ? "shadow-lg" : ""
 					}`}
 				>
@@ -126,8 +126,8 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																{t(item.titleKey)}
 															</Link>
 														</NavigationMenuTrigger>
-														<NavigationMenuContent className="bg-slate-100/80! border! border-slate-200! ring-0! outline-none! backdrop-blur-xl fixed! left-1/2! -translate-x-1/2! top-[72px]!">
-															<div className="w-[calc(100vw-6rem)] max-w-[1150px] p-4 bg-slate-100/80 backdrop-blur-xl border border-white/20 shadow-sm rounded-sm max-h-[60vh] overflow-y-auto nav-dropdown-scroll">
+														<NavigationMenuContent className="bg-background/95! border! border-border! ring-0! outline-none! backdrop-blur-xl fixed! left-1/2! -translate-x-1/2! top-[72px]!">
+															<div className="w-[calc(100vw-6rem)] max-w-[1150px] p-4 bg-background/95 backdrop-blur-xl border border-white/20 shadow-sm rounded-sm max-h-[60vh] overflow-y-auto nav-dropdown-scroll">
 																<div className="grid grid-cols-5 gap-x-6 gap-y-3">
 																	{navigationData?.categories.map(
 																		(category) => (
@@ -155,7 +155,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																								>
 																									<Link
 																										href={`/products/category/${product.primaryCategorySlug}/${product.slug}`}
-																										className="block text-sm text-slate-600 hover:text-secondary transition-colors line-clamp-1 hover:underline"
+																										className="block text-sm text-foreground/70 hover:text-secondary transition-colors line-clamp-1 hover:underline"
 																									>
 																										{
 																											product.title
@@ -171,7 +171,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																	)}
 																	{/* Loading state */}
 																	{!navigationData && (
-																		<div className="col-span-5 py-8 text-center text-slate-400 text-sm">
+																		<div className="col-span-5 py-8 text-center text-foreground/50 text-sm">
 																			{tCommon("loading")}
 																		</div>
 																	)}
@@ -179,7 +179,7 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																	{navigationData &&
 																		navigationData.categories
 																			.length === 0 && (
-																			<div className="col-span-5 py-8 text-center text-slate-400 text-sm">
+																			<div className="col-span-5 py-8 text-center text-foreground/50 text-sm">
 																				{t("noCategories")}
 																			</div>
 																		)}
@@ -202,15 +202,15 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 																{t(item.titleKey)}
 															</Link>
 														</NavigationMenuTrigger>
-														<NavigationMenuContent className="bg-slate-100/80! border! border-slate-200! ring-0! outline-none! backdrop-blur-xl">
-															<div className="min-w-[180px] p-3 bg-slate-100/80 backdrop-blur-xl border border-white/20 shadow-sm rounded-sm">
+														<NavigationMenuContent className="bg-background/95! border! border-border! ring-0! outline-none! backdrop-blur-xl">
+															<div className="min-w-[180px] p-3 bg-background/95 backdrop-blur-xl border border-white/20 shadow-sm rounded-sm">
 																<div className="space-y-1">
 																	{item.items.map(
 																		(subItem) => (
 																			<Link
 																				key={subItem.titleKey}
 																				href={subItem.href}
-																				className="block text-sm text-slate-600 hover:text-secondary transition-colors hover:underline py-1.5 px-2 rounded hover:bg-secondary/5"
+																				className="block text-sm text-foreground/70 hover:text-secondary transition-colors hover:underline py-1.5 px-2 rounded hover:bg-secondary/5"
 																			>
 																				{t(subItem.titleKey)}
 																			</Link>

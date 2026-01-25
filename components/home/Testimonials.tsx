@@ -31,12 +31,12 @@ export function Testimonials({ data }: TestimonialsProps) {
 					{/* Header */}
 					<div className="lg:col-span-1">
 						{data?.title && (
-							<h2 className="text-3xl md:text-4xl font-bold mb-6">
+							<h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading">
 								{data.title}
 							</h2>
 						)}
 						{data?.subtitle && (
-							<p className="text-slate-100/80 text-lg mb-8">
+							<p className="text-white/80 text-lg mb-8">
 								{data.subtitle}
 							</p>
 						)}
@@ -73,7 +73,7 @@ export function Testimonials({ data }: TestimonialsProps) {
 							{validTestimonials.map((item, index) => (
 								<SwiperSlide key={index}>
 									<div className="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-2xl h-full min-h-[280px] flex flex-col">
-										<Quote className="h-8 w-8 text-slate-200 mb-6 opacity-80" />
+										<Quote className="h-8 w-8 text-primary mb-6 opacity-80" />
 										<p className="text-lg leading-relaxed mb-6 grow">
 											{`"${item.quote}"`}
 										</p>
@@ -84,7 +84,7 @@ export function Testimonials({ data }: TestimonialsProps) {
 											<div>
 												<div className="font-bold">{item.author}</div>
 												{(item.role || item.company) && (
-													<div className="text-sm text-slate-200/70">
+													<div className="text-sm text-white/70">
 														{[item.role, item.company]
 															.filter(Boolean)
 															.join(", ")}
