@@ -120,9 +120,9 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
 	// Grid variant
 	return (
 		<Link href={`/products/category/${product.categories?.[0] || "uncategorized"}/${product.slug}`}>
-			<Card className="group h-full overflow-hidden border-primary/10 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 translate transition-all duration-300 p-0!">
+			<Card className="group h-full overflow-hidden border-primary/10 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 translate transition-all duration-300 p-0!" style={{ backgroundColor: '#FAF8F0' }}>
 				{/* Image */}
-				<div className="relative h-56 overflow-hidden bg-primary/50">
+				<div className="relative h-56 overflow-hidden" style={{ backgroundColor: '#F7F1DB' }}>
 					<ImageComponent
 						src={primaryImage?.url}
 						alt={primaryImage?.alt}

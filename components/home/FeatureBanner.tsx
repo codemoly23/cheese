@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Leaf, MilkOff, Package, Box } from "lucide-react";
 
@@ -30,6 +31,15 @@ interface FeatureBannerProps {
 }
 
 export function FeatureBanner({ data }: FeatureBannerProps) {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: containerRef,
+		offset: ["start end", "end start"],
+	});
+
+	// Parallax effect - image moves slower than scroll (0.5x speed)
+	const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
 	if (!data) return null;
 
 	// Check if there's any content
@@ -55,28 +65,31 @@ export function FeatureBanner({ data }: FeatureBannerProps) {
 	};
 
 	return (
-		<section className="section-padding bg-white">
-			<div className="_container">
-				<div className="flex flex-col items-center">
-					{/* Banner Image */}
-					{data.image && (
-						<motion.div
-							className="relative w-full max-w-lg aspect-square mb-8"
-							initial={{ opacity: 0, y: 30 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.6 }}
-						>
-							<Image
-								src={data.image}
-								alt="Feature Banner"
-								fill
-								className="object-contain"
-								sizes="(max-width: 768px) 100vw, 500px"
-							/>
-						</motion.div>
-					)}
+		<section ref={containerRef} className="bg-white">
+			{/* Full Width Parallax Image - Panoramic 21:9 Aspect Ratio (1920x820) */}
+			{data.image && (
+				<div className="relative w-full aspect-[21/9] overflow-hidden">
+					<motion.div
+						className="absolute inset-0 w-full h-[130%] -top-[15%]"
+						style={{ y }}
+					>
+						<Image
+							src={data.image}
+							alt="Feature Banner"
+							fill
+							className="object-cover"
+							sizes="100vw"
+							priority
+						/>
+					</motion.div>
+					{/* Subtle gradient overlay for better text contrast below */}
+					<div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20" />
+				</div>
+			)}
 
+			{/* Content Section */}
+			<div className="_container section-padding">
+				<div className="flex flex-col items-center">
 					{/* Title with Highlight */}
 					{data.title && (
 						<motion.h2
