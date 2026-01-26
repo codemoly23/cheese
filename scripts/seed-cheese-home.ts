@@ -59,7 +59,6 @@ const homePageData = {
 		features: true,
 		productShowcase: true,
 		imageGallery: true,
-		processSteps: true,
 		about: true,
 		testimonials: true,
 		cta: true,
@@ -300,43 +299,6 @@ const homePageData = {
 		ctaSubtitle:
 			"Experience the beauty of our dairy farm and see how our products are made",
 		ctaButtonText: "Book a Tour",
-	},
-
-	// Process Steps Section
-	processStepsSection: {
-		badge: "Our Process",
-		title: "How We Make Our Cheese",
-		subtitle: "From fresh milk to aged perfection - every step matters",
-		steps: [
-			{
-				stepNumber: "01",
-				title: "Fresh Milk Collection",
-				description:
-					"Every morning, we collect fresh milk from our grass-fed cows, ensuring the highest quality starting point.",
-				icon: "Milk",
-			},
-			{
-				stepNumber: "02",
-				title: "Traditional Crafting",
-				description:
-					"Our master cheesemakers use traditional techniques to transform the milk into curds and whey.",
-				icon: "ChefHat",
-			},
-			{
-				stepNumber: "03",
-				title: "Careful Aging",
-				description:
-					"Each cheese is aged in our climate-controlled cellars, developing its unique flavor profile.",
-				icon: "Clock",
-			},
-			{
-				stepNumber: "04",
-				title: "Quality Testing",
-				description:
-					"Before reaching you, every batch is tested by our experts to ensure it meets our high standards.",
-				icon: "CheckCircle",
-			},
-		],
 	},
 
 	// About Section

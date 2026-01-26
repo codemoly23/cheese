@@ -211,7 +211,6 @@ const sectionVisibilitySchema = z.object({
 	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
-	processSteps: z.boolean(),
 	about: z.boolean(),
 	testimonials: z.boolean(),
 	cta: z.boolean(),
@@ -330,7 +329,6 @@ export default function StartsidaPage() {
 				features: true,
 				productShowcase: true,
 				imageGallery: true,
-				processSteps: true,
 				about: true,
 				testimonials: true,
 				cta: true,
@@ -530,7 +528,6 @@ export default function StartsidaPage() {
 					features: true,
 					productShowcase: true,
 					imageGallery: true,
-					processSteps: true,
 					about: true,
 					testimonials: true,
 					cta: true,
@@ -559,9 +556,6 @@ export default function StartsidaPage() {
 					imageGallery:
 						content.sectionVisibility?.imageGallery ??
 						defaultVisibility.imageGallery,
-					processSteps:
-						content.sectionVisibility?.processSteps ??
-						defaultVisibility.processSteps,
 					about:
 						content.sectionVisibility?.about ?? defaultVisibility.about,
 					testimonials:

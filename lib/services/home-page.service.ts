@@ -6,7 +6,6 @@ import {
 import type {
 	IHeroSection,
 	IFeatureHighlight,
-	IProcessStepsSection,
 	IAboutSection,
 	ICtaSection,
 	IHomePageSeo,
@@ -85,20 +84,6 @@ export const getImageGallerySection = unstable_cache(
 		return homePageRepository.getImageGallery();
 	},
 	["home-page-image-gallery"],
-	{
-		tags: [HOME_PAGE_CACHE_TAG],
-		revalidate: 3600,
-	}
-);
-
-/**
- * Get process steps section only
- */
-export const getProcessStepsSection = unstable_cache(
-	async (): Promise<IProcessStepsSection> => {
-		return homePageRepository.getProcessStepsSection();
-	},
-	["home-page-process-steps"],
 	{
 		tags: [HOME_PAGE_CACHE_TAG],
 		revalidate: 3600,

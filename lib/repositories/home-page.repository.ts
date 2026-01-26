@@ -12,7 +12,6 @@ import {
 	type IImageGallerySection,
 	type ISectionVisibility,
 	type ITestimonialsSection,
-	type IProcessStepsSection,
 } from "@/models/home-page.model";
 
 /**
@@ -309,14 +308,6 @@ class HomePageRepository {
 	async getSeo(): Promise<IHomePageSeo> {
 		const homePage = await this.get();
 		return homePage.seo;
-	}
-
-	/**
-	 * Get process steps section only
-	 */
-	async getProcessStepsSection(): Promise<IProcessStepsSection> {
-		const homePage = await this.get();
-		return homePage.processStepsSection;
 	}
 }
 

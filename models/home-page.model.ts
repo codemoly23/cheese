@@ -84,26 +84,6 @@ export interface IFeatureHighlight {
 }
 
 /**
- * Process Step interface - all fields optional
- */
-export interface IProcessStep {
-	stepNumber?: string;
-	title?: string;
-	description?: string;
-	icon?: string;
-}
-
-/**
- * Process Steps Section interface - all fields optional
- */
-export interface IProcessStepsSection {
-	badge?: string;
-	title?: string;
-	subtitle?: string;
-	steps?: IProcessStep[];
-}
-
-/**
  * About Section interface - all fields optional
  */
 export interface IAboutSection {
@@ -276,7 +256,6 @@ export interface ISectionVisibility {
 	features: boolean;
 	productShowcase: boolean;
 	imageGallery: boolean;
-	processSteps: boolean;
 	about: boolean;
 	testimonials: boolean;
 	cta: boolean;
@@ -325,9 +304,6 @@ export interface IHomePage extends Document {
 
 	// Image Gallery Section
 	imageGallery: IImageGallerySection;
-
-	// Process Steps Section (title, subtitle, steps)
-	processStepsSection: IProcessStepsSection;
 
 	// About Section
 	aboutSection: IAboutSection;
@@ -447,32 +423,6 @@ const FeatureHighlightSchema = new Schema<IFeatureHighlight>(
 		icon: { type: String, trim: true },
 		title: { type: String, trim: true },
 		description: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-/**
- * Process Step sub-schema - no required fields
- */
-const ProcessStepSchema = new Schema<IProcessStep>(
-	{
-		stepNumber: { type: String, trim: true },
-		title: { type: String, trim: true },
-		description: { type: String, trim: true },
-		icon: { type: String, trim: true },
-	},
-	{ _id: false }
-);
-
-/**
- * Process Steps Section sub-schema - no required fields
- */
-const ProcessStepsSectionSchema = new Schema<IProcessStepsSection>(
-	{
-		badge: { type: String, trim: true },
-		title: { type: String, trim: true },
-		subtitle: { type: String, trim: true },
-		steps: { type: [ProcessStepSchema], default: [] },
 	},
 	{ _id: false }
 );
@@ -708,7 +658,6 @@ const SectionVisibilitySchema = new Schema<ISectionVisibility>(
 		features: { type: Boolean, default: true },
 		productShowcase: { type: Boolean, default: true },
 		imageGallery: { type: Boolean, default: true },
-		processSteps: { type: Boolean, default: true },
 		about: { type: Boolean, default: true },
 		testimonials: { type: Boolean, default: true },
 		cta: { type: Boolean, default: true },
@@ -735,7 +684,6 @@ const HomePageSchema = new Schema<IHomePage>(
 				features: true,
 				productShowcase: true,
 				imageGallery: true,
-				processSteps: true,
 				about: true,
 				testimonials: true,
 				cta: true,
@@ -780,10 +728,6 @@ const HomePageSchema = new Schema<IHomePage>(
 		},
 		imageGallery: {
 			type: ImageGallerySectionSchema,
-			default: {},
-		},
-		processStepsSection: {
-			type: ProcessStepsSectionSchema,
 			default: {},
 		},
 		aboutSection: {
