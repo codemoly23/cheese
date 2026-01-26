@@ -73,6 +73,10 @@ export async function PUT(request: NextRequest) {
 		// Revalidate the root layout - this affects navbar/footer on all pages
 		revalidatePath("/", "layout");
 
+		// Revalidate favicon/icon routes (they have their own ISR cache)
+		revalidatePath("/icon");
+		revalidatePath("/apple-icon");
+
 		// Revalidate key public pages that display site settings
 		const pathsToRevalidate = [
 			"/",

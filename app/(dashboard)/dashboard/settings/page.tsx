@@ -110,6 +110,7 @@ const settingsFormSchema = z.object({
 	branding: z.object({
 		logoUrl: z.string().optional(),
 		faviconUrl: z.string().optional(),
+		dashboardLogoUrl: z.string().optional(),
 	}),
 
 	// Footer
@@ -159,6 +160,7 @@ export default function SettingsPage() {
 			branding: {
 				logoUrl: "",
 				faviconUrl: "",
+				dashboardLogoUrl: "",
 			},
 			footer: {
 				banner: {
@@ -244,6 +246,7 @@ export default function SettingsPage() {
 					branding: {
 						logoUrl: settings.branding?.logoUrl || "",
 						faviconUrl: settings.branding?.faviconUrl || "",
+						dashboardLogoUrl: settings.branding?.dashboardLogoUrl || "",
 					},
 					footer: {
 						banner: {
@@ -1051,6 +1054,30 @@ export default function SettingsPage() {
 												<FormDescription>
 													Recommended: 32x32px ICO or PNG file. This is the
 													small icon shown in browser tabs.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="branding.dashboardLogoUrl"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Dashboard Logo</FormLabel>
+												<FormControl>
+													<MediaPicker
+														type="image"
+														value={field.value || null}
+														onChange={(url) => field.onChange(url || "")}
+														placeholder="Select dashboard logo (SVG or PNG)"
+														galleryTitle="Select Dashboard Logo"
+													/>
+												</FormControl>
+												<FormDescription>
+													Logo displayed in the admin dashboard sidebar and header.
+													If not set, the main logo will be used.
 												</FormDescription>
 												<FormMessage />
 											</FormItem>

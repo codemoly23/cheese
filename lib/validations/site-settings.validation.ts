@@ -74,6 +74,10 @@ export const brandingSettingsSchema = z.object({
 		.string()
 		.max(500, "Favicon URL cannot exceed 500 characters")
 		.optional(),
+	dashboardLogoUrl: z
+		.string()
+		.max(500, "Dashboard logo URL cannot exceed 500 characters")
+		.optional(),
 });
 
 /**

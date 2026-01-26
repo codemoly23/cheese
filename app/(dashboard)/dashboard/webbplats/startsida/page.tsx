@@ -10,23 +10,6 @@ import {
 	Plus,
 	Trash2,
 	ExternalLink,
-	Clock,
-	ShieldCheck,
-	Truck,
-	HeadphonesIcon,
-	Search,
-	FileText,
-	CheckCircle,
-	Star,
-	Award,
-	Zap,
-	Heart,
-	Users,
-	Building,
-	Phone,
-	Mail,
-	Globe,
-	type LucideIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -73,41 +56,6 @@ const TextEditor = dynamic(() => import("@/components/common/TextEditor"), {
 	),
 });
 
-// Icon name to component mapping
-const ICON_MAP: Record<string, LucideIcon> = {
-	Clock,
-	ShieldCheck,
-	Truck,
-	HeadphonesIcon,
-	Search,
-	FileText,
-	CheckCircle,
-	Star,
-	Award,
-	Zap,
-	Heart,
-	Users,
-	Building,
-	Phone,
-	Mail,
-	Globe,
-};
-
-// Available Lucide icons for selection
-const AVAILABLE_ICONS = Object.keys(ICON_MAP);
-
-// Helper component to render icon by name
-function IconPreview({
-	name,
-	className,
-}: {
-	name: string;
-	className?: string;
-}) {
-	const IconComponent = ICON_MAP[name];
-	if (!IconComponent) return null;
-	return <IconComponent className={className} />;
-}
 
 // CTA Button schema - all optional since buttons may not be set
 const ctaButtonSchema = z.object({
@@ -122,12 +70,6 @@ const trustIndicatorSchema = z.object({
 	text: z.string().optional(),
 });
 
-// Feature schema - optional fields
-const featureSchema = z.object({
-	icon: z.string().optional(),
-	title: z.string().optional(),
-	description: z.string().optional(),
-});
 
 // Hero Slide schema for slider mode
 const heroSlideSchema = z.object({
@@ -266,7 +208,6 @@ const sectionVisibilitySchema = z.object({
 	productCarousel: z.boolean(),
 	promoBanner: z.boolean(),
 	featureBanner: z.boolean(),
-	features: z.boolean(),
 	productShowcase: z.boolean(),
 	imageGallery: z.boolean(),
 	about: z.boolean(),
@@ -314,9 +255,6 @@ const homePageFormSchema = z.object({
 
 	// Feature Banner Section
 	featureBanner: featureBannerSectionSchema.optional(),
-
-	// Features
-	features: z.array(featureSchema).optional(),
 
 	// Product Showcase
 	productShowcase: productShowcaseSectionSchema.optional(),
@@ -387,7 +325,6 @@ export default function StartsidaPage() {
 				productCarousel: true,
 				promoBanner: true,
 				featureBanner: true,
-				features: true,
 				productShowcase: true,
 				imageGallery: true,
 				about: true,
@@ -456,7 +393,6 @@ export default function StartsidaPage() {
 				titleHighlight: "",
 				features: [],
 			},
-			features: [],
 			productShowcase: {
 				title: "",
 				subtitle: "",
@@ -511,12 +447,6 @@ export default function StartsidaPage() {
 	});
 
 	// Field arrays for dynamic lists
-	const {
-		fields: featureFields,
-		append: appendFeature,
-		remove: removeFeature,
-	} = useFieldArray({ control: form.control, name: "features" });
-
 	const {
 		fields: slideFields,
 		append: appendSlide,
@@ -593,7 +523,6 @@ export default function StartsidaPage() {
 					productCarousel: true,
 					promoBanner: true,
 					featureBanner: true,
-					features: true,
 					productShowcase: true,
 					imageGallery: true,
 					about: true,
@@ -615,9 +544,6 @@ export default function StartsidaPage() {
 					featureBanner:
 						content.sectionVisibility?.featureBanner ??
 						defaultVisibility.featureBanner,
-					features:
-						content.sectionVisibility?.features ??
-						defaultVisibility.features,
 					productShowcase:
 						content.sectionVisibility?.productShowcase ??
 						defaultVisibility.productShowcase,
@@ -709,7 +635,6 @@ export default function StartsidaPage() {
 						titleHighlight: content.featureBanner?.titleHighlight || "",
 						features: content.featureBanner?.features || [],
 					},
-					features: content.features || [],
 					productShowcase: {
 						title: content.productShowcase?.title || "",
 						subtitle: content.productShowcase?.subtitle || "",
@@ -818,7 +743,6 @@ export default function StartsidaPage() {
 	// Friendly field name mapping
 	const fieldNameMap: Record<string, string> = {
 		hero: "Hero Section",
-		features: "Features",
 		productShowcase: "Product Showcase",
 		imageGallery: "Image Gallery",
 		aboutSection: "About Section",
@@ -943,7 +867,6 @@ export default function StartsidaPage() {
 							<TabsTrigger value="product-carousel">Carousel</TabsTrigger>
 							<TabsTrigger value="promo-banner">Banner</TabsTrigger>
 							<TabsTrigger value="feature-banner">Feature Banner</TabsTrigger>
-							<TabsTrigger value="features">Features</TabsTrigger>
 							<TabsTrigger value="products">Products</TabsTrigger>
 							<TabsTrigger value="gallery">Gallery</TabsTrigger>
 							<TabsTrigger value="about">About</TabsTrigger>
@@ -1064,28 +987,6 @@ export default function StartsidaPage() {
 														</FormLabel>
 														<FormDescription>
 															Image with highlighted title and feature cards.
-														</FormDescription>
-													</div>
-													<FormControl>
-														<Switch
-															checked={field.value}
-															onCheckedChange={field.onChange}
-														/>
-													</FormControl>
-												</FormItem>
-											)}
-										/>
-										<FormField
-											control={form.control}
-											name="sectionVisibility.features"
-											render={({ field }) => (
-												<FormItem className="flex items-center justify-between rounded-lg border p-4">
-													<div className="space-y-0.5">
-														<FormLabel className="text-base">
-															Features
-														</FormLabel>
-														<FormDescription>
-															Feature highlight cards.
 														</FormDescription>
 													</div>
 													<FormControl>
@@ -2040,168 +1941,6 @@ export default function StartsidaPage() {
 																		{...field}
 																		value={field.value || ""}
 																		placeholder="Guaranteed quality from our farm to your table"
-																		rows={2}
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-												</CardContent>
-											</Card>
-										))
-									)}
-								</CardContent>
-							</Card>
-						</TabsContent>
-
-						{/* Features Tab */}
-						<TabsContent value="features" className="space-y-6">
-							<Card>
-								<CardHeader>
-									<CardTitle className="flex items-center justify-between">
-										<span>Features</span>
-										<Button
-											type="button"
-											variant="outline"
-											size="sm"
-											onClick={() =>
-												appendFeature({
-													icon: "Star",
-													title: "",
-													description: "",
-												})
-											}
-										>
-											<Plus className="h-4 w-4 mr-1" />
-											Add
-										</Button>
-									</CardTitle>
-									<CardDescription>
-										Feature cards displayed below the hero section.
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									{featureFields.length === 0 ? (
-										<div className="text-center py-8 text-muted-foreground">
-											No features added. Click &quot;Add&quot; to add
-											a feature.
-										</div>
-									) : (
-										featureFields.map((field, index) => (
-											<Card key={field.id} className="border-dashed">
-												<CardHeader className="pb-3">
-													<div className="flex items-center justify-between">
-														<CardTitle className="text-base">
-															Feature {index + 1}
-														</CardTitle>
-														<Button
-															type="button"
-															variant="ghost"
-															size="sm"
-															onClick={async () => {
-																const confirmed = await confirm({
-																	title: "Remove Feature",
-																	description: "Are you sure you want to remove this feature?",
-																	confirmText: "Remove",
-																});
-																if (confirmed) removeFeature(index);
-															}}
-															className="text-destructive hover:text-destructive"
-														>
-															<Trash2 className="h-4 w-4" />
-														</Button>
-													</div>
-												</CardHeader>
-												<CardContent className="space-y-4">
-													<FormField
-														control={form.control}
-														name={`features.${index}.icon`}
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel>Icon</FormLabel>
-																<Select
-																	onValueChange={
-																		field.onChange
-																	}
-																	defaultValue={field.value}
-																>
-																	<FormControl>
-																		<SelectTrigger>
-																			<SelectValue placeholder="Select icon">
-																				{field.value && (
-																					<span className="flex items-center gap-2">
-																						<IconPreview
-																							name={
-																								field.value
-																							}
-																							className="h-4 w-4"
-																						/>
-																						<span>
-																							{
-																								field.value
-																							}
-																						</span>
-																					</span>
-																				)}
-																			</SelectValue>
-																		</SelectTrigger>
-																	</FormControl>
-																	<SelectContent>
-																		{AVAILABLE_ICONS.map(
-																			(icon) => (
-																				<SelectItem
-																					key={icon}
-																					value={icon}
-																				>
-																					<span className="flex items-center gap-2">
-																						<IconPreview
-																							name={icon}
-																							className="h-4 w-4"
-																						/>
-																						<span>
-																							{icon}
-																						</span>
-																					</span>
-																				</SelectItem>
-																			)
-																		)}
-																	</SelectContent>
-																</Select>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-													<FormField
-														control={form.control}
-														name={`features.${index}.title`}
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel>Title</FormLabel>
-																<FormControl>
-																	<Input
-																		{...field}
-																		value={field.value || ""}
-																		placeholder="24/7 Support"
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-													<FormField
-														control={form.control}
-														name={`features.${index}.description`}
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel>
-																	Description
-																</FormLabel>
-																<FormControl>
-																	<Textarea
-																		{...field}
-																		value={field.value || ""}
-																		placeholder="Expert technical assistance..."
 																		rows={2}
 																	/>
 																</FormControl>

@@ -57,6 +57,8 @@ export const CACHE_TAGS = {
 export const PATHS = {
 	HOME: "/",
 	PRODUCTS: "/produkter",
+	PRODUCTS_EN: "/products",
+	PRODUCTS_CATEGORY: "/products/category",
 	KATEGORI: "/kategori",
 	KLINIKUTRUSTNING: "/klinikutrustning",
 	BLOG: "/blogg",

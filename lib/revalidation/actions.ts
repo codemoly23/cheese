@@ -19,6 +19,10 @@ export async function revalidateProduct(
 
 	// Revalidate product detail pages for the specific category
 	if (categorySlug) {
+		// New product detail page paths (English routes)
+		revalidatePath(`${PATHS.PRODUCTS_CATEGORY}/${categorySlug}/${slug}`);
+		revalidatePath(`${PATHS.PRODUCTS_CATEGORY}/${categorySlug}`);
+		// Legacy paths (Swedish routes)
 		revalidatePath(`${PATHS.KATEGORI}/${categorySlug}/${slug}`);
 		revalidatePath(`${PATHS.KLINIKUTRUSTNING}/${categorySlug}/${slug}`);
 		revalidatePath(`${PATHS.KATEGORI}/${categorySlug}`);
@@ -26,6 +30,7 @@ export async function revalidateProduct(
 	}
 
 	// Always revalidate uncategorized paths (product might have been moved)
+	revalidatePath(`${PATHS.PRODUCTS_CATEGORY}/uncategorized/${slug}`);
 	revalidatePath(`${PATHS.KATEGORI}/uncategorized/${slug}`);
 	revalidatePath(`${PATHS.KLINIKUTRUSTNING}/uncategorized/${slug}`);
 
@@ -34,6 +39,7 @@ export async function revalidateProduct(
 
 	// Revalidate listing pages
 	revalidatePath(PATHS.PRODUCTS);
+	revalidatePath(PATHS.PRODUCTS_EN);
 	revalidatePath(PATHS.KATEGORI);
 	revalidatePath(PATHS.KLINIKUTRUSTNING);
 

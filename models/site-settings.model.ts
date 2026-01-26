@@ -44,6 +44,7 @@ export interface ISeoSettings {
 export interface IBrandingSettings {
 	logoUrl: string; // "/storage/synos-logo-beige-glow.svg"
 	faviconUrl?: string; // "/storage/favicon.ico"
+	dashboardLogoUrl?: string; // Logo for admin dashboard
 }
 
 /**
@@ -215,6 +216,7 @@ const BrandingSettingsSchema = new Schema<IBrandingSettings>(
 			default: "/storage/logo.svg",
 		},
 		faviconUrl: { type: String, trim: true },
+		dashboardLogoUrl: { type: String, trim: true },
 	},
 	{ _id: false }
 );

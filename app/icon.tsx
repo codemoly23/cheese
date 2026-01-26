@@ -8,8 +8,8 @@ export const size = {
 };
 export const contentType = "image/png";
 
-// Revalidate every hour to pick up favicon changes
-export const revalidate = 3600;
+// Dynamic route - revalidate on-demand via revalidatePath("/icon")
+export const revalidate = 0;
 
 /**
  * Dynamic Favicon Generator
@@ -30,7 +30,7 @@ export default async function Icon() {
 				: `${process.env.SITE_URL || process.env.BETTER_AUTH_URL || "http://localhost:3000"}${faviconUrl}`;
 
 			const response = await fetch(absoluteUrl, {
-				next: { revalidate: 3600 },
+				cache: "no-store",
 			});
 
 			if (response.ok) {

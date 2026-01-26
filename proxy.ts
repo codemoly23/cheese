@@ -30,6 +30,8 @@ const localeExcludedPaths = [
 	"/login",
 	"/register",
 	"/storage",
+	"/icon",
+	"/apple-icon",
 ];
 
 // Routes that require authentication

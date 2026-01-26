@@ -219,7 +219,8 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 				const response = await fetch("/api/site-settings");
 				const data = await response.json();
 				if (response.ok && data.data) {
-					setLogoUrl(data.data.branding?.logoUrl || null);
+					// Use dashboardLogoUrl if set, otherwise fallback to logoUrl
+					setLogoUrl(data.data.branding?.dashboardLogoUrl || data.data.branding?.logoUrl || null);
 					setCompanyName(data.data.companyName || "Synos");
 				}
 			} catch (error) {
