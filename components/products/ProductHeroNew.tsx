@@ -142,7 +142,7 @@ export function ProductHeroNew({
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5, delay: 0.2 }}
-							className="text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-tight leading-tight"
+							className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight"
 						>
 							{title}
 						</motion.h1>
