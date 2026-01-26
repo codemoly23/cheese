@@ -61,17 +61,17 @@ export function PromoBanner({ leftBanner, rightBanner }: PromoBannerProps) {
 							{/* Text Content */}
 							<div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
 								{leftBanner.badge && (
-									<span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/80 mb-3">
+									<span className="text-sm md:text-base tracking-[0.3em] uppercase text-primary mb-4">
 										{leftBanner.badge}
 									</span>
 								)}
 								{leftBanner.title && (
-									<h3 className="text-3xl md:text-4xl font-heading font-medium text-white mb-3">
+									<h3 className="text-3xl md:text-4xl lg:text-5xl font-heading text-white leading-tight mb-4">
 										{leftBanner.title}
 									</h3>
 								)}
 								{leftBanner.description && (
-									<p className="text-white/80 text-sm md:text-base max-w-md leading-relaxed">
+									<p className="text-base md:text-lg text-white/80 max-w-md leading-relaxed">
 										{leftBanner.description}
 									</p>
 								)}
@@ -107,17 +107,17 @@ export function PromoBanner({ leftBanner, rightBanner }: PromoBannerProps) {
 							{/* Text Content - Left Aligned */}
 							<div className="absolute inset-0 p-6 md:p-8 flex flex-col items-start justify-center text-left">
 								{rightBanner.badge && (
-									<span className="text-lg md:text-xl font-heading italic text-primary mb-2">
+									<span className="text-sm md:text-base tracking-[0.3em] uppercase text-primary mb-4">
 										{rightBanner.badge}
 									</span>
 								)}
 								{rightBanner.subtitle && (
-									<span className="text-2xl md:text-3xl font-heading font-medium text-white mb-1">
+									<span className="text-3xl md:text-4xl lg:text-5xl font-heading text-white leading-tight mb-2">
 										{rightBanner.subtitle}
 									</span>
 								)}
 								{rightBanner.title && (
-									<h3 className="text-2xl md:text-3xl font-heading font-medium text-white mb-6">
+									<h3 className="text-base md:text-lg text-white/80 leading-relaxed mb-6">
 										{rightBanner.title}
 									</h3>
 								)}
