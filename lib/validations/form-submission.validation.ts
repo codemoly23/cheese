@@ -24,29 +24,29 @@ export const formSubmissionStatuses = ["new", "read", "archived"] as const;
  * Help type options for product inquiry
  */
 export const helpTypes = [
-	"clinic_buy",
-	"start_business",
+	"restaurant_buy",
+	"wholesale",
 	"just_interested",
-	"buy_contact",
+	"private_buy",
 ] as const;
 
 /**
  * Help type labels (Swedish)
  */
 export const helpTypeLabels: Record<(typeof helpTypes)[number], string> = {
-	clinic_buy: "Jag driver en klinik/salong och vill köpa denna produkt",
-	start_business: "Jag vill starta eget och vill veta mer om produkten",
-	just_interested: "Jag är bara intresserad och vill veta mer",
-	buy_contact: "Jag vill köpa denna produkt och komma i kontakt med er",
+	restaurant_buy: "Jag driver en restaurang/butik och vill köpa denna ost",
+	wholesale: "Jag är intresserad av grossistpriser",
+	just_interested: "Jag vill bara veta mer om produkten",
+	private_buy: "Jag vill köpa för privat bruk",
 };
 
 /**
  * Training interest type options for training inquiry
  */
 export const trainingInterestTypes = [
-	"machine_purchase",
+	"cheese_making",
 	"already_customer",
-	"certification_info",
+	"tasting_event",
 	"general_info",
 ] as const;
 
@@ -57,11 +57,10 @@ export const trainingInterestTypeLabels: Record<
 	(typeof trainingInterestTypes)[number],
 	string
 > = {
-	machine_purchase:
-		"Jag planerar att köpa maskin och vill veta mer om utbildningen",
-	already_customer: "Jag är redan kund och vill boka utbildning",
-	certification_info: "Jag vill veta mer om certifiering som Synos terapeut",
-	general_info: "Jag vill ha allmän information om era utbildningar",
+	cheese_making: "Jag vill lära mig mer om osttillverkning",
+	already_customer: "Jag är redan kund och vill boka provning",
+	tasting_event: "Jag vill veta mer om ostprovningar och event",
+	general_info: "Jag vill ha allmän information om era produkter",
 };
 
 /**
