@@ -28,12 +28,6 @@ export interface Product {
 	updatedAt: string;
 }
 
-export interface BeforeAfterImage {
-	beforeImage: string;
-	afterImage: string;
-	label?: string;
-}
-
 export interface HeroSettings {
 	themeColor?: string;
 	badge?: string;
@@ -68,7 +62,6 @@ export type ProductType = {
 	treatments: Array<string> | null;
 	productImages: Array<string>;
 	overviewImage: string;
-	beforeAfterImages: Array<BeforeAfterImage> | null;
 	techSpecifications: Array<{
 		title: string;
 		description: string;

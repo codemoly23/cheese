@@ -79,15 +79,6 @@ const documentEntrySchema = z.object({
 });
 
 /**
- * Before/After Image Schema
- */
-const beforeAfterImageSchema = z.object({
-	beforeImage: z.string().min(1, "Before image is required"),
-	afterImage: z.string().min(1, "After image is required"),
-	label: z.string().max(200).optional(),
-});
-
-/**
  * Purchase Info Schema
  */
 const purchaseInfoSchema = z.object({
@@ -155,7 +146,6 @@ export const createProductDraftSchema = z.object({
 	treatments: z.array(z.string().max(100)).optional().default([]),
 	productImages: z.array(z.string()).optional().default([]), // Draft allows any images
 	overviewImage: z.string().optional(),
-	beforeAfterImages: z.array(beforeAfterImageSchema).optional().default([]),
 	techSpecifications: z.array(techSpecSchema).optional().default([]),
 	documentation: z.array(documentEntrySchema).optional().default([]),
 	purchaseInfo: purchaseInfoSchema.optional(),
@@ -187,7 +177,6 @@ export const updateProductSchema = z.object({
 	treatments: z.array(z.string().max(100)).optional(),
 	productImages: z.array(z.string()).optional(),
 	overviewImage: z.string().optional(),
-	beforeAfterImages: z.array(beforeAfterImageSchema).optional(),
 	techSpecifications: z.array(techSpecSchema).optional(),
 	documentation: z.array(documentEntrySchema).optional(),
 	purchaseInfo: purchaseInfoSchema.optional(),

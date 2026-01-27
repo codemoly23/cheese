@@ -42,7 +42,6 @@ import {
 import { TagInput } from "./TagInput";
 import { TreeSelect } from "./TreeSelect";
 import { MediaPicker, MediaGallery } from "@/components/storage";
-import { BeforeAfterGallery, type BeforeAfterPair } from "./BeforeAfterGallery";
 import { SeoPreview, SeoAnalysis, CharacterCount } from "./seo";
 import type { FileMetadata } from "@/lib/storage/client";
 import {
@@ -385,7 +384,6 @@ const TAB_CONFIG: Record<TabId, { label: string; fields: string[] }> = {
 		fields: [
 			"productImages",
 			"overviewImage",
-			"beforeAfterImages",
 			"youtubeUrl",
 		],
 	},
@@ -428,7 +426,6 @@ const FIELD_LABELS: Record<string, string> = {
 	rubric: "Rubric Notes",
 	productImages: "Product Images",
 	overviewImage: "Overview Image",
-	beforeAfterImages: "Before/After Images",
 	youtubeUrl: "YouTube URL",
 	techSpecifications: "Tech Specifications",
 	documentation: "Documentation",
@@ -741,12 +738,6 @@ export function ProductForm({
 			treatments: product?.treatments || [],
 			productImages: product?.productImages || [],
 			overviewImage: product?.overviewImage || "",
-			beforeAfterImages:
-				product?.beforeAfterImages?.map((ba) => ({
-					beforeImage: ba.beforeImage,
-					afterImage: ba.afterImage,
-					label: ba.label || "",
-				})) || [],
 			techSpecifications:
 				product?.techSpecifications?.map((t) => ({
 					title: t.title,
@@ -832,12 +823,6 @@ export function ProductForm({
 		control,
 		name: "qa",
 	});
-
-	const { fields: beforeAfterFields, replace: replaceBeforeAfter } =
-		useFieldArray({
-			control,
-			name: "beforeAfterImages",
-		});
 
 	const {
 		fields: benefitFields,
@@ -1600,55 +1585,6 @@ export function ProductForm({
 									/>
 								</div>
 
-								<Separator />
-
-								{/* Before & After Images */}
-								<div className="space-y-3">
-									<Label>Before & After Images</Label>
-									<p className="text-sm text-muted-foreground">
-										Add before and after image pairs to showcase
-										treatment results. These will be displayed in an
-										interactive comparison slider on the product page.
-									</p>
-									<BeforeAfterGallery
-										pairs={beforeAfterFields.map((field) => ({
-											beforeImage:
-												(
-													field as {
-														beforeImage?: string;
-														afterImage?: string;
-														label?: string;
-													}
-												).beforeImage || "",
-											afterImage:
-												(
-													field as {
-														beforeImage?: string;
-														afterImage?: string;
-														label?: string;
-													}
-												).afterImage || "",
-											label:
-												(
-													field as {
-														beforeImage?: string;
-														afterImage?: string;
-														label?: string;
-													}
-												).label || "",
-										}))}
-										onChange={(pairs) => {
-											replaceBeforeAfter(
-												pairs.map((pair) => ({
-													beforeImage: pair.beforeImage,
-													afterImage: pair.afterImage,
-													label: pair.label || "",
-												}))
-											);
-										}}
-										disabled={isLoading}
-									/>
-								</div>
 							</CardContent>
 						</Card>
 					</TabsContent>

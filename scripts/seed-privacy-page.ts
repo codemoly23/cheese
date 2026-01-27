@@ -47,7 +47,7 @@ if (!MONGODB_URI) {
 	process.exit(1);
 }
 
-// Privacy page data based on WordPress reference (Integritetspolicy)
+// Privacy page data for Glada Bonden Mejeri AB (Cheese company)
 const privacyPageData = {
 	sectionVisibility: {
 		hero: true,
@@ -69,8 +69,8 @@ const privacyPageData = {
 	hero: {
 		title: "Integritetspolicy",
 		subtitle:
-			"Synos Medical AB värnar om din integritet. Här beskriver vi hur vi samlar in och behandlar dina personuppgifter.",
-		lastUpdated: "2024-01-15",
+			"Glada Bonden Mejeri AB värnar om din integritet. Här beskriver vi hur vi samlar in och behandlar dina personuppgifter.",
+		lastUpdated: "2025-01-15",
 	},
 
 	// Introduction
@@ -78,10 +78,10 @@ const privacyPageData = {
 		sectionNumber: "1",
 		title: "Inledning",
 		intro:
-			"Synos Medical AB (org.nr 556871-8075) är personuppgiftsansvarig för behandlingen av dina personuppgifter. Vi värnar om din personliga integritet och strävar efter att alltid skydda dina personuppgifter på bästa sätt.",
+			"Glada Bonden Mejeri AB är personuppgiftsansvarig för behandlingen av dina personuppgifter. Vi värnar om din personliga integritet och strävar efter att alltid skydda dina personuppgifter på bästa sätt.",
 		items: [
 			{
-				title: "Vår åtagande",
+				title: "Vårt åtagande",
 				description:
 					"Vi följer dataskyddsförordningen (GDPR) och svensk lagstiftning för att säkerställa att dina personuppgifter behandlas på ett lagligt, korrekt och öppet sätt.",
 			},
@@ -128,7 +128,7 @@ const privacyPageData = {
 			{
 				title: "Hantera förfrågningar",
 				description:
-					"För att kunna besvara dina frågor och hantera dina förfrågningar om våra produkter och tjänster.",
+					"För att kunna besvara dina frågor och hantera dina förfrågningar om våra ostprodukter och tjänster.",
 			},
 			{
 				title: "Fullgöra avtal",
@@ -138,7 +138,7 @@ const privacyPageData = {
 			{
 				title: "Marknadsföring",
 				description:
-					"För att skicka nyhetsbrev och information om våra produkter och tjänster (endast om du har samtyckt).",
+					"För att skicka nyhetsbrev och information om våra ostprodukter och nyheter (endast om du har samtyckt).",
 			},
 			{
 				title: "Förbättra vår service",
@@ -270,7 +270,7 @@ const privacyPageData = {
 					"Du har rätt att invända mot behandling som grundar sig på berättigat intresse.",
 			},
 		],
-		outro: "För att utöva dina rättigheter, kontakta oss på info@synosmedical.se.",
+		outro: "För att utöva dina rättigheter, kontakta oss på info@gladabonden.se.",
 		highlighted: true,
 	},
 
@@ -328,13 +328,12 @@ const privacyPageData = {
 		title: "Kontakta oss",
 		intro:
 			"Om du har frågor om vår integritetspolicy eller vill utöva dina rättigheter, vänligen kontakta oss:",
-		companyName: "Synos Medical AB",
-		organizationNumber: "556871-8075",
-		email: "info@synosmedical.se",
-		phone: "010-205 15 01",
+		companyName: "Glada Bonden Mejeri AB",
+		organizationNumber: "",
+		email: "info@gladabonden.se",
+		phone: "",
 		addresses: [
-			"Gävlegatan 12A, 113 30 Stockholm",
-			"Brigadgatan 16, 587 58 Linköping",
+			"Boxholm, Sverige",
 		],
 		highlighted: false,
 	},
@@ -354,7 +353,7 @@ const privacyPageData = {
 		text: "Har du frågor om hur vi hanterar dina personuppgifter? Tveka inte att kontakta oss.",
 		primaryCta: {
 			text: "Kontakta oss",
-			href: "/kontakt",
+			href: "/contact-us",
 		},
 		secondaryCta: {
 			text: "Tillbaka till startsidan",
@@ -364,10 +363,10 @@ const privacyPageData = {
 
 	// SEO
 	seo: {
-		title: "Integritetspolicy | Synos Medical",
+		title: "Integritetspolicy | Glada Bonden Mejeri AB",
 		description:
-			"Läs om hur Synos Medical AB behandlar dina personuppgifter enligt GDPR. Information om datainsamling, cookies och dina rättigheter.",
-		ogImage: "/storage/images/og-privacy.jpg",
+			"Läs om hur Glada Bonden Mejeri AB behandlar dina personuppgifter enligt GDPR. Information om datainsamling, cookies och dina rättigheter.",
+		ogImage: "",
 	},
 };
 

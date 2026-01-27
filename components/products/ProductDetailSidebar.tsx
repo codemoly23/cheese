@@ -23,14 +23,12 @@ interface ProductDetailSidebarProps {
 		_id: string;
 	}> | null;
 	videoUrl?: string;
-	benefits?: string[] | null;
 	certifications?: string[] | null;
 }
 
 export function ProductDetailSidebar({
 	brochureUrl,
 	videoUrl,
-	benefits,
 	certifications,
 }: ProductDetailSidebarProps) {
 	return (
@@ -81,41 +79,6 @@ export function ProductDetailSidebar({
 					</CardContent>
 				</Card>
 			</motion.div>
-
-			{/* Benefits Section */}
-			{benefits && benefits.length > 0 && (
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5, delay: 0.2 }}
-				>
-					<Card className="border border-slate-200/80 bg-white/90 backdrop-blur-sm shadow-sm">
-						<CardHeader className="pb-2 pt-3 px-4">
-							<CardTitle className="text-sm font-bold text-foreground flex items-center gap-2">
-								<div className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center">
-									<Check className="h-3.5 w-3.5 text-primary" />
-								</div>
-								Viktiga fördelar
-							</CardTitle>
-						</CardHeader>
-						<CardContent className="pt-0 px-4 pb-3">
-							<ul className="space-y-2">
-								{benefits.slice(0, 5).map((benefit, index) => (
-									<li
-										key={index}
-										className="flex items-start gap-2 text-xs text-muted-foreground group"
-									>
-										<div className="h-4 w-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-emerald-200 transition-colors">
-											<Check className="h-2.5 w-2.5 text-emerald-600" />
-										</div>
-										<span className="leading-relaxed">{benefit}</span>
-									</li>
-								))}
-							</ul>
-						</CardContent>
-					</Card>
-				</motion.div>
-			)}
 
 			{/* Certifications */}
 			{certifications && certifications.length > 0 && (
@@ -202,57 +165,83 @@ export function ProductDetailSidebar({
 				</motion.div>
 			)}
 
-			{/* Why Choose Synos */}
+			{/* Need Help Card */}
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5, delay: 0.35 }}
 			>
-				<Card className="border border-slate-200/80 bg-linear-to-br from-slate-50 to-white shadow-sm">
+				<Card className="border border-slate-200/80 bg-linear-to-br from-primary/20 to-slate-100 shadow-sm">
 					<CardHeader className="pb-2 pt-3 px-4">
 						<CardTitle className="text-sm font-bold text-foreground">
-							Varför välja Synos?
+							Need Help?
+						</CardTitle>
+					</CardHeader>
+					<CardContent className="space-y-3 pt-0 px-4 pb-3">
+						<p className="text-xs text-foreground">
+							Our experts can help you find the perfect cheese for your needs.
+						</p>
+						<Link
+							href="/contact-us"
+							className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+						>
+							Contact Us
+						</Link>
+					</CardContent>
+				</Card>
+			</motion.div>
+
+			{/* Why Choose Us */}
+			<motion.div
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.5, delay: 0.4 }}
+			>
+				<Card className="border border-slate-200/80 bg-white/90 backdrop-blur-sm shadow-sm">
+					<CardHeader className="pb-2 pt-3 px-4">
+						<CardTitle className="text-sm font-bold text-foreground">
+							Why Choose Us?
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="space-y-2 pt-0 px-4 pb-3">
-						<div className="flex items-center gap-2.5 p-2 rounded-lg bg-white border border-slate-100 hover:border-primary/30 transition-all duration-200">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80">
-								<Check className="h-4 w-4 text-white" />
+						<div className="flex items-start gap-2.5">
+							<div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/20">
+								<Shield className="h-3.5 w-3.5 text-primary" />
 							</div>
 							<div className="min-w-0">
 								<h4 className="text-xs font-semibold text-foreground">
-									MDR-certifierad
+									Quality Certified
 								</h4>
 								<p className="text-[10px] text-muted-foreground leading-tight">
-									Certifierad enligt EU-förordningar
+									All products meet the highest quality standards
 								</p>
 							</div>
 						</div>
 
-						<div className="flex items-center gap-2.5 p-2 rounded-lg bg-white border border-slate-100 hover:border-primary/30 transition-all duration-200">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80">
-								<BookOpen className="h-4 w-4 text-white" />
+						<div className="flex items-start gap-2.5">
+							<div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/20">
+								<BookOpen className="h-3.5 w-3.5 text-primary" />
 							</div>
 							<div className="min-w-0">
 								<h4 className="text-xs font-semibold text-foreground">
-									Utbildning ingår
+									Traditional Recipes
 								</h4>
 								<p className="text-[10px] text-muted-foreground leading-tight">
-									Komplett utbildning vid köp
+									Crafted using time-honored techniques passed down for generations
 								</p>
 							</div>
 						</div>
 
-						<div className="flex items-center gap-2.5 p-2 rounded-lg bg-white border border-slate-100 hover:border-primary/30 transition-all duration-200">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80">
-								<Zap className="h-4 w-4 text-white" />
+						<div className="flex items-start gap-2.5">
+							<div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/20">
+								<Zap className="h-3.5 w-3.5 text-primary" />
 							</div>
 							<div className="min-w-0">
 								<h4 className="text-xs font-semibold text-foreground">
-									Snabb service
+									Fast Delivery
 								</h4>
 								<p className="text-[10px] text-muted-foreground leading-tight">
-									Reparation inom 48 timmar
+									Fresh products delivered quickly to your door
 								</p>
 							</div>
 						</div>

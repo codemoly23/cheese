@@ -490,7 +490,7 @@ export function ProductInquiryForm({
 									className="mt-1 shrink-0"
 								/>
 								<span className="text-xs sm:text-sm leading-normal">
-									Jag godkänner Synos Medical AB:s{" "}
+									Jag godkänner Glada Bonden Mejeri AB:s{" "}
 									<Link
 										href="/integritetspolicy"
 										className="text-primary hover:underline font-medium"

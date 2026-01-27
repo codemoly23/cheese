@@ -9,7 +9,7 @@ import { HTTP_STATUS } from "./constants";
 export interface FormattedValidationError {
 	field: string; // User-friendly label (e.g., "Före/efter-bilder #1 → Före-bild")
 	message: string; // Error message
-	path: (string | number)[]; // Original path array for form field mapping (e.g., ["beforeAfterImages", 0, "beforeImage"])
+	path: (string | number)[]; // Original path array for form field mapping (e.g., ["techSpecifications", 0, "title"])
 }
 
 /**
@@ -42,10 +42,6 @@ const FIELD_LABELS: Record<string, string> = {
 	treatments: "Behandlingar",
 	productImages: "Produktbilder",
 	overviewImage: "Översiktsbild",
-	beforeAfterImages: "Före/efter-bilder",
-	beforeImage: "Före-bild",
-	afterImage: "Efter-bild",
-	label: "Etikett",
 	techSpecifications: "Tekniska specifikationer",
 	documentation: "Dokumentation",
 	purchaseInfo: "Köpinformation",

@@ -211,6 +211,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 	});
 	const [logoUrl, setLogoUrl] = useState<string | null>(null);
 	const [companyName, setCompanyName] = useState<string>("Milatte");
+	const [isLogoLoading, setIsLogoLoading] = useState(true);
 
 	// Fetch site settings for logo and company name
 	useEffect(() => {
@@ -225,6 +226,8 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 				}
 			} catch (error) {
 				console.error("Failed to fetch site settings:", error);
+			} finally {
+				setIsLogoLoading(false);
 			}
 		};
 		fetchSettings();
@@ -354,6 +357,8 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 								{companyName.charAt(0).toUpperCase()}
 							</span>
 						</div>
+					) : isLogoLoading ? (
+						<div className="h-14 w-40 bg-slate-100 rounded animate-pulse" />
 					) : logoUrl ? (
 						<ImageComponent
 							src={logoUrl}

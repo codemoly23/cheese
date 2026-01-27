@@ -406,7 +406,7 @@ export function TourRequestModal({
 											className="mt-0.5 shrink-0"
 										/>
 										<span className="text-[11px] leading-normal">
-											Jag godkänner Synos Medical AB:s{" "}
+											Jag godkänner Glada Bonden Mejeri AB:s{" "}
 											<Link
 												href="/integritetspolicy"
 												className="text-primary hover:underline font-medium"

@@ -7,7 +7,6 @@ import { ProductAccordion } from "@/components/products/ProductAccordion";
 import { RelatedProductsCarousel } from "@/components/products/RelatedProductsCarousel";
 import { ProductInquiryForm } from "@/components/products/ProductInquiryForm";
 import { ProductLongDescription } from "@/components/products/ProductLongDescription";
-import { BeforeAfterShowcase } from "@/components/products/BeforeAfterShowcase";
 import { ProductDetailSidebar } from "@/components/products/ProductDetailSidebar";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
@@ -75,8 +74,7 @@ export function ProductContent({
 
 			{/* Additional Content Section (if has extended description or specs) */}
 			{(product.productDescription ||
-				(product.techSpecifications && product.techSpecifications.length > 0) ||
-				(product.beforeAfterImages && product.beforeAfterImages.length > 0)) && (
+				(product.techSpecifications && product.techSpecifications.length > 0)) && (
 				<section className="py-12 md:py-16 bg-background">
 					<div className="_container">
 						<div className="grid gap-8 lg:grid-cols-[1fr_340px]">
@@ -88,15 +86,6 @@ export function ProductContent({
 										description={product.productDescription}
 									/>
 								)}
-
-								{/* Before & After Section */}
-								{product.beforeAfterImages &&
-									product.beforeAfterImages.length > 0 && (
-										<BeforeAfterShowcase
-											pairs={product.beforeAfterImages}
-											productName={product.title}
-										/>
-									)}
 
 								{/* Specifications Section */}
 								{product?.techSpecifications &&
@@ -135,13 +124,12 @@ export function ProductContent({
 									)}
 							</article>
 
-							{/* Sidebar - Sticky */}
+							{/* Sidebar */}
 							<aside className="space-y-6">
-								<div className="sticky top-24 space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent pr-1">
+								<div className="lg:sticky lg:top-24 space-y-4">
 									<ProductDetailSidebar
 										brochureUrl={product.documentation}
 										videoUrl={product.youtubeUrl}
-										benefits={product.benefits}
 										certifications={product.certifications}
 									/>
 								</div>

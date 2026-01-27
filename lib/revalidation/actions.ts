@@ -175,6 +175,11 @@ export async function revalidateAboutPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.ABOUT_PAGE, "default");
 	revalidatePath(PATHS.ABOUT);
 	revalidatePath(PATHS.ABOUT_US);
+	// Also revalidate with locale prefixes
+	revalidatePath(`/en${PATHS.ABOUT}`);
+	revalidatePath(`/sv${PATHS.ABOUT}`);
+	revalidatePath(`/en${PATHS.ABOUT_US}`);
+	revalidatePath(`/sv${PATHS.ABOUT_US}`);
 }
 
 /**
@@ -184,6 +189,8 @@ export async function revalidateAboutPage(): Promise<void> {
 export async function revalidateTeamPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.TEAM_PAGE, "default");
 	revalidatePath(PATHS.TEAM);
+	revalidatePath(`/en${PATHS.TEAM}`);
+	revalidatePath(`/sv${PATHS.TEAM}`);
 }
 
 /**
@@ -193,6 +200,8 @@ export async function revalidateTeamPage(): Promise<void> {
 export async function revalidateLegalPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.LEGAL_PAGE, "default");
 	revalidatePath(PATHS.LEGAL);
+	revalidatePath(`/en${PATHS.LEGAL}`);
+	revalidatePath(`/sv${PATHS.LEGAL}`);
 }
 
 /**
@@ -202,6 +211,9 @@ export async function revalidateLegalPage(): Promise<void> {
 export async function revalidatePrivacyPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.PRIVACY_PAGE, "default");
 	revalidatePath(PATHS.PRIVACY);
+	// Also revalidate with locale prefixes
+	revalidatePath(`/en${PATHS.PRIVACY}`);
+	revalidatePath(`/sv${PATHS.PRIVACY}`);
 }
 
 /**
@@ -269,6 +281,8 @@ export async function revalidateTrainingPage(): Promise<void> {
 export async function revalidateFaqPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.FAQ_PAGE, "default");
 	revalidatePath(PATHS.FAQ);
+	revalidatePath(`/en${PATHS.FAQ}`);
+	revalidatePath(`/sv${PATHS.FAQ}`);
 }
 
 /**
@@ -278,6 +292,10 @@ export async function revalidateFaqPage(): Promise<void> {
 export async function revalidateContactPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.CONTACT_PAGE, "default");
 	revalidatePath(PATHS.CONTACT);
+	revalidatePath(`/en${PATHS.CONTACT}`);
+	revalidatePath(`/sv${PATHS.CONTACT}`);
+	revalidatePath("/en/contact-us");
+	revalidatePath("/sv/contact-us");
 }
 
 /**
@@ -287,6 +305,10 @@ export async function revalidateContactPage(): Promise<void> {
 export async function revalidateStorePage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.STORE_PAGE, "default");
 	revalidatePath(PATHS.STORE);
+	revalidatePath(`/en${PATHS.STORE}`);
+	revalidatePath(`/sv${PATHS.STORE}`);
+	revalidatePath("/en/our-store");
+	revalidatePath("/sv/our-store");
 }
 
 /**
@@ -296,4 +318,6 @@ export async function revalidateStorePage(): Promise<void> {
 export async function revalidateQualityPage(): Promise<void> {
 	revalidateTag(CACHE_TAGS.QUALITY_PAGE, "default");
 	revalidatePath(PATHS.QUALITY);
+	revalidatePath(`/en${PATHS.QUALITY}`);
+	revalidatePath(`/sv${PATHS.QUALITY}`);
 }

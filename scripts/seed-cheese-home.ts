@@ -1450,7 +1450,6 @@ async function seedCheeseHomePage() {
 					qa: [],
 					techSpecifications: [],
 					documentation: [],
-					beforeAfterImages: [],
 					seo: {},
 					purchaseInfo: {},
 					publishedAt: new Date(),
