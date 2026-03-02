@@ -86,8 +86,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 						{data.primaryCta?.text && data.primaryCta?.href && (
 							<Button
 								asChild
+								variant={data.primaryCta.variant ?? "primary"}
 								size="lg"
-								className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-8 h-12 shadow-lg shadow-secondary/20"
+								className="rounded-full px-8 h-12 shadow-lg"
 							>
 								<Link href={data.primaryCta.href}>{data.primaryCta.text}</Link>
 							</Button>
@@ -95,9 +96,9 @@ const AboutSection = ({ data }: AboutSectionProps) => {
 						{data.secondaryCta?.text && data.secondaryCta?.href && (
 							<Button
 								asChild
-								variant="outline"
+								variant={data.secondaryCta.variant ?? "outline"}
 								size="lg"
-								className="rounded-full px-8 h-12 border-secondary/20 hover:bg-secondary/5 text-secondary hover:text-secondary gap-2"
+								className="rounded-full px-8 h-12 gap-2"
 							>
 								<Link href={data.secondaryCta.href}>
 									{data.secondaryCta.text} <ArrowRight className="h-4 w-4" />

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { Leaf, MilkOff, Package, Box } from "lucide-react";
+import { Leaf, MilkOff, Package, Box, Sun, Snowflake, ShieldCheck, Droplet, Tag } from "lucide-react";
 
 // Icon mapping for dynamic icon rendering
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -11,6 +11,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 	MilkOff,
 	Package,
 	Box,
+	Sun,
+	Snowflake,
+	ShieldCheck,
+	Droplet,
+	Tag,
 };
 
 interface FeatureItem {
@@ -30,23 +35,16 @@ interface FeatureBannerProps {
 	data?: FeatureBannerData;
 }
 
-export function FeatureBanner({ data }: FeatureBannerProps) {
+// Inner component — only renders when content exists, so ref is always attached to DOM
+function FeatureBannerInner({ data }: { data: FeatureBannerData }) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
 		offset: ["start end", "end start"],
 	});
 
-	// Parallax effect - image moves slower than scroll (0.5x speed)
 	const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
-	if (!data) return null;
-
-	// Check if there's any content
-	const hasContent = data.image || data.title || (data.features && data.features.length > 0);
-	if (!hasContent) return null;
-
-	// Parse title with highlight
 	const renderTitle = () => {
 		if (!data.title) return null;
 
@@ -149,4 +147,14 @@ export function FeatureBanner({ data }: FeatureBannerProps) {
 			</div>
 		</section>
 	);
+}
+
+// Outer component — handles null checks before any scroll hooks are initialized
+export function FeatureBanner({ data }: FeatureBannerProps) {
+	if (!data) return null;
+
+	const hasContent = data.image || data.title || (data.features && data.features.length > 0);
+	if (!hasContent) return null;
+
+	return <FeatureBannerInner data={data} />;
 }

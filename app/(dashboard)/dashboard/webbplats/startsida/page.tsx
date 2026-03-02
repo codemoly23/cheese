@@ -878,7 +878,7 @@ export default function StartsidaPage() {
 							<TabsTrigger value="about">About</TabsTrigger>
 							<TabsTrigger value="testimonials">Testimonials</TabsTrigger>
 							<TabsTrigger value="cta">CTA</TabsTrigger>
-							<TabsTrigger value="rich-content">Rich Content</TabsTrigger>
+							{/* <TabsTrigger value="rich-content">Rich Content</TabsTrigger> */}
 							<TabsTrigger value="seo">SEO</TabsTrigger>
 						</TabsList>
 
@@ -1114,6 +1114,7 @@ export default function StartsidaPage() {
 												</FormItem>
 											)}
 										/>
+										{/* Rich Content visibility toggle — hidden
 										<FormField
 											control={form.control}
 											name="sectionVisibility.richContent"
@@ -1136,6 +1137,7 @@ export default function StartsidaPage() {
 												</FormItem>
 											)}
 										/>
+										*/}
 									</div>
 								</CardContent>
 							</Card>
@@ -1909,11 +1911,11 @@ export default function StartsidaPage() {
 																	<Input
 																		{...field}
 																		value={field.value || ""}
-																		placeholder="Leaf, MilkOff, Package, Box"
+																		placeholder="Leaf, MilkOff, Package, Box, Sun, Snowflake, ShieldCheck, Droplet, Tag"
 																	/>
 																</FormControl>
 																<FormDescription>
-																	Available icons: Leaf, MilkOff, Package, Box
+																	Available icons: Leaf, MilkOff, Package, Box, Sun, Snowflake, ShieldCheck, Droplet, Tag
 																</FormDescription>
 																<FormMessage />
 															</FormItem>
@@ -2177,7 +2179,7 @@ export default function StartsidaPage() {
 																		onValueChange={
 																			field.onChange
 																		}
-																		defaultValue={field.value}
+																		value={field.value}
 																	>
 																		<FormControl>
 																			<SelectTrigger>
@@ -2710,7 +2712,7 @@ export default function StartsidaPage() {
 														<FormLabel>Style</FormLabel>
 														<Select
 															onValueChange={field.onChange}
-															defaultValue={field.value}
+															value={field.value}
 														>
 															<FormControl>
 																<SelectTrigger>
@@ -3182,7 +3184,7 @@ export default function StartsidaPage() {
 							</Card>
 						</TabsContent>
 
-						{/* Rich Content Tab */}
+						{/* Rich Content Tab — hidden
 						<TabsContent value="rich-content" className="space-y-6">
 							<Card>
 								<CardHeader>
@@ -3217,6 +3219,7 @@ export default function StartsidaPage() {
 								</CardContent>
 							</Card>
 						</TabsContent>
+						*/}
 
 						{/* SEO Tab */}
 						<TabsContent value="seo" className="space-y-6">
