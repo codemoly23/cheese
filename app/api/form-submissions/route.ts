@@ -18,6 +18,7 @@ import {
 	ValidationError,
 	NotFoundError,
 	DatabaseError,
+	BadRequestError,
 } from "@/lib/utils/api-error";
 
 /**
@@ -81,6 +82,11 @@ export async function POST(request: NextRequest) {
 				body,
 				metadata
 			);
+		} else if (type === "subscriber") {
+			submission = await formSubmissionService.createSubscriber(
+				body,
+				metadata
+			);
 		} else {
 			return badRequestResponse("Unsupported form type");
 		}
@@ -109,6 +115,10 @@ export async function POST(request: NextRequest) {
 
 		if (error instanceof ValidationError) {
 			return validationErrorResponse(error.message, error.errors);
+		}
+
+		if (error instanceof BadRequestError) {
+			return badRequestResponse(error.message);
 		}
 
 		if (error instanceof DatabaseError) {

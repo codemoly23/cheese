@@ -48,21 +48,22 @@ export async function generateMetadata(): Promise<Metadata> {
 		process.env.BETTER_AUTH_URL ||
 		"http://localhost:3000";
 
-	const siteName = settings.seo?.siteName || "Milatte Farm";
+	const siteName = settings.seo?.siteName || "Glada bonden mejeri";
+	const siteTagline = settings.seo?.siteTagline || "Ost från Boxholm";
 	const siteDescription =
 		settings.seo?.siteDescription ||
-		"Premium artisan cheeses and natural dairy products from our family farm.";
+		"Bakom tillverkningen står Glada Bonden, en kraftfull allians av och med svenska mjölkproducenter, som driver tillverkningen som ett steg i att utveckla den";
 	const ogImage = settings.seo?.ogImage || "/og-image.jpg";
 	const keywords =
 		settings.seo?.keywords && settings.seo.keywords.length > 0
 			? settings.seo.keywords
 			: DEFAULT_KEYWORDS;
-	const companyName = settings.companyName || "Milatte Dairy Farms";
+	const companyName = settings.companyName || "Glada bonden mejeri";
 
 	return {
 		metadataBase: new URL(siteUrl),
 		title: {
-			default: `${siteName} - Premium Artisan Cheese & Dairy Products`,
+			default: `${siteName} - ${siteTagline}`,
 			template: `%s | ${siteName}`,
 		},
 		description: siteDescription,

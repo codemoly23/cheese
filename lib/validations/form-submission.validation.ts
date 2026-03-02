@@ -13,6 +13,7 @@ export const formSubmissionTypes = [
 	"callback_request",
 	"tour_request",
 	"reseller_application",
+	"subscriber",
 ] as const;
 
 /**
@@ -491,6 +492,19 @@ export const resellerApplicationSchema = z
 		}
 	);
 
+/**
+ * Subscriber Schema
+ * For newsletter/coming-soon email signups — only email required
+ */
+export const subscriberSchema = z.object({
+	email: z
+		.string()
+		.email("Ange en giltig e-postadress")
+		.max(255, "E-postadressen får inte överstiga 255 tecken")
+		.trim()
+		.toLowerCase(),
+});
+
 // Type exports
 export type ProductInquiryInput = z.infer<typeof productInquirySchema>;
 export type TrainingInquiryInput = z.infer<typeof trainingInquirySchema>;
@@ -504,3 +518,4 @@ export type FormSubmissionListQuery = z.infer<
 >;
 export type UpdateStatusInput = z.infer<typeof updateStatusSchema>;
 export type BulkExportInput = z.infer<typeof bulkExportSchema>;
+export type SubscriberInput = z.infer<typeof subscriberSchema>;

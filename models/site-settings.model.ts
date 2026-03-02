@@ -32,6 +32,7 @@ export interface ISocialMedia {
  */
 export interface ISeoSettings {
 	siteName: string; // "Synos Medical"
+	siteTagline?: string; // "Ost från Boxholm"
 	siteDescription: string; // Default meta description
 	ogImage?: string; // Default OG image URL
 	keywords?: string[]; // Default keywords
@@ -86,6 +87,19 @@ export interface IFooterSettings {
 }
 
 /**
+ * Coming Soon page settings interface
+ */
+export interface IComingSoonSettings {
+	heading: string; // "Kommer snart"
+	description: string; // Main body text
+	newsletterTitle: string; // "Nyhetsbrev"
+	newsletterDescription: string; // Newsletter sub-text
+	emailPlaceholder: string; // "E-postadress"
+	buttonText: string; // "Skicka"
+	designedBy: string; // "Designad av Nordigate"
+}
+
+/**
  * SiteSettings interface extending Mongoose Document
  * Singleton model for site-wide configuration
  */
@@ -116,6 +130,9 @@ export interface ISiteSettings extends Document {
 
 	// Footer settings
 	footer: IFooterSettings;
+
+	// Coming Soon page
+	comingSoon: IComingSoonSettings;
 
 	// Timestamps
 	updatedAt: Date;
@@ -192,6 +209,11 @@ const SeoSettingsSchema = new Schema<ISeoSettings>(
 			required: [true, "Site name is required"],
 			trim: true,
 			default: "Your Company",
+		},
+		siteTagline: {
+			type: String,
+			trim: true,
+			maxlength: 150,
 		},
 		siteDescription: {
 			type: String,
@@ -329,6 +351,32 @@ const FooterSettingsSchema = new Schema<IFooterSettings>(
 );
 
 /**
+ * Coming Soon settings sub-schema
+ */
+const ComingSoonSettingsSchema = new Schema<IComingSoonSettings>(
+	{
+		heading: { type: String, trim: true, default: "Kommer snart" },
+		description: {
+			type: String,
+			trim: true,
+			default:
+				"Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
+		},
+		newsletterTitle: { type: String, trim: true, default: "Nyhetsbrev" },
+		newsletterDescription: {
+			type: String,
+			trim: true,
+			default:
+				"Prenumerera för att hålla dig uppdaterad om ny webbdesign och senaste uppdateringar. Låt oss göra det!",
+		},
+		emailPlaceholder: { type: String, trim: true, default: "E-postadress" },
+		buttonText: { type: String, trim: true, default: "Skicka" },
+		designedBy: { type: String, trim: true, default: "Designad av Nordigate" },
+	},
+	{ _id: false }
+);
+
+/**
  * SiteSettings Schema
  * Singleton model - only one document should exist
  */
@@ -401,6 +449,10 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
 		},
 		footer: {
 			type: FooterSettingsSchema,
+			default: {},
+		},
+		comingSoon: {
+			type: ComingSoonSettingsSchema,
 			default: {},
 		},
 	},

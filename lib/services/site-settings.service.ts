@@ -9,6 +9,7 @@ import type {
 	ISeoSettings,
 	IBrandingSettings,
 	IFooterSettings,
+	IComingSoonSettings,
 } from "@/models/site-settings.model";
 
 /**
@@ -137,6 +138,14 @@ export const getFooterSettings = unstable_cache(
 		revalidate: 3600,
 	}
 );
+
+/**
+ * Get coming soon settings only
+ * No cache - coming-soon page is force-dynamic, always needs fresh data
+ */
+export async function getComingSoonSettings(): Promise<IComingSoonSettings> {
+	return siteSettingsRepository.getComingSoon();
+}
 
 /**
  * Helper type for legacy compatibility with siteConfig

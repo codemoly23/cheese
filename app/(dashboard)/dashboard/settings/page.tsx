@@ -20,6 +20,7 @@ import {
 	Image,
 	LayoutGrid,
 	GripVertical,
+	Clock,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -100,6 +101,7 @@ const settingsFormSchema = z.object({
 	// SEO
 	seo: z.object({
 		siteName: z.string().min(1, "Site name is required"),
+		siteTagline: z.string().max(150).optional(),
 		siteDescription: z.string().optional(),
 		ogImage: z.string().optional(),
 		keywords: z.array(z.string()).optional(),
@@ -124,6 +126,17 @@ const settingsFormSchema = z.object({
 		newsletterPlaceholder: z.string().optional(),
 		newsletterButtonText: z.string().optional(),
 		bottomLinks: z.array(footerLinkSchema),
+	}),
+
+	// Coming Soon
+	comingSoon: z.object({
+		heading: z.string().optional(),
+		description: z.string().optional(),
+		newsletterTitle: z.string().optional(),
+		newsletterDescription: z.string().optional(),
+		emailPlaceholder: z.string().optional(),
+		buttonText: z.string().optional(),
+		designedBy: z.string().optional(),
 	}),
 });
 
@@ -152,6 +165,7 @@ export default function SettingsPage() {
 			},
 			seo: {
 				siteName: "",
+				siteTagline: "",
 				siteDescription: "",
 				ogImage: "",
 				keywords: [],
@@ -179,6 +193,15 @@ export default function SettingsPage() {
 				newsletterPlaceholder: "Your email address",
 				newsletterButtonText: "Subscribe",
 				bottomLinks: [],
+			},
+			comingSoon: {
+				heading: "Kommer snart",
+				description: "Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
+				newsletterTitle: "Nyhetsbrev",
+				newsletterDescription: "Prenumerera för att hålla dig uppdaterad om ny webbdesign och senaste uppdateringar. Låt oss göra det!",
+				emailPlaceholder: "E-postadress",
+				buttonText: "Skicka",
+				designedBy: "Designad av Nordigate",
 			},
 		},
 	});
@@ -238,6 +261,7 @@ export default function SettingsPage() {
 					},
 					seo: {
 						siteName: settings.seo?.siteName || "",
+						siteTagline: settings.seo?.siteTagline || "",
 						siteDescription: settings.seo?.siteDescription || "",
 						ogImage: settings.seo?.ogImage || "",
 						keywords: settings.seo?.keywords || [],
@@ -271,6 +295,15 @@ export default function SettingsPage() {
 							...link,
 							isExternal: link.isExternal ?? false,
 						})),
+					},
+					comingSoon: {
+						heading: settings.comingSoon?.heading || "Kommer snart",
+						description: settings.comingSoon?.description || "Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
+						newsletterTitle: settings.comingSoon?.newsletterTitle || "Nyhetsbrev",
+						newsletterDescription: settings.comingSoon?.newsletterDescription || "Prenumerera för att hålla dig uppdaterad om ny webbdesign och senaste uppdateringar. Låt oss göra det!",
+						emailPlaceholder: settings.comingSoon?.emailPlaceholder || "E-postadress",
+						buttonText: settings.comingSoon?.buttonText || "Skicka",
+						designedBy: settings.comingSoon?.designedBy || "Designad av Nordigate",
 					},
 				});
 			} catch (error) {
@@ -383,7 +416,7 @@ export default function SettingsPage() {
 					className="space-y-6"
 				>
 					<Tabs defaultValue="company" className="space-y-6">
-						<TabsList className="grid w-full grid-cols-6">
+						<TabsList className="grid w-full grid-cols-7">
 							<TabsTrigger value="company" className="flex items-center gap-2">
 								<Building2 className="h-4 w-4" />
 								<span className="hidden sm:inline">Company</span>
@@ -407,6 +440,10 @@ export default function SettingsPage() {
 							<TabsTrigger value="footer" className="flex items-center gap-2">
 								<LayoutGrid className="h-4 w-4" />
 								<span className="hidden sm:inline">Footer</span>
+							</TabsTrigger>
+							<TabsTrigger value="coming-soon" className="flex items-center gap-2">
+								<Clock className="h-4 w-4" />
+								<span className="hidden sm:inline">Coming Soon</span>
 							</TabsTrigger>
 						</TabsList>
 
@@ -872,10 +909,27 @@ export default function SettingsPage() {
 												<FormItem>
 													<FormLabel>Site Name</FormLabel>
 													<FormControl>
-														<Input placeholder="Synos Medical" {...field} />
+														<Input placeholder="Glada bonden mejeri" {...field} />
 													</FormControl>
 													<FormDescription>
 														Used in page titles and meta tags.
+													</FormDescription>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="seo.siteTagline"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel>Site Tagline</FormLabel>
+													<FormControl>
+														<Input placeholder="Ost från Boxholm" {...field} />
+													</FormControl>
+													<FormDescription>
+														Subtitle shown after site name in the browser tab title.
 													</FormDescription>
 													<FormMessage />
 												</FormItem>
@@ -1508,6 +1562,148 @@ export default function SettingsPage() {
 								</CardContent>
 							</Card>
 						</TabsContent>
+
+					{/* Coming Soon Tab */}
+					<TabsContent value="coming-soon" className="space-y-6">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Clock className="h-5 w-5" />
+									Coming Soon Page
+								</CardTitle>
+								<CardDescription>
+									Manage the content displayed on the /coming-soon page.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<FormField
+									control={form.control}
+									name="comingSoon.heading"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Heading</FormLabel>
+											<FormControl>
+												<Input placeholder="Kommer snart" {...field} />
+											</FormControl>
+											<FormDescription>The main heading shown on the coming soon page.</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="comingSoon.description"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Description</FormLabel>
+											<FormControl>
+												<Textarea
+													placeholder="Något nytt är på väg…"
+													rows={3}
+													{...field}
+												/>
+											</FormControl>
+											<FormDescription>The body text below the heading.</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>Newsletter Section</CardTitle>
+								<CardDescription>
+									Email subscription form displayed below the coming soon message.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<FormField
+									control={form.control}
+									name="comingSoon.newsletterTitle"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Newsletter Title</FormLabel>
+											<FormControl>
+												<Input placeholder="Nyhetsbrev" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="comingSoon.newsletterDescription"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Newsletter Description</FormLabel>
+											<FormControl>
+												<Textarea
+													placeholder="Prenumerera för att hålla dig uppdaterad…"
+													rows={2}
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<div className="grid gap-4 sm:grid-cols-2">
+									<FormField
+										control={form.control}
+										name="comingSoon.emailPlaceholder"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Email Placeholder</FormLabel>
+												<FormControl>
+													<Input placeholder="E-postadress" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="comingSoon.buttonText"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Button Text</FormLabel>
+												<FormControl>
+													<Input placeholder="Skicka" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>Footer Text</CardTitle>
+								<CardDescription>
+									Small credit text shown at the bottom of the coming soon page.
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<FormField
+									control={form.control}
+									name="comingSoon.designedBy"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Designed By Text</FormLabel>
+											<FormControl>
+												<Input placeholder="Designad av Nordigate" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</CardContent>
+						</Card>
+					</TabsContent>
 					</Tabs>
 
 					{/* Save Button */}

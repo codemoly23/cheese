@@ -1,21 +1,17 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 import { getBrandingSettings } from "@/lib/services/site-settings.service";
 
-// Image metadata
-export const size = {
-	width: 32,
-	height: 32,
-};
+export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
-
-// Dynamic route - revalidate on-demand via revalidatePath("/icon")
 export const revalidate = 0;
 
 /**
  * Dynamic Favicon Generator
  *
  * If a custom favicon URL is set in the database, it will proxy that image.
- * Otherwise, generates a branded fallback icon with the "S" logo.
+ * Otherwise, renders the Glada Bonden Mejeri SVG logo on a dark background.
  */
 export default async function Icon() {
 	const brandingSettings = await getBrandingSettings();
@@ -24,14 +20,11 @@ export default async function Icon() {
 	// If custom favicon is set, try to fetch and return it
 	if (faviconUrl) {
 		try {
-			// Handle relative URLs by converting to absolute
 			const absoluteUrl = faviconUrl.startsWith("http")
 				? faviconUrl
 				: `${process.env.SITE_URL || process.env.BETTER_AUTH_URL || "http://localhost:3000"}${faviconUrl}`;
 
-			const response = await fetch(absoluteUrl, {
-				cache: "no-store",
-			});
+			const response = await fetch(absoluteUrl, { cache: "no-store" });
 
 			if (response.ok) {
 				const contentType = response.headers.get("content-type");
@@ -46,12 +39,14 @@ export default async function Icon() {
 			}
 		} catch (error) {
 			console.error("Failed to fetch custom favicon:", error);
-			// Fall through to generate fallback
 		}
 	}
 
-	// Generate branded fallback icon matching the Synos brand
-	// Dark rounded rectangle with teal/cyan "S"
+	// Fallback: render SVG logo in black (replace white fill with black)
+	const svgPath = path.join(process.cwd(), "public", "storage", "glada-bonden-mejeri-w.svg");
+	const svgBlack = fs.readFileSync(svgPath, "utf8").replace(/fill:\s*#fff/g, "fill: #1a1a1a");
+	const svgBase64 = `data:image/svg+xml;base64,${Buffer.from(svgBlack).toString("base64")}`;
+
 	return new ImageResponse(
 		(
 			<div
@@ -61,26 +56,12 @@ export default async function Icon() {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					background: "linear-gradient(145deg, #1e2a3a 0%, #0f1419 100%)",
-					borderRadius: "6px",
 				}}
 			>
-				<span
-					style={{
-						color: "#4ecdc4",
-						fontSize: "22px",
-						fontWeight: 700,
-						fontFamily:
-							"system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-						letterSpacing: "-0.5px",
-					}}
-				>
-					S
-				</span>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img src={svgBase64} width={32} height={32} alt="" />
 			</div>
 		),
-		{
-			...size,
-		}
+		{ ...size }
 	);
 }

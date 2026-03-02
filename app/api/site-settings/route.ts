@@ -80,6 +80,7 @@ export async function PUT(request: NextRequest) {
 		// Revalidate key public pages that display site settings
 		const pathsToRevalidate = [
 			"/",
+			"/coming-soon",
 			"/produkter",
 			"/nyheter",
 			"/blogg",

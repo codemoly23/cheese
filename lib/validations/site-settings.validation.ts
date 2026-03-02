@@ -50,6 +50,10 @@ export const seoSettingsSchema = z.object({
 		.string()
 		.min(1, "Site name is required")
 		.max(100, "Site name cannot exceed 100 characters"),
+	siteTagline: z
+		.string()
+		.max(150, "Site tagline cannot exceed 150 characters")
+		.optional(),
 	siteDescription: z
 		.string()
 		.max(500, "Site description cannot exceed 500 characters")
@@ -128,6 +132,19 @@ export const footerSettingsSchema = z.object({
 });
 
 /**
+ * Coming Soon settings schema
+ */
+export const comingSoonSettingsSchema = z.object({
+	heading: z.string().max(100).optional(),
+	description: z.string().max(500).optional(),
+	newsletterTitle: z.string().max(100).optional(),
+	newsletterDescription: z.string().max(500).optional(),
+	emailPlaceholder: z.string().max(100).optional(),
+	buttonText: z.string().max(50).optional(),
+	designedBy: z.string().max(100).optional(),
+});
+
+/**
  * Update site settings schema
  */
 export const updateSiteSettingsSchema = z.object({
@@ -175,6 +192,9 @@ export const updateSiteSettingsSchema = z.object({
 
 	// Footer
 	footer: footerSettingsSchema.partial().optional(),
+
+	// Coming Soon
+	comingSoon: comingSoonSettingsSchema.partial().optional(),
 });
 
 // Type exports
@@ -184,4 +204,5 @@ export type SeoSettingsInput = z.infer<typeof seoSettingsSchema>;
 export type BrandingSettingsInput = z.infer<typeof brandingSettingsSchema>;
 export type FooterLinkInput = z.infer<typeof footerLinkSchema>;
 export type FooterSettingsInput = z.infer<typeof footerSettingsSchema>;
+export type ComingSoonSettingsInput = z.infer<typeof comingSoonSettingsSchema>;
 export type UpdateSiteSettingsInput = z.infer<typeof updateSiteSettingsSchema>;

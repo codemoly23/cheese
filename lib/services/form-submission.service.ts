@@ -14,6 +14,7 @@ import {
 	tourRequestSchema,
 	quoteRequestSchema,
 	resellerApplicationSchema,
+	subscriberSchema,
 	type ProductInquiryInput,
 	type TrainingInquiryInput,
 	type ContactInquiryInput,
@@ -21,6 +22,7 @@ import {
 	type TourRequestInput,
 	type QuoteRequestInput,
 	type ResellerApplicationInput,
+	type SubscriberInput,
 	type FormSubmissionListQuery,
 	type UpdateStatusInput,
 	type BulkExportInput,
@@ -460,6 +462,54 @@ class FormSubmissionService {
 		const submission = await formSubmissionRepository.create(sanitizedData);
 
 		logger.info(`Reseller application created: ${submission._id} from ${validData.companyName}`);
+
+		return submission;
+	}
+
+	/**
+	 * Create a newsletter subscriber submission
+	 */
+	async createSubscriber(
+		data: SubscriberInput,
+		metadata: Omit<IFormSubmissionMetadata, "submittedAt">
+	): Promise<IFormSubmission> {
+		const validationResult = subscriberSchema.safeParse(data);
+		if (!validationResult.success) {
+			throw new ValidationError(
+				"Validation failed",
+				validationResult.error.issues
+			);
+		}
+
+		const withinLimit = await this.checkRateLimit(metadata.ipAddress);
+		if (!withinLimit) {
+			throw new TooManyRequestsError(
+				"För många förfrågningar. Försök igen om 15 minuter."
+			);
+		}
+
+		const validData = validationResult.data;
+
+		const sanitizedData = {
+			type: "subscriber" as FormSubmissionType,
+			fullName: "Subscriber",
+			email: validData.email.toLowerCase().trim(),
+			phone: "000000",
+			countryCode: "+46",
+			countryName: "Unknown",
+			gdprConsent: true,
+			gdprConsentTimestamp: new Date(),
+			gdprConsentVersion: "1.0",
+			status: "new" as FormSubmissionStatus,
+			metadata: {
+				...metadata,
+				submittedAt: new Date(),
+			},
+		};
+
+		const submission = await formSubmissionRepository.create(sanitizedData);
+
+		logger.info(`Subscriber created: ${submission._id} (${validData.email})`);
 
 		return submission;
 	}

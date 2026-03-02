@@ -10,6 +10,7 @@ import {
 	type ISeoSettings,
 	type IBrandingSettings,
 	type IFooterSettings,
+	type IComingSoonSettings,
 } from "@/models/site-settings.model";
 
 /**
@@ -27,6 +28,7 @@ export interface UpdateSiteSettingsInput {
 	seo?: Partial<ISeoSettings>;
 	branding?: Partial<IBrandingSettings>;
 	footer?: Partial<IFooterSettings>;
+	comingSoon?: Partial<IComingSoonSettings>;
 }
 
 /**
@@ -130,6 +132,14 @@ class SiteSettingsRepository {
 				updateData.footer = {
 					...existing.footer,
 					...data.footer,
+				};
+			}
+
+			if (data.comingSoon !== undefined) {
+				const existing = await this.get();
+				updateData.comingSoon = {
+					...existing.comingSoon,
+					...data.comingSoon,
 				};
 			}
 
@@ -249,6 +259,26 @@ class SiteSettingsRepository {
 					{ label: "Villkor", href: "/villkor" },
 					{ label: "Sitemap", href: "/sitemap.xml" },
 				],
+			}
+		);
+	}
+
+	/**
+	 * Get coming soon settings only
+	 */
+	async getComingSoon(): Promise<IComingSoonSettings> {
+		const settings = await this.get();
+		return (
+			settings.comingSoon || {
+				heading: "Kommer snart",
+				description:
+					"Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
+				newsletterTitle: "Nyhetsbrev",
+				newsletterDescription:
+					"Prenumerera för att hålla dig uppdaterad om ny webbdesign och senaste uppdateringar. Låt oss göra det!",
+				emailPlaceholder: "E-postadress",
+				buttonText: "Skicka",
+				designedBy: "Designad av Nordigate",
 			}
 		);
 	}

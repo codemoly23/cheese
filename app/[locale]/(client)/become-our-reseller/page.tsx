@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ResellerApplicationForm } from "@/components/forms/ResellerApplicationForm";
 import { getResellerPage, getResellerPageSeo } from "@/lib/services/reseller-page.service";
+import { ResellerFormClient } from "./_components/reseller-form-client";
 import { getSiteSettings } from "@/lib/services/site-settings.service";
 import { ResellerHero } from "./_components/reseller-hero";
 import {
@@ -135,7 +135,7 @@ export default async function BecomeOurResellerPage() {
 									)}
 								</div>
 							)}
-							<ResellerApplicationForm
+							<ResellerFormClient
 								successMessage={formSection.successMessage}
 								successDescription={formSection.successDescription}
 							/>

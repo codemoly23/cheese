@@ -12,7 +12,8 @@ export type FormSubmissionType =
 	| "quote_request"
 	| "callback_request"
 	| "tour_request"
-	| "reseller_application";
+	| "reseller_application"
+	| "subscriber";
 
 /**
  * Form submission status
@@ -146,7 +147,7 @@ const FormSubmissionSchema = new Schema<IFormSubmission>(
 		// Form Type
 		type: {
 			type: String,
-			enum: ["product_inquiry", "training_inquiry", "contact", "demo_request", "quote_request", "callback_request", "tour_request", "reseller_application"],
+			enum: ["product_inquiry", "training_inquiry", "contact", "demo_request", "quote_request", "callback_request", "tour_request", "reseller_application", "subscriber"],
 			required: [true, "Form type is required"],
 			index: true,
 		},

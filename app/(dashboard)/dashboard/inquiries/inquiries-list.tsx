@@ -498,6 +498,7 @@ export function InquiriesList({
 									<SelectItem value="callback_request">Callback Request</SelectItem>
 									<SelectItem value="tour_request">Tour Request</SelectItem>
 									<SelectItem value="reseller_application">Reseller Application</SelectItem>
+									<SelectItem value="subscriber">Subscriber</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>

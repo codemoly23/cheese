@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { User } from "lucide-react";
+import { User, Menu } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
@@ -83,7 +83,12 @@ export function Navbar({ config, logoUrl, companyName, socialMedia }: NavbarProp
 								<div className="hidden lg:block">
 									<ProtectedNavbar />
 								</div>
-								<MobileNavbar useLightText={true} />
+								<button
+									className="lg:hidden p-0 w-auto h-auto bg-transparent border-0"
+									aria-label="Menu"
+								>
+									<Menu className="h-6 w-6 text-white" />
+								</button>
 							</div>
 						</div>
 					</nav>

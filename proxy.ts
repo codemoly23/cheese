@@ -30,6 +30,7 @@ const localeExcludedPaths = [
 	"/login",
 	"/register",
 	"/storage",
+	"/coming-soon",
 	"/icon",
 	"/apple-icon",
 ];
