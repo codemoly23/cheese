@@ -46,7 +46,7 @@ const DEFAULT_FOOTER_SETTINGS: IFooterSettings = {
 	newsletterButtonText: "Subscribe",
 	bottomLinks: [
 		{ label: "Privacy Policy", href: "/integritetspolicy" },
-		{ label: "Terms", href: "/juridisk-information" },
+		{ label: "Legal Information", href: "/juridisk-information" },
 		{ label: "Sitemap", href: "/sitemap.xml" },
 	],
 };
