@@ -22,12 +22,19 @@ interface UserData {
 }
 
 export default function DashboardPage() {
-	const { data: session } = authClient.useSession();
+	const { data: session, isPending: sessionPending } = authClient.useSession();
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		if (sessionPending) return;
+
+		if (!session) {
+			setLoading(false);
+			return;
+		}
+
 		const fetchUserData = async () => {
 			try {
 				setLoading(true);
@@ -39,18 +46,16 @@ export default function DashboardPage() {
 
 				const data = await response.json();
 				setUserData(data.data);
-			} catch (err: any) {
+			} catch (err: unknown) {
 				console.error("Error fetching user data:", err);
-				setError(err.message || "Failed to load user data");
+				setError(err instanceof Error ? err.message : "Failed to load user data");
 			} finally {
 				setLoading(false);
 			}
 		};
 
-		if (session) {
-			fetchUserData();
-		}
-	}, [session]);
+		fetchUserData();
+	}, [session, sessionPending]);
 
 	if (loading) {
 		return <DashboardPageSkeleton />;

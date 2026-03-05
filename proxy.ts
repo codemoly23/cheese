@@ -7,6 +7,7 @@ import { locales, defaultLocale, type Locale } from "@/i18n/config";
  * Handles:
  * 1. Internationalization (locale detection and routing)
  * 2. Route protection (authentication)
+ * 3. Coming Soon mode redirect
  *
  * Better Auth stores session cookies automatically.
  * Cookie name: "better-auth.session_token" (Better Auth default)
@@ -43,6 +44,31 @@ const protectedPaths = [
 	"/admin",
 ];
 
+// =============================================
+// COMING SOON MODE - module-level cache
+// =============================================
+let _csEnabled: boolean = false;
+let _csLastChecked: number = 0;
+const CS_CACHE_TTL_MS = 30_000; // Re-check every 30 seconds
+
+async function isComingSoonEnabled(baseUrl: string): Promise<boolean> {
+	const now = Date.now();
+	if (now - _csLastChecked < CS_CACHE_TTL_MS) {
+		return _csEnabled;
+	}
+	try {
+		const res = await fetch(`${baseUrl}/api/coming-soon-status`, {
+			cache: "no-store",
+		});
+		const data = await res.json();
+		_csEnabled = data.enabled === true;
+	} catch {
+		// On error keep previous value
+	}
+	_csLastChecked = now;
+	return _csEnabled;
+}
+
 /**
  * Check if path starts with any of the given prefixes
  */
@@ -72,7 +98,26 @@ export async function proxy(request: NextRequest) {
 	logger.debug("Proxy checking route", { pathname });
 
 	// =============================================
-	// 1. HANDLE LOCALE-EXCLUDED PATHS (no i18n)
+	// 1. COMING SOON MODE REDIRECT
+	// =============================================
+	const isExcluded = pathStartsWith(pathname, localeExcludedPaths);
+	if (!isExcluded) {
+		// Check auth - authenticated admins bypass coming soon
+		const sessionToken =
+			request.cookies.get("synos.session_token")?.value ||
+			request.cookies.get("__Secure-synos.session_token")?.value;
+		if (!sessionToken) {
+			const baseUrl = `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+			const comingSoon = await isComingSoonEnabled(baseUrl);
+			if (comingSoon) {
+				logger.debug("Coming soon mode active — redirecting", { pathname });
+				return NextResponse.redirect(new URL("/coming-soon", request.url));
+			}
+		}
+	}
+
+	// =============================================
+	// 2. HANDLE LOCALE-EXCLUDED PATHS (no i18n)
 	// =============================================
 	if (pathStartsWith(pathname, localeExcludedPaths)) {
 		// For protected paths, check authentication
@@ -112,7 +157,7 @@ export async function proxy(request: NextRequest) {
 	}
 
 	// =============================================
-	// 2. HANDLE I18N ROUTES
+	// 3. HANDLE I18N ROUTES
 	// =============================================
 	const pathnameLocale = getLocaleFromPath(pathname);
 

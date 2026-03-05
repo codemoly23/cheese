@@ -2738,6 +2738,78 @@ export default function StartsidaPage() {
 										</div>
 									</div>
 
+									{/* Secondary Button */}
+									<div className="border rounded-lg p-4 space-y-4">
+										<h4 className="font-medium">Secondary Button</h4>
+										<div className="grid gap-4 sm:grid-cols-3">
+											<FormField
+												control={form.control}
+												name="aboutSection.secondaryCta.text"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>Text</FormLabel>
+														<FormControl>
+															<Input
+																{...field}
+																value={field.value || ""}
+																placeholder="Contact us"
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+											<FormField
+												control={form.control}
+												name="aboutSection.secondaryCta.href"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>Link</FormLabel>
+														<FormControl>
+															<Input
+																{...field}
+																value={field.value || ""}
+																placeholder="/kontakt"
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+											<FormField
+												control={form.control}
+												name="aboutSection.secondaryCta.variant"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>Style</FormLabel>
+														<Select
+															onValueChange={field.onChange}
+															value={field.value}
+														>
+															<FormControl>
+																<SelectTrigger>
+																	<SelectValue placeholder="Select style" />
+																</SelectTrigger>
+															</FormControl>
+															<SelectContent>
+																<SelectItem value="primary">
+																	Primary
+																</SelectItem>
+																<SelectItem value="secondary">
+																	Secondary
+																</SelectItem>
+																<SelectItem value="outline">
+																	Outline
+																</SelectItem>
+															</SelectContent>
+														</Select>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+										</div>
+									</div>
+
 									{/* Certification Badge */}
 									<div className="border rounded-lg p-4 space-y-4">
 										<h4 className="font-medium">

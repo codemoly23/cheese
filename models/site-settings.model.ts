@@ -90,6 +90,7 @@ export interface IFooterSettings {
  * Coming Soon page settings interface
  */
 export interface IComingSoonSettings {
+	enabled: boolean; // Whether coming soon mode is active
 	heading: string; // "Kommer snart"
 	description: string; // Main body text
 	newsletterTitle: string; // "Nyhetsbrev"
@@ -97,6 +98,21 @@ export interface IComingSoonSettings {
 	emailPlaceholder: string; // "E-postadress"
 	buttonText: string; // "Skicka"
 	designedBy: string; // "Designad av Nordigate"
+}
+
+/**
+ * SMTP / Email notification settings interface
+ */
+export interface ISmtpSettings {
+	host?: string;
+	port?: number;
+	username?: string;
+	password?: string;
+	encryption?: "none" | "ssl" | "tls";
+	fromName?: string;
+	fromEmail?: string;
+	adminNotificationEmail?: string;
+	enabled?: boolean;
 }
 
 /**
@@ -133,6 +149,9 @@ export interface ISiteSettings extends Document {
 
 	// Coming Soon page
 	comingSoon: IComingSoonSettings;
+
+	// SMTP / Email notifications
+	smtp: ISmtpSettings;
 
 	// Timestamps
 	updatedAt: Date;
@@ -355,6 +374,7 @@ const FooterSettingsSchema = new Schema<IFooterSettings>(
  */
 const ComingSoonSettingsSchema = new Schema<IComingSoonSettings>(
 	{
+		enabled: { type: Boolean, default: false },
 		heading: { type: String, trim: true, default: "Kommer snart" },
 		description: {
 			type: String,
@@ -372,6 +392,28 @@ const ComingSoonSettingsSchema = new Schema<IComingSoonSettings>(
 		emailPlaceholder: { type: String, trim: true, default: "E-postadress" },
 		buttonText: { type: String, trim: true, default: "Skicka" },
 		designedBy: { type: String, trim: true, default: "Designad av Nordigate" },
+	},
+	{ _id: false }
+);
+
+/**
+ * SMTP Settings sub-schema
+ */
+const SmtpSettingsSchema = new Schema<ISmtpSettings>(
+	{
+		enabled: { type: Boolean, default: false },
+		host: { type: String, trim: true },
+		port: { type: Number, default: 587 },
+		username: { type: String, trim: true },
+		password: { type: String, trim: true },
+		encryption: {
+			type: String,
+			enum: ["none", "ssl", "tls"],
+			default: "tls",
+		},
+		fromName: { type: String, trim: true },
+		fromEmail: { type: String, trim: true, lowercase: true },
+		adminNotificationEmail: { type: String, trim: true, lowercase: true },
 	},
 	{ _id: false }
 );
@@ -453,6 +495,10 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
 		},
 		comingSoon: {
 			type: ComingSoonSettingsSchema,
+			default: {},
+		},
+		smtp: {
+			type: SmtpSettingsSchema,
 			default: {},
 		},
 	},

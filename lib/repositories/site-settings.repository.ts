@@ -11,6 +11,7 @@ import {
 	type IBrandingSettings,
 	type IFooterSettings,
 	type IComingSoonSettings,
+	type ISmtpSettings,
 } from "@/models/site-settings.model";
 
 /**
@@ -29,6 +30,7 @@ export interface UpdateSiteSettingsInput {
 	branding?: Partial<IBrandingSettings>;
 	footer?: Partial<IFooterSettings>;
 	comingSoon?: Partial<IComingSoonSettings>;
+	smtp?: Partial<ISmtpSettings>;
 }
 
 /**
@@ -102,44 +104,56 @@ class SiteSettingsRepository {
 				updateData.noreplyEmail = data.noreplyEmail;
 			if (data.offices !== undefined) updateData.offices = data.offices;
 
-			// Nested objects - merge with existing
+			// Nested objects - single DB fetch, then merge
+			const needsExisting =
+				data.socialMedia !== undefined ||
+				data.seo !== undefined ||
+				data.branding !== undefined ||
+				data.footer !== undefined ||
+				data.comingSoon !== undefined ||
+				data.smtp !== undefined;
+
+			const existing = needsExisting ? await this.get() : null;
+
 			if (data.socialMedia !== undefined) {
-				const existing = await this.get();
 				updateData.socialMedia = {
-					...existing.socialMedia,
+					...existing!.socialMedia,
 					...data.socialMedia,
 				};
 			}
 
 			if (data.seo !== undefined) {
-				const existing = await this.get();
 				updateData.seo = {
-					...existing.seo,
+					...existing!.seo,
 					...data.seo,
 				};
 			}
 
 			if (data.branding !== undefined) {
-				const existing = await this.get();
 				updateData.branding = {
-					...existing.branding,
+					...existing!.branding,
 					...data.branding,
 				};
 			}
 
 			if (data.footer !== undefined) {
-				const existing = await this.get();
 				updateData.footer = {
-					...existing.footer,
+					...existing!.footer,
 					...data.footer,
 				};
 			}
 
 			if (data.comingSoon !== undefined) {
-				const existing = await this.get();
 				updateData.comingSoon = {
-					...existing.comingSoon,
+					...existing!.comingSoon,
 					...data.comingSoon,
+				};
+			}
+
+			if (data.smtp !== undefined) {
+				updateData.smtp = {
+					...existing!.smtp,
+					...data.smtp,
 				};
 			}
 
@@ -270,6 +284,7 @@ class SiteSettingsRepository {
 		const settings = await this.get();
 		return (
 			settings.comingSoon || {
+				enabled: false,
 				heading: "Kommer snart",
 				description:
 					"Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",

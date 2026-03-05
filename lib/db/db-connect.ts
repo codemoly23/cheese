@@ -34,9 +34,11 @@ export async function connectMongoose() {
 
 	if (!global.__mongoose.promise) {
 		const opts = {
-			// useUnifiedTopology, useNewUrlParser are handled by mongoose defaults now
-			// you can set poolSize, serverSelectionTimeoutMS etc here for production tuning
 			bufferCommands: false,
+			maxPoolSize: 10,
+			serverSelectionTimeoutMS: 10000,
+			socketTimeoutMS: 45000,
+			connectTimeoutMS: 10000,
 		};
 
 		global.__mongoose.uri = MONGODB_URI;

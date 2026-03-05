@@ -5,6 +5,7 @@ import { ProductCategorySection } from "@/components/home/ProductCategorySection
 import { ProductCarousel } from "@/components/home/ProductCarousel";
 import { PromoBanner } from "@/components/home/PromoBanner";
 import { FeatureBanner } from "@/components/home/FeatureBanner";
+import { ProductShowcase } from "@/components/home/ProductShowcase";
 import { ImageGallery } from "@/components/home/ImageGallery";
 import { Testimonials } from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
@@ -112,6 +113,7 @@ export default async function Home({ searchParams }: HomeProps) {
 		productCarousel: true,
 		promoBanner: true,
 		featureBanner: true,
+		productShowcase: true,
 		imageGallery: true,
 		about: true,
 		testimonials: true,
@@ -194,6 +196,12 @@ export default async function Home({ searchParams }: HomeProps) {
 			{visibility.featureBanner && homePage.featureBanner && (
 				<FeatureBanner data={homePage.featureBanner} />
 			)}
+
+			{/* Product Showcase Section */}
+			{visibility.productShowcase &&
+				(homePage.productShowcase?.products?.length ?? 0) > 0 && (
+					<ProductShowcase data={homePage.productShowcase} />
+				)}
 
 			{/* Image Gallery */}
 			{visibility.imageGallery &&

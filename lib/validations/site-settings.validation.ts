@@ -135,6 +135,7 @@ export const footerSettingsSchema = z.object({
  * Coming Soon settings schema
  */
 export const comingSoonSettingsSchema = z.object({
+	enabled: z.boolean().optional(),
 	heading: z.string().max(100).optional(),
 	description: z.string().max(500).optional(),
 	newsletterTitle: z.string().max(100).optional(),
@@ -195,6 +196,22 @@ export const updateSiteSettingsSchema = z.object({
 
 	// Coming Soon
 	comingSoon: comingSoonSettingsSchema.partial().optional(),
+
+	// SMTP / Email notifications
+	smtp: z
+		.object({
+			enabled: z.boolean().optional(),
+			host: z.string().max(200).optional(),
+			port: z.number().int().min(1).max(65535).optional(),
+			username: z.string().max(200).optional(),
+			password: z.string().max(500).optional(),
+			encryption: z.enum(["none", "ssl", "tls"]).optional(),
+			fromName: z.string().max(100).optional(),
+			fromEmail: z.string().email().optional().or(z.literal("")),
+			adminNotificationEmail: z.string().email().optional().or(z.literal("")),
+		})
+		.partial()
+		.optional(),
 });
 
 // Type exports

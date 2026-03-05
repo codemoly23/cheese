@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { getAuth } from "@/lib/db/auth";
 import { formSubmissionService } from "@/lib/services/form-submission.service";
+import { sendSubmissionNotification } from "@/lib/services/email-notification.service";
 import { formSubmissionListQuerySchema } from "@/lib/validations/form-submission.validation";
 import {
 	createdResponse,
@@ -92,6 +93,9 @@ export async function POST(request: NextRequest) {
 		}
 
 		logger.info(`Form submission created: ${submission._id}`);
+
+		// Fire-and-forget admin notification — never blocks the response
+		sendSubmissionNotification(submission).catch(() => {});
 
 		return createdResponse(
 			{

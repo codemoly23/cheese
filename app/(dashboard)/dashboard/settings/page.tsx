@@ -47,6 +47,14 @@ import {
 import { MediaPicker } from "@/components/storage/media-picker";
 import { SeoPreview } from "@/components/admin/seo/SeoPreview";
 import { TagInput } from "@/components/admin/TagInput";
+import { Switch } from "@/components/ui/switch";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 // Validation schema matching the API
 const officeSchema = z.object({
@@ -130,6 +138,7 @@ const settingsFormSchema = z.object({
 
 	// Coming Soon
 	comingSoon: z.object({
+		enabled: z.boolean().optional(),
 		heading: z.string().optional(),
 		description: z.string().optional(),
 		newsletterTitle: z.string().optional(),
@@ -138,6 +147,19 @@ const settingsFormSchema = z.object({
 		buttonText: z.string().optional(),
 		designedBy: z.string().optional(),
 	}),
+
+	// SMTP / Email
+	smtp: z.object({
+		enabled: z.boolean().optional(),
+		host: z.string().max(200).optional(),
+		port: z.coerce.number().int().min(1).max(65535).optional(),
+		username: z.string().max(200).optional(),
+		password: z.string().max(500).optional(),
+		encryption: z.enum(["none", "ssl", "tls"]).optional(),
+		fromName: z.string().max(100).optional(),
+		fromEmail: z.string().email().optional().or(z.literal("")),
+		adminNotificationEmail: z.string().email().optional().or(z.literal("")),
+	}).optional(),
 });
 
 type SettingsFormValues = z.infer<typeof settingsFormSchema>;
@@ -195,6 +217,7 @@ export default function SettingsPage() {
 				bottomLinks: [],
 			},
 			comingSoon: {
+				enabled: false,
 				heading: "Kommer snart",
 				description: "Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
 				newsletterTitle: "Nyhetsbrev",
@@ -202,6 +225,17 @@ export default function SettingsPage() {
 				emailPlaceholder: "E-postadress",
 				buttonText: "Skicka",
 				designedBy: "Designad av Nordigate",
+			},
+			smtp: {
+				enabled: false,
+				host: "",
+				port: 587,
+				username: "",
+				password: "",
+				encryption: "tls",
+				fromName: "",
+				fromEmail: "",
+				adminNotificationEmail: "",
 			},
 		},
 	});
@@ -297,6 +331,7 @@ export default function SettingsPage() {
 						})),
 					},
 					comingSoon: {
+						enabled: settings.comingSoon?.enabled ?? false,
 						heading: settings.comingSoon?.heading || "Kommer snart",
 						description: settings.comingSoon?.description || "Något nytt är på väg… Vi förbereder lanseringen av något spännande. Vi finjusterar detaljerna och ses snart!",
 						newsletterTitle: settings.comingSoon?.newsletterTitle || "Nyhetsbrev",
@@ -304,6 +339,17 @@ export default function SettingsPage() {
 						emailPlaceholder: settings.comingSoon?.emailPlaceholder || "E-postadress",
 						buttonText: settings.comingSoon?.buttonText || "Skicka",
 						designedBy: settings.comingSoon?.designedBy || "Designad av Nordigate",
+					},
+					smtp: {
+						enabled: settings.smtp?.enabled ?? false,
+						host: settings.smtp?.host || "",
+						port: settings.smtp?.port || 587,
+						username: settings.smtp?.username || "",
+						password: settings.smtp?.password || "",
+						encryption: settings.smtp?.encryption || "tls",
+						fromName: settings.smtp?.fromName || "",
+						fromEmail: settings.smtp?.fromEmail || "",
+						adminNotificationEmail: settings.smtp?.adminNotificationEmail || "",
 					},
 				});
 			} catch (error) {
@@ -416,7 +462,7 @@ export default function SettingsPage() {
 					className="space-y-6"
 				>
 					<Tabs defaultValue="company" className="space-y-6">
-						<TabsList className="grid w-full grid-cols-7">
+						<TabsList className="grid w-full grid-cols-8">
 							<TabsTrigger value="company" className="flex items-center gap-2">
 								<Building2 className="h-4 w-4" />
 								<span className="hidden sm:inline">Company</span>
@@ -444,6 +490,10 @@ export default function SettingsPage() {
 							<TabsTrigger value="coming-soon" className="flex items-center gap-2">
 								<Clock className="h-4 w-4" />
 								<span className="hidden sm:inline">Coming Soon</span>
+							</TabsTrigger>
+							<TabsTrigger value="email-smtp" className="flex items-center gap-2">
+								<Mail className="h-4 w-4" />
+								<span className="hidden sm:inline">Email / SMTP</span>
 							</TabsTrigger>
 						</TabsList>
 
@@ -1576,7 +1626,31 @@ export default function SettingsPage() {
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="space-y-4">
+								{/* Enable / Disable Toggle */}
 								<FormField
+									control={form.control}
+									name="comingSoon.enabled"
+									render={({ field }) => (
+										<FormItem className="flex items-center justify-between rounded-lg border p-4 bg-muted/30">
+											<div className="space-y-0.5">
+												<FormLabel className="text-base font-semibold">
+													Enable Coming Soon Mode
+												</FormLabel>
+												<FormDescription>
+													When enabled, all public pages redirect to the coming soon page. Logged-in admins are not affected.
+												</FormDescription>
+											</div>
+											<FormControl>
+												<Switch
+													checked={field.value ?? false}
+													onCheckedChange={field.onChange}
+												/>
+											</FormControl>
+										</FormItem>
+									)}
+								/>
+
+																<FormField
 									control={form.control}
 									name="comingSoon.heading"
 									render={({ field }) => (
@@ -1697,6 +1771,191 @@ export default function SettingsPage() {
 											<FormControl>
 												<Input placeholder="Designad av Nordigate" {...field} />
 											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</CardContent>
+						</Card>
+					</TabsContent>
+
+					{/* Email / SMTP Tab */}
+					<TabsContent value="email-smtp" className="space-y-6">
+						<Card>
+							<CardHeader>
+								<CardTitle>Email Notifications</CardTitle>
+								<CardDescription>
+									Enable or disable admin email notifications for form submissions.
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<FormField
+									control={form.control}
+									name="smtp.enabled"
+									render={({ field }) => (
+										<FormItem className="flex items-center justify-between rounded-lg border p-4">
+											<div className="space-y-0.5">
+												<FormLabel className="text-base">Enable Email Notifications</FormLabel>
+												<FormDescription>
+													Send an email to the admin when a new form submission is received.
+												</FormDescription>
+											</div>
+											<FormControl>
+												<Switch
+													checked={field.value ?? false}
+													onCheckedChange={field.onChange}
+												/>
+											</FormControl>
+										</FormItem>
+									)}
+								/>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>SMTP Server</CardTitle>
+								<CardDescription>
+									Outgoing mail server configuration.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<div className="grid gap-4 sm:grid-cols-2">
+									<FormField
+										control={form.control}
+										name="smtp.host"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>SMTP Host</FormLabel>
+												<FormControl>
+													<Input placeholder="smtp.example.com" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="smtp.port"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>SMTP Port</FormLabel>
+												<FormControl>
+													<Input
+														type="number"
+														placeholder="587"
+														{...field}
+														onChange={(e) => field.onChange(e.target.valueAsNumber)}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+								<FormField
+									control={form.control}
+									name="smtp.encryption"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Encryption</FormLabel>
+											<Select onValueChange={field.onChange} value={field.value ?? "tls"}>
+												<FormControl>
+													<SelectTrigger>
+														<SelectValue placeholder="Select encryption" />
+													</SelectTrigger>
+												</FormControl>
+												<SelectContent>
+													<SelectItem value="none">None</SelectItem>
+													<SelectItem value="tls">TLS (STARTTLS)</SelectItem>
+													<SelectItem value="ssl">SSL</SelectItem>
+												</SelectContent>
+											</Select>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<div className="grid gap-4 sm:grid-cols-2">
+									<FormField
+										control={form.control}
+										name="smtp.username"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>SMTP Username</FormLabel>
+												<FormControl>
+													<Input placeholder="user@example.com" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="smtp.password"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>SMTP Password</FormLabel>
+												<FormControl>
+													<Input type="password" placeholder="••••••••" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>Sender &amp; Recipient</CardTitle>
+								<CardDescription>
+									Who notifications are sent from and where they are delivered.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<div className="grid gap-4 sm:grid-cols-2">
+									<FormField
+										control={form.control}
+										name="smtp.fromName"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>From Name</FormLabel>
+												<FormControl>
+													<Input placeholder="Glada Bonden Mejeri" {...field} />
+												</FormControl>
+												<FormDescription>Display name for outgoing emails.</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="smtp.fromEmail"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>From Email</FormLabel>
+												<FormControl>
+													<Input type="email" placeholder="noreply@example.com" {...field} />
+												</FormControl>
+												<FormDescription>Sender email address.</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+								<FormField
+									control={form.control}
+									name="smtp.adminNotificationEmail"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Admin Notification Email</FormLabel>
+											<FormControl>
+												<Input type="email" placeholder="admin@example.com" {...field} />
+											</FormControl>
+											<FormDescription>
+												All form submission notifications will be sent to this address.
+											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
