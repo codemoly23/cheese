@@ -130,7 +130,7 @@ export function ProductQnA({ qna }: ProductQnAProps) {
 							Ställ din fråga så svarar vi så snart som möjligt
 						</p>
 						<a
-							href="/kontakt"
+							href="/contact-us"
 							className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
 						>
 							Ställ en fråga
