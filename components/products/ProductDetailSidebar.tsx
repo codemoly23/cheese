@@ -58,7 +58,7 @@ export function ProductDetailSidebar({
 								size="sm"
 								className="w-full bg-white text-primary font-semibold flex items-center justify-center hover:bg-white/95 gap-2 shadow-md hover:shadow-lg transition-all duration-200 h-9 text-sm"
 							>
-								<Link href="/kontakt">
+								<Link href="/contact-us">
 									<Mail className="h-4 w-4" />
 									Begär offert
 									<ChevronRight className="h-3.5 w-3.5 ml-auto" />
